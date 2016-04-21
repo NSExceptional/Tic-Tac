@@ -1,0 +1,6 @@
+#include "FLEX.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/FLEX" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FLEX" "${PODS_ROOT}/Headers/Public/MCSwipeTableViewCell" "${PODS_ROOT}/Headers/Public/Mantle" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/MirrorKit" "${PODS_ROOT}/Headers/Public/Objc-Foundation-Extensions" "${PODS_ROOT}/Headers/Public/Objc-iOS-Extensions" "${PODS_ROOT}/Headers/Public/TBAlertController" "${PODS_ROOT}/Headers/Public/YakKit" "${PODS_ROOT}/Headers/Public/libextobjc"
+OTHER_LDFLAGS = ${FLEX_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

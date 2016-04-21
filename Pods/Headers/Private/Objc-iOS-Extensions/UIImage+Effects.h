@@ -1,0 +1,1 @@
+../../../Objc-iOS-Extensions/Pod/Classes/UIImage+Effects.h

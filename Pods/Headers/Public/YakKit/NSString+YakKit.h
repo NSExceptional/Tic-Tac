@@ -1,0 +1,1 @@
+../../../YakKit/Pod/Classes/Categories/NSString+YakKit.h
