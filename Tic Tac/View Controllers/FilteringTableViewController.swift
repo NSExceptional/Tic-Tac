@@ -1,0 +1,232 @@
+//
+//  FilteringTableViewController.swift
+//  Tic Tac
+//
+//  Created by Tanner Bennett on 6/13/22.
+//
+
+import UIKit
+
+// MARK: - TableViewFiltering
+
+protocol TableViewFiltering: SearchResultsUpdating {
+    /// An array of visible, "filtered" sections. For example,
+    /// if you have 3 sections in \c allSections and the user searches
+    /// for something that matches rows in only one section, then
+    /// this property would only contain that on matching section.
+    var sections: [TableViewSection] { get set }
+    /// An array of all possible sections. Empty sections are to be removed
+    /// and the resulting array stored in the \c section property. Setting
+    /// this property should immediately set \c sections to \c nonemptySections 
+    ///
+    /// Do not manually initialize this property, it will be
+    /// initialized for you using the result of \c makeSections.
+    var allSections: [TableViewSection] { get set }
+    /// This computed property should filter \c allSections for assignment to \c sections
+    var nonemptySections: [TableViewSection] { get }
+    /// This should be able to re-initialize \c allSections
+    func makeSections() -> [TableViewSection]
+}
+
+// MARK: - FilteringTableViewController
+/// A table view which implements \c UITableView* methods using arrays of
+/// \c TableViewSection objects provied by a special delegate.
+@objcMembers
+class FilteringTableViewController: TTTableViewController, TableViewFiltering {
+    /// Stores the current search query.
+    var filterText: String? = nil
+    
+    /// This property is set to `self` by default at the end of `loadView`.
+    ///
+    /// This property is used to power almost all of the table view's data source
+    /// and delegate methods automatically, including row and section filtering
+    /// when the user searches, 3D Touch context menus, row selection, etc.
+    ///
+    /// Setting this property will also set \c searchDelegate to that object.
+    weak var filterDelegate: TableViewFiltering? = nil {
+        didSet {
+            self.filterDelegate?.allSections = self.filterDelegate!.makeSections()
+
+            if self.isViewLoaded {
+                self.registerCellsForReuse()
+            }
+        }
+    }
+    
+    /// If enabled, all filtering will be done by calling
+    /// \c onBackgroundQueue:thenOnMainQueue: with the UI updated on the main queue.
+    var filterInBackground: Bool = false
+    
+    // MARK: TableViewFiltering
+
+    var sections: [TableViewSection] = [] {
+        didSet {
+            // Allow sections to reload a portion of the table view at will
+            for (idx, section) in self.sections.enumerated() {
+                section.setTable(self.tableView, section: idx)
+            }
+        }
+    }
+
+    var allSections: [TableViewSection] = [] {
+        didSet {
+            // Only display nonempty sections
+            self.sections = self.nonemptySections
+        }
+    }
+    
+    /// Subclasses can override to hide specific sections under certain conditions
+    /// if using \c self as the \c filterDelegate, as is the default.
+    ///
+    /// For example, the object explorer hides the description section when searching.
+    var nonemptySections: [TableViewSection] {
+        return self.filterDelegate?.allSections.filter { $0.numberOfRows > 0 } ?? []
+    }
+
+    // MARK: - View controller lifecycle
+
+    override func loadView() {
+        super.loadView()
+
+        if self.filterDelegate == nil {
+            self.filterDelegate = self
+        } else {
+            self.registerCellsForReuse()
+        }
+    }
+
+    private func registerCellsForReuse() {
+        self.filterDelegate?.allSections.forEach { section in
+            if let cells = section.reusableCellRegistry {
+                self.tableView?.registerCells(cells)
+            }
+        }
+    }
+
+    /// Recalculates the non-empty sections and reloads the table view.
+    ///
+    /// Subclasses may override to perform additional reloading logic,
+    /// such as calling \c -reloadSections if needed. Be sure to call
+    /// \c super after any logic that would affect the appearance of 
+    /// the table view, since the table view is reloaded last.
+    ///
+    /// Called at the end of this class's implementation of \c updateSearchResults:
+    func reloadData() {
+        self.reloadData(self.nonemptySections)
+    }
+
+    func reloadData(_ nonemptySections: [TableViewSection]) {
+        // Recalculate displayed sections
+        self.filterDelegate?.sections = nonemptySections
+
+        // Refresh table view
+        if self.isViewLoaded {
+            self.tableView?.reloadData()
+        }
+    }
+
+    /// Invoke this method to call \c -reloadData on each section
+    /// in \c self.filterDelegate.allSections.
+    func reloadSections() {
+        self.filterDelegate?.allSections.forEach { $0.reloadData() }
+    }
+
+    // MARK: - Search
+
+    @objc func updateSearchResults(_ newText: String?) {
+        let filter = {
+            self.filterText = newText
+
+            // Sections will adjust data based on this property
+            self.filterDelegate?.allSections.forEach { section in
+                section.filterText = newText
+            }
+        }
+
+        if self.filterInBackground {
+            onBackgroundQueue(filter) { // Then on main...
+                if self.searchText == newText {
+                    self.reloadData()
+                }
+            }
+        } else {
+            filter()
+            self.reloadData()
+        }
+    }
+
+    /// If using \c self as the \c filterDelegate, as is the default,
+    /// subclasses should override to provide the sections for the table view.
+    func makeSections() -> [TableViewSection] {
+        return []
+    }
+
+    // MARK: - UITableViewDataSource
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return self.filterDelegate?.sections.count ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.filterDelegate?.sections[section].numberOfRows ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.filterDelegate?.sections[section].title
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let reuse = self.filterDelegate?.sections[indexPath.section].reuseIdentifier(for: indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuse ?? "", for: indexPath)
+        self.filterDelegate?.sections[indexPath.section].configureCell(cell, for: indexPath.row)
+        
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+
+    // MARK: - UITableViewDelegate
+
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return self.filterDelegate?.sections[indexPath.section].canSelectRow(indexPath.row) ?? false
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = self.filterDelegate?.sections[indexPath.section]
+
+        let action = section?.didSelectRowAction(indexPath.row)
+        let details = section?.viewControllerToPush(for: indexPath.row)
+
+        if let action = action {
+            action(self)
+            tableView.deselectRow(at: indexPath, animated: true)
+        } else if let details = details {
+            self.navigationController?.pushViewController(details, animated: true)
+        } else {
+            NSException.raise(
+                name: NSExceptionName.internalInconsistencyException,
+                message: "Row is selectable but has no action or view controller"
+            )
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        self.filterDelegate?.sections[indexPath.section].didPressInfoButtonAction(indexPath.row)?(self)
+    }
+
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let section = self.filterDelegate?.sections[indexPath.section]
+        let title = section?.menuTitle(for: indexPath.row) ?? ""
+        let menuItems = section?.menuItems(for: indexPath.row, sender: self) ?? []
+
+        if !menuItems.isEmpty {
+            return .init(identifier: nil, previewProvider: nil) { suggestedActions in
+                return UIMenu(title: title, children: menuItems)
+            }
+        }
+
+        return nil
+    }
+}
