@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "79339752C1F7D017273A48F3"
+               BlueprintIdentifier = "3A986342E0DE7C08DAFF937A"
                BuildableName = "libTBAlertController.a"
                BlueprintName = "TBAlertController"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -10,6 +10,7 @@
 		7E51347CD76C70F537B0BBF4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FF4A92F5993BA051B2D00C /* libPods.a */; };
 		B4558A151CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4558A141CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m */; };
 		B4558A181CC8D12D00ABA4C1 /* TTFeedPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4558A171CC8D12D00ABA4C1 /* TTFeedPhotoCell.m */; };
+		B4558A1B1CC952E400ABA4C1 /* NSError+Display.m in Sources */ = {isa = PBXBuildFile; fileRef = B4558A1A1CC952E400ABA4C1 /* NSError+Display.m */; };
 		B45C70261CC830B7002164FF /* TTFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B45C70251CC830B7002164FF /* TTFeedViewController.m */; };
 		B45C70291CC85060002164FF /* TTVotingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B45C70281CC85060002164FF /* TTVotingCell.m */; };
 		B45C702C1CC85072002164FF /* TTFeedTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B45C702B1CC85072002164FF /* TTFeedTextCell.m */; };
@@ -39,6 +40,8 @@
 		B4558A141CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMakeHandleViewController.m; sourceTree = "<group>"; };
 		B4558A161CC8D12D00ABA4C1 /* TTFeedPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTFeedPhotoCell.h; sourceTree = "<group>"; };
 		B4558A171CC8D12D00ABA4C1 /* TTFeedPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTFeedPhotoCell.m; sourceTree = "<group>"; };
+		B4558A191CC952E400ABA4C1 /* NSError+Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Display.h"; sourceTree = "<group>"; };
+		B4558A1A1CC952E400ABA4C1 /* NSError+Display.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Display.m"; sourceTree = "<group>"; };
 		B45C70241CC830B7002164FF /* TTFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTFeedViewController.h; sourceTree = "<group>"; };
 		B45C70251CC830B7002164FF /* TTFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTFeedViewController.m; sourceTree = "<group>"; };
 		B45C70271CC85060002164FF /* TTVotingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTVotingCell.h; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 				B45C703D1CC8C4C4002164FF /* UIViewController+TicTac.m */,
 				B45C703F1CC8C736002164FF /* NSUserDefaults+Preferences.h */,
 				B45C70401CC8C736002164FF /* NSUserDefaults+Preferences.m */,
+				B4558A191CC952E400ABA4C1 /* NSError+Display.h */,
+				B4558A1A1CC952E400ABA4C1 /* NSError+Display.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4558A1B1CC952E400ABA4C1 /* NSError+Display.m in Sources */,
 				B45C70261CC830B7002164FF /* TTFeedViewController.m in Sources */,
 				B4558A151CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m in Sources */,
 				B4E73C601CC6A97600670CC6 /* TTTabBarController.m in Sources */,

@@ -6,8 +6,11 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TTVotingCell.h"
+#import "TTFeedTextCell.h"
 
-@interface TTCommentCell : TTVotingCell
+
+@interface TTCommentCell : TTFeedTextCell
+
+@property (nonatomic) UIImage *icon;
 
 @end

@@ -8,6 +8,14 @@
 
 #import "MCSwipeTableViewCell.h"
 
+
 @interface TTVotingCell : MCSwipeTableViewCell
+
+/// Set this before setting votingSwipesEnabled
+@property (nonatomic) YYVotable *votable;
+@property (nonatomic) BOOL votingSwipesEnabled;
+
+/// Subclasses should override
+@property (nonatomic, readonly) UILabel *votingLabel;
 
 @end

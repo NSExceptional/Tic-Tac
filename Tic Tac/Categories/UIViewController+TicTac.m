@@ -15,10 +15,14 @@
     return [[UINavigationController alloc] initWithRootViewController:[self new]];
 }
 
-- (void)displayOptionalError:(NSError *)error {
+- (void)displayOptionalError:(NSError *)error message:(NSString *)message {
     if (error) {
-        [[TBAlertController simpleOKAlertWithTitle:@"Error" message:error.localizedDescription] showFromViewController:self];
+        [[TBAlertController simpleOKAlertWithTitle:message message:error.localizedDescription] showFromViewController:self];
     }
+}
+
+- (void)displayOptionalError:(NSError *)error {
+    [self displayOptionalError:error message:@"Error"];
 }
 
 @end

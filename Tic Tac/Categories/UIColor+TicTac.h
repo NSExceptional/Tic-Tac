@@ -17,4 +17,8 @@
 + (UIColor *)welcomeButtonSubtitleTextColor;
 + (UIColor *)welcomeButtonSubtitleSelectedTextColor;
 
++ (UIColor *)upvoteColor;
++ (UIColor *)downvoteColor;
++ (UIColor *)noVoteColor;
+
 @end

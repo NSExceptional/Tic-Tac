@@ -8,6 +8,17 @@
 
 #import "TTFeedPhotoCell.h"
 
+
 @implementation TTFeedPhotoCell
+
+- (void)setupStacks {
+    [super setupStacks];
+    
+    _mediaImageView = [[UIImageView alloc] initWithImage:nil];
+    self.mediaImageView.clipsToBounds = YES;
+    self.mediaImageView.contentMode   = UIViewContentModeScaleAspectFill;
+    
+    [self.stackVerticalMain addArrangedSubview:self.mediaImageView];
+}
 
 @end

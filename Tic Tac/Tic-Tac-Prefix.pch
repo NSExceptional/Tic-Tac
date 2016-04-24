@@ -20,3 +20,4 @@
 #import "UIColor+TicTac.h"
 #import "UIViewController+TicTac.h"
 #import "NSUserDefaults+Preferences.h"
+#import "NSError+Display.h"

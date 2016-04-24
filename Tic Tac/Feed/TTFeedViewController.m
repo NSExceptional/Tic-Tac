@@ -13,7 +13,7 @@
 
 
 @interface TTFeedViewController ()
-@property (nonatomic, readonly) UIBarButtonItem *hotToggleButton;
+@property (nonatomic, readonly) UIBarButtonItem *sortToggleButton;
 @property (nonatomic, readonly) UIBarButtonItem *composeButton;
 
 @property (nonatomic) NSMutableOrderedSet<YYYak*> *dataSource;
@@ -82,6 +82,8 @@
     cell.titleLabel.text  = yak.title;
     cell.scoreLabel.text  = @(yak.score).stringValue;
     cell.authorLabel.text = yak.handle;
+    cell.votable          = yak;
+    cell.votingSwipesEnabled = !yak.isReadOnly;
     
     if (yak.hasMedia) {
         [self findOrLoadImageforCell:(id)cell forYak:yak];
@@ -89,7 +91,7 @@
 }
 
 - (void)findOrLoadImageforCell:(TTFeedPhotoCell *)cell forYak:(YYYak *)yak {
-    
+    // TODO
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import "TTFeedTextCell.h"
 
+
 @interface TTFeedPhotoCell : TTFeedTextCell
+
+@property (nonatomic, readonly) UIImageView *mediaImageView;
 
 @end

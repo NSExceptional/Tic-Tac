@@ -13,5 +13,6 @@
 
 + (UINavigationController *)inNavigationController;
 - (void)displayOptionalError:(NSError *)error;
+- (void)displayOptionalError:(NSError *)error message:(NSString *)message;
 
 @end
