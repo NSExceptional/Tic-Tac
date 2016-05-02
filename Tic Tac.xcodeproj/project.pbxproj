@@ -21,6 +21,12 @@
 		B45C703B1CC8C24F002164FF /* TTCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B45C703A1CC8C24F002164FF /* TTCommentCell.m */; };
 		B45C703E1CC8C4C4002164FF /* UIViewController+TicTac.m in Sources */ = {isa = PBXBuildFile; fileRef = B45C703D1CC8C4C4002164FF /* UIViewController+TicTac.m */; };
 		B45C70411CC8C736002164FF /* NSUserDefaults+Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = B45C70401CC8C736002164FF /* NSUserDefaults+Preferences.m */; };
+		B4712D231CD6AB9900B1DAAF /* TTCommentsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4712D221CD6AB9900B1DAAF /* TTCommentsHeaderView.m */; };
+		B4712D261CD6AF5900B1DAAF /* NSDate+AgeString.m in Sources */ = {isa = PBXBuildFile; fileRef = B4712D251CD6AF5900B1DAAF /* NSDate+AgeString.m */; };
+		B47139191CD6B2AC00B1DAAF /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B47139181CD6B2AC00B1DAAF /* NSDate-Utilities.m */; };
+		B471391C1CD6DC6900B1DAAF /* YYVotable+Removed.m in Sources */ = {isa = PBXBuildFile; fileRef = B471391B1CD6DC6900B1DAAF /* YYVotable+Removed.m */; };
+		B471391F1CD6DE8E00B1DAAF /* TTPersistentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = B471391E1CD6DE8E00B1DAAF /* TTPersistentArray.m */; };
+		B47139221CD7612900B1DAAF /* Tic-Tac-Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = B47139211CD7612900B1DAAF /* Tic-Tac-Constants.m */; };
 		B4E73C481CC6A7D500670CC6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C471CC6A7D500670CC6 /* main.m */; };
 		B4E73C4B1CC6A7D500670CC6 /* TTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C4A1CC6A7D500670CC6 /* TTAppDelegate.m */; };
 		B4E73C4D1CC6A7D500670CC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4E73C4C1CC6A7D500670CC6 /* Assets.xcassets */; };
@@ -62,6 +68,18 @@
 		B45C703D1CC8C4C4002164FF /* UIViewController+TicTac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TicTac.m"; sourceTree = "<group>"; };
 		B45C703F1CC8C736002164FF /* NSUserDefaults+Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Preferences.h"; sourceTree = "<group>"; };
 		B45C70401CC8C736002164FF /* NSUserDefaults+Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Preferences.m"; sourceTree = "<group>"; };
+		B4712D211CD6AB9900B1DAAF /* TTCommentsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCommentsHeaderView.h; sourceTree = "<group>"; };
+		B4712D221CD6AB9900B1DAAF /* TTCommentsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTCommentsHeaderView.m; sourceTree = "<group>"; };
+		B4712D241CD6AF5900B1DAAF /* NSDate+AgeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+AgeString.h"; sourceTree = "<group>"; };
+		B4712D251CD6AF5900B1DAAF /* NSDate+AgeString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+AgeString.m"; sourceTree = "<group>"; };
+		B47139171CD6B2AC00B1DAAF /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
+		B47139181CD6B2AC00B1DAAF /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		B471391A1CD6DC6900B1DAAF /* YYVotable+Removed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYVotable+Removed.h"; sourceTree = "<group>"; };
+		B471391B1CD6DC6900B1DAAF /* YYVotable+Removed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYVotable+Removed.m"; sourceTree = "<group>"; };
+		B471391D1CD6DE8E00B1DAAF /* TTPersistentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPersistentArray.h; sourceTree = "<group>"; };
+		B471391E1CD6DE8E00B1DAAF /* TTPersistentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPersistentArray.m; sourceTree = "<group>"; };
+		B47139201CD7612900B1DAAF /* Tic-Tac-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tic-Tac-Constants.h"; sourceTree = "<group>"; };
+		B47139211CD7612900B1DAAF /* Tic-Tac-Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tic-Tac-Constants.m"; sourceTree = "<group>"; };
 		B4E73C431CC6A7D500670CC6 /* Tic Tac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E73C471CC6A7D500670CC6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B4E73C491CC6A7D500670CC6 /* TTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAppDelegate.h; sourceTree = "<group>"; };
@@ -149,6 +167,8 @@
 				B4E73C511CC6A7D500670CC6 /* Info.plist */,
 				B4E73C471CC6A7D500670CC6 /* main.m */,
 				B4E743811CC6E0C700670CC6 /* Tic-Tac-Prefix.pch */,
+				B47139201CD7612900B1DAAF /* Tic-Tac-Constants.h */,
+				B47139211CD7612900B1DAAF /* Tic-Tac-Constants.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -181,6 +201,8 @@
 				B4558A171CC8D12D00ABA4C1 /* TTFeedPhotoCell.m */,
 				B45C70361CC8C240002164FF /* TTCommentsViewController.h */,
 				B45C70371CC8C240002164FF /* TTCommentsViewController.m */,
+				B4712D211CD6AB9900B1DAAF /* TTCommentsHeaderView.h */,
+				B4712D221CD6AB9900B1DAAF /* TTCommentsHeaderView.m */,
 				B45C70391CC8C24F002164FF /* TTCommentCell.h */,
 				B45C703A1CC8C24F002164FF /* TTCommentCell.m */,
 			);
@@ -221,6 +243,8 @@
 				B4E73C5F1CC6A97600670CC6 /* TTTabBarController.m */,
 				B45C70271CC85060002164FF /* TTVotingCell.h */,
 				B45C70281CC85060002164FF /* TTVotingCell.m */,
+				B471391D1CD6DE8E00B1DAAF /* TTPersistentArray.h */,
+				B471391E1CD6DE8E00B1DAAF /* TTPersistentArray.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -236,6 +260,12 @@
 				B45C70401CC8C736002164FF /* NSUserDefaults+Preferences.m */,
 				B4558A191CC952E400ABA4C1 /* NSError+Display.h */,
 				B4558A1A1CC952E400ABA4C1 /* NSError+Display.m */,
+				B4712D241CD6AF5900B1DAAF /* NSDate+AgeString.h */,
+				B4712D251CD6AF5900B1DAAF /* NSDate+AgeString.m */,
+				B47139171CD6B2AC00B1DAAF /* NSDate-Utilities.h */,
+				B47139181CD6B2AC00B1DAAF /* NSDate-Utilities.m */,
+				B471391A1CD6DC6900B1DAAF /* YYVotable+Removed.h */,
+				B471391B1CD6DC6900B1DAAF /* YYVotable+Removed.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -293,6 +323,24 @@
 			knownRegions = (
 				en,
 				Base,
+				cs,
+				de,
+				es,
+				eu,
+				fi,
+				fr,
+				it,
+				ja,
+				ko,
+				nl,
+				no,
+				pl,
+				pt,
+				ru,
+				sk,
+				sv,
+				vi,
+				zh_CN,
 			);
 			mainGroup = B4E73C3A1CC6A7D500670CC6;
 			productRefGroup = B4E73C441CC6A7D500670CC6 /* Products */;
@@ -355,8 +403,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4558A1B1CC952E400ABA4C1 /* NSError+Display.m in Sources */,
+				B4712D231CD6AB9900B1DAAF /* TTCommentsHeaderView.m in Sources */,
 				B45C70261CC830B7002164FF /* TTFeedViewController.m in Sources */,
 				B4558A151CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m in Sources */,
+				B471391C1CD6DC6900B1DAAF /* YYVotable+Removed.m in Sources */,
+				B4712D261CD6AF5900B1DAAF /* NSDate+AgeString.m in Sources */,
 				B4E73C601CC6A97600670CC6 /* TTTabBarController.m in Sources */,
 				B4E73C6B1CC6D8CA00670CC6 /* TTWelcomeButton.m in Sources */,
 				B4E73C6D1CC6D8CA00670CC6 /* TTWelcomeViewController.m in Sources */,
@@ -367,12 +418,15 @@
 				B4E73C6C1CC6D8CA00670CC6 /* TTWelcomeView.m in Sources */,
 				B4558A181CC8D12D00ABA4C1 /* TTFeedPhotoCell.m in Sources */,
 				B4E743801CC6D96500670CC6 /* TTBorderButton.m in Sources */,
+				B47139221CD7612900B1DAAF /* Tic-Tac-Constants.m in Sources */,
 				B45C70321CC8C217002164FF /* TTNotificationsViewController.m in Sources */,
 				B45C702F1CC8C207002164FF /* TTProfileViewController.m in Sources */,
 				B45C70291CC85060002164FF /* TTVotingCell.m in Sources */,
 				B4E73C481CC6A7D500670CC6 /* main.m in Sources */,
 				B45C70411CC8C736002164FF /* NSUserDefaults+Preferences.m in Sources */,
 				B45C702C1CC85072002164FF /* TTFeedTextCell.m in Sources */,
+				B471391F1CD6DE8E00B1DAAF /* TTPersistentArray.m in Sources */,
+				B47139191CD6B2AC00B1DAAF /* NSDate-Utilities.m in Sources */,
 				B45C703E1CC8C4C4002164FF /* UIViewController+TicTac.m in Sources */,
 				B45C70351CC8C223002164FF /* TTSettingsViewController.m in Sources */,
 			);
@@ -469,6 +523,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Tic",
+					Tac/Categories/Luna,
+				);
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -483,6 +542,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Tic",
+					Tac/Categories/Luna,
+				);
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

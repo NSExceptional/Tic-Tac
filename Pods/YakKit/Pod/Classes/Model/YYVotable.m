@@ -15,6 +15,7 @@
              @"voteStatus": @"liked",
              @"created": @"time",
              @"gmt": @"gmt",
+             @"username": @"nickname",
              @"deliveryIdentifier": @"deliveryID"};
 }
 
@@ -23,7 +24,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedFormatter = [NSDateFormatter new];
-        sharedFormatter.dateFormat = @"y-mm-dd HH:mm:ss";
+        sharedFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        sharedFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"EST"];
     });
     
     return sharedFormatter;
@@ -51,6 +53,20 @@
 //        return value;
 //    }];
 //}
+
+- (NSComparisonResult)compareScore:(YYVotable *)votable {
+    if (self.score < votable.score) {
+        return NSOrderedAscending;
+    } else if (self.score == votable.score) {
+        return NSOrderedSame;
+    } else {
+        return NSOrderedDescending;
+    }
+}
+
+- (NSComparisonResult)compareCreated:(YYVotable *)votable {
+    return [self.created compare:votable.created];
+}
 
 
 @end

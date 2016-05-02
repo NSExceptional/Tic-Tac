@@ -10,4 +10,8 @@
 
 @implementation TTNotificationsViewController
 
+- (void)refresh {
+    
+}
+
 @end

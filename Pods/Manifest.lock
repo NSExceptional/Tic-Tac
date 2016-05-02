@@ -64,7 +64,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   YakKit:
-    :commit: 4c5bbf3a7d462243c83c4e0d42e0e86dea52e0ea
+    :commit: 5b8b5f13a78e63343250503d7aaaae898cb4c4f2
     :git: https://github.com/ThePantsThief/YakKit.git
 
 SPEC CHECKSUMS:

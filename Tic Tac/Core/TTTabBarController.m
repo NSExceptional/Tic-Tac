@@ -14,14 +14,12 @@
 
 
 @interface TTTabBarController ()
-
 @property (nonatomic, readonly) TTFeedViewController *feed;
 @property (nonatomic, readonly) TTNotificationsViewController *notifications;
 @property (nonatomic, readonly) TTProfileViewController *profile;
 @property (nonatomic, readonly) TTSettingsViewController *settings;
 
 @property (nonatomic) BOOL ready;
-
 @end
 
 @implementation TTTabBarController
@@ -29,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tabBar.tintColor = [UIColor themeColor];
     self.viewControllers = @[[TTFeedViewController inNavigationController],
                              [TTNotificationsViewController inNavigationController],
                              [TTProfileViewController inNavigationController],
@@ -39,8 +38,8 @@
     
     NSInteger i = 0;
     for (UITabBarItem *item in self.tabBar.items) {
-        item.image = [UIImage imageNamed:icons[i++]];
-        item.title = titles[i];
+        item.image = [UIImage imageNamed:icons[i]];
+        item.title = titles[i++];
 //        item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
 //        item.titlePositionAdjustment = UIOffsetMake(0, 12);
     }
@@ -62,10 +61,14 @@
     [self.notifications refresh];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark VC getters
-- (TTFeedViewController *)feed { return (id)[(id)self.viewControllers[0] rootViewController]; }
-- (TTNotificationsViewController *)notifications { return (id)[(id)self.viewControllers[1] rootViewController]; }
-- (TTProfileViewController *)profile { return (id)[(id)self.viewControllers[2] rootViewController]; }
-- (TTSettingsViewController *)settings { return (id)[(id)self.viewControllers[3] rootViewController]; }
+- (TTFeedViewController *)feed { return (id)[(id)self.viewControllers[0] viewControllers][0]; }
+- (TTNotificationsViewController *)notifications { return (id)[(id)self.viewControllers[1] viewControllers][0]; }
+- (TTProfileViewController *)profile { return (id)[(id)self.viewControllers[2] viewControllers][0]; }
+- (TTSettingsViewController *)settings { return (id)[(id)self.viewControllers[3] viewControllers][0]; }
 
 @end

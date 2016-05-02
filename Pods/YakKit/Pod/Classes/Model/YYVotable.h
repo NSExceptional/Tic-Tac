@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YYVotable : YYThing
 
+- (NSComparisonResult)compareScore:(YYVotable *)votable;
+- (NSComparisonResult)compareCreated:(YYVotable *)votable;
+
+@property (nonatomic, readonly) NSString     *username;
 @property (nonatomic, readonly) NSInteger    score;
 @property (nonatomic, readonly) YYVoteStatus voteStatus;
 
@@ -28,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSDate *gmt;
 
 @property (nonatomic, readonly) id deliveryIdentifier;
+
+/// Use this however you want to flag or identify objects.
+@property (nonatomic) NSInteger tag;
 
 @end
 

@@ -12,7 +12,7 @@
 @implementation UIColor (TicTac)
 
 + (instancetype)themeColor {
-    return [UIColor colorWithRed:0.400 green:0.200 blue:1.000 alpha:1.000];
+    return [UIColor colorWithRed:0.448 green:0.261 blue:0.909 alpha:1.000];
 }
 
 + (UIColor *)welcomeHairlineColor {
@@ -25,6 +25,18 @@
 
 + (UIColor *)welcomeButtonSubtitleSelectedTextColor {
     return [UIColor colorWithWhite:1.000 alpha:0.500];
+}
+
++ (UIColor *)upvoteColor {
+    return [UIColor colorWithRed:1.000 green:0.200 blue:0.000 alpha:1.000];
+}
+
++ (UIColor *)downvoteColor {
+    return [UIColor colorWithRed:0.200 green:0.200 blue:1.000 alpha:1.000];
+}
+
++ (UIColor *)noVoteColor {
+    return [UIColor colorWithWhite:0.000 alpha:0.500];
 }
 
 @end

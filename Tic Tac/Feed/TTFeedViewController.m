@@ -16,7 +16,8 @@
 @property (nonatomic, readonly) UIBarButtonItem *sortToggleButton;
 @property (nonatomic, readonly) UIBarButtonItem *composeButton;
 
-@property (nonatomic) NSMutableOrderedSet<YYYak*> *dataSource;
+@property (nonatomic) TTPersistentArray<YYYak*> *dataSource;
+@property (nonatomic) BOOL loadingData;
 @end
 
 @implementation TTFeedViewController
@@ -24,9 +25,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.dataSource = [NSMutableOrderedSet orderedSet];
+    self.refreshControl = [UIRefreshControl new];
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 100;
+    self.tableView.layoutMargins = UIEdgeInsetsZero;
+    
+    self.dataSource = [TTPersistentArray new];
+    [self.tableView registerClass:[TTFeedTextCell class] forCellReuseIdentifier:@"text_reuse"];
+    [self.tableView registerClass:[TTFeedPhotoCell class] forCellReuseIdentifier:@"photo_reuse"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitle) name:kYYDidUpdateUserNotification object:nil];
+    [self updateTitle];
 }
 
 - (void)updateTitle {
@@ -34,11 +44,15 @@
 }
 
 - (void)refresh {
+    if (self.loadingData) return;
+    
+    self.loadingData = YES;
     [[YYClient sharedClient] getLocalYaks:^(NSArray *collection, NSError *error) {
+        self.loadingData = NO;
         [self displayOptionalError:error];
         if (!error) {
             [self.dataSource addObjectsFromArray:collection];
-            [self.tableView reloadData];
+            [self.tableView reloadSection:0];
         }
     }];
 }
@@ -73,17 +87,26 @@
     cell.visited = YES;
     
     [NSUserDefaults addVisitedPost:yak.identifier];
+    
+    [self.navigationController pushViewController:[TTCommentsViewController commentsForYak:yak] animated:YES];
 }
 
 #pragma mark Cell configuration
 
 - (void)configureCell:(TTFeedTextCell *)cell forYak:(YYYak *)yak {
-    cell.visited          = [[NSUserDefaults visitedPosts] containsObject:yak.identifier];
-    cell.titleLabel.text  = yak.title;
-    cell.scoreLabel.text  = @(yak.score).stringValue;
-    cell.authorLabel.text = yak.handle;
-    cell.votable          = yak;
-    cell.votingSwipesEnabled = !yak.isReadOnly;
+    cell.visited              = [[NSUserDefaults visitedPosts] containsObject:yak.identifier];
+    cell.titleLabel.text      = yak.title;
+    cell.scoreLabel.text      = @(yak.score).stringValue;
+    cell.ageLabel.text        = yak.created.relativeTimeString;
+    cell.votable              = yak;
+    cell.votingSwipesEnabled  = !yak.isReadOnly;
+    [cell setAuthorLabelText:yak.username];
+
+    if (yak.replyCount == 1) {
+        cell.replyCountLabel.text = @"1 reply";
+    } else {
+        cell.replyCountLabel.text = [NSString stringWithFormat:@"%@ replies", @(yak.replyCount)];
+    }
     
     if (yak.hasMedia) {
         [self findOrLoadImageforCell:(id)cell forYak:yak];

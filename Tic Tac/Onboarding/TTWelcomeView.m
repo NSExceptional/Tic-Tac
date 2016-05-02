@@ -102,7 +102,7 @@
     id thinFont    = [UIFont systemFontOfSize:39 weight:UIFontWeightThin];
     id regularFont = [UIFont systemFontOfSize:39 weight:UIFontWeightRegular];
     [welcomeToTicTac addAttribute:NSFontAttributeName value:thinFont range:NSMakeRange(0, welcomeToTicTac.length)];
-    [welcomeToTicTac addAttribute:NSFontAttributeName value:regularFont range:NSMakeRange(welcomeToTicTac.length-3, 3)];
+    [welcomeToTicTac addAttribute:NSFontAttributeName value:regularFont range:NSMakeRange(welcomeToTicTac.length-7, 7)];
     _welcomeLabel.attributedText = welcomeToTicTac;
     
     // Line spacing for second label

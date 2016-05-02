@@ -53,6 +53,7 @@
         
         // Display the tab bar, or tell them it wasn't a valid user token.
         if (YYIsValidUserIdentifier(textFieldStrings[0])) {
+            [NSUserDefaults setCurrentUserIdentifier:textFieldStrings[0]];
             [YYClient sharedClient].userIdentifier = textFieldStrings[0];
             [self presentViewController:tabBarController animated:YES completion:^{
                 [tabBarController notifyUserIsReady];

@@ -11,6 +11,8 @@
 
 @interface TTCommentCell : TTFeedTextCell
 
-@property (nonatomic) UIImage *icon;
+@property (nonatomic) BOOL isOP;
+@property (nonatomic) NSString *color;
+@property (nonatomic) NSString *avatar;
 
 @end
