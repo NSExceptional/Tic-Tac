@@ -25,22 +25,19 @@
 
 - (void)setupStacks {
     // Custom views
-    _titleLabel      = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _scoreLabel      = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _ageLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _authorLabel     = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _replyCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    NSMutableArray *labels = [NSMutableArray array];
+    for (NSInteger i = 0; i < 5; i++)
+        [labels addObject:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)]];
     
-    _titleLabel.font      = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    _scoreLabel.font      = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-    _ageLabel.font        = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-    _authorLabel.font     = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-    _replyCountLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    _titleLabel = labels[0], _scoreLabel = labels[1], _ageLabel = labels[2], _authorLabel = labels[3], _replyCountLabel = labels[4];
     
-    _scoreLabel.textColor      = [UIColor noVoteColor];
-    _ageLabel.textColor        = [UIColor noVoteColor];
-    _authorLabel.textColor     = [UIColor themeColor];
-    _replyCountLabel.textColor = [UIColor noVoteColor];
+    // Label fonts and colors
+    _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _authorLabel.textColor = [UIColor themeColor];
+    for (UILabel *label in @[_scoreLabel, _ageLabel, _authorLabel, _replyCountLabel]) {
+        label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+        label.textColor = [UIColor noVoteColor];
+    }
     
     self.titleLabel.numberOfLines = 0;
     
