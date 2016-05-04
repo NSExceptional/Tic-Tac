@@ -37,24 +37,18 @@
 
 - (void)loadView {
     [super loadView];
-    _commentsHeaderView = [[TTCommentsHeaderView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    [self.commentsHeaderView configureForYak:self.yak];
-    [self.commentsHeaderView setFrameHeight:[_commentsHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height];
-    self.tableView.tableHeaderView = self.commentsHeaderView;
     
-    self.refreshControl = [UIRefreshControl new];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 100;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+    _commentsHeaderView = [TTCommentsHeaderView headerForYak:self.yak];
+    self.tableView.tableHeaderView = self.commentsHeaderView;
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     // Title
     if (self.yak.replyCount == 1) { self.title = @"1 Comment"; } else {
         self.title = [NSString stringWithFormat:@"%@ Comments", @(self.yak.replyCount)];
     }
-    
-    [self.tableView registerClass:[TTCommentCell class] forCellReuseIdentifier:@"comment_reuse"];
     
     // Load comments
     [self reloadComments];
@@ -70,7 +64,8 @@
         [self displayOptionalError:error message:@"Failed to load comments"];
         if (!error) {
             [self.dataSource addObjectsFromArray:collection];
-            [self.tableView reloadData];
+            [self.tableView reloadSection:0];
+            
             // Update title
             if (self.dataSource.count == 1) { self.title = @"1 Comment"; } else {
                 self.title = [NSString stringWithFormat:@"%@ Comments", @(self.dataSource.count)];
@@ -79,33 +74,10 @@
     }];
 }
 
-//- (void)mergeNewWithOldComments:(NSArray<YYComment*> *)comments {
-//    // Replace old comments with new ones
-//    NSMutableArray *dataSourceWithNew = self.dataSource.mutableCopy;
-//    for (YYComment *new in comments) {
-//        for (YYComment *old in self.dataSource) {
-//            if ([new isEqual:old]) {
-//                dataSourceWithNew[[dataSourceWithNew indexOfObject:old]] = new;
-//            }
-//        }
-//    }
-//    
-//    // Mark missing comments as removed
-//    NSMutableSet *onlyRemoved = [NSMutableSet setWithArray:dataSourceWithNew];
-//    [onlyRemoved minusSet:[NSSet setWithArray:comments]];
-//    for (YYComment *comment in onlyRemoved) {
-//        comment.removed = YES;
-//    }
-//    
-//    NSMutableSet *allComments = [NSMutableSet setWithArray:dataSourceWithNew];
-//    [allComments addObjectsFromArray:comments];
-//    self.dataSource = [allComments.allObjects sortedArrayUsingSelector:@selector(compareCreated:)];
-//}
-
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TTCommentCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:@"comment_reuse"];
+    TTCommentCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:kCommentCellReuse];
     [self configureCell:cell forComment:self.dataSource[indexPath.row]];
     return cell;
 }
@@ -118,7 +90,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    YYComment *comment = self.dataSource[indexPath.row];
+    //    YYComment *comment = self.dataSource[indexPath.row];
 }
 
 #pragma mark Cell configuration
@@ -126,11 +98,11 @@
 - (void)configureCell:(TTCommentCell *)cell forComment:(YYComment *)comment {
     cell.titleLabel.text  = comment.body;
     cell.scoreLabel.text  = @(comment.score).stringValue;
-    cell.authorLabel.text = comment.username;
-    cell.color            = comment.backgroundIdentifier;
-    cell.avatar           = comment.overlayIdentifier;
+    cell.authorLabel.text = comment.authorText;
     cell.votable          = comment;
     cell.votingSwipesEnabled = !self.yak.isReadOnly;
+    
+    [cell setIcon:comment.overlayIdentifier withColor:comment.backgroundIdentifier];
 }
 
 @end

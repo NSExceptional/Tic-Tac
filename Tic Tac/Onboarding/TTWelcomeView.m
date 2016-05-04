@@ -63,7 +63,7 @@
     NSString *signUpDesc   = @"Enter the user token of an existing account.";
     NSString *authTokeDesc = @"What is a user token?";
     
-    self.logo          = [[UIImageView alloc] initWithImage:booIcon];
+    self.logo             = [[UIImageView alloc] initWithImage:booIcon];
     self.circle           = ({UIView *v = [UIView new]; v.backgroundColor = [UIColor themeColor]; v;});
     self.welcomeLabel     = [[UILabel alloc] initWithFrame:frame];
     self.descriptionLabel = [[UILabel alloc] initWithFrame:frame];

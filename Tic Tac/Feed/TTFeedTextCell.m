@@ -68,14 +68,14 @@
     self.stackHorizontalTop.spacing      = 15;
     
     self.stackHorizontalMain.axis         = UILayoutConstraintAxisHorizontal;
-    self.stackHorizontalMain.alignment    = UIStackViewAlignmentLastBaseline;
-    self.stackHorizontalMain.distribution = UIStackViewDistributionEqualSpacing;
+    self.stackHorizontalMain.alignment    = UIStackViewAlignmentTop;
+    self.stackHorizontalMain.distribution = UIStackViewDistributionFill;
     self.stackHorizontalMain.spacing      = 10;
     
     self.stackVerticalMain.axis         = UILayoutConstraintAxisVertical;
     self.stackVerticalMain.alignment    = UIStackViewAlignmentFill;
     self.stackVerticalMain.distribution = UIStackViewDistributionEqualSpacing;
-    self.stackVerticalMain.spacing      = 10;
+    self.stackVerticalMain.spacing      = 8;
     // Does not need insets because we inset it with autolayout in updateConstraints
     
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -86,7 +86,7 @@
 + (BOOL)requiresConstraintBasedLayout { return YES; }
 - (void)updateConstraints {
     CGFloat inset = self.separatorInset.left;
-    CGFloat topBottomInset = 15;//inset * (2.f/3.f);
+    CGFloat topBottomInset = 12;//inset * (2.f/3.f);
     [[self topStackView] mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(topBottomInset, inset, topBottomInset, inset));
     }];
@@ -94,6 +94,11 @@
     [self.ageLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     
     [super updateConstraints];
+}
+
+- (void)layoutSubviews {
+    self.titleLabel.preferredMaxLayoutWidth = self.preferredTitleLabelMaxWidth;
+    [super layoutSubviews];
 }
 
 - (UILabel *)votingLabel { return self.scoreLabel; }
@@ -105,6 +110,23 @@
 - (void)setAuthorLabelText:(NSString *)authorLabelText {
     self.authorLabel.text = authorLabelText;
     self.authorLabel.hidden = authorLabelText.length == 0;
+}
+
+- (NSArray<UIView*> *)opaqueViews {
+    return @[_titleLabel, _scoreLabel, _ageLabel, _authorLabel, _replyCountLabel,
+             _stackVerticalMain, _stackHorizontalMain, _stackHorizontalTop];
+}
+
+- (CGFloat)preferredTitleLabelMaxWidth {
+    return CGRectGetWidth(self.frame) - 2 * self.separatorInset.left;
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    super.backgroundColor = backgroundColor;
+    
+    for (UIView *view in self.opaqueViews) {
+        view.backgroundColor = backgroundColor;
+    }
 }
 
 @end

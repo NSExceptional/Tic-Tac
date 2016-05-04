@@ -24,6 +24,21 @@
 
 @implementation TTCommentsHeaderView
 
++ (instancetype)headerForYak:(YYYak *)yak {
+    TTCommentsHeaderView *view = [[self alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    view.scoreLabel.text         = @(yak.score).stringValue;
+    view.authorLabel.text        = yak.handle;
+    view.authorLabel.hidden      = yak.handle.length == 0;
+    view.ageLabel.text           = yak.created.relativeTimeString;
+    view.titleLabel.text         = yak.title;
+    view.addCommentButton.hidden = yak.isReadOnly;
+    view.chatButton.hidden       = view.authorLabel.hidden;
+    
+    [view setFrameHeight:[view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height];
+    
+    return view;
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -68,7 +83,7 @@
     self.stackVerticalMain.axis         = UILayoutConstraintAxisVertical;
     self.stackVerticalMain.alignment    = UIStackViewAlignmentFill;
     self.stackVerticalMain.distribution = UIStackViewDistributionEqualSpacing;
-    self.stackVerticalMain.spacing      = 10;
+    self.stackVerticalMain.spacing      = 15;
     // Does not need insets because we inset it with autolayout in updateConstraints
     
     [self addSubview:[self topStackView]];
@@ -90,16 +105,6 @@
     }];
     
     [super updateConstraints];
-}
-
-- (void)configureForYak:(YYYak *)yak {
-    self.scoreLabel.text = @(yak.score).stringValue;
-    self.authorLabel.text = yak.handle;
-    self.authorLabel.hidden = yak.handle.length == 0;
-    self.ageLabel.text = yak.created.relativeTimeString;
-    self.titleLabel.text = yak.title;
-    self.addCommentButton.hidden = yak.isReadOnly;
-    self.chatButton.hidden = self.authorLabel.hidden;
 }
 
 @end

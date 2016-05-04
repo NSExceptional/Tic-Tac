@@ -17,7 +17,6 @@
 @property (nonatomic, readonly) UIBarButtonItem *composeButton;
 
 @property (nonatomic) TTPersistentArray<YYYak*> *dataSource;
-@property (nonatomic) BOOL loadingData;
 @end
 
 @implementation TTFeedViewController
@@ -25,15 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.refreshControl = [UIRefreshControl new];
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 100;
-    self.tableView.layoutMargins = UIEdgeInsetsZero;
-    
     self.dataSource = [TTPersistentArray new];
-    [self.tableView registerClass:[TTFeedTextCell class] forCellReuseIdentifier:@"text_reuse"];
-    [self.tableView registerClass:[TTFeedPhotoCell class] forCellReuseIdentifier:@"photo_reuse"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitle) name:kYYDidUpdateUserNotification object:nil];
     [self updateTitle];
@@ -63,9 +54,9 @@
     YYYak *yak = self.dataSource[indexPath.row];
     NSString *reuse;
     if (yak.hasMedia) {
-        reuse = @"photo_reuse";
+        reuse = kFeedPhotoCellReuse;
     } else {
-        reuse = @"text_reuse";
+        reuse = kFeedTextCellReuse;
     }
     
     TTFeedTextCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:reuse];

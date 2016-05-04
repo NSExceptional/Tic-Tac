@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TTTableViewController.h"
 
 
-@interface TTCommentsViewController : UITableViewController
+@interface TTCommentsViewController : TTTableViewController
 
 + (instancetype)commentsForYak:(YYYak *)yak;
 

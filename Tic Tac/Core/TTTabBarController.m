@@ -27,7 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tabBar.tintColor = [UIColor themeColor];
     self.viewControllers = @[[TTFeedViewController inNavigationController],
                              [TTNotificationsViewController inNavigationController],
                              [TTProfileViewController inNavigationController],
@@ -63,6 +62,10 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return nil;
 }
 
 #pragma mark VC getters

@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TTTableViewController.h"
 
 
-@interface TTFeedViewController : UITableViewController
+@interface TTFeedViewController : TTTableViewController
 
 - (void)refresh;
 

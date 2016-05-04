@@ -26,5 +26,9 @@
 
 /// To be overridden by subclasses. Do not call directly.
 - (void)setupStacks;
+/// For scrolling optimization
+@property (nonatomic, readonly) NSArray<UIView*> *opaqueViews;
+/// For proper row heights
+@property (nonatomic, readonly) CGFloat preferredTitleLabelMaxWidth;
 
 @end

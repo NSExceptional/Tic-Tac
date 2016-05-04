@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (Util)
 
 - (UIImage *)tintedImageWithColor:(UIColor *)tintColor;
-+ (UIImage *)imageByDrawingIcon:(UIImage *)icon onTopOf:(UIImage *)background iconTint:(UIColor *)iconTint bgColor:(UIColor *)bgColor;
++ (UIImage *)imageByDrawingIcon:(UIImage *)icon onTopOf:(UIImage *)background iconTint:(nullable UIColor *)iconTint bgColor:(nullable UIColor *)bgColor;
 - (UIImage *)paddedImage:(UIEdgeInsets)insets;
 /** @return The image centered in the padding, or the original image if it does not fit in the given size. */
 - (UIImage *)paddedToSize:(CGSize)size;

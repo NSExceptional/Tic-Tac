@@ -11,6 +11,6 @@
 
 @interface TTCommentsHeaderView : UIView
 
-- (void)configureForYak:(YYYak *)yak;
++ (instancetype)headerForYak:(YYYak *)yak;
 
 @end
