@@ -18,6 +18,14 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupStacks];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                          object:self queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+                                                              
+            _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            for (UILabel *label in @[_scoreLabel, _ageLabel, _authorLabel, _replyCountLabel]) {
+                label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+            }
+        }];
     }
     
     return self;
@@ -32,17 +40,18 @@
     _titleLabel = labels[0], _scoreLabel = labels[1], _ageLabel = labels[2], _authorLabel = labels[3], _replyCountLabel = labels[4];
     
     // Label fonts and colors
-    _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    _authorLabel.textColor = [UIColor themeColor];
+    _titleLabel.font       = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     for (UILabel *label in @[_scoreLabel, _ageLabel, _authorLabel, _replyCountLabel]) {
-        label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+        label.font      = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
         label.textColor = [UIColor noVoteColor];
     }
+    _authorLabel.textColor = [UIColor themeColor];
     
     self.titleLabel.numberOfLines = 0;
+    [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     
     // Stacks
-    UIStackView *stackHorizontalTopLeft = [[UIStackView alloc] initWithArrangedSubviews:@[_replyCountLabel, _authorLabel]];
+    UIStackView *stackHorizontalTopLeft  = [[UIStackView alloc] initWithArrangedSubviews:@[_replyCountLabel, _authorLabel]];
     UIStackView *stackHorizontalTopRight = [[UIStackView alloc] initWithArrangedSubviews:@[_scoreLabel, _ageLabel]];
     _stackHorizontalTop  = [[UIStackView alloc] initWithArrangedSubviews:@[stackHorizontalTopLeft, stackHorizontalTopRight]];
     _stackVerticalMain   = [[UIStackView alloc] initWithArrangedSubviews:@[_stackHorizontalTop, _titleLabel]];
@@ -93,10 +102,10 @@
     [super updateConstraints];
 }
 
-- (void)layoutSubviews {
-    self.titleLabel.preferredMaxLayoutWidth = self.preferredTitleLabelMaxWidth;
-    [super layoutSubviews];
-}
+//- (void)layoutSubviews {
+//    self.titleLabel.preferredMaxLayoutWidth = self.preferredTitleLabelMaxWidth;
+//    [super layoutSubviews];
+//}
 
 - (UILabel *)votingLabel { return self.scoreLabel; }
 

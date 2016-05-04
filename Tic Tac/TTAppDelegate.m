@@ -23,8 +23,6 @@
     
     [self customizeAppearance];
     
-    [[FLEXManager sharedManager] showExplorer];
-    
     NSString *userIdentifier = [NSUserDefaults currentUserIdentifier];
     if (userIdentifier) {
         [YYClient sharedClient].userIdentifier = userIdentifier;
@@ -37,6 +35,10 @@
         self.window.rootViewController = [TTWelcomeViewController new];
     }
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:[FLEXManager sharedManager] action:@selector(showExplorer)];
+    tap.numberOfTouchesRequired = 3;
+    [self.window addGestureRecognizer:tap];
+    
     return YES;
 }
 
@@ -46,6 +48,13 @@
     [UINavigationBar appearance].barTintColor = [UIColor themeColor];
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    
+    MKMethod *layoutSubviews = [MKMethod methodForSelector:@selector(layoutSubviews) class:[UILabel class]];
+    IMP old = layoutSubviews.implementation;
+    [UILabel replaceImplementationOfMethod:layoutSubviews with:imp_implementationWithBlock(^(UILabel *me) {
+        me.preferredMaxLayoutWidth = CGRectGetWidth(me.frame);
+        ((void(*)(id, SEL))old)(me, @selector(layoutSubviews));
+    })];
 }
 
 - (TTTabBarController *)tabBarController {

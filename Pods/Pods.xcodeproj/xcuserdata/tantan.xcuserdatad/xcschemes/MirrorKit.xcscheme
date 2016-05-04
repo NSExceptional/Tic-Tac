@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5A218F427534550E3397D04E"
+               BlueprintIdentifier = "65E75BA4733BE1F8E92ED838"
                BuildableName = "libMirrorKit.a"
                BlueprintName = "MirrorKit"
                ReferencedContainer = "container:Pods.xcodeproj">

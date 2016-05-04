@@ -18,15 +18,8 @@ static NSSortDescriptor *sortDescriptor;
 
 @implementation TTPersistentArray
 
-+ (NSSortDescriptor *)sortDescriptor {
-    @synchronized(self) {
-        if (sortDescriptor) {
-            return sortDescriptor;
-        } else {
-            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"created" ascending:NO];
-            return sortDescriptor;
-        }
-    }
++ (NSSortDescriptor *)sortDescriptor:(BOOL)ascending {
+    return [NSSortDescriptor sortDescriptorWithKey:@"created" ascending:ascending];
 }
 
 + (instancetype)array {
@@ -38,10 +31,14 @@ static NSSortDescriptor *sortDescriptor;
     if (self) {
         _storage = [NSMutableArray array];
         _staysSorted = YES;
+        _sortNewestFirst = NO;
         
         self.chooseDuplicate = ^id(YYVotable *orig, YYVotable *dup) {
             return dup;
         };
+        self.filter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+            return YES;
+        }];
     }
     
     return self;
@@ -61,12 +58,13 @@ static NSSortDescriptor *sortDescriptor;
             anObject = self.chooseDuplicate(orig, anObject);
     
     [self.storage addObject:anObject];
-    [self.storage sortUsingDescriptors:@[[TTPersistentArray sortDescriptor]]];
+    [self.storage sortUsingDescriptors:@[[TTPersistentArray sortDescriptor:self.sortNewestFirst]]];
 }
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
     // Replace duplicates with the one we want to keep
     NSMutableArray *mutableOriginal = self.storage.mutableCopy;
+    NSMutableArray *additions = otherArray.mutableCopy;
     for (id orig in self.storage)
         for (id new in otherArray)
             if ([orig isEqual:new]) {
@@ -75,11 +73,12 @@ static NSSortDescriptor *sortDescriptor;
                 
                 NSInteger i = [mutableOriginal indexOfObject:orig];
                 mutableOriginal[i] = new;
+                [additions removeObject:new];
             }
     
-    
-    [self.storage addObjectsFromArray:otherArray];
-    [self.storage sortUsingDescriptors:@[[TTPersistentArray sortDescriptor]]];
+    [additions filterUsingPredicate:self.filter];
+    [self.storage addObjectsFromArray:additions];
+    [self.storage sortUsingDescriptors:@[[TTPersistentArray sortDescriptor:self.sortNewestFirst]]];
 }
 
 - (NSUInteger)count { return self.storage.count; }

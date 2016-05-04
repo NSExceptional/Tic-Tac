@@ -9,13 +9,12 @@
 #import "TTCommentsViewController.h"
 #import "TTCommentsHeaderView.h"
 #import "TTCommentCell.h"
-
+#import "TTReplyViewController.h"
 
 @interface TTCommentsViewController ()
 @property (nonatomic, readonly) TTCommentsHeaderView *commentsHeaderView;
 @property (nonatomic, readonly) YYYak *yak;
 @property (nonatomic, readonly) TTPersistentArray<YYComment*> *dataSource;
-@property (nonatomic) BOOL loadingData;
 @end
 
 @implementation TTCommentsViewController
@@ -30,6 +29,7 @@
     self = [super init];
     if (self) {
         _dataSource = [TTPersistentArray new];
+        _dataSource.sortNewestFirst = YES;
     }
     
     return self;
@@ -40,6 +40,7 @@
     
     _commentsHeaderView = [TTCommentsHeaderView headerForYak:self.yak];
     self.tableView.tableHeaderView = self.commentsHeaderView;
+    [self.commentsHeaderView.addCommentButton addTarget:self action:@selector(addComment) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidLoad {
@@ -53,6 +54,7 @@
     // Load comments
     [self reloadComments];
 }
+
 
 - (void)reloadComments {
     if (self.loadingData) return;
@@ -79,6 +81,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TTCommentCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:kCommentCellReuse];
     [self configureCell:cell forComment:self.dataSource[indexPath.row]];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
     return cell;
 }
 
@@ -101,8 +105,45 @@
     cell.authorLabel.text = comment.authorText;
     cell.votable          = comment;
     cell.votingSwipesEnabled = !self.yak.isReadOnly;
+    cell.repliesEnabled = !self.yak.isReadOnly;
+    cell.replyAction = ^{
+        [self replyToUser:comment.username ?: comment.authorText];
+    };
     
     [cell setIcon:comment.overlayIdentifier withColor:comment.backgroundIdentifier];
+}
+
+#pragma mark Replying
+
+- (void)addComment {
+    [self replyToUser:nil];
+}
+
+- (void)replyToUser:(NSString *)username {
+    username = [username stringByAppendingString:@" "];
+    [self.navigationController presentViewController:[TTReplyViewController replyWithInitialText:username onSubmit:^(NSString *text, BOOL useHandle) {
+        if (text.length > 200) {
+            NSInteger i = 0;
+            for (NSString *reply in [text brokenUpByCharacterLimit:200]) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(i++ * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self submitReplyToYak:reply useHandle:useHandle];
+                });
+            }
+        } else {
+            [self submitReplyToYak:text useHandle:useHandle];
+        }
+    }] animated:YES completion:nil];
+}
+
+- (void)submitReplyToYak:(NSString *)reply useHandle:(BOOL)useHandle {
+    NSParameterAssert(reply.length < 200 && reply.length > 0);
+    
+    [[YYClient sharedClient] postComment:reply toYak:self.yak useHandle:useHandle completion:^(NSError *error) {
+        [self displayOptionalError:error message:@"Failed to submit reply"];
+        if (!error) {
+            [self reloadComments];
+        }
+    }];
 }
 
 @end

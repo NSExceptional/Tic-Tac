@@ -11,6 +11,19 @@
 
 @implementation TTVotableTableView
 
+- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
+    self = [super initWithFrame:frame style:style];
+    if (self) {
+        self.tableFooterView =  ({
+            UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+            view.backgroundColor = self.separatorColor;
+            view;
+        });
+    }
+    
+    return self;
+}
+
 - (NSUInteger)totalRows {
     NSInteger count = 0;
     for (NSInteger i = 0; i < self.numberOfSections; i++)
@@ -22,8 +35,8 @@
 - (void)_numberOfRowsDidChange {
     [super _numberOfRowsDidChange];
     
-    if ([self totalRows] == 0) {
-        self.tableFooterView = [UIView new];
+    NSUInteger totalRows = [self totalRows];
+    if (totalRows == 0 && !self.backgroundView) {
         self.backgroundView = ({
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
             label.text = @"Nothing to see here!";
@@ -38,12 +51,11 @@
             self.backgroundView.alpha = 1;
         }];
     }
-    else {
+    else if (totalRows != 0) {
         [UIView animateWithDuration:.2 animations:^{
             self.backgroundView.alpha = 0;
         } completion:^(BOOL finished) {
             self.backgroundView = nil;
-            self.tableFooterView = nil;
         }];
     }
 }

@@ -12,3 +12,8 @@
 extern NSString * const kPref_CurrentUserIdentifier;
 extern NSString * const kPref_OtherUserIdentifiers;
 extern NSString * const kPref_RefreshFeedOnUserChange;
+
+
+#pragma mark Functions
+extern BOOL YYContainsPolitics(NSString *string);
+extern BOOL YYContainsThirst(NSString *string);

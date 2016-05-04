@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+Reflection.h"
+#import "MKMirror.h"
 #import "MKProperty.h"
 #import "MKMethod.h"
 #import "MKIVar.h"
@@ -34,6 +35,14 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 
 @implementation NSObject (Reflection)
 
++ (MKMirror *)reflection {
+    return [MKMirror reflect:self];
+}
+
+- (MKMirror *)reflection {
+    return [MKMirror reflect:self];
+}
+
 /** Code borrowed from MAObjCRuntime by Mike Ash. */
 + (NSArray *)allSubclasses {
     Class *buffer = NULL;
@@ -51,7 +60,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
         Class superclass = candidate;
         while(superclass) {
             if(superclass == self) {
-                [array addObject: candidate];
+                [array addObject:candidate];
                 break;
             }
             superclass = class_getSuperclass(superclass);
@@ -100,9 +109,23 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
     NSMutableArray *methods = [NSMutableArray array];
     for (int i = 0; i < mcount; i++)
         [methods addObject:[MKMethod method:objcmethods[i]]];
-
+    
     free(objcmethods);
     return methods;
+}
+
++ (MKMethod *)methodNamed:(NSString *)name {
+    Method m = class_getInstanceMethod([self class], NSSelectorFromString(name));
+    if (m == NULL)
+        return nil;
+    return [MKMethod method:m];
+}
+
++ (MKMethod *)classMethodNamed:(NSString *)name {
+    Method m = class_getClassMethod([self class], NSSelectorFromString(name));
+    if (m == NULL)
+        return nil;
+    return [MKMethod method:m];
 }
 
 + (BOOL)addMethod:(SEL)selector typeEncoding:(NSString *)typeEncoding implementation:(IMP)implementaiton {
@@ -118,7 +141,6 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 }
 
 + (BOOL)swizzleByName:(NSString *)original with:(NSString *)other {
-    NSParameterAssert(original); NSParameterAssert(other);
     SEL originalMethod = NSSelectorFromString(original);
     SEL newMethod      = NSSelectorFromString(other);
     if (originalMethod == 0 || newMethod == 0)
@@ -156,6 +178,13 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
     
     free(objcivars);
     return ivars;
+}
+
++ (MKIVar *)IVarNamed:(NSString *)name {
+    Ivar i = class_getInstanceVariable([self class], name.UTF8String);
+    if (i == NULL)
+        return nil;
+    return [MKIVar ivar:i];
 }
 
 #pragma mark Get address
@@ -227,6 +256,13 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
     
     free(objcproperties);
     return properties;
+}
+
++ (MKProperty *)propertyNamed:(NSString *)name {
+    objc_property_t p = class_getProperty([self class], name.UTF8String);
+    if (p == NULL)
+        return nil;
+    return [MKProperty property:p];
 }
 
 + (void)replaceProperty:(MKProperty *)property {

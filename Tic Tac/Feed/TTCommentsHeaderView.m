@@ -14,7 +14,6 @@
 @property (nonatomic, readonly) UILabel *authorLabel;
 @property (nonatomic, readonly) UILabel *ageLabel;
 @property (nonatomic, readonly) UILabel *titleLabel;
-@property (nonatomic, readonly) UIButton *addCommentButton;
 @property (nonatomic, readonly) UIButton *chatButton; /* unused atm */
 
 @property (nonatomic, readonly) UIView *hairlineView;
@@ -27,15 +26,17 @@
 + (instancetype)headerForYak:(YYYak *)yak {
     TTCommentsHeaderView *view = [[self alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     view.scoreLabel.text         = @(yak.score).stringValue;
-    view.authorLabel.text        = yak.handle;
+    view.authorLabel.text        = yak.username;
     view.authorLabel.hidden      = yak.handle.length == 0;
     view.ageLabel.text           = yak.created.relativeTimeString;
     view.titleLabel.text         = yak.title;
     view.addCommentButton.hidden = yak.isReadOnly;
     view.chatButton.hidden       = view.authorLabel.hidden;
-    
+
     [view setFrameHeight:[view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height];
-    
+    [view setNeedsLayout];
+    [view layoutIfNeeded];
+
     return view;
 }
 
@@ -83,7 +84,7 @@
     self.stackVerticalMain.axis         = UILayoutConstraintAxisVertical;
     self.stackVerticalMain.alignment    = UIStackViewAlignmentFill;
     self.stackVerticalMain.distribution = UIStackViewDistributionEqualSpacing;
-    self.stackVerticalMain.spacing      = 15;
+    self.stackVerticalMain.spacing      = 20;
     // Does not need insets because we inset it with autolayout in updateConstraints
     
     [self addSubview:[self topStackView]];

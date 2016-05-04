@@ -50,7 +50,19 @@
     if(indexPath.row < self.rowHeights.count) {
         return self.rowHeights[indexPath.row].floatValue;
     } else {
-        return 100;
+        return 64;
+    }
+}
+
+- (void)setLoadingData:(BOOL)loadingData {
+    if (_loadingData == loadingData) return;
+    
+    _loadingData = loadingData;
+    
+    if (loadingData) {
+        [TBNetworkActivity push];
+    } else {
+        [TBNetworkActivity pop];
     }
 }
 

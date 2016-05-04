@@ -20,5 +20,6 @@
 + (UIColor *)upvoteColor;
 + (UIColor *)downvoteColor;
 + (UIColor *)noVoteColor;
++ (UIColor *)replyColor;
 
 @end

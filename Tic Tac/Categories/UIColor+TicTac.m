@@ -39,4 +39,8 @@
     return [UIColor colorWithWhite:0.000 alpha:0.500];
 }
 
++ (UIColor *)replyColor {
+    return [self themeColor];
+}
+
 @end

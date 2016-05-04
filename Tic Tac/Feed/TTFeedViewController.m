@@ -24,7 +24,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     self.dataSource = [TTPersistentArray new];
+    self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYYak *yak, NSDictionary *bindings) {
+        return YYContainsPolitics(yak.title.lowercaseString);
+    }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitle) name:kYYDidUpdateUserNotification object:nil];
     [self updateTitle];
@@ -44,6 +48,7 @@
         if (!error) {
             [self.dataSource addObjectsFromArray:collection];
             [self.tableView reloadSection:0];
+            [self.refreshControl endRefreshing];
         }
     }];
 }
@@ -61,6 +66,8 @@
     
     TTFeedTextCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:reuse];
     [self configureCell:cell forYak:yak];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
     return cell;
 }
 
@@ -92,7 +99,7 @@
     cell.votable              = yak;
     cell.votingSwipesEnabled  = !yak.isReadOnly;
     [cell setAuthorLabelText:yak.username];
-
+    
     if (yak.replyCount == 1) {
         cell.replyCountLabel.text = @"1 reply";
     } else {

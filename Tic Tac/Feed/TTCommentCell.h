@@ -12,6 +12,9 @@
 @interface TTCommentCell : TTFeedTextCell
 
 @property (nonatomic) BOOL isOP;
+@property (nonatomic) BOOL repliesEnabled;
+@property (nonatomic, copy) VoidBlock replyAction;
+
 - (void)setIcon:(NSString *)icon withColor:(NSString *)color;
 
 @end

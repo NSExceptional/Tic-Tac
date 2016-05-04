@@ -23,7 +23,7 @@ static NSDictionary *avatars;
     // custom view config
     self.customColorViewContainerView = self.contentView;
     self.contentView.backgroundColor = self.backgroundColor;
-    
+    self.repliesEnabled = YES;
     
     self.replyCountLabel.hidden = YES;
     
@@ -51,6 +51,22 @@ static NSDictionary *avatars;
 
 - (CGFloat)preferredTitleLabelMaxWidth {
     return [super preferredTitleLabelMaxWidth] - (CGRectGetWidth(self.iconImageView.frame) + self.stackHorizontalMain.spacing);
+}
+
+- (void)setRepliesEnabled:(BOOL)repliesEnabled {
+    if (_repliesEnabled == repliesEnabled) return;
+    
+    _repliesEnabled = repliesEnabled;
+    
+    MCSwipeTableViewCellMode mode = repliesEnabled ? MCSwipeTableViewCellModeSwitch : MCSwipeTableViewCellModeNone;
+    
+    UIImageView *imageView = [UIImageView imageViewWithImageNamed:@"reply" tintColor:[UIColor whiteColor]];
+    @weakify(self);
+    [self setSwipeGestureWithView:imageView color:[UIColor replyColor]
+                             mode:mode state:MCSwipeTableViewCellState3
+                  completionBlock:^(MCSwipeTableViewCell *swipeCell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) { @strongify(self);
+                      YYRunBlock(self.replyAction);
+                  }];
 }
 
 @end
