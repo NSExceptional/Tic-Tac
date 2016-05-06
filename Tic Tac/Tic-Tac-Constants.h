@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
-extern NSString * const kPref_CurrentUserIdentifier;
-extern NSString * const kPref_OtherUserIdentifiers;
-extern NSString * const kPref_RefreshFeedOnUserChange;
+extern NSString * const kPref_currentUserIdentifier;
+extern NSString * const kPref_otherUserIdentifiers;
+extern NSString * const kPref_refreshFeedOnUserChange;
+extern NSString * const kPref_clearHistoryAfterDays;
 
 
 #pragma mark Functions

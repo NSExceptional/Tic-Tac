@@ -14,7 +14,7 @@
 @interface TTCommentsViewController ()
 @property (nonatomic, readonly) TTCommentsHeaderView *commentsHeaderView;
 @property (nonatomic, readonly) YYYak *yak;
-@property (nonatomic, readonly) TTPersistentArray<YYComment*> *dataSource;
+@property (nonatomic, readonly) TTFeedArray<YYComment*> *dataSource;
 @end
 
 @implementation TTCommentsViewController
@@ -28,7 +28,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _dataSource = [TTPersistentArray new];
+        _dataSource = [TTFeedArray new];
         _dataSource.sortNewestFirst = YES;
     }
     

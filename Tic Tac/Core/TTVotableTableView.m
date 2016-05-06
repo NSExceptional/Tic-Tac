@@ -35,6 +35,8 @@
 - (void)_numberOfRowsDidChange {
     [super _numberOfRowsDidChange];
     
+    if (!self.showsEmptyMessage) { return; }
+    
     NSUInteger totalRows = [self totalRows];
     if (totalRows == 0 && !self.backgroundView) {
         self.backgroundView = ({

@@ -18,11 +18,17 @@
 @implementation TTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Window
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
+    // Appearance
     [self customizeAppearance];
     
+    // Default preferences
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
+    
+    // Login / get current user
     NSString *userIdentifier = [NSUserDefaults currentUserIdentifier];
     if (userIdentifier) {
         [YYClient sharedClient].userIdentifier = userIdentifier;

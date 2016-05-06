@@ -14,6 +14,9 @@
 - (void)_numberOfRowsDidChange;
 @end
 
+
 @interface TTVotableTableView : UITableView
+
+@property (nonatomic) BOOL showsEmptyMessage;
 
 @end

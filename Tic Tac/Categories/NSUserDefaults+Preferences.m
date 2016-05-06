@@ -8,43 +8,46 @@
 
 #import "NSUserDefaults+Preferences.h"
 
+
+static NSMutableOrderedSet *history;
+NSMutableOrderedSet *visitedPosts;
+
 #define DEFAULT [NSUserDefaults standardUserDefaults]
 @implementation NSUserDefaults (Preferences)
 
 + (BOOL)refreshFeedOnUserChange {
-    return [DEFAULT boolForKey:kPref_RefreshFeedOnUserChange];
+    return [DEFAULT boolForKey:kPref_refreshFeedOnUserChange];
 }
 
 + (void)setRefreshFeedOnUserChange:(BOOL)pref {
-    [DEFAULT setBool:pref forKey:kPref_RefreshFeedOnUserChange];
+    [DEFAULT setBool:pref forKey:kPref_refreshFeedOnUserChange];
 }
 
 
 + (NSString *)currentUserIdentifier {
-    return [DEFAULT stringForKey:kPref_CurrentUserIdentifier];
+    return [DEFAULT stringForKey:kPref_currentUserIdentifier];
 }
 
 + (void)setCurrentUserIdentifier:(NSString *)pref {
-    [DEFAULT setObject:pref forKey:kPref_CurrentUserIdentifier];
+    [DEFAULT setObject:pref forKey:kPref_currentUserIdentifier];
 }
 
 + (NSArray<NSString*> *)otherUserIdentifiers {
-    return [DEFAULT arrayForKey:kPref_OtherUserIdentifiers];
+    return [DEFAULT arrayForKey:kPref_otherUserIdentifiers];
 }
 
 + (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref {
-    [DEFAULT setObject:pref forKey:kPref_OtherUserIdentifiers];
+    [DEFAULT setObject:pref forKey:kPref_otherUserIdentifiers];
 }
 
 // TODO other stuff
 
-+ (NSOrderedSet<YYYak*> *)history {return nil;}
-+ (void)addToHistory:(YYYak *)pref {}
-+ (NSInteger)daysToKeepHistory {return 0;}
-+ (void)setDaysToKeepHistory:(NSInteger)pref {}
++ (NSInteger)daysToKeepHistory {
+    return [DEFAULT integerForKey:kPref_clearHistoryAfterDays];
+}
 
-+ (NSOrderedSet<NSString*> *)visitedPosts {return nil;}
-+ (void)addVisitedPost:(NSString *)pref {}
-
++ (void)setDaysToKeepHistory:(NSInteger)pref {
+    [DEFAULT setInteger:pref forKey:kPref_clearHistoryAfterDays];
+}
 
 @end

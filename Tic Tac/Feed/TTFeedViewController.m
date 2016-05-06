@@ -16,7 +16,7 @@
 @property (nonatomic, readonly) UIBarButtonItem *sortToggleButton;
 @property (nonatomic, readonly) UIBarButtonItem *composeButton;
 
-@property (nonatomic) TTPersistentArray<YYYak*> *dataSource;
+@property (nonatomic) TTFeedArray<YYYak*> *dataSource;
 @end
 
 @implementation TTFeedViewController
@@ -25,7 +25,7 @@
     [super viewDidLoad];
     
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    self.dataSource = [TTPersistentArray new];
+    self.dataSource = [TTFeedArray new];
     self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYYak *yak, NSDictionary *bindings) {
         return YYContainsPolitics(yak.title.lowercaseString);
     }];

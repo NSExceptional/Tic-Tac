@@ -25,6 +25,8 @@
     self.tableView.delegate = self;
 }
 
+- (TTVotableTableView *)_tableView { return (id)super.tableView; };
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -62,6 +64,7 @@
     if (loadingData) {
         [TBNetworkActivity push];
     } else {
+        [self _tableView].showsEmptyMessage = YES;
         [TBNetworkActivity pop];
     }
 }

@@ -9,9 +9,10 @@
 #import "Tic-Tac-Constants.h"
 
 
-NSString * const kPref_CurrentUserIdentifier = @"current_user";
-NSString * const kPref_OtherUserIdentifiers = @"other_users";
-NSString * const kPref_RefreshFeedOnUserChange = @"refresh_feed_on_user_change";
+NSString * const kPref_currentUserIdentifier = @"current_user";
+NSString * const kPref_otherUserIdentifiers = @"other_users";
+NSString * const kPref_refreshFeedOnUserChange = @"refresh_feed_on_user_change";
+NSString * const kPref_clearHistoryAfterDays = @"remove_from_history_after";
 
 
 #pragma mark Functions

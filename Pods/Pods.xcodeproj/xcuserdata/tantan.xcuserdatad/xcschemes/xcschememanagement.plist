@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AutoCoding.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FLEX.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,7 +67,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0363E113521015BB71C970DF23825FAB</key>
+		<key>12F393CE73B307105C2D4FFBE5334BA1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,12 +77,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3DD6C3BA303E3A589BCF0E0A09BE0328</key>
+		<key>2A871F75CE9D368F0E8EA74FED0BC336</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6CEBAEFE0D3D5B167DB5B297D44CBE3F</key>
+		<key>56911CE66256702790FC185F245699B5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6329B48E8E53DF0FFD38255F3A3F4053</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6D81AF7D8AC574507171DA2F2FA7E270</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7339391826B33796AFE2D182EC9E5D61</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,32 +107,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8A190DD575DA4DECB2B88500F7CCCAC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>99FC2FABE456BAD3231DF7B60DE7584A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D505AEEAE86F3CBC7926FFE401D099D</key>
+		<key>BB30FB9F75D41612BC7BA2ED88C51216</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A399800383DB91036D409A54B67AEBBE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BBA1C9C3237946308022794AAB2CCDF4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EA5D35CD12C72F2A3A3438984753C628</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FB0D93EA935D8A4D42E086978129A73F</key>
+		<key>D06B5D8204744EAA76F2269A9637D493</key>
 		<dict>
 			<key>primary</key>
 			<true/>

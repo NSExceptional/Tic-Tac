@@ -19,14 +19,8 @@
 + (NSArray<NSString*> *)otherUserIdentifiers;
 + (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref;
 
-// Will be saved externally //
-
-+ (NSOrderedSet<YYYak*> *)history;
-+ (void)addToHistory:(YYYak *)pref;
+/// Defaults to 7
 + (NSInteger)daysToKeepHistory;
 + (void)setDaysToKeepHistory:(NSInteger)pref;
-
-+ (NSOrderedSet<NSString*> *)visitedPosts;
-+ (void)addVisitedPost:(NSString *)pref;
 
 @end

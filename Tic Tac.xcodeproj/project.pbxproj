@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7E51347CD76C70F537B0BBF4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FF4A92F5993BA051B2D00C /* libPods.a */; };
 		B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */; };
+		B44F16051CDA977A002DF423 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44F16041CDA977A002DF423 /* Defaults.plist */; };
+		B44F16081CDA98AC002DF423 /* TTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B44F16071CDA98AC002DF423 /* TTCache.m */; };
 		B4558A151CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4558A141CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m */; };
 		B4558A181CC8D12D00ABA4C1 /* TTFeedPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4558A171CC8D12D00ABA4C1 /* TTFeedPhotoCell.m */; };
 		B4558A1B1CC952E400ABA4C1 /* NSError+Display.m in Sources */ = {isa = PBXBuildFile; fileRef = B4558A1A1CC952E400ABA4C1 /* NSError+Display.m */; };
@@ -26,7 +28,7 @@
 		B4712D261CD6AF5900B1DAAF /* NSDate+AgeString.m in Sources */ = {isa = PBXBuildFile; fileRef = B4712D251CD6AF5900B1DAAF /* NSDate+AgeString.m */; };
 		B47139191CD6B2AC00B1DAAF /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B47139181CD6B2AC00B1DAAF /* NSDate-Utilities.m */; };
 		B471391C1CD6DC6900B1DAAF /* YYVotable+Removed.m in Sources */ = {isa = PBXBuildFile; fileRef = B471391B1CD6DC6900B1DAAF /* YYVotable+Removed.m */; };
-		B471391F1CD6DE8E00B1DAAF /* TTPersistentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = B471391E1CD6DE8E00B1DAAF /* TTPersistentArray.m */; };
+		B471391F1CD6DE8E00B1DAAF /* TTFeedArray.m in Sources */ = {isa = PBXBuildFile; fileRef = B471391E1CD6DE8E00B1DAAF /* TTFeedArray.m */; };
 		B47139221CD7612900B1DAAF /* Tic-Tac-Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = B47139211CD7612900B1DAAF /* Tic-Tac-Constants.m */; };
 		B4C204EF1CD97A0D00564A83 /* YYComment+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204EE1CD97A0D00564A83 /* YYComment+Util.m */; };
 		B4C204F21CD9886C00564A83 /* TTVotableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204F11CD9886C00564A83 /* TTVotableTableView.m */; };
@@ -50,6 +52,9 @@
 		A0FF4A92F5993BA051B2D00C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableViewController.h; sourceTree = "<group>"; };
 		B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableViewController.m; sourceTree = "<group>"; };
+		B44F16041CDA977A002DF423 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
+		B44F16061CDA98AC002DF423 /* TTCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCache.h; sourceTree = "<group>"; };
+		B44F16071CDA98AC002DF423 /* TTCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTCache.m; sourceTree = "<group>"; };
 		B4558A131CC8CDEA00ABA4C1 /* TTMakeHandleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMakeHandleViewController.h; sourceTree = "<group>"; };
 		B4558A141CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMakeHandleViewController.m; sourceTree = "<group>"; };
 		B4558A161CC8D12D00ABA4C1 /* TTFeedPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTFeedPhotoCell.h; sourceTree = "<group>"; };
@@ -84,8 +89,8 @@
 		B47139181CD6B2AC00B1DAAF /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
 		B471391A1CD6DC6900B1DAAF /* YYVotable+Removed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYVotable+Removed.h"; sourceTree = "<group>"; };
 		B471391B1CD6DC6900B1DAAF /* YYVotable+Removed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYVotable+Removed.m"; sourceTree = "<group>"; };
-		B471391D1CD6DE8E00B1DAAF /* TTPersistentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPersistentArray.h; sourceTree = "<group>"; };
-		B471391E1CD6DE8E00B1DAAF /* TTPersistentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPersistentArray.m; sourceTree = "<group>"; };
+		B471391D1CD6DE8E00B1DAAF /* TTFeedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTFeedArray.h; sourceTree = "<group>"; };
+		B471391E1CD6DE8E00B1DAAF /* TTFeedArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTFeedArray.m; sourceTree = "<group>"; };
 		B47139201CD7612900B1DAAF /* Tic-Tac-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tic-Tac-Constants.h"; sourceTree = "<group>"; };
 		B47139211CD7612900B1DAAF /* Tic-Tac-Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tic-Tac-Constants.m"; sourceTree = "<group>"; };
 		B4C204ED1CD97A0D00564A83 /* YYComment+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYComment+Util.h"; sourceTree = "<group>"; };
@@ -183,6 +188,7 @@
 			children = (
 				B4E73C571CC6A80100670CC6 /* LaunchScreen.xib */,
 				B4E73C511CC6A7D500670CC6 /* Info.plist */,
+				B44F16041CDA977A002DF423 /* Defaults.plist */,
 				B4E73C471CC6A7D500670CC6 /* main.m */,
 				B4E743811CC6E0C700670CC6 /* Tic-Tac-Prefix.pch */,
 				B47139201CD7612900B1DAAF /* Tic-Tac-Constants.h */,
@@ -263,14 +269,16 @@
 				B4E73C5F1CC6A97600670CC6 /* TTTabBarController.m */,
 				B45C70271CC85060002164FF /* TTVotingCell.h */,
 				B45C70281CC85060002164FF /* TTVotingCell.m */,
-				B471391D1CD6DE8E00B1DAAF /* TTPersistentArray.h */,
-				B471391E1CD6DE8E00B1DAAF /* TTPersistentArray.m */,
+				B471391D1CD6DE8E00B1DAAF /* TTFeedArray.h */,
+				B471391E1CD6DE8E00B1DAAF /* TTFeedArray.m */,
 				B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */,
 				B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */,
 				B4C204F01CD9886C00564A83 /* TTVotableTableView.h */,
 				B4C204F11CD9886C00564A83 /* TTVotableTableView.m */,
 				B4C204F31CD997F100564A83 /* TBNetworkActivity.h */,
 				B4C204F41CD997F100564A83 /* TBNetworkActivity.m */,
+				B44F16061CDA98AC002DF423 /* TTCache.h */,
+				B44F16071CDA98AC002DF423 /* TTCache.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -389,6 +397,7 @@
 			files = (
 				B4E73C581CC6A80100670CC6 /* LaunchScreen.xib in Resources */,
 				B4E73C4D1CC6A7D500670CC6 /* Assets.xcassets in Resources */,
+				B44F16051CDA977A002DF423 /* Defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,9 +465,10 @@
 				B45C702F1CC8C207002164FF /* TTProfileViewController.m in Sources */,
 				B45C70291CC85060002164FF /* TTVotingCell.m in Sources */,
 				B4E73C481CC6A7D500670CC6 /* main.m in Sources */,
+				B44F16081CDA98AC002DF423 /* TTCache.m in Sources */,
 				B45C70411CC8C736002164FF /* NSUserDefaults+Preferences.m in Sources */,
 				B45C702C1CC85072002164FF /* TTFeedTextCell.m in Sources */,
-				B471391F1CD6DE8E00B1DAAF /* TTPersistentArray.m in Sources */,
+				B471391F1CD6DE8E00B1DAAF /* TTFeedArray.m in Sources */,
 				B47139191CD6B2AC00B1DAAF /* NSDate-Utilities.m in Sources */,
 				B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */,
 				B45C703E1CC8C4C4002164FF /* UIViewController+TicTac.m in Sources */,

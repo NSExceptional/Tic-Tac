@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "730912E0A403A66F6E9077B4"
-               BuildableName = "libTBAlertController.a"
-               BlueprintName = "TBAlertController"
+               BlueprintIdentifier = "79D48A2541B8689EBF44B9D1"
+               BuildableName = "libAutoCoding.a"
+               BlueprintName = "AutoCoding"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

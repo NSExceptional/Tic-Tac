@@ -1,4 +1,5 @@
 PODS:
+  - AutoCoding (2.2.1)
   - FLEX (2.3.0)
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
@@ -49,6 +50,7 @@ PODS:
     - Mantle
 
 DEPENDENCIES:
+  - AutoCoding
   - FLEX
   - libextobjc
   - Masonry
@@ -73,6 +75,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ThePantsThief/YakKit.git
 
 SPEC CHECKSUMS:
+  AutoCoding: b47e528426c84346371dd532b8e6458929e4da34
   FLEX: ba80ea13d2c784e85e616137fd4eff164781e364
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
