@@ -43,4 +43,18 @@
     return [self themeColor];
 }
 
++ (UIColor *)colorForVote:(YYVoteStatus)vote {
+    switch (vote) {
+        case YYVoteStatusDownvoted: {
+            return [self downvoteColor];
+        }
+        case YYVoteStatusNone: {
+            return [self noVoteColor];
+        }
+        case YYVoteStatusUpvoted: {
+            return [self upvoteColor];
+        }
+    }
+}
+
 @end

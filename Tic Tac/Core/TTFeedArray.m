@@ -13,6 +13,7 @@ static NSSortDescriptor *sortDescriptor;
 
 @interface TTFeedArray<ObjectType> ()
 @property (nonatomic, readonly) NSMutableArray *storage;
+@property (nonatomic, readonly) NSMutableOrderedSet *history;
 @property (nonatomic) BOOL staysSorted;
 @end
 
@@ -32,6 +33,7 @@ static NSSortDescriptor *sortDescriptor;
         _storage = [NSMutableArray array];
         _staysSorted = YES;
         _sortNewestFirst = NO;
+        _keepsRemovedObjectsInHistory = YES;
         
         self.chooseDuplicate = ^id(YYVotable *orig, YYVotable *dup) {
             return dup;
@@ -49,6 +51,13 @@ static NSSortDescriptor *sortDescriptor;
 }
 
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
+    id old = self.storage[idx];
+    if ([old isEqual:obj]) {
+        obj = self.chooseDuplicate(old, obj);
+    } else {
+        [self.history addObject:old];
+    }
+    
     self.storage[idx] = obj;
 }
 
@@ -101,6 +110,67 @@ static NSSortDescriptor *sortDescriptor;
 
 - (NSArray *)array {
     return self.storage.copy;
+}
+
+- (void)setKeepsRemovedObjectsInHistory:(BOOL)keepsRemovedObjectsInHistory {
+    if (_keepsRemovedObjectsInHistory == keepsRemovedObjectsInHistory) return;
+    _keepsRemovedObjectsInHistory = keepsRemovedObjectsInHistory;
+    
+    if (keepsRemovedObjectsInHistory) {
+        _history = [NSMutableOrderedSet orderedSet];
+    } else {
+        _history = nil;
+    }
+}
+
+- (void)setArray:(NSArray *)newFeed {
+    if (self.keepsRemovedObjectsInHistory) {
+        // Store removed objects in history by getting diff from new feed
+        NSMutableSet *removed = [NSMutableSet setWithArray:self.storage];
+        [removed minusSet:[NSSet setWithArray:newFeed]];
+        [self.history addObjectsFromArray:removed.allObjects];
+    }
+    
+    [self.storage setArray:newFeed];
+}
+
+- (void)removeObject:(id)anObject {
+    NSInteger idx = [self.storage indexOfObject:anObject];
+    
+    if (idx != NSNotFound) {
+        anObject = self.chooseDuplicate(self.storage[idx], anObject);
+        
+        [self.storage removeObjectAtIndex:idx];
+        if (_keepsRemovedObjectsInHistory) {
+            [self.history addObject:anObject];
+        }
+    }
+}
+
+- (void)removeObjectAtIndex:(NSUInteger)idx {
+    id obj = self.storage[idx];
+    
+    [self.storage removeObjectAtIndex:idx];
+    if (_keepsRemovedObjectsInHistory) {
+        [self.history addObject:obj];
+    }
+}
+
+- (void)removeObjectsInArray:(NSArray *)otherArray {
+    for (id obj in otherArray)
+        [self removeObject:obj];
+}
+
+- (void)removeObjectsAtIndexes:(NSIndexSet *)indexes {
+    [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        [self removeObjectAtIndex:idx];
+    }];
+}
+
+- (void)removeObjectsInRange:(NSRange)range {
+    NSUInteger max = range.location + range.length;
+    for (NSUInteger i = range.location; i < max; i++)
+        [self removeObjectAtIndex:i];
 }
 
 @end

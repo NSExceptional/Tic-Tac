@@ -14,6 +14,7 @@
 + (BOOL)refreshFeedOnUserChange;
 + (void)setRefreshFeedOnUserChange:(BOOL)pref;
 
++ (NSArray<NSString*> *)allUserIdentifiers;
 + (NSString *)currentUserIdentifier;
 + (void)setCurrentUserIdentifier:(NSString *)pref;
 + (NSArray<NSString*> *)otherUserIdentifiers;

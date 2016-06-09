@@ -22,4 +22,6 @@
 + (UIColor *)noVoteColor;
 + (UIColor *)replyColor;
 
++ (UIColor *)colorForVote:(YYVoteStatus)vote;
+
 @end

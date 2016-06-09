@@ -143,6 +143,7 @@
     _votable                = votable;
     self.previousVoteStatus = votable.voteStatus;
     self.newVoteStatus      = votable.voteStatus;
+    self.votingLabel.textColor = [UIColor colorForVote:votable.voteStatus];
 }
 
 - (void)setupSwipeActions {

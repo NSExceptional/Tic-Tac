@@ -46,7 +46,7 @@
         self.loadingData = NO;
         [self displayOptionalError:error];
         if (!error) {
-            [self.dataSource addObjectsFromArray:collection];
+            [self.dataSource setArray:collection];
             [self.tableView reloadSection:0];
             [self.refreshControl endRefreshing];
         }
@@ -84,7 +84,7 @@
     TTFeedTextCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.visited = YES;
     
-    [NSUserDefaults addVisitedPost:yak.identifier];
+    [TTCache addVisitedPost:yak.identifier];
     
     [self.navigationController pushViewController:[TTCommentsViewController commentsForYak:yak] animated:YES];
 }
@@ -92,7 +92,7 @@
 #pragma mark Cell configuration
 
 - (void)configureCell:(TTFeedTextCell *)cell forYak:(YYYak *)yak {
-    cell.visited              = [[NSUserDefaults visitedPosts] containsObject:yak.identifier];
+    cell.visited              = [[TTCache visitedPosts] containsObject:yak.identifier];
     cell.titleLabel.text      = yak.title;
     cell.scoreLabel.text      = @(yak.score).stringValue;
     cell.ageLabel.text        = yak.created.relativeTimeString;

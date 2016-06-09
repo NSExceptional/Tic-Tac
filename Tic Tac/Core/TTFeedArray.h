@@ -12,11 +12,15 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface TTFeedArray<ObjectType> : NSMutableArray<ObjectType>
 
+@property (nonatomic, readonly) NSArray<ObjectType> *array;
+
 @property (nonatomic, copy, nonnull) ObjectType (^chooseDuplicate)(ObjectType original, ObjectType duplicate);
 @property (nonatomic, copy, nonnull) NSPredicate *filter;
-@property (nonatomic) BOOL sortNewestFirst;
 
-@property (nonatomic, readonly) NSArray<ObjectType> *array;
+/// Defaults to NO
+@property (nonatomic) BOOL sortNewestFirst;
+/// Defaults to YES
+@property (nonatomic) BOOL keepsRemovedObjectsInHistory;
 
 @end
 NS_ASSUME_NONNULL_END

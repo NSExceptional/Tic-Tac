@@ -18,14 +18,17 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupStacks];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(presentGodModeActions:)];
+        [self.contentView addGestureRecognizer:longPress];
         [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
                                                           object:self queue:nil usingBlock:^(NSNotification * _Nonnull note) {
                                                               
-            _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-            for (UILabel *label in @[_scoreLabel, _ageLabel, _authorLabel, _replyCountLabel]) {
-                label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-            }
-        }];
+                                                              _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+                                                              for (UILabel *label in @[_scoreLabel, _ageLabel, _authorLabel, _replyCountLabel]) {
+                                                                  label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+                                                              }
+                                                          }];
     }
     
     return self;
@@ -127,12 +130,18 @@
     return CGRectGetWidth(self.frame) - 2 * self.separatorInset.left;
 }
 
+/// For efficiency
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
     super.backgroundColor = backgroundColor;
     
     for (UIView *view in self.opaqueViews) {
         view.backgroundColor = backgroundColor;
     }
+}
+
+- (void)presentGodModeActions:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan)
+        [TTManager showGodModeForVotable:self.votable];
 }
 
 @end

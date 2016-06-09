@@ -187,6 +187,9 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 + (void)addVisitedPost:(NSString *)identifier {
     [visitedPostIdentifiers addObject:identifier];
+    NSInteger difference = visitedPostIdentifiers.count - kVisitedPostsSize;
+    if (difference > 0)
+        [visitedPostIdentifiers removeObjectsInRange:NSMakeRange(0, difference)];
 }
 
 @end

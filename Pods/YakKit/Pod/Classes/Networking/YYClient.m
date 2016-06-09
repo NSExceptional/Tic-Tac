@@ -160,8 +160,8 @@ BOOL YYIsValidUserIdentifier(NSString *uid) {
 
 - (NSDictionary *)generalHeaders:(NSString *)endpoint {
     return @{@"Host": Host(endpoint),
-             @"User-Agent": kUserAgent,
-             @"X-ThePantsThief-Header": @"1"};
+             @"User-Agent": kUserAgent,};
+//             @"X-ThePantsThief-Header": @"1"};
 }
 
 #pragma mark Requests / error handling
