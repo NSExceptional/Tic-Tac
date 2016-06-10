@@ -161,7 +161,7 @@ BOOL YYIsValidUserIdentifier(NSString *uid) {
 - (NSDictionary *)generalHeaders:(NSString *)endpoint {
     return @{@"Host": Host(endpoint),
              @"User-Agent": kUserAgent,};
-//             @"X-ThePantsThief-Header": @"1"};
+    //             @"X-ThePantsThief-Header": @"1"};
 }
 
 #pragma mark Requests / error handling
@@ -250,15 +250,17 @@ static NSMutableArray *requestCache;
                 completion(json, nil);
             } else {
                 // Failed with a message
-                error = [YYClient errorWithMessage:json[@"message"] code:code];
+                error = [YYClient errorWithMessage:json[@"error"][@"message"] code:code];
                 completion(nil, error);
             }
         }
     } else if ((code > 199 && code < 300) || code == 304) {
         // Succeeded with no response
         completion(nil, nil);
+    } else if (code >= 500) {
+        completion(nil, [YYClient errorWithMessage:@"Bad request / internal server error" code:code]);
     } else {
-        completion(nil, [YYClient unknownError]);
+        completion(nil, [YYClient errorWithMessage:@"Unknown error" code:code]);
     }
 }
 

@@ -15,9 +15,48 @@ static NSSortDescriptor *sortDescriptor;
 @property (nonatomic, readonly) NSMutableArray *storage;
 @property (nonatomic, readonly) NSMutableOrderedSet *history;
 @property (nonatomic) BOOL staysSorted;
+@property (nonatomic) BOOL delta;
 @end
 
 @implementation TTFeedArray
+@synthesize allObjects = _allObjects;
+
+#pragma mark New public interface
+
++ (nullable YYYak *)yakForNotificationIfPresent:(YYNotification *)notification {
+    for (YYYak *yak in [self yaks])
+        if ([yak.identifier isEqualToString:notification.thingIdentifier])
+            return yak;
+    
+    return nil;
+}
+
+#pragma mark Private
+
++ (TTFeedArray<YYYak*> *)yaks {
+    static TTFeedArray<YYYak*> *yaks = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class cls = [YYYak class];
+        yaks = [self array];
+        yaks.filter = [NSPredicate predicateWithBlock:^BOOL(id obj, id bindings) {
+            return [obj class] == cls;
+        }];
+    });
+    
+    return yaks;
+}
+
+- (void)setDelta:(BOOL)delta {
+    _delta = delta;
+    
+    if (delta && self != [[self class] yaks]) {
+        [[[self class] yaks] addObjectsFromArray:self];
+    }
+}
+
+#pragma mark Overrides
 
 + (NSSortDescriptor *)sortDescriptor:(BOOL)ascending {
     return [NSSortDescriptor sortDescriptorWithKey:@"created" ascending:ascending];
@@ -30,11 +69,11 @@ static NSSortDescriptor *sortDescriptor;
 - (id)init {
     self = [super init];
     if (self) {
-        _storage = [NSMutableArray array];
-        _staysSorted = YES;
-        _sortNewestFirst = NO;
-        _keepsRemovedObjectsInHistory = YES;
+        _storage            = [NSMutableArray array];
+        _staysSorted        = YES;
+        _sortNewestFirst    = NO;
         _tagsRemovedObjects = YES;
+        self.keepsRemovedObjectsInHistory = YES;
         
         self.chooseDuplicate = ^id(YYVotable *orig, YYVotable *dup) {
             return dup;
@@ -52,7 +91,7 @@ static NSSortDescriptor *sortDescriptor;
 }
 
 /// Replaces duplicates or old objects, keeps removed in history
-- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
+- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx { self.delta = YES;
     id old = self.storage[idx];
     if ([old isEqual:obj]) {
         obj = self.chooseDuplicate(old, obj);
@@ -63,7 +102,7 @@ static NSSortDescriptor *sortDescriptor;
     self.storage[idx] = obj;
 }
 
-- (void)addObject:(id)anObject {
+- (void)addObject:(id)anObject { self.delta = YES;
     [self addObjectNoSort:anObject];
     [self.storage sortUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
 }
@@ -93,9 +132,9 @@ static NSSortDescriptor *sortDescriptor;
     self.storage[i] = replacement;
 }
 
-- (void)addObjectsFromArray:(NSArray *)toAdd {
+- (void)addObjectsFromArray:(NSArray *)toAdd { self.delta = YES;
     NSMutableArray *toAddToStorage = toAdd.mutableCopy;
-    //    [toAddToStorage filterUsingPredicate:self.filter];
+    [toAddToStorage filterUsingPredicate:self.filter];
     
     // Replace duplicates in storage, remove duplicates
     // from "to add to storage"
@@ -124,9 +163,14 @@ static NSSortDescriptor *sortDescriptor;
 }
 
 - (NSArray<id> *)allObjects {
-    NSMutableArray *tmp = self.storage.mutableCopy;
-    [tmp addObjectsFromArray:self.history.array];
-    return [tmp sortedArrayUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
+    if (self.delta) {
+        NSMutableArray *tmp = self.storage.mutableCopy;
+        [tmp addObjectsFromArray:self.history.array];
+        _allObjects = [tmp sortedArrayUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
+        self.delta = NO;
+    }
+    
+    return _allObjects ?: @[];
 }
 
 - (void)setKeepsRemovedObjectsInHistory:(BOOL)keepsRemovedObjectsInHistory {
@@ -140,7 +184,7 @@ static NSSortDescriptor *sortDescriptor;
     }
 }
 
-- (void)setArray:(NSArray *)newFeed {
+- (void)setArray:(NSArray *)newFeed { self.delta = YES;
     if (self.keepsRemovedObjectsInHistory) {
         // Store removed objects in history by getting diff from new feed
         NSMutableSet *removed = [NSMutableSet setWithArray:self.storage];
@@ -151,7 +195,7 @@ static NSSortDescriptor *sortDescriptor;
     [self.storage setArray:newFeed];
 }
 
-- (void)removeObject:(id)anObject {
+- (void)removeObject:(id)anObject { _delta = YES;
     NSInteger idx = [self.storage indexOfObject:anObject];
     
     if (idx != NSNotFound) {
@@ -160,7 +204,7 @@ static NSSortDescriptor *sortDescriptor;
     }
 }
 
-- (void)removeObjectAtIndex:(NSUInteger)idx {
+- (void)removeObjectAtIndex:(NSUInteger)idx { _delta = YES;
     id obj = self.storage[idx];
     
     [self.storage removeObjectAtIndex:idx];
@@ -199,6 +243,30 @@ static NSSortDescriptor *sortDescriptor;
         for (YYVotable *votable in toAdd)
             votable.removed = YES;
     }
+}
+
+- (void)enumerateObjectsUsingBlock:(void (^)(id _Nonnull, NSUInteger, BOOL * _Nonnull))block {
+    [self.storage enumerateObjectsUsingBlock:block];
+}
+
+- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id _Nonnull, NSUInteger, BOOL * _Nonnull))block {
+    [self.storage enumerateObjectsWithOptions:opts usingBlock:block];
+}
+
+- (void)enumerateObjectsAtIndexes:(NSIndexSet *)s options:(NSEnumerationOptions)opts usingBlock:(void (^)(id, NSUInteger, BOOL *))block {
+    [self.storage enumerateObjectsAtIndexes:s options:opts usingBlock:block];
+}
+
+- (NSEnumerator<id> *)objectEnumerator {
+    return self.storage.objectEnumerator;
+}
+
+- (NSEnumerator<id> *)reverseObjectEnumerator {
+    return self.storage.reverseObjectEnumerator;
+}
+
+- (id)valueForKeyPath:(NSString *)keyPath {
+    return [self.storage valueForKeyPath:keyPath];
 }
 
 @end

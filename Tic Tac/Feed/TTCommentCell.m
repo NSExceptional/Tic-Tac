@@ -13,19 +13,25 @@ static NSDictionary *avatars;
 
 @interface TTCommentCell ()
 @property (nonatomic, readonly) UIImageView *iconImageView;
+@property (nonatomic) UILongPressGestureRecognizer *moreOptionsGesture;
 @end
 
 @implementation TTCommentCell
 
-- (void)setupStacks {
-    [super setupStacks];
+- (void)awakeFromNib {
+    [super awakeFromNib];
     
-    // custom view config
     self.customColorViewContainerView = self.contentView;
-    self.contentView.backgroundColor = self.backgroundColor;
     self.repliesEnabled = YES;
     
     self.replyCountLabel.hidden = YES;
+    
+    self.moreOptionsGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressCell:)];
+    [self addGestureRecognizer:self.moreOptionsGesture];
+}
+
+- (void)setupStacks {
+    [super setupStacks];
     
     _iconImageView = [[UIImageView alloc] initWithImage:nil];
     self.iconImageView.clipsToBounds = YES;
@@ -34,6 +40,12 @@ static NSDictionary *avatars;
     [self.stackVerticalMain setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
     [self.stackHorizontalMain insertArrangedSubview:self.iconImageView atIndex:0];
+}
+
+- (void)didLongPressCell:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        YYRunBlock(self.longPressAction);
+    }
 }
 
 - (void)setIcon:(UIImage *)icon {
@@ -67,6 +79,20 @@ static NSDictionary *avatars;
                   completionBlock:^(MCSwipeTableViewCell *swipeCell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) { @strongify(self);
                       YYRunBlock(self.replyAction);
                   }];
+}
+
+- (void)setRemoved:(BOOL)removed {
+    _removed = removed;
+    if (removed) {
+        self.backgroundColor = [UIColor colorWithRed:0.800 green:0.400 blue:0.400 alpha:1.000];
+    } else {
+        self.backgroundColor = nil;
+    }
+}
+
+- (void)setLongPressAction:(VoidBlock)longPressAction {
+    _longPressAction = longPressAction;
+    self.godModeGesture.enabled = longPressAction == nil;
 }
 
 @end

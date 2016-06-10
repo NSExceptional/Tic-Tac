@@ -26,5 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Defaults to YES
 @property (nonatomic) BOOL tagsRemovedObjects;
 
++ (nullable YYYak *)yakForNotificationIfPresent:(YYNotification *)notification;
+
 @end
 NS_ASSUME_NONNULL_END

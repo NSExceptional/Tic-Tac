@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TTVotableTableView.h"
+#import "TTTableView.h"
 
 
-@implementation TTVotableTableView
+@implementation TTTableView
 
 - (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     self = [super initWithFrame:frame style:style];

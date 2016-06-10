@@ -12,5 +12,6 @@
 @interface TTCommentsViewController : TTTableViewController
 
 + (instancetype)commentsForYak:(YYYak *)yak;
++ (instancetype)commentsForNotification:(YYNotification *)notification;
 
 @end

@@ -6,9 +6,10 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TTTableViewController.h"
 
-@interface TTNotificationsViewController : UITableViewController
+
+@interface TTNotificationsViewController : TTTableViewController
 
 - (void)refresh;
 

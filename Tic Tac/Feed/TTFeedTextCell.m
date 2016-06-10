@@ -18,9 +18,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupStacks];
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                action:@selector(presentGodModeActions:)];
-        [self.contentView addGestureRecognizer:longPress];
+        _godModeGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(presentGodModeActions:)];
+        [self.contentView addGestureRecognizer:_godModeGesture];
         [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
                                                           object:self queue:nil usingBlock:^(NSNotification * _Nonnull note) {
                                                               
@@ -123,7 +122,7 @@
 
 - (NSArray<UIView*> *)opaqueViews {
     return @[_titleLabel, _scoreLabel, _ageLabel, _authorLabel, _replyCountLabel,
-             _stackVerticalMain, _stackHorizontalMain, _stackHorizontalTop];
+             _stackVerticalMain, _stackHorizontalMain, _stackHorizontalTop, self.contentView];
 }
 
 - (CGFloat)preferredTitleLabelMaxWidth {
@@ -132,7 +131,7 @@
 
 /// For efficiency
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
-    super.backgroundColor = backgroundColor;
+    super.backgroundColor = backgroundColor ?: [UIColor whiteColor];
     
     for (UIView *view in self.opaqueViews) {
         view.backgroundColor = backgroundColor;

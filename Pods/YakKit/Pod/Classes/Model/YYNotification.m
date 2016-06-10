@@ -91,12 +91,20 @@ NSString * YYStringFromNotificationReason(YYNotificationReason reason) {
     return sharedFormatter;
 }
 
-+ (NSValueTransformer *)updatedJSONTransformer {
++ (NSValueTransformer *)dateTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError **error) {
         return [[self dateFormatter] dateFromString:dateString];
     } reverseBlock:^id(NSDate *date, BOOL *success, NSError **error) {
         return [[self dateFormatter] stringFromDate:date];
     }];
+}
+
++ (NSValueTransformer *)createdJSONTransformer {
+    return [self dateTransformer];
+}
+
++ (NSValueTransformer *)updatedJSONTransformer {
+    return [self dateTransformer];
 }
 
 + (NSValueTransformer *)unreadJSONTransformer {

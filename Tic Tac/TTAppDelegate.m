@@ -61,6 +61,11 @@
         me.preferredMaxLayoutWidth = CGRectGetWidth(me.frame);
         ((void(*)(id, SEL))old)(me, @selector(layoutSubviews));
     })];
+    
+    MKMethod *statusBar = [MKMethod methodForSelector:@selector(preferredStatusBarStyle) class:[UINavigationController class]];
+    [UINavigationController replaceImplementationOfMethod:statusBar with:imp_implementationWithBlock(^(UINavigationController *me) {
+        return UIStatusBarStyleLightContent;
+    })];
 }
 
 - (TTTabBarController *)tabBarController {

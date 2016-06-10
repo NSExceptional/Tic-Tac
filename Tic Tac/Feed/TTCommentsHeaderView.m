@@ -25,17 +25,15 @@
 
 + (instancetype)headerForYak:(YYYak *)yak {
     TTCommentsHeaderView *view = [[self alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    view.scoreLabel.text         = @(yak.score).stringValue;
-    view.authorLabel.text        = yak.username;
-    view.authorLabel.hidden      = yak.handle.length == 0;
-    view.ageLabel.text           = yak.created.relativeTimeString;
-    view.titleLabel.text         = yak.title;
-    view.addCommentButton.hidden = yak.isReadOnly;
-    view.chatButton.hidden       = view.authorLabel.hidden;
-
-    [view setFrameHeight:[view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height];
-    [view setNeedsLayout];
-    [view layoutIfNeeded];
+    
+    if (!yak) {
+        view.titleLabel.text = @"Loading…";
+        [view setFrameHeight:[view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height];
+        [view setNeedsLayout];
+        [view layoutIfNeeded];
+    } else {
+        [view updateWithYak:yak];
+    }
 
     return view;
 }
@@ -49,6 +47,22 @@
         [self setupStacks];
     }
     return self;
+}
+
+- (void)updateWithYak:(YYYak *)yak {
+    NSParameterAssert(yak);
+    
+    self.scoreLabel.text         = @(yak.score).stringValue;
+    self.authorLabel.text        = yak.username;
+    self.authorLabel.hidden      = yak.handle.length == 0;
+    self.ageLabel.text           = yak.created.relativeTimeString;
+    self.titleLabel.text         = yak.title;
+    self.addCommentButton.hidden = yak.isReadOnly;
+    self.chatButton.hidden       = self.authorLabel.hidden;
+    
+    [self setFrameHeight:[self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
 
 - (void)setupStacks {

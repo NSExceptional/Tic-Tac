@@ -12,6 +12,8 @@
 @interface TTCommentsHeaderView : UIView
 
 + (instancetype)headerForYak:(YYYak *)yak;
+- (void)updateWithYak:(YYYak *)yak;
+
 @property (nonatomic, readonly) UIButton *addCommentButton;
 
 @end

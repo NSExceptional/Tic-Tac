@@ -11,6 +11,6 @@
 
 @interface TTReplyViewController : UIViewController
 
-+ (UINavigationController *)replyWithInitialText:(NSString *)text onSubmit:(void(^)(NSString *text, BOOL useHandle))submit;
++ (UINavigationController *)initialText:(NSString *)text limit:(NSUInteger)limit onSubmit:(void(^)(NSString *text, BOOL useHandle))submit;
 
 @end

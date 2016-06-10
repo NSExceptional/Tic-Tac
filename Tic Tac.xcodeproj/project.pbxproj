@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7E51347CD76C70F537B0BBF4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FF4A92F5993BA051B2D00C /* libPods.a */; };
+		90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */; };
+		90906DF81D0B1C66002A8CFA /* YYNotification+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */; };
 		B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */; };
 		B44F16051CDA977A002DF423 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44F16041CDA977A002DF423 /* Defaults.plist */; };
 		B44F16081CDA98AC002DF423 /* TTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B44F16071CDA98AC002DF423 /* TTCache.m */; };
@@ -33,7 +35,7 @@
 		B4743ACA1D03AC9D00B566E5 /* TBAlertController+Anywhere.m in Sources */ = {isa = PBXBuildFile; fileRef = B4743AC91D03AC9D00B566E5 /* TBAlertController+Anywhere.m */; };
 		B4743ACD1D03AE3900B566E5 /* TTManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B4743ACC1D03AE3900B566E5 /* TTManager.m */; };
 		B4C204EF1CD97A0D00564A83 /* YYComment+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204EE1CD97A0D00564A83 /* YYComment+Util.m */; };
-		B4C204F21CD9886C00564A83 /* TTVotableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204F11CD9886C00564A83 /* TTVotableTableView.m */; };
+		B4C204F21CD9886C00564A83 /* TTTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204F11CD9886C00564A83 /* TTTableView.m */; };
 		B4C204F51CD997F100564A83 /* TBNetworkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204F41CD997F100564A83 /* TBNetworkActivity.m */; };
 		B4C204F81CD9BBCC00564A83 /* TTReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204F71CD9BBCC00564A83 /* TTReplyViewController.m */; };
 		B4C204FB1CD9BE7500564A83 /* NSString+SplitUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204FA1CD9BE7500564A83 /* NSString+SplitUp.m */; };
@@ -51,6 +53,10 @@
 
 /* Begin PBXFileReference section */
 		1199B1BE707A13DCEE6DFFE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		90906DF31D0B1B8D002A8CFA /* TTNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNotificationCell.h; sourceTree = "<group>"; };
+		90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationCell.m; sourceTree = "<group>"; };
+		90906DF61D0B1C66002A8CFA /* YYNotification+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYNotification+Util.h"; sourceTree = "<group>"; };
+		90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYNotification+Util.m"; sourceTree = "<group>"; };
 		A0FF4A92F5993BA051B2D00C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableViewController.h; sourceTree = "<group>"; };
 		B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableViewController.m; sourceTree = "<group>"; };
@@ -101,8 +107,8 @@
 		B4743ACC1D03AE3900B566E5 /* TTManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTManager.m; sourceTree = "<group>"; };
 		B4C204ED1CD97A0D00564A83 /* YYComment+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYComment+Util.h"; sourceTree = "<group>"; };
 		B4C204EE1CD97A0D00564A83 /* YYComment+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYComment+Util.m"; sourceTree = "<group>"; };
-		B4C204F01CD9886C00564A83 /* TTVotableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTVotableTableView.h; sourceTree = "<group>"; };
-		B4C204F11CD9886C00564A83 /* TTVotableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTVotableTableView.m; sourceTree = "<group>"; };
+		B4C204F01CD9886C00564A83 /* TTTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableView.h; sourceTree = "<group>"; };
+		B4C204F11CD9886C00564A83 /* TTTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableView.m; sourceTree = "<group>"; };
 		B4C204F31CD997F100564A83 /* TBNetworkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBNetworkActivity.h; sourceTree = "<group>"; };
 		B4C204F41CD997F100564A83 /* TBNetworkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBNetworkActivity.m; sourceTree = "<group>"; };
 		B4C204F61CD9BBCC00564A83 /* TTReplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTReplyViewController.h; sourceTree = "<group>"; };
@@ -257,6 +263,8 @@
 			children = (
 				B45C70301CC8C217002164FF /* TTNotificationsViewController.h */,
 				B45C70311CC8C217002164FF /* TTNotificationsViewController.m */,
+				90906DF31D0B1B8D002A8CFA /* TTNotificationCell.h */,
+				90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -281,8 +289,8 @@
 				B471391E1CD6DE8E00B1DAAF /* TTFeedArray.m */,
 				B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */,
 				B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */,
-				B4C204F01CD9886C00564A83 /* TTVotableTableView.h */,
-				B4C204F11CD9886C00564A83 /* TTVotableTableView.m */,
+				B4C204F01CD9886C00564A83 /* TTTableView.h */,
+				B4C204F11CD9886C00564A83 /* TTTableView.m */,
 				B4C204F31CD997F100564A83 /* TBNetworkActivity.h */,
 				B4C204F41CD997F100564A83 /* TBNetworkActivity.m */,
 				B44F16061CDA98AC002DF423 /* TTCache.h */,
@@ -310,6 +318,8 @@
 				B471391B1CD6DC6900B1DAAF /* YYVotable+Removed.m */,
 				B4C204ED1CD97A0D00564A83 /* YYComment+Util.h */,
 				B4C204EE1CD97A0D00564A83 /* YYComment+Util.m */,
+				90906DF61D0B1C66002A8CFA /* YYNotification+Util.h */,
+				90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */,
 				B4C204F91CD9BE7500564A83 /* NSString+SplitUp.h */,
 				B4C204FA1CD9BE7500564A83 /* NSString+SplitUp.m */,
 				B4743AC81D03AC9D00B566E5 /* TBAlertController+Anywhere.h */,
@@ -459,6 +469,7 @@
 				B4C204F81CD9BBCC00564A83 /* TTReplyViewController.m in Sources */,
 				B4712D261CD6AF5900B1DAAF /* NSDate+AgeString.m in Sources */,
 				B4E73C601CC6A97600670CC6 /* TTTabBarController.m in Sources */,
+				90906DF81D0B1C66002A8CFA /* YYNotification+Util.m in Sources */,
 				B4E73C6B1CC6D8CA00670CC6 /* TTWelcomeButton.m in Sources */,
 				B4743ACD1D03AE3900B566E5 /* TTManager.m in Sources */,
 				B4C204F51CD997F100564A83 /* TBNetworkActivity.m in Sources */,
@@ -477,6 +488,7 @@
 				B45C70291CC85060002164FF /* TTVotingCell.m in Sources */,
 				B4E73C481CC6A7D500670CC6 /* main.m in Sources */,
 				B44F16081CDA98AC002DF423 /* TTCache.m in Sources */,
+				90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */,
 				B45C70411CC8C736002164FF /* NSUserDefaults+Preferences.m in Sources */,
 				B45C702C1CC85072002164FF /* TTFeedTextCell.m in Sources */,
 				B471391F1CD6DE8E00B1DAAF /* TTFeedArray.m in Sources */,
@@ -484,7 +496,7 @@
 				B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */,
 				B45C703E1CC8C4C4002164FF /* UIViewController+TicTac.m in Sources */,
 				B4743ACA1D03AC9D00B566E5 /* TBAlertController+Anywhere.m in Sources */,
-				B4C204F21CD9886C00564A83 /* TTVotableTableView.m in Sources */,
+				B4C204F21CD9886C00564A83 /* TTTableView.m in Sources */,
 				B45C70351CC8C223002164FF /* TTSettingsViewController.m in Sources */,
 				B4C204EF1CD97A0D00564A83 /* YYComment+Util.m in Sources */,
 			);
@@ -581,12 +593,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pantsthief.Tic-Tac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -596,12 +610,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pantsthief.Tic-Tac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

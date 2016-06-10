@@ -39,8 +39,8 @@
     for (UITabBarItem *item in self.tabBar.items) {
         item.image = [UIImage imageNamed:icons[i]];
         item.title = titles[i++];
-//        item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
-//        item.titlePositionAdjustment = UIOffsetMake(0, 12);
+        //        item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+        //        item.titlePositionAdjustment = UIOffsetMake(0, 12);
     }
 }
 

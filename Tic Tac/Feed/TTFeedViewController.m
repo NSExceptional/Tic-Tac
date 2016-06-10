@@ -10,13 +10,14 @@
 #import "TTFeedTextCell.h"
 #import "TTFeedPhotoCell.h"
 #import "TTCommentsViewController.h"
+#import "TTReplyViewController.h"
 
 
 @interface TTFeedViewController ()
 @property (nonatomic, readonly) UIBarButtonItem *sortToggleButton;
 @property (nonatomic, readonly) UIBarButtonItem *composeButton;
 
-@property (nonatomic) TTFeedArray<YYYak*> *dataSource;
+@property (nonatomic, readonly) TTFeedArray<YYYak*> *dataSource;
 @end
 
 @implementation TTFeedViewController
@@ -25,11 +26,14 @@
     [super viewDidLoad];
     
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    self.dataSource = [TTFeedArray new];
+    _dataSource = [TTFeedArray new];
     self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYYak *yak, NSDictionary *bindings) {
         return YYContainsPolitics(yak.title.lowercaseString);
     }];
     
+    // Compose, register for update title notification, update title
+    id comp = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composePost)];
+    self.navigationItem.rightBarButtonItem = comp;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitle) name:kYYDidUpdateUserNotification object:nil];
     [self updateTitle];
 }
@@ -51,6 +55,16 @@
             [self.refreshControl endRefreshing];
         }
     }];
+}
+
+- (void)composePost {
+    [self.navigationController presentViewController:[TTReplyViewController initialText:nil limit:200 onSubmit:^(NSString *text, BOOL useHandle) {
+        [TBNetworkActivity push];
+        [[YYClient sharedClient] postYak:text useHandle:useHandle completion:^(NSError *error) {
+            [self displayOptionalError:error];
+            [TBNetworkActivity pop];
+        }];
+    }] animated:YES completion:nil];
 }
 
 #pragma mark UITableViewDataSource

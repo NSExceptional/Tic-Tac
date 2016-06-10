@@ -25,6 +25,23 @@
     return comments;
 }
 
++ (instancetype)commentsForNotification:(YYNotification *)notification {
+    TTCommentsViewController *comments = [self new];
+    [[YYClient sharedClient] getYak:notification completion:^(YYYak *yak, NSError *error) {
+        [comments displayOptionalError:error];
+        if (!error) {
+            comments->_yak = yak;
+            [comments.commentsHeaderView updateWithYak:yak];
+            
+            if (comments.view.tag) {
+                [comments reloadCommentSectionData];
+            }
+        }
+    }];
+    
+    return comments;
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -46,15 +63,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Title
-    if (self.yak.replyCount == 1) { self.title = @"1 Comment"; } else {
-        self.title = [NSString stringWithFormat:@"%@ Comments", @(self.yak.replyCount)];
-    }
+    // So we know if we need to load the comments or not after loading the yak
+    // if (self.view.tag) load comments, else they will be loaded here
+    self.view.tag = 1;
     
-    // Load comments
-    [self reloadComments];
+    [self.refreshControl addTarget:self action:@selector(reloadComments) forControlEvents:UIControlEventValueChanged];
+    
+    if (self.yak) {
+        [self reloadCommentSectionData];
+    } else {
+        self.title = nil;
+    }
 }
-
 
 - (void)reloadComments {
     if (self.loadingData) return;
@@ -65,8 +85,9 @@
         
         [self displayOptionalError:error message:@"Failed to load comments"];
         if (!error) {
-            [self.dataSource addObjectsFromArray:collection];
+            [self.dataSource setArray:collection];
             [self.tableView reloadSection:0];
+            [self.refreshControl endRefreshing];
             
             // Update title
             if (self.dataSource.count == 1) { self.title = @"1 Comment"; } else {
@@ -76,18 +97,44 @@
     }];
 }
 
+- (void)reloadCommentSectionData {
+    // Title
+    if (self.yak.replyCount == 1) { self.title = @"1 Comment"; } else {
+        self.title = [NSString stringWithFormat:@"%@ Comments", @(self.yak.replyCount)];
+    }
+    
+    // Delete button
+    if ([self.yak.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
+        id delete = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePost)];
+        self.navigationItem.rightBarButtonItem = delete;
+    }
+    
+    // Load comments
+    [self reloadComments];
+}
+
+- (void)deletePost {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [TBNetworkActivity push];
+    [[YYClient sharedClient] deleteYakOrComment:self.yak completion:^(NSError *error) {
+        [TBNetworkActivity pop];
+        [self displayOptionalError:error];
+    }];
+}
+
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TTCommentCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:kCommentCellReuse];
-    [self configureCell:cell forComment:self.dataSource[indexPath.row]];
+    [self configureCell:cell forComment:self.dataSource.allObjects[indexPath.row]];
     [cell setNeedsLayout];
     [cell layoutIfNeeded];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    return self.dataSource.allObjects.count;
 }
 
 #pragma mark UITableViewDelegate
@@ -111,6 +158,29 @@
     };
     
     [cell setIcon:comment.overlayIdentifier withColor:comment.backgroundIdentifier];
+    
+    // Long press to delete comment
+    if ([comment.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
+        cell.longPressAction = ^{
+            TBAlertController *delete = [TBAlertController alertViewWithTitle:@"More Options" message:nil];
+            [delete setCancelButtonWithTitle:@"Cancel"];
+            
+            [delete addOtherButtonWithTitle:@"Delete" buttonAction:^(NSArray *textFieldStrings) {
+                [TBNetworkActivity push];
+                [[YYClient sharedClient] deleteYakOrComment:comment completion:^(NSError *error) {
+                    [TBNetworkActivity pop];
+                    [self displayOptionalError:error];
+                    if (!error) {
+                        [self reloadComments];
+                    }
+                }];
+            }];
+            
+            [delete show];
+        };
+    } else {
+        cell.longPressAction = nil;
+    }
 }
 
 #pragma mark Replying
@@ -121,7 +191,7 @@
 
 - (void)replyToUser:(NSString *)username {
     username = [username stringByAppendingString:@" "];
-    [self.navigationController presentViewController:[TTReplyViewController replyWithInitialText:username onSubmit:^(NSString *text, BOOL useHandle) {
+    [self.navigationController presentViewController:[TTReplyViewController initialText:username limit:-1 onSubmit:^(NSString *text, BOOL useHandle) {
         if (text.length > 200) {
             NSInteger i = 0;
             for (NSString *reply in [text brokenUpByCharacterLimit:200]) {

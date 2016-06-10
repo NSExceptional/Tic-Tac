@@ -11,6 +11,8 @@
 
 @interface TTFeedTextCell : TTVotingCell
 
+@property (nonatomic, readonly) UILongPressGestureRecognizer *godModeGesture;
+
 @property (nonatomic) BOOL visited;
 @property (nonatomic) NSString *authorLabelText;
 

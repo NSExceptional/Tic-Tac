@@ -12,6 +12,7 @@
 static NSString * const kFeedTextCellReuse = @"kFeedTextCellReuse";
 static NSString * const kFeedPhotoCellReuse = @"kFeedPhotoCellReuse";
 static NSString * const kCommentCellReuse = @"kCommentCellReuse";
+static NSString * const kNotificationReuse = @"kNotificationReuse";
 
 @interface TTTableViewController : UITableViewController
 

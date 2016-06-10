@@ -9,9 +9,10 @@
 #import "TTReplyViewController.h"
 
 
-@interface TTReplyViewController ()
+@interface TTReplyViewController () <UITextViewDelegate>
 @property (nonatomic) NSString *initialText;
 @property (nonatomic, readonly) UITextView *textView;
+@property (nonatomic, readonly) NSUInteger characterLimit;
 @property (nonatomic, copy) void (^onSubmit)(NSString *, BOOL);
 
 @property (nonatomic) MASConstraint *textViewHeight;
@@ -19,15 +20,16 @@
 
 @implementation TTReplyViewController
 
-+ (UINavigationController *)replyWithInitialText:(NSString *)text onSubmit:(void(^)(NSString *text, BOOL useHandle))submit {
-    return [[UINavigationController alloc] initWithRootViewController:[[self alloc] initWithInitialText:text andSubmitAction:submit]];
++ (UINavigationController *)initialText:(NSString *)text limit:(NSUInteger)limit  onSubmit:(void(^)(NSString *text, BOOL useHandle))submit {
+    return [[UINavigationController alloc] initWithRootViewController:[[self alloc] initWithInitialText:text limit:limit andSubmitAction:submit]];
 }
 
-- (id)initWithInitialText:(NSString *)text andSubmitAction:(void(^)(NSString *text, BOOL useHandle))submit {
+- (id)initWithInitialText:(NSString *)text limit:(NSUInteger)limit andSubmitAction:(void(^)(NSString *text, BOOL useHandle))submit {
     self = [super init];
     if (self) {
         _initialText = text;
         _onSubmit = submit;
+        _characterLimit = limit;
     }
     
     return self;
@@ -42,6 +44,7 @@
         _textView.font = [UIFont systemFontOfSize:21];
         _textView.textContainerInset = UIEdgeInsetsMake(8, 5, 8, 5);
         _textView.text = self.initialText;
+        _textView.delegate = self;
         
         [view addSubview:_textView];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,6 +91,11 @@
 
 - (void)cancel {
     [self.navigationController dismissAnimated];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSString *newString = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    return newString.length < _characterLimit;
 }
 
 @end

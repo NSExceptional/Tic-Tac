@@ -8,6 +8,7 @@
 
 #import "YYClient+Yakking.h"
 #import "YYYak.h"
+#import "YYComment.h"
 
 
 @implementation YYClient (Yakking)
@@ -39,14 +40,15 @@
 
 #pragma mark Deleting
 
-- (void)deleteYakOrComment:(YYVotable *)thing completion:(nullable ErrorBlock)completion {
+- (void)deleteYakOrComment:(YYComment *)thing completion:(nullable ErrorBlock)completion {
     NSDictionary *params;
     NSString *endpoint;
     if ([thing isKindOfClass:[YYYak class]]) {
         params = [self generalParams:@{@"messageID": thing.identifier}];
         endpoint = kepDeleteYak;
     } else {
-        params = [self generalParams:@{@"commentID": thing.identifier}];
+        params = [self generalParams:@{@"commentID": thing.identifier,
+                                       @"messageID": thing.yakIdentifier}];
         endpoint = kepDeleteComment;
     }
     

@@ -7,10 +7,12 @@
 //
 
 #import "TTTableViewController.h"
-#import "TTVotableTableView.h"
+#import "TTTableView.h"
 #import "TTFeedTextCell.h"
 #import "TTFeedPhotoCell.h"
 #import "TTCommentCell.h"
+#import "TTNotificationCell.h"
+
 
 @interface TTTableViewController ()
 @property (nonatomic, readonly) NSMutableArray<NSNumber*> *rowHeights;
@@ -19,13 +21,13 @@
 @implementation TTTableViewController
 
 - (void)loadView {
-    self.tableView = [[TTVotableTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [[TTTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.view = self.tableView;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 }
 
-- (TTVotableTableView *)_tableView { return (id)super.tableView; };
+- (TTTableView *)_tableView { return (id)super.tableView; };
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,6 +40,7 @@
     [self.tableView registerClass:[TTFeedTextCell class] forCellReuseIdentifier:kFeedTextCellReuse];
     [self.tableView registerClass:[TTFeedPhotoCell class] forCellReuseIdentifier:kFeedPhotoCellReuse];
     [self.tableView registerClass:[TTCommentCell class] forCellReuseIdentifier:kCommentCellReuse];
+    [self.tableView registerClass:[TTNotificationCell class] forCellReuseIdentifier:kNotificationReuse];
     
     self.refreshControl = [UIRefreshControl new];
 }

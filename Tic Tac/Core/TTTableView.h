@@ -15,7 +15,7 @@
 @end
 
 
-@interface TTVotableTableView : UITableView
+@interface TTTableView : UITableView
 
 @property (nonatomic) BOOL showsEmptyMessage;
 
