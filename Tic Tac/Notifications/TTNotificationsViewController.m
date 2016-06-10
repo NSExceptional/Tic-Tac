@@ -8,6 +8,11 @@
 
 #import "TTNotificationsViewController.h"
 
+
+@interface TTNotificationsViewController ()
+@property (<#nonatomic,#> <#readonly#>) <#type#>
+@end
+
 @implementation TTNotificationsViewController
 
 - (void)refresh {

@@ -34,6 +34,7 @@ static NSSortDescriptor *sortDescriptor;
         _staysSorted = YES;
         _sortNewestFirst = NO;
         _keepsRemovedObjectsInHistory = YES;
+        _tagsRemovedObjects = YES;
         
         self.chooseDuplicate = ^id(YYVotable *orig, YYVotable *dup) {
             return dup;
@@ -50,66 +51,82 @@ static NSSortDescriptor *sortDescriptor;
     return self.storage[index];
 }
 
+/// Replaces duplicates or old objects, keeps removed in history
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
     id old = self.storage[idx];
     if ([old isEqual:obj]) {
         obj = self.chooseDuplicate(old, obj);
-    } else {
-        [self.history addObject:old];
+    } else if (self.keepsRemovedObjectsInHistory) {
+        [self addObjectToHistory:old];
     }
     
     self.storage[idx] = obj;
 }
 
 - (void)addObject:(id)anObject {
+    [self addObjectNoSort:anObject];
+    [self.storage sortUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
+}
+
+/// Replaces duplicate ones, does nothing for existing ones, adds new ones
+- (void)addObjectNoSort:(id)new {
     NSArray *storage = self.storage.copy;
     for (id orig in storage) {
-        if ([orig isEqual:anObject]) {
-            anObject = self.chooseDuplicate(orig, anObject);
-            // Object exists already, not replaced, nothing to do
-            if (anObject == orig) { return; }
-            
-            // Object exists already, will be replaced, we're done
-            NSInteger i = [self.storage indexOfObject:orig];
-            self.storage[i] = anObject;
+        if ([orig isEqual:new]) {
+            [self maybeAddExistingObject:new orig:orig];
             return;
         }
     }
     
     // New object
-    [self.storage addObject:anObject];
-    [self.storage sortUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
+    [self.storage addObject:new];
+}
+
+/// Assumes new and orig are equal
+- (void)maybeAddExistingObject:(id)new orig:(id)orig {
+    id replacement = self.chooseDuplicate(orig, new);
+    // Object exists already, not replaced, nothing to do
+    if (replacement == orig) { return; }
+    
+    // Object exists already, will be replaced, we're done
+    NSInteger i = [self.storage indexOfObject:orig];
+    self.storage[i] = replacement;
 }
 
 - (void)addObjectsFromArray:(NSArray *)toAdd {
+    NSMutableArray *toAddToStorage = toAdd.mutableCopy;
+    //    [toAddToStorage filterUsingPredicate:self.filter];
+    
     // Replace duplicates in storage, remove duplicates
     // from "to add to storage"
     NSMutableArray *storage = self.storage.copy;
-    NSMutableArray *toAddToStorage = toAdd.mutableCopy;
-    for (id orig in storage)
-        for (id new in toAdd)
+    for (id new in toAdd)
+        for (id orig in storage)
             if ([orig isEqual:new]) {
-                id replacement = self.chooseDuplicate(orig, new);
-                // Object exists already, not replaced, nothing to do
-                if (replacement == orig) { continue; }
-                
-                // Object exists already, will be replaced, should
-                // be removed from the "to add" array
-                NSInteger i = [self.storage indexOfObject:orig];
-                self.storage[i] = replacement;
+                // Old or new obj exists, do not add again
                 [toAddToStorage removeObject:new];
+                [self maybeAddExistingObject:new orig:orig];
             }
     
-    // Filter remaining objects, add, sort
-    [toAddToStorage filterUsingPredicate:self.filter];
+    // Add, sort
     [self.storage addObjectsFromArray:toAddToStorage];
     [self.storage sortUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
 }
 
 - (NSUInteger)count { return self.storage.count; }
 
-- (NSArray *)array {
+- (NSArray<id> *)array {
     return self.storage.copy;
+}
+
+- (NSArray<id> *)removed {
+    return self.history.array;
+}
+
+- (NSArray<id> *)allObjects {
+    NSMutableArray *tmp = self.storage.mutableCopy;
+    [tmp addObjectsFromArray:self.history.array];
+    return [tmp sortedArrayUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
 }
 
 - (void)setKeepsRemovedObjectsInHistory:(BOOL)keepsRemovedObjectsInHistory {
@@ -128,7 +145,7 @@ static NSSortDescriptor *sortDescriptor;
         // Store removed objects in history by getting diff from new feed
         NSMutableSet *removed = [NSMutableSet setWithArray:self.storage];
         [removed minusSet:[NSSet setWithArray:newFeed]];
-        [self.history addObjectsFromArray:removed.allObjects];
+        [self addObjectsToHistory:removed.allObjects];
     }
     
     [self.storage setArray:newFeed];
@@ -138,12 +155,8 @@ static NSSortDescriptor *sortDescriptor;
     NSInteger idx = [self.storage indexOfObject:anObject];
     
     if (idx != NSNotFound) {
-        anObject = self.chooseDuplicate(self.storage[idx], anObject);
-        
-        [self.storage removeObjectAtIndex:idx];
-        if (_keepsRemovedObjectsInHistory) {
-            [self.history addObject:anObject];
-        }
+        self.storage[idx] = self.chooseDuplicate(self.storage[idx], anObject);
+        [self removeObjectAtIndex:idx];
     }
 }
 
@@ -152,7 +165,7 @@ static NSSortDescriptor *sortDescriptor;
     
     [self.storage removeObjectAtIndex:idx];
     if (_keepsRemovedObjectsInHistory) {
-        [self.history addObject:obj];
+        [self addObjectsToHistory:obj];
     }
 }
 
@@ -171,6 +184,21 @@ static NSSortDescriptor *sortDescriptor;
     NSUInteger max = range.location + range.length;
     for (NSUInteger i = range.location; i < max; i++)
         [self removeObjectAtIndex:i];
+}
+
+- (void)addObjectToHistory:(id)anObject {
+    [self.history addObject:anObject];
+    if (self.tagsRemovedObjects) {
+        [(YYVotable *)anObject setRemoved:YES];
+    }
+}
+
+- (void)addObjectsToHistory:(NSArray *)toAdd {
+    [self.history addObjectsFromArray:toAdd];
+    if (self.tagsRemovedObjects) {
+        for (YYVotable *votable in toAdd)
+            votable.removed = YES;
+    }
 }
 
 @end
