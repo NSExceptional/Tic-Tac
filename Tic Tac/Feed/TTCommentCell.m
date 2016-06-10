@@ -13,7 +13,6 @@ static NSDictionary *avatars;
 
 @interface TTCommentCell ()
 @property (nonatomic, readonly) UIImageView *iconImageView;
-@property (nonatomic) UILongPressGestureRecognizer *moreOptionsGesture;
 @end
 
 @implementation TTCommentCell
@@ -23,15 +22,12 @@ static NSDictionary *avatars;
     
     self.customColorViewContainerView = self.contentView;
     self.repliesEnabled = YES;
-    
-    self.replyCountLabel.hidden = YES;
-    
-    self.moreOptionsGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressCell:)];
-    [self addGestureRecognizer:self.moreOptionsGesture];
 }
 
 - (void)setupStacks {
     [super setupStacks];
+    
+    self.replyCountLabel.hidden = YES;
     
     _iconImageView = [[UIImageView alloc] initWithImage:nil];
     self.iconImageView.clipsToBounds = YES;
@@ -88,11 +84,6 @@ static NSDictionary *avatars;
     } else {
         self.backgroundColor = nil;
     }
-}
-
-- (void)setLongPressAction:(VoidBlock)longPressAction {
-    _longPressAction = longPressAction;
-    self.godModeGesture.enabled = longPressAction == nil;
 }
 
 @end

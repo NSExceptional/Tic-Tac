@@ -47,7 +47,7 @@
         _textView.delegate = self;
         
         [view addSubview:_textView];
-        [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_textView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(view.mas_top);
             make.left.equalTo(view.mas_left);
             make.right.equalTo(view.mas_right);

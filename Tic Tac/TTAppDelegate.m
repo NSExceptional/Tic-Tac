@@ -24,6 +24,7 @@
     
     // Appearance
     [self customizeAppearance];
+//    [[FLEXManager sharedManager] showExplorer];
     
     // Default preferences
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];

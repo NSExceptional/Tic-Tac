@@ -13,4 +13,7 @@
 
 @property (nonatomic) BOOL unread;
 
+@property (nonatomic, readonly) UILabel *titleLabel;
+@property (nonatomic, readonly) UILabel *contentLabel;
+
 @end

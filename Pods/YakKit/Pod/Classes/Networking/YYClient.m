@@ -241,8 +241,7 @@ static NSMutableArray *requestCache;
                 completion(text, nil);
             } else {
                 text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                NSString *message = [NSString stringWithFormat:@"Unknown error:\n%@", text];
-                completion(nil, [YYClient errorWithMessage:message code:1]);
+                [self handleCode:code text:text completion:completion];
             }
         } else {
             if ((code > 199 && code < 300) || code == 304) {
@@ -254,11 +253,20 @@ static NSMutableArray *requestCache;
                 completion(nil, error);
             }
         }
-    } else if ((code > 199 && code < 300) || code == 304) {
+    } else {
+        [self handleCode:code text:nil completion:completion];
+    }
+}
+
+- (void)handleCode:(NSInteger)code text:(NSString *)text completion:(ResponseBlock)completion {
+    if ((code > 199 && code < 300) || code == 304) {
         // Succeeded with no response
         completion(nil, nil);
     } else if (code >= 500) {
         completion(nil, [YYClient errorWithMessage:@"Bad request / internal server error" code:code]);
+    } else if (text) {
+        if (text.length > 200) text = [text substringToIndex:200];
+        completion(nil, [YYClient errorWithMessage:text code:code]);
     } else {
         completion(nil, [YYClient errorWithMessage:@"Unknown error" code:code]);
     }

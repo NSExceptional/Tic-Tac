@@ -128,7 +128,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TTCommentCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:kCommentCellReuse];
     [self configureCell:cell forComment:self.dataSource.allObjects[indexPath.row]];
-    [cell setNeedsLayout];
     [cell layoutIfNeeded];
     return cell;
 }
@@ -141,7 +140,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //    YYComment *comment = self.dataSource[indexPath.row];
+    YYComment *comment = self.dataSource[indexPath.row];
+    
+    if ([comment.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
+        [self showOptionsForComment:comment];
+    }
+}
+
+- (void)showOptionsForComment:(YYComment *)comment {
+    TBAlertController *delete = [TBAlertController alertViewWithTitle:@"More Options" message:nil];
+    [delete setCancelButtonWithTitle:@"Cancel"];
+    
+    [delete addOtherButtonWithTitle:@"Delete" buttonAction:^(NSArray *textFieldStrings) {
+        [TBNetworkActivity push];
+        [[YYClient sharedClient] deleteYakOrComment:comment completion:^(NSError *error) {
+            [TBNetworkActivity pop];
+            [self displayOptionalError:error];
+            if (!error) {
+                [self reloadComments];
+            }
+        }];
+    }];
+    
+    [delete show];
 }
 
 #pragma mark Cell configuration
@@ -149,6 +170,7 @@
 - (void)configureCell:(TTCommentCell *)cell forComment:(YYComment *)comment {
     cell.titleLabel.text  = comment.body;
     cell.scoreLabel.text  = @(comment.score).stringValue;
+    cell.ageLabel.text    = comment.created.relativeTimeString;
     cell.authorLabel.text = comment.authorText;
     cell.votable          = comment;
     cell.votingSwipesEnabled = !self.yak.isReadOnly;
@@ -158,29 +180,6 @@
     };
     
     [cell setIcon:comment.overlayIdentifier withColor:comment.backgroundIdentifier];
-    
-    // Long press to delete comment
-    if ([comment.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
-        cell.longPressAction = ^{
-            TBAlertController *delete = [TBAlertController alertViewWithTitle:@"More Options" message:nil];
-            [delete setCancelButtonWithTitle:@"Cancel"];
-            
-            [delete addOtherButtonWithTitle:@"Delete" buttonAction:^(NSArray *textFieldStrings) {
-                [TBNetworkActivity push];
-                [[YYClient sharedClient] deleteYakOrComment:comment completion:^(NSError *error) {
-                    [TBNetworkActivity pop];
-                    [self displayOptionalError:error];
-                    if (!error) {
-                        [self reloadComments];
-                    }
-                }];
-            }];
-            
-            [delete show];
-        };
-    } else {
-        cell.longPressAction = nil;
-    }
 }
 
 #pragma mark Replying

@@ -95,7 +95,7 @@
 - (void)updateConstraints {
     CGFloat inset = self.separatorInset.left;
     CGFloat topBottomInset = 12;//inset * (2.f/3.f);
-    [[self topStackView] mas_makeConstraints:^(MASConstraintMaker *make) {
+    [[self topStackView] mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(topBottomInset, inset, topBottomInset, inset));
     }];
     

@@ -22,6 +22,9 @@
     [super viewDidLoad];
     
     _dataSource = [TTFeedArray new];
+    self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYNotification *notification, id bindings) {
+        return notification.reason != YYNotificationReasonVote;
+    }];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self refresh];
     
@@ -78,7 +81,12 @@
 }
 
 - (void)updateBadge {
-    self.tabBarItem.badgeValue = @([self.dataSource filteredArrayWhereProperty:@"unread" equals:@YES].count).stringValue;
+    NSUInteger unread = [self.dataSource filteredArrayWhereProperty:@"unread" equals:@YES].count;
+    if (unread) {
+        self.navigationController.tabBarItem.badgeValue = @(unread).stringValue;
+    } else {
+        self.navigationController.tabBarItem.badgeValue = nil;
+    }
 }
 
 #pragma mark UITableViewDataSource
@@ -89,6 +97,7 @@
     
     TTNotificationCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:reuse];
     [self configureCell:cell forNotification:notification];
+    [cell layoutIfNeeded];
     return cell;
 }
 
@@ -122,9 +131,9 @@
 }
 
 - (void)configureCell:(TTNotificationCell *)cell forNotification:(YYNotification *)notification {
-    cell.textLabel.text       = notification.notificationHeadline;
-    cell.detailTextLabel.text = notification.content;
-    cell.unread               = notification.unread;
+    cell.titleLabel.text   = notification.notificationHeadline;
+    cell.contentLabel.text = notification.content;
+    cell.unread            = notification.unread;
 }
 
 @end

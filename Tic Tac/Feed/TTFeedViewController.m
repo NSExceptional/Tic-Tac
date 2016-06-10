@@ -80,7 +80,6 @@
     
     TTFeedTextCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:reuse];
     [self configureCell:cell forYak:yak];
-    [cell setNeedsLayout];
     [cell layoutIfNeeded];
     return cell;
 }

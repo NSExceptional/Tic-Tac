@@ -107,7 +107,7 @@
 - (UIStackView *)topStackView { return self.stackVerticalMain; }
 + (BOOL)requiresConstraintBasedLayout { return YES; }
 - (void)updateConstraints {
-    [self.hairlineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.hairlineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(1.f/[UIScreen mainScreen].scale));
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
@@ -115,7 +115,7 @@
     }];
     
     CGFloat inset = 15;
-    [[self topStackView] mas_makeConstraints:^(MASConstraintMaker *make) {
+    [[self topStackView] mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(inset, inset, inset, inset));
     }];
     
