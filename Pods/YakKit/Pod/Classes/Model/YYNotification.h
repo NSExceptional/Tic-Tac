@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) YYThingType thingType;
 
 @property (nonatomic, readonly) id __v;
-@property (nonatomic, readonly) id updated;
+@property (nonatomic, readonly) NSDate *updated;
 @property (nonatomic, readonly) NSString *userIdentifier;
 
 @end

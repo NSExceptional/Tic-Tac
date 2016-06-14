@@ -37,7 +37,7 @@
     // Custom views
     NSMutableArray *labels = [NSMutableArray array];
     for (NSInteger i = 0; i < 5; i++)
-        [labels addObject:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)]];
+        [labels addObject:[[UILabel alloc] initWithFrame:CGRectZero]];
     
     _titleLabel = labels[0], _scoreLabel = labels[1], _ageLabel = labels[2], _authorLabel = labels[3], _replyCountLabel = labels[4];
     

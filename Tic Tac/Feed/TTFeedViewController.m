@@ -105,12 +105,12 @@
 #pragma mark Cell configuration
 
 - (void)configureCell:(TTFeedTextCell *)cell forYak:(YYYak *)yak {
-    cell.visited              = [[TTCache visitedPosts] containsObject:yak.identifier];
-    cell.titleLabel.text      = yak.title;
-    cell.scoreLabel.text      = @(yak.score).stringValue;
-    cell.ageLabel.text        = yak.created.relativeTimeString;
-    cell.votable              = yak;
-    cell.votingSwipesEnabled  = !yak.isReadOnly;
+    cell.visited                   = [[TTCache visitedPosts] containsObject:yak.identifier];
+    cell.titleLabel.text           = yak.title;
+    cell.scoreLabel.attributedText = [@(yak.score) scoreStringForVote:yak.voteStatus];
+    cell.ageLabel.text             = yak.created.relativeTimeString;
+    cell.votable                   = yak;
+    cell.votingSwipesEnabled       = !yak.isReadOnly;
     [cell setAuthorLabelText:yak.username];
     
     if (yak.replyCount == 1) {

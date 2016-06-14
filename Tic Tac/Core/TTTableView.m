@@ -40,7 +40,7 @@
     NSUInteger totalRows = [self totalRows];
     if (totalRows == 0 && !self.backgroundView) {
         self.backgroundView = ({
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
             label.text = @"Nothing to see here!";
             label.font = [UIFont systemFontOfSize:27];
             label.textAlignment = NSTextAlignmentCenter;

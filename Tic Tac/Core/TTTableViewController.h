@@ -17,5 +17,6 @@ static NSString * const kNotificationReuse = @"kNotificationReuse";
 @interface TTTableViewController : UITableViewController
 
 @property (nonatomic) BOOL loadingData;
+@property (nonatomic) BOOL showsAll;
 
 @end

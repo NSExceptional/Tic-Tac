@@ -85,7 +85,7 @@ NSString * YYStringFromNotificationReason(YYNotificationReason reason) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedFormatter = [NSDateFormatter new];
-        sharedFormatter.dateFormat = @"y-mm-ddTHH:mm:SZ";
+        sharedFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     });
     
     return sharedFormatter;

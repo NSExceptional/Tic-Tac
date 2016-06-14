@@ -72,4 +72,10 @@
     }
 }
 
+- (void)setShowsAll:(BOOL)showsAll {
+    if (showsAll == _showsAll) return;
+    _showsAll = showsAll;
+    [self.tableView reloadData];
+}
+
 @end

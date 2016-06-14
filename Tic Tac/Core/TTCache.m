@@ -12,6 +12,7 @@
 /// Map of {yak id: path}
 static NSMutableDictionary *pathsToCommentCaches;
 static NSMutableOrderedSet *yaks;
+static NSCache<NSString*, NSMutableArray*> *yaksToComments;
 static NSMutableOrderedSet *visitedPostIdentifiers;
 static NSString *documentsDirectory;
 static NSString *pathToYaks;
@@ -28,6 +29,9 @@ static NSUInteger const kVisitedPostsSize = 10000;
         yaks                    = [NSMutableOrderedSet orderedSet];
         visitedPostIdentifiers  = [NSMutableOrderedSet orderedSet];
         pathsToCommentCaches    = [NSMutableDictionary dictionary];
+        
+        yaksToComments          = [NSCache new];
+        
         documentsDirectory      = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
         pathToYaks              = [documentsDirectory stringByAppendingPathComponent:@"YakCache.plist"];
         pathToVisitedPosts      = [documentsDirectory stringByAppendingPathComponent:@"VisitedPosts.plist"];
@@ -84,6 +88,51 @@ static NSUInteger const kVisitedPostsSize = 10000;
     }
 }
 
+#pragma mark Comments
+
++ (NSMutableDictionary<NSString*, NSMutableArray<YYComment*>*> *)commentCache {
+    return (id)yaksToComments;
+}
+
++ (void)cleanCommentCache {
+    NSDate *now = [NSDate date];
+    NSInteger daysToKeepHistory = [NSUserDefaults daysToKeepHistory];
+    
+    // Remove old yaks
+    NSMutableArray *toRemove = [NSMutableArray array];
+    for (YYYak *yak in yaks) {
+        if ([yak.created daysBeforeDate:now] > daysToKeepHistory) {
+            [toRemove addObject:yak];
+        }
+    }
+    [yaks removeObjectsInArray:toRemove];
+    
+    // Sort from newest to oldest
+    [yaks sortUsingComparator:^NSComparisonResult(YYYak *obj1, YYYak *obj2) {
+        return [obj1.created compare:obj2.created];
+    }];
+    
+    // Trim cache to 10000
+    NSInteger overflow = yaks.count - kYakCacheSize;
+    if (overflow > 0) {
+        NSRange trim = NSMakeRange(kYakCacheSize, overflow);
+        [yaks removeObjectsInRange:trim];
+    }
+}
+
++ (void)addToCommentCache:(YYComment *)comment {
+    // Remove first so we keep the most up to date yak.
+    // Cache is only trimmed on application launch.
+    NSMutableArray *comments = [self _commentsForYakWithIdentifier:comment.yakIdentifier];
+    if (!comments) {
+        comments = [NSMutableArray array];
+        [yaksToComments setObject:comments forKey:comment.yakIdentifier cost:1];
+    }
+    
+    [yaksToComments[comment.yakIdentifier] removeObject:comment];
+    [yaksToComments[comment.yakIdentifier] addObject:comment];
+}
+
 #pragma mark Yaks
 
 + (NSOrderedSet<YYYak*> *)yakCache {
@@ -116,7 +165,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     }
 }
 
-+ (void)addToCache:(YYYak *)yak {
++ (void)addToYakCache:(YYYak *)yak {
     // Remove first so we keep the most up to date yak.
     // Cache is only trimmed on application launch.
     [yaks removeObject:yak];
@@ -125,7 +174,19 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 #pragma mark Comments
 
-+ (NSArray<YYComment*> *)commentsForYakWithIdentifier:(NSString *)identifier {
++ (NSMutableArray<YYComment*> *)commentsForYakWithIdentifier:(NSString *)identifier {
+    return [self _commentsForYakWithIdentifier:identifier].copy;
+}
+
++ (NSMutableArray<YYComment*> *)_commentsForYakWithIdentifier:(NSString *)identifier {
+    return [self memoryCachedCommentsForYakWithIdentifier:identifier] ?: [self diskCachedCommentsForYakWithIdentifier:identifier] ?: nil;
+}
+
++ (NSMutableArray<YYComment*> *)memoryCachedCommentsForYakWithIdentifier:(NSString *)identifier {
+    
+}
+
++ (NSMutableArray<YYComment*> *)diskCachedCommentsForYakWithIdentifier:(NSString *)identifier {
     NSString *path = pathsToCommentCaches[identifier];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
         
@@ -136,7 +197,9 @@ static NSUInteger const kVisitedPostsSize = 10000;
         }];
         
         NSAssert(comments.count, @"Comments are only archived if there are more than 0 of them, something is wrong");
-        return comments;
+        
+        yaksToComments
+        return comments.mutableCopy;
     }
     
     return nil;

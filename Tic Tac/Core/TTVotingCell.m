@@ -49,25 +49,25 @@
     ErrorBlock undo = ^(NSError *error) { @strongify(self);
         if (error) {
             [error showWithTitle:@"Error submitting vote"];
-            self.votingLabel.textColor = self.previousColor;
+            [self setVoteColor:[UIColor colorForVote:self.previousVoteStatus]];
             
             // Undo text value change
             switch (self.newVoteStatus) {
                 case YYVoteStatusUpvoted:
                     if (self.previousVoteStatus == YYVoteStatusDownvoted)
-                        [self.votingLabel decrementText];
-                    [self.votingLabel decrementText];
+                        [self decrementScore];
+                    [self decrementScore];
                     break;
                 case YYVoteStatusDownvoted:
                     if (self.previousVoteStatus == YYVoteStatusUpvoted)
-                        [self.votingLabel incrementText];
-                    [self.votingLabel incrementText];
+                        [self incrementScore];
+                    [self incrementScore];
                     break;
                 case YYVoteStatusNone:
                     if (self.previousVoteStatus == YYVoteStatusUpvoted)
-                        [self.votingLabel incrementText];
+                        [self incrementScore];
                     if (self.previousVoteStatus == YYVoteStatusDownvoted)
-                        [self.votingLabel decrementText];
+                        [self decrementScore];
                     break;
             }
             
@@ -79,8 +79,8 @@
     };
     self.revokeVote = swipeDone { @strongify(self);
         self.previousColor         = self.votingLabel.textColor;
-        self.votingLabel.textColor = [UIColor noVoteColor];
         self.newVoteStatus         = YYVoteStatusNone;
+        [self setVoteColor:[UIColor noVoteColor]];
         [self setupSwipeActions];
         
         [[YYClient sharedClient] removeVote:self.votable completion:undo];
@@ -88,16 +88,16 @@
     self.upvote = swipeDone { @strongify(self);
         if (self.previousVoteStatus == YYVoteStatusUpvoted) {
             self.revokeVote(cell, state, mode); // Revoke vote
-            [self.votingLabel decrementText];
+            [self decrementScore];
         }
         else {
             // +2 to go from downvote --> upvote
             if (self.previousVoteStatus == YYVoteStatusDownvoted)
-                [self.votingLabel incrementText];
-            [self.votingLabel incrementText];
+                [self incrementScore];
+            [self incrementScore];
             self.previousColor         = self.votingLabel.textColor;
-            self.votingLabel.textColor = [UIColor upvoteColor];
             self.newVoteStatus         = YYVoteStatusUpvoted;
+            [self setVoteColor:[UIColor upvoteColor]];
             [[YYClient sharedClient] upvote:self.votable completion:undo];
         }
         
@@ -106,16 +106,16 @@
     self.downvote = swipeDone { @strongify(self);
         if (self.previousVoteStatus == YYVoteStatusDownvoted) {
             self.revokeVote(cell, state, mode); // Revoke vote
-            [self.votingLabel incrementText];
+            [self incrementScore];
         }
         else {
             // -2 to go from upvote --> downvote
             if (self.previousVoteStatus == YYVoteStatusUpvoted)
-                [self.votingLabel decrementText];
-            [self.votingLabel decrementText];
+                [self decrementScore];
+            [self decrementScore];
             self.previousColor         = self.votingLabel.textColor;
-            self.votingLabel.textColor = [UIColor downvoteColor];
             self.newVoteStatus         = YYVoteStatusDownvoted;
+            [self setVoteColor:[UIColor downvoteColor]];
             [[YYClient sharedClient] downvote:self.votable completion:undo];
         }
         
@@ -143,7 +143,7 @@
     _votable                = votable;
     self.previousVoteStatus = votable.voteStatus;
     self.newVoteStatus      = votable.voteStatus;
-    self.votingLabel.textColor = [UIColor colorForVote:votable.voteStatus];
+    [self setVoteColor:[UIColor colorForVote:votable.voteStatus]];
 }
 
 - (void)setupSwipeActions {
@@ -178,6 +178,24 @@
         return YES;
     
     return NO;
+}
+
+- (void)incrementScore {
+    NSString *number = self.votingLabel.text;
+    number = [number substringToIndex:[number rangeOfString:@" "].location];
+    self.votingLabel.attributedText = [@(number.integerValue+1) scoreStringForVote:YYVoteStatusNone];
+}
+
+- (void)decrementScore {
+    NSString *number = self.votingLabel.text;
+    number = [number substringToIndex:[number rangeOfString:@" "].location];
+    self.votingLabel.attributedText = [@(number.integerValue-1) scoreStringForVote:YYVoteStatusNone];
+}
+
+- (void)setVoteColor:(UIColor *)color {
+    NSMutableAttributedString *s = self.votingLabel.attributedText.mutableCopy;
+    [s setAttributes:@{NSForegroundColorAttributeName: color} range:NSMakeRange(0, [s.string rangeOfString:@" "].location)];
+    self.votingLabel.attributedText = s;
 }
 
 @end

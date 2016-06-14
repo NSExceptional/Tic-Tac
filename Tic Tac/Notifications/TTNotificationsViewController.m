@@ -61,11 +61,11 @@
             }
         }];
     }
-//    [[YYClient sharedClient] markEach:self.dataSource read:YES completion:^(NSError *error) {
-//        self.markingRead = NO;
-//        [self displayOptionalError:error];
-//        [self refresh];
-//    }];
+    //    [[YYClient sharedClient] markEach:self.dataSource read:YES completion:^(NSError *error) {
+    //        self.markingRead = NO;
+    //        [self displayOptionalError:error];
+    //        [self refresh];
+    //    }];
 }
 
 - (void)setMarkingRead:(BOOL)markingRead {
@@ -128,6 +128,10 @@
             [self updateBadge];
         }];
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.dataSource[indexPath.row].navigatesToYak;
 }
 
 - (void)configureCell:(TTNotificationCell *)cell forNotification:(YYNotification *)notification {

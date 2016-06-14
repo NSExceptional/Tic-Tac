@@ -26,4 +26,8 @@
     }
 }
 
+- (BOOL)navigatesToYak {
+    return self.reason == YYNotificationReasonComment || self.reason == YYNotificationReasonVote;
+}
+
 @end

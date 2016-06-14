@@ -16,7 +16,7 @@
 @implementation TTWelcomeButton
 
 + (instancetype)buttonWithTitle:(NSString *)title subtitle:(NSString *)subtitle {
-    TTWelcomeButton *button = [[self alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    TTWelcomeButton *button = [[self alloc] initWithFrame:CGRectZero];
     [button setTitle:title forState:UIControlStateNormal];
     button.subtitle = subtitle;
     return button;
@@ -25,7 +25,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+        _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subtitleLabel.font = [UIFont systemFontOfSize:11];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:_subtitleLabel];

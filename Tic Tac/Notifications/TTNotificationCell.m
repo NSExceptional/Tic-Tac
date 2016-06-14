@@ -18,8 +18,6 @@
         self.titleLabel.font   = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         self.contentLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         self.contentLabel.textColor = [UIColor darkGrayColor];
-//        self.titleLabel.text = @" "; [self.titleLabel sizeToFit];
-//        self.contentLabel.text = @" "; [self.contentLabel sizeToFit];
         
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.contentLabel];
@@ -32,17 +30,14 @@
 + (BOOL)requiresConstraintBasedLayout { return YES; }
 - (void)updateConstraints {
     self.contentView.clipsToBounds = YES;
+    CGFloat inset = 15;
     
     [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).with.offset(15);
-        make.left.equalTo(self.contentView).with.offset(15);
-        make.right.equalTo(self.contentView).with.offset(-15);
+        make.left.right.top.equalTo(self.contentView).insets(UIEdgeInsetsMake(inset, inset, inset, inset));
     }];
     [self.contentLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.left.equalTo(self.contentView).with.offset(15);
-        make.right.equalTo(self.contentView).with.offset(-15);
-        make.bottom.equalTo(self.contentView).with.offset(-15);
+        make.left.right.bottom.equalTo(self.contentView).insets(UIEdgeInsetsMake(inset, inset, inset, inset));
     }];
     
     [super updateConstraints];

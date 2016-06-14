@@ -10,6 +10,7 @@
 
 
 @interface TTCommentsHeaderView ()
+@property (nonatomic, readonly) UILabel *replyCountLabel;
 @property (nonatomic, readonly) UILabel *scoreLabel;
 @property (nonatomic, readonly) UILabel *authorLabel;
 @property (nonatomic, readonly) UILabel *ageLabel;
@@ -17,14 +18,12 @@
 @property (nonatomic, readonly) UIButton *chatButton; /* unused atm */
 
 @property (nonatomic, readonly) UIView *hairlineView;
-@property (nonatomic, readonly) UIStackView *stackHorizontalTop;
-@property (nonatomic, readonly) UIStackView *stackVerticalMain;
 @end
 
 @implementation TTCommentsHeaderView
 
 + (instancetype)headerForYak:(YYYak *)yak {
-    TTCommentsHeaderView *view = [[self alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    TTCommentsHeaderView *view = [[self alloc] initWithFrame:CGRectZero];
     
     if (!yak) {
         view.titleLabel.text = @"Loading…";
@@ -41,10 +40,40 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _hairlineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-        self.hairlineView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.199];
-        [self addSubview:_hairlineView];
-        [self setupStacks];
+        _replyCountLabel   = [[UILabel alloc] initWithFrame:CGRectZero];
+        _scoreLabel        = [[UILabel alloc] initWithFrame:CGRectZero];
+        _authorLabel       = [[UILabel alloc] initWithFrame:CGRectZero];
+        _ageLabel          = [[UILabel alloc] initWithFrame:CGRectZero];
+        _titleLabel        = [[UILabel alloc] initWithFrame:CGRectZero];
+        _addCommentButton  = ({
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+            [button setTitle:@"Add Comment" forState:UIControlStateNormal];
+            button;
+        });
+        
+        self.titleLabel.numberOfLines = 0;
+        self.titleLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 20;
+        
+        self.replyCountLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        self.scoreLabel.font      = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        self.ageLabel.font        = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        self.authorLabel.font     = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        
+        self.replyCountLabel.textColor = [UIColor noVoteColor];
+        self.scoreLabel.textColor      = [UIColor noVoteColor];
+        self.ageLabel.textColor        = [UIColor noVoteColor];
+        self.authorLabel.textColor     = [UIColor themeColor];
+        
+        _hairlineView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.hairlineView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+        
+        [self addSubview:self.replyCountLabel];
+        [self addSubview:self.scoreLabel];
+        [self addSubview:self.ageLabel];
+        [self addSubview:self.authorLabel];
+        [self addSubview:self.titleLabel];
+        [self addSubview:self.addCommentButton];
+        [self addSubview:self.hairlineView];
     }
     return self;
 }
@@ -52,72 +81,65 @@
 - (void)updateWithYak:(YYYak *)yak {
     NSParameterAssert(yak);
     
-    self.scoreLabel.text         = @(yak.score).stringValue;
-    self.authorLabel.text        = yak.username;
-    self.authorLabel.hidden      = yak.handle.length == 0;
-    self.ageLabel.text           = yak.created.relativeTimeString;
-    self.titleLabel.text         = yak.title;
-    self.addCommentButton.hidden = yak.isReadOnly;
-    self.chatButton.hidden       = self.authorLabel.hidden;
+    self.scoreLabel.attributedText = [@(yak.score) scoreStringForVote:yak.voteStatus];
+    self.authorLabel.text          = yak.username;
+    self.authorLabel.hidden        = yak.username.length == 0;
+    self.ageLabel.text             = yak.created.relativeTimeString;
+    self.titleLabel.text           = yak.title;
+    self.addCommentButton.hidden   = yak.isReadOnly;
+    self.chatButton.hidden         = self.authorLabel.hidden;
+    
+    if (yak.replyCount == 1) {
+        self.replyCountLabel.text = @"1 reply";
+    } else {
+        self.replyCountLabel.text = [NSString stringWithFormat:@"%@ replies", @(yak.replyCount)];
+    }
     
     [self setFrameHeight:[self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height];
-    [self setNeedsLayout];
+//    [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
-- (void)setupStacks {
-    // Custom views
-    _scoreLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _authorLabel       = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _ageLabel          = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _titleLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _addCommentButton  = ({
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [button setTitle:@"Add Comment" forState:UIControlStateNormal];
-        button;
-    });
-    
-    self.titleLabel.numberOfLines = 0;
-    _scoreLabel.font  = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    _ageLabel.font    = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    _authorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    
-    _scoreLabel.textColor  = [UIColor noVoteColor];
-    _ageLabel.textColor    = [UIColor noVoteColor];
-    _authorLabel.textColor = [UIColor themeColor];
-
-    // Stacks
-    _stackHorizontalTop  = [[UIStackView alloc] initWithArrangedSubviews:@[_scoreLabel, _authorLabel, _ageLabel]];
-    _stackVerticalMain   = [[UIStackView alloc] initWithArrangedSubviews:@[_stackHorizontalTop, _titleLabel, _addCommentButton]];
-    
-    self.stackHorizontalTop.axis         = UILayoutConstraintAxisHorizontal;
-    self.stackHorizontalTop.alignment    = UIStackViewAlignmentFirstBaseline;
-    self.stackHorizontalTop.distribution = UIStackViewDistributionEqualCentering;
-    self.stackHorizontalTop.spacing      = 15;
-    
-    self.stackVerticalMain.axis         = UILayoutConstraintAxisVertical;
-    self.stackVerticalMain.alignment    = UIStackViewAlignmentFill;
-    self.stackVerticalMain.distribution = UIStackViewDistributionEqualSpacing;
-    self.stackVerticalMain.spacing      = 20;
-    // Does not need insets because we inset it with autolayout in updateConstraints
-    
-    [self addSubview:[self topStackView]];
-}
-
-- (UIStackView *)topStackView { return self.stackVerticalMain; }
 + (BOOL)requiresConstraintBasedLayout { return YES; }
 - (void)updateConstraints {
+    CGFloat bottomInset = 15, topInset = 10, hInset = 15;
+    UIEdgeInsets insets  = UIEdgeInsetsMake(topInset, hInset, bottomInset, hInset);
+    
     [self.hairlineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(1.f/[UIScreen mainScreen].scale));
-        make.left.equalTo(self.mas_left);
-        make.right.equalTo(self.mas_right);
-        make.bottom.equalTo(self.mas_bottom);
+        make.left.right.bottom.equalTo(self);
     }];
     
-    CGFloat inset = 15;
-    [[self topStackView] mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(inset, inset, inset, inset));
+    [self.replyCountLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(insets.top);
+        make.left.mas_equalTo(insets.left);
     }];
+    [self.scoreLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.replyCountLabel);
+        make.leading.equalTo(self.replyCountLabel.mas_trailing).insets(insets);
+    }];
+    
+    [self.ageLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.replyCountLabel);
+        make.trailing.equalTo(self).insets(insets);
+    }];
+    [self.authorLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.replyCountLabel);
+        make.trailing.equalTo(self.ageLabel.mas_leading).insets(insets);
+    }];
+    
+    [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.replyCountLabel.mas_bottom).offset(bottomInset);
+        make.left.right.equalTo(self).insets(insets);
+    }];
+    [self.addCommentButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(bottomInset);
+        make.centerX.equalTo(self);
+        make.bottom.equalTo(self).offset(-bottomInset);
+    }];
+    
+    [self.authorLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.scoreLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow+1 forAxis:UILayoutConstraintAxisHorizontal];
     
     [super updateConstraints];
 }

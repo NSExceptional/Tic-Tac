@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 5k latest yaks loaded, no older than N days
 + (NSOrderedSet<YYYak*> *)yakCache;
-+ (void)addToCache:(YYYak *)yak;
++ (void)addToYakCache:(YYYak *)yak;
 
 + (nullable NSArray<YYComment*> *)commentsForYakWithIdentifier:(NSString *)identifier;
 + (void)cacheComments:(NSArray<YYComment*> *)comments forYak:(YYYak *)yak;

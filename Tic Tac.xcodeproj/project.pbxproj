@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7E51347CD76C70F537B0BBF4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FF4A92F5993BA051B2D00C /* libPods.a */; };
+		9037FF7A1D109F20000CCC81 /* NSNumber+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF791D109F20000CCC81 /* NSNumber+Score.m */; };
+		9037FF7D1D10B89B000CCC81 /* TTCensorshipControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF7C1D10B89B000CCC81 /* TTCensorshipControl.m */; };
 		90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */; };
 		90906DF81D0B1C66002A8CFA /* YYNotification+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */; };
 		B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */; };
@@ -53,6 +55,10 @@
 
 /* Begin PBXFileReference section */
 		1199B1BE707A13DCEE6DFFE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		9037FF781D109F20000CCC81 /* NSNumber+Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Score.h"; sourceTree = "<group>"; };
+		9037FF791D109F20000CCC81 /* NSNumber+Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Score.m"; sourceTree = "<group>"; };
+		9037FF7B1D10B89B000CCC81 /* TTCensorshipControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCensorshipControl.h; sourceTree = "<group>"; };
+		9037FF7C1D10B89B000CCC81 /* TTCensorshipControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTCensorshipControl.m; sourceTree = "<group>"; };
 		90906DF31D0B1B8D002A8CFA /* TTNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNotificationCell.h; sourceTree = "<group>"; };
 		90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationCell.m; sourceTree = "<group>"; };
 		90906DF61D0B1C66002A8CFA /* YYNotification+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYNotification+Util.h"; sourceTree = "<group>"; };
@@ -295,6 +301,8 @@
 				B4C204F41CD997F100564A83 /* TBNetworkActivity.m */,
 				B44F16061CDA98AC002DF423 /* TTCache.h */,
 				B44F16071CDA98AC002DF423 /* TTCache.m */,
+				9037FF7B1D10B89B000CCC81 /* TTCensorshipControl.h */,
+				9037FF7C1D10B89B000CCC81 /* TTCensorshipControl.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -324,6 +332,8 @@
 				B4C204FA1CD9BE7500564A83 /* NSString+SplitUp.m */,
 				B4743AC81D03AC9D00B566E5 /* TBAlertController+Anywhere.h */,
 				B4743AC91D03AC9D00B566E5 /* TBAlertController+Anywhere.m */,
+				9037FF781D109F20000CCC81 /* NSNumber+Score.h */,
+				9037FF791D109F20000CCC81 /* NSNumber+Score.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -475,6 +485,7 @@
 				B4C204F51CD997F100564A83 /* TBNetworkActivity.m in Sources */,
 				B4E73C6D1CC6D8CA00670CC6 /* TTWelcomeViewController.m in Sources */,
 				B4E743851CC6E41400670CC6 /* UIColor+TicTac.m in Sources */,
+				9037FF7A1D109F20000CCC81 /* NSNumber+Score.m in Sources */,
 				B45C703B1CC8C24F002164FF /* TTCommentCell.m in Sources */,
 				B4E73C4B1CC6A7D500670CC6 /* TTAppDelegate.m in Sources */,
 				B45C70381CC8C240002164FF /* TTCommentsViewController.m in Sources */,
@@ -491,6 +502,7 @@
 				90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */,
 				B45C70411CC8C736002164FF /* NSUserDefaults+Preferences.m in Sources */,
 				B45C702C1CC85072002164FF /* TTFeedTextCell.m in Sources */,
+				9037FF7D1D10B89B000CCC81 /* TTCensorshipControl.m in Sources */,
 				B471391F1CD6DE8E00B1DAAF /* TTFeedArray.m in Sources */,
 				B47139191CD6B2AC00B1DAAF /* NSDate-Utilities.m in Sources */,
 				B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */,

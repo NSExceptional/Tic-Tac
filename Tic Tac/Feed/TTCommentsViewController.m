@@ -10,11 +10,14 @@
 #import "TTCommentsHeaderView.h"
 #import "TTCommentCell.h"
 #import "TTReplyViewController.h"
+#import "TTCensorshipControl.h"
 
-@interface TTCommentsViewController ()
+
+@interface TTCommentsViewController () <TTCensorshipDelegate>
 @property (nonatomic, readonly) TTCommentsHeaderView *commentsHeaderView;
 @property (nonatomic, readonly) YYYak *yak;
 @property (nonatomic, readonly) TTFeedArray<YYComment*> *dataSource;
+@property (nonatomic, readonly) NSArray<YYComment*> *arrayToUse;
 @end
 
 @implementation TTCommentsViewController
@@ -36,10 +39,21 @@
             if (comments.view.tag) {
                 [comments reloadCommentSectionData];
             }
+        } else {
+            if (comments.view.tag) {
+                [comments dismissAndNotifyYakRemoved];
+            } else {
+                comments.view.tag = 2;
+            }
         }
     }];
     
     return comments;
+}
+
+- (void)dismissAndNotifyYakRemoved {
+    [self.navigationController popViewControllerAnimated:YES];
+    [[TBAlertController simpleOKAlertWithTitle:@"Yak Not Available" message:@"This yak has been removed."] show];
 }
 
 - (id)init {
@@ -63,6 +77,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.titleView = [TTCensorshipControl withDelegate:self];
+    
+    // Dismiss in viewDidAppear
+    if (self.view.tag == 2) {
+        return;
+    }
+    
     // So we know if we need to load the comments or not after loading the yak
     // if (self.view.tag) load comments, else they will be loaded here
     self.view.tag = 1;
@@ -71,8 +92,13 @@
     
     if (self.yak) {
         [self reloadCommentSectionData];
-    } else {
-        self.title = nil;
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.view.tag == 2) {
+        [self dismissAndNotifyYakRemoved];
     }
 }
 
@@ -88,21 +114,11 @@
             [self.dataSource setArray:collection];
             [self.tableView reloadSection:0];
             [self.refreshControl endRefreshing];
-            
-            // Update title
-            if (self.dataSource.count == 1) { self.title = @"1 Comment"; } else {
-                self.title = [NSString stringWithFormat:@"%@ Comments", @(self.dataSource.count)];
-            }
         }
     }];
 }
 
 - (void)reloadCommentSectionData {
-    // Title
-    if (self.yak.replyCount == 1) { self.title = @"1 Comment"; } else {
-        self.title = [NSString stringWithFormat:@"%@ Comments", @(self.yak.replyCount)];
-    }
-    
     // Delete button
     if ([self.yak.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
         id delete = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePost)];
@@ -125,22 +141,26 @@
 
 #pragma mark UITableViewDataSource
 
+- (NSArray<YYComment*> *)arrayToUse {
+    return self.showsAll ? self.dataSource.allObjects : self.dataSource;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TTCommentCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:kCommentCellReuse];
-    [self configureCell:cell forComment:self.dataSource.allObjects[indexPath.row]];
+    [self configureCell:cell forComment:self.arrayToUse[indexPath.row]];
     [cell layoutIfNeeded];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.allObjects.count;
+    return self.arrayToUse.count;
 }
 
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    YYComment *comment = self.dataSource[indexPath.row];
+    YYComment *comment = self.arrayToUse[indexPath.row];
     
     if ([comment.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
         [self showOptionsForComment:comment];
@@ -168,14 +188,14 @@
 #pragma mark Cell configuration
 
 - (void)configureCell:(TTCommentCell *)cell forComment:(YYComment *)comment {
-    cell.titleLabel.text  = comment.body;
-    cell.scoreLabel.text  = @(comment.score).stringValue;
-    cell.ageLabel.text    = comment.created.relativeTimeString;
-    cell.authorLabel.text = comment.authorText;
-    cell.votable          = comment;
-    cell.votingSwipesEnabled = !self.yak.isReadOnly;
-    cell.repliesEnabled = !self.yak.isReadOnly;
-    cell.replyAction = ^{
+    cell.titleLabel.text           = comment.body;
+    cell.scoreLabel.attributedText = [@(comment.score) scoreStringForVote:comment.voteStatus];
+    cell.ageLabel.text             = comment.created.relativeTimeString;
+    cell.authorLabel.text          = comment.authorText;
+    cell.votable                   = comment;
+    cell.votingSwipesEnabled       = !self.yak.isReadOnly;
+    cell.repliesEnabled            = !self.yak.isReadOnly;
+    cell.replyAction               = ^{
         [self replyToUser:comment.username ?: comment.authorText];
     };
     
