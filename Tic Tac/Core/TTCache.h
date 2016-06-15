@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableOrderedSet<YYYak*> *)yakCache;
 + (void)cacheYaks:(NSArray<YYYak*> *)yaks;
 + (void)cacheYak:(YYYak *)yak;
++ (void)removeYakFromCache:(YYYak *)yak;
 
 + (NSCache<NSString*, NSMutableArray<YYComment*>*> *)commentCache;
 + (void)maybeSaveAllComments;

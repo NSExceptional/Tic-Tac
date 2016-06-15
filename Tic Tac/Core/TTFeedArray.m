@@ -140,8 +140,9 @@ static NSSortDescriptor *sortDescriptor;
 }
 
 - (NSArray<id> *)allObjects {
-    if (self.delta || !_allObjects) {
-        _allObjects = [self.removedObjectsPool() sortedArrayUsingDescriptors:@[[self sortDescriptor:self.sortNewestFirst]]];
+    NSArray *pool = self.removedObjectsPool();
+    if (self.delta || !_allObjects || _allObjects.count != pool.count) {
+        _allObjects = [pool sortedArrayUsingDescriptors:@[[self sortDescriptor:self.sortNewestFirst]]];
         self.delta = NO;
         
         // Tag objects that may not yet be identified as missing

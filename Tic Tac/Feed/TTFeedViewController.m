@@ -106,6 +106,17 @@
     [self.navigationController pushViewController:[TTCommentsViewController commentsForYak:yak] animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.arrayToUse[indexPath.row].removed == YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)style forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (style == UITableViewCellEditingStyleDelete) {
+        [TTCache removeYakFromCache:self.dataSource.allObjects[indexPath.row]];
+        [tableView deleteRow:indexPath.row inSection:0];
+    }
+}
+
 #pragma mark Cell configuration
 
 - (void)configureCell:(TTFeedTextCell *)cell forYak:(YYYak *)yak {

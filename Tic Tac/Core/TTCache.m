@@ -190,7 +190,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
         
         NSMutableArray *memory = [yaksToComments objectForKey:identifier];
         if (memory) {
-            memory = [self merge:memory into:comments];
+            memory = [self mergeOld:memory into:comments];
         } else {
             memory = comments.mutableCopy;
         }
@@ -225,7 +225,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
         NSMutableArray *cached = [self _commentsForYakWithIdentifier:identifier];
         
         // Add to memory cache
-        cached = [self merge:comments into:cached];
+        cached = [self mergeOld:cached into:comments];
         [yaksToComments setObject:cached forKey:identifier cost:cached.count];
     });
 }
@@ -248,7 +248,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     [pathsToCommentCaches removeObjectsForKeys:toRemove];
 }
 
-+ (NSMutableArray *)merge:(NSArray *)first into:(NSArray *)second {
++ (NSMutableArray *)mergeOld:(NSArray *)first into:(NSArray *)second {
     TTFeedArray *toCache = [TTFeedArray array];
     [toCache addObjectsFromArray:first];
     [toCache addObjectsFromArray:second];
@@ -305,6 +305,11 @@ static NSUInteger const kVisitedPostsSize = 10000;
     // Cache is only trimmed on application launch.
     [yaks removeObject:yak];
     [yaks addObject:yak];
+}
+
++ (void)removeYakFromCache:(YYYak *)yak {
+    yakCacheDelta = YES;
+    [yaks removeObject:yak];
 }
 
 #pragma mark Visited posts
