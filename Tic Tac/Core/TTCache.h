@@ -10,14 +10,19 @@
 
 
 NS_ASSUME_NONNULL_BEGIN
-@interface TTCache : NSObject
+@interface TTCache : NSObject <NSCacheDelegate>
 
 /// 5k latest yaks loaded, no older than N days
-+ (NSOrderedSet<YYYak*> *)yakCache;
-+ (void)addToYakCache:(YYYak *)yak;
++ (NSMutableOrderedSet<YYYak*> *)yakCache;
++ (void)cacheYaks:(NSArray<YYYak*> *)yaks;
++ (void)cacheYak:(YYYak *)yak;
 
-+ (nullable NSArray<YYComment*> *)commentsForYakWithIdentifier:(NSString *)identifier;
++ (NSCache<NSString*, NSMutableArray<YYComment*>*> *)commentCache;
++ (void)maybeSaveAllComments;
+
++ (NSArray<YYComment*> *)commentsForYakWithIdentifier:(NSString *)identifier;
 + (void)cacheComments:(NSArray<YYComment*> *)comments forYak:(YYYak *)yak;
++ (void)cacheComment:(YYComment *)comment;
 
 /// The last 10k yaks visited by identifier
 + (NSOrderedSet<NSString*> *)visitedPosts;

@@ -8,6 +8,8 @@
 
 #import "TTAppDelegate.h"
 #import "TTWelcomeViewController.h"
+#import "TTCache.h"
+
 
 #define kYYLat 31.534173
 #define kYYLong -97.123863
@@ -24,7 +26,7 @@
     
     // Appearance
     [self customizeAppearance];
-//    [[FLEXManager sharedManager] showExplorer];
+    //    [[FLEXManager sharedManager] showExplorer];
     
     // Default preferences
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
@@ -47,6 +49,14 @@
     [self.window addGestureRecognizer:tap];
     
     return YES;
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    [TTCache maybeSaveAllComments];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    [TTCache maybeSaveAllComments];
 }
 
 - (void)customizeAppearance {

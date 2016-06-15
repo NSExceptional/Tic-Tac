@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NSArray * _Nonnull (^ArraySourceBlock)();
+
 
 NS_ASSUME_NONNULL_BEGIN
 @interface TTFeedArray<ObjectType> : NSMutableArray<ObjectType>
@@ -16,8 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSArray<ObjectType> *removed;
 @property (nonatomic, readonly) NSArray<ObjectType> *allObjects;
 
-@property (nonatomic, copy, nonnull) ObjectType (^chooseDuplicate)(ObjectType original, ObjectType duplicate);
-@property (nonatomic, copy, nonnull) NSPredicate *filter;
+@property (nonatomic) ArraySourceBlock removedObjectsPool;
+
+@property (nonatomic, copy) ObjectType (^chooseDuplicate)(ObjectType original, ObjectType duplicate);
+@property (nonatomic, copy) NSPredicate *filter;
+/// Defaults to "created"
+@property (nonatomic, copy, nonnull) NSString *sortDescriptorKey;
 
 /// Defaults to NO
 @property (nonatomic) BOOL sortNewestFirst;

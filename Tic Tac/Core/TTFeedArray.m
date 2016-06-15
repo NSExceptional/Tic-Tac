@@ -13,7 +13,6 @@ static NSSortDescriptor *sortDescriptor;
 
 @interface TTFeedArray<ObjectType> ()
 @property (nonatomic, readonly) NSMutableArray *storage;
-@property (nonatomic, readonly) NSMutableOrderedSet *history;
 @property (nonatomic) BOOL staysSorted;
 @property (nonatomic) BOOL delta;
 @end
@@ -24,42 +23,17 @@ static NSSortDescriptor *sortDescriptor;
 #pragma mark New public interface
 
 + (nullable YYYak *)yakForNotificationIfPresent:(YYNotification *)notification {
-    for (YYYak *yak in [self yaks])
+    for (YYYak *yak in [TTCache yakCache])
         if ([yak.identifier isEqualToString:notification.thingIdentifier])
             return yak;
     
     return nil;
 }
 
-#pragma mark Private
-
-+ (TTFeedArray<YYYak*> *)yaks {
-    static TTFeedArray<YYYak*> *yaks = nil;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class cls = [YYYak class];
-        yaks = [self array];
-        yaks.filter = [NSPredicate predicateWithBlock:^BOOL(id obj, id bindings) {
-            return [obj class] == cls;
-        }];
-    });
-    
-    return yaks;
-}
-
-- (void)setDelta:(BOOL)delta {
-    _delta = delta;
-    
-    if (delta && self != [[self class] yaks]) {
-        [[[self class] yaks] addObjectsFromArray:self];
-    }
-}
-
 #pragma mark Overrides
 
-+ (NSSortDescriptor *)sortDescriptor:(BOOL)ascending {
-    return [NSSortDescriptor sortDescriptorWithKey:@"created" ascending:ascending];
+- (NSSortDescriptor *)sortDescriptor:(BOOL)ascending {
+    return [NSSortDescriptor sortDescriptorWithKey:self.sortDescriptorKey ascending:ascending];
 }
 
 + (instancetype)array {
@@ -73,7 +47,8 @@ static NSSortDescriptor *sortDescriptor;
         _staysSorted        = YES;
         _sortNewestFirst    = NO;
         _tagsRemovedObjects = YES;
-        self.keepsRemovedObjectsInHistory = YES;
+        self.sortDescriptorKey = @"created";
+        self.removedObjectsPool = ^NSArray* { return @[]; };
         
         self.chooseDuplicate = ^id(YYVotable *orig, YYVotable *dup) {
             return dup;
@@ -95,8 +70,8 @@ static NSSortDescriptor *sortDescriptor;
     id old = self.storage[idx];
     if ([old isEqual:obj]) {
         obj = self.chooseDuplicate(old, obj);
-    } else if (self.keepsRemovedObjectsInHistory) {
-        [self addObjectToHistory:old];
+    } else if (self.tagsRemovedObjects) {
+        [self tagRemovedObjects:@[old]];
     }
     
     self.storage[idx] = obj;
@@ -104,7 +79,7 @@ static NSSortDescriptor *sortDescriptor;
 
 - (void)addObject:(id)anObject { self.delta = YES;
     [self addObjectNoSort:anObject];
-    [self.storage sortUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
+    [self.storage sortUsingDescriptors:@[[self sortDescriptor:self.sortNewestFirst]]];
 }
 
 /// Replaces duplicate ones, does nothing for existing ones, adds new ones
@@ -149,7 +124,7 @@ static NSSortDescriptor *sortDescriptor;
     
     // Add, sort
     [self.storage addObjectsFromArray:toAddToStorage];
-    [self.storage sortUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
+    [self.storage sortUsingDescriptors:@[[self sortDescriptor:self.sortNewestFirst]]];
 }
 
 - (NSUInteger)count { return self.storage.count; }
@@ -159,40 +134,37 @@ static NSSortDescriptor *sortDescriptor;
 }
 
 - (NSArray<id> *)removed {
-    return self.history.array;
+    NSMutableOrderedSet *removed = [NSMutableOrderedSet orderedSetWithArray:self.removedObjectsPool()];
+    [removed minusSet:[NSSet setWithArray:self.storage]];
+    return [removed sortedArrayUsingDescriptors:@[[self sortDescriptor:self.sortNewestFirst]]];
 }
 
 - (NSArray<id> *)allObjects {
-    if (self.delta) {
-        NSMutableArray *tmp = self.storage.mutableCopy;
-        [tmp addObjectsFromArray:self.history.array];
-        _allObjects = [tmp sortedArrayUsingDescriptors:@[[TTFeedArray sortDescriptor:self.sortNewestFirst]]];
+    if (self.delta || !_allObjects) {
+        _allObjects = [self.removedObjectsPool() sortedArrayUsingDescriptors:@[[self sortDescriptor:self.sortNewestFirst]]];
         self.delta = NO;
+        
+        // Tag objects that may not yet be identified as missing
+        if (self.tagsRemovedObjects) {
+            NSMutableSet *set = [NSMutableSet setWithArray:_allObjects];
+            [set minusSet:[NSSet setWithArray:self.storage]];
+            for (YYVotable *votable in set)
+                votable.removed = YES;
+        }
     }
     
-    return _allObjects ?: @[];
-}
-
-- (void)setKeepsRemovedObjectsInHistory:(BOOL)keepsRemovedObjectsInHistory {
-    if (_keepsRemovedObjectsInHistory == keepsRemovedObjectsInHistory) return;
-    _keepsRemovedObjectsInHistory = keepsRemovedObjectsInHistory;
-    
-    if (keepsRemovedObjectsInHistory) {
-        _history = [NSMutableOrderedSet orderedSet];
-    } else {
-        _history = nil;
-    }
+    return _allObjects;
 }
 
 - (void)setArray:(NSArray *)newFeed { self.delta = YES;
-    if (self.keepsRemovedObjectsInHistory) {
+    if (self.tagsRemovedObjects) {
         // Store removed objects in history by getting diff from new feed
         NSMutableSet *removed = [NSMutableSet setWithArray:self.storage];
         [removed minusSet:[NSSet setWithArray:newFeed]];
-        [self addObjectsToHistory:removed.allObjects];
+        [self tagRemovedObjects:removed.allObjects];
     }
     
-    [self.storage setArray:newFeed];
+    [self.storage setArray:[newFeed filteredArrayUsingPredicate:self.filter]];
 }
 
 - (void)removeObject:(id)anObject { _delta = YES;
@@ -208,8 +180,8 @@ static NSSortDescriptor *sortDescriptor;
     id obj = self.storage[idx];
     
     [self.storage removeObjectAtIndex:idx];
-    if (_keepsRemovedObjectsInHistory) {
-        [self addObjectsToHistory:obj];
+    if (self.tagsRemovedObjects) {
+        [self tagRemovedObjects:@[obj]];
     }
 }
 
@@ -230,19 +202,9 @@ static NSSortDescriptor *sortDescriptor;
         [self removeObjectAtIndex:i];
 }
 
-- (void)addObjectToHistory:(id)anObject {
-    [self.history addObject:anObject];
-    if (self.tagsRemovedObjects) {
-        [(YYVotable *)anObject setRemoved:YES];
-    }
-}
-
-- (void)addObjectsToHistory:(NSArray *)toAdd {
-    [self.history addObjectsFromArray:toAdd];
-    if (self.tagsRemovedObjects) {
-        for (YYVotable *votable in toAdd)
-            votable.removed = YES;
-    }
+- (void)tagRemovedObjects:(NSArray *)toAdd {
+    for (YYVotable *votable in toAdd)
+        votable.removed = YES;
 }
 
 - (void)enumerateObjectsUsingBlock:(void (^)(id _Nonnull, NSUInteger, BOOL * _Nonnull))block {

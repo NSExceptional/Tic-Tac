@@ -22,6 +22,7 @@
     [super viewDidLoad];
     
     _dataSource = [TTFeedArray new];
+    self.dataSource.sortDescriptorKey = @"updated";
     self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYNotification *notification, id bindings) {
         return notification.reason != YYNotificationReasonVote;
     }];

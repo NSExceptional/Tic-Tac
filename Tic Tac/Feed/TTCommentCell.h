@@ -12,7 +12,6 @@
 @interface TTCommentCell : TTFeedTextCell
 
 @property (nonatomic) BOOL isOP;
-@property (nonatomic) BOOL removed;
 @property (nonatomic) BOOL repliesEnabled;
 @property (nonatomic, copy) VoidBlock replyAction;
 

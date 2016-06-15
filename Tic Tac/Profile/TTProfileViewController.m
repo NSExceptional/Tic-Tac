@@ -18,7 +18,8 @@
 }
 
 - (void)updateTitle {
-    self.title = [YYClient sharedClient].currentUser.handle ?: @"Me";
+    YYUser *user = [YYClient sharedClient].currentUser;
+    self.title = [NSString stringWithFormat:@"%@ | %@", user.handle ?: @"Me", @(user.karma).stringValue];
 }
 
 @end

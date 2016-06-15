@@ -143,6 +143,7 @@
     _votable                = votable;
     self.previousVoteStatus = votable.voteStatus;
     self.newVoteStatus      = votable.voteStatus;
+    self.removed            = votable.removed;
     [self setVoteColor:[UIColor colorForVote:votable.voteStatus]];
 }
 
@@ -196,6 +197,15 @@
     NSMutableAttributedString *s = self.votingLabel.attributedText.mutableCopy;
     [s setAttributes:@{NSForegroundColorAttributeName: color} range:NSMakeRange(0, [s.string rangeOfString:@" "].location)];
     self.votingLabel.attributedText = s;
+}
+
+- (void)setRemoved:(BOOL)removed {
+    _removed = removed;
+    if (removed) {
+        self.backgroundColor = [UIColor colorWithRed:0.800 green:0.400 blue:0.400 alpha:1.000];
+    } else {
+        self.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 @end

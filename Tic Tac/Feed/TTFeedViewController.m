@@ -11,13 +11,15 @@
 #import "TTFeedPhotoCell.h"
 #import "TTCommentsViewController.h"
 #import "TTReplyViewController.h"
+#import "TTCensorshipControl.h"
 
 
-@interface TTFeedViewController ()
+@interface TTFeedViewController () <TTCensorshipDelegate>
 @property (nonatomic, readonly) UIBarButtonItem *sortToggleButton;
 @property (nonatomic, readonly) UIBarButtonItem *composeButton;
 
 @property (nonatomic, readonly) TTFeedArray<YYYak*> *dataSource;
+@property (nonatomic, readonly) NSArray<YYYak*> *arrayToUse;
 @end
 
 @implementation TTFeedViewController
@@ -25,21 +27,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.titleView = [TTCensorshipControl withDelegate:self];
+    
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     _dataSource = [TTFeedArray new];
-    self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYYak *yak, NSDictionary *bindings) {
-        return YYContainsPolitics(yak.title.lowercaseString);
-    }];
+    self.dataSource.removedObjectsPool = ^NSArray* { return [TTCache yakCache].array; };
+    //    self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYYak *yak, NSDictionary *bindings) {
+    //        return YYContainsPolitics(yak.title.lowercaseString);
+    //    }];
     
     // Compose, register for update title notification, update title
     id comp = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composePost)];
     self.navigationItem.rightBarButtonItem = comp;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitle) name:kYYDidUpdateUserNotification object:nil];
-    [self updateTitle];
-}
-
-- (void)updateTitle {
-    self.title = @([YYClient sharedClient].currentUser.karma).stringValue;
 }
 
 - (void)refresh {
@@ -50,6 +49,7 @@
         self.loadingData = NO;
         [self displayOptionalError:error];
         if (!error) {
+            [TTCache cacheYaks:collection];
             [self.dataSource setArray:collection];
             [self.tableView reloadSection:0];
             [self.refreshControl endRefreshing];
@@ -69,8 +69,12 @@
 
 #pragma mark UITableViewDataSource
 
+- (NSArray<YYYak*> *)arrayToUse {
+    return self.showsAll ? self.dataSource.allObjects : self.dataSource;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    YYYak *yak = self.dataSource[indexPath.row];
+    YYYak *yak = self.arrayToUse[indexPath.row];
     NSString *reuse;
     if (yak.hasMedia) {
         reuse = kFeedPhotoCellReuse;
@@ -85,7 +89,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    return self.arrayToUse.count;
 }
 
 #pragma mark UITableViewDelegate
@@ -93,7 +97,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    YYYak *yak = self.dataSource[indexPath.row];
+    YYYak *yak = self.arrayToUse[indexPath.row];
     TTFeedTextCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.visited = YES;
     

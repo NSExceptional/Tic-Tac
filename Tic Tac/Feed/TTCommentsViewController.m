@@ -7,15 +7,12 @@
 //
 
 #import "TTCommentsViewController.h"
-#import "TTCommentsHeaderView.h"
 #import "TTCommentCell.h"
 #import "TTReplyViewController.h"
 #import "TTCensorshipControl.h"
 
 
 @interface TTCommentsViewController () <TTCensorshipDelegate>
-@property (nonatomic, readonly) TTCommentsHeaderView *commentsHeaderView;
-@property (nonatomic, readonly) YYYak *yak;
 @property (nonatomic, readonly) TTFeedArray<YYComment*> *dataSource;
 @property (nonatomic, readonly) NSArray<YYComment*> *arrayToUse;
 @end
@@ -30,9 +27,11 @@
 
 + (instancetype)commentsForNotification:(YYNotification *)notification {
     TTCommentsViewController *comments = [self new];
+
     [[YYClient sharedClient] getYak:notification completion:^(YYYak *yak, NSError *error) {
         [comments displayOptionalError:error];
         if (!error) {
+            [TTCache cacheYak:yak];
             comments->_yak = yak;
             [comments.commentsHeaderView updateWithYak:yak];
             
@@ -61,6 +60,10 @@
     if (self) {
         _dataSource = [TTFeedArray new];
         _dataSource.sortNewestFirst = YES;
+        @weakify(self);
+        self.dataSource.removedObjectsPool = ^NSArray* { @strongify(self);
+            return [TTCache commentsForYakWithIdentifier:self.yak.identifier];
+        };
     }
     
     return self;
@@ -102,6 +105,8 @@
     }
 }
 
+#pragma mark Misc
+
 - (void)reloadComments {
     if (self.loadingData) return;
     
@@ -111,6 +116,8 @@
         
         [self displayOptionalError:error message:@"Failed to load comments"];
         if (!error) {
+            [self analyzeComments:collection];
+            [TTCache cacheComments:collection forYak:self.yak];
             [self.dataSource setArray:collection];
             [self.tableView reloadSection:0];
             [self.refreshControl endRefreshing];
@@ -137,6 +144,20 @@
         [TBNetworkActivity pop];
         [self displayOptionalError:error];
     }];
+}
+
+- (void)analyzeComments:(NSArray *)comments {
+    NSMutableDictionary *handles = [NSMutableDictionary dictionary];
+    for (YYComment *comment in comments) {
+        if (comment.username.length) {
+            handles[comment.relevantAuthorIdentifier] = comment.username;
+        }
+    }
+    for (YYComment *comment in comments) {
+        if (handles[comment.relevantAuthorIdentifier]) {
+            [comment setValue:handles[comment.relevantAuthorIdentifier] forKey:@"username"];
+        }
+    }
 }
 
 #pragma mark UITableViewDataSource

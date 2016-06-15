@@ -11,6 +11,8 @@
 
 @interface TTVotingCell : MCSwipeTableViewCell
 
+@property (nonatomic) BOOL removed;
+
 /// Set this before setting votingSwipesEnabled
 @property (nonatomic) YYVotable *votable;
 @property (nonatomic) BOOL votingSwipesEnabled;

@@ -77,13 +77,4 @@ static NSDictionary *avatars;
                   }];
 }
 
-- (void)setRemoved:(BOOL)removed {
-    _removed = removed;
-    if (removed) {
-        self.backgroundColor = [UIColor colorWithRed:0.800 green:0.400 blue:0.400 alpha:1.000];
-    } else {
-        self.backgroundColor = nil;
-    }
-}
-
 @end

@@ -104,9 +104,10 @@
     [super updateConstraints];
 }
 
-//- (void)layoutSubviews {
-//    self.titleLabel.preferredMaxLayoutWidth = self.preferredTitleLabelMaxWidth;
-//    [super layoutSubviews];
+//- (void)prepareForReuse {
+//    [super prepareForReuse];
+//    
+//    self.visited = NO;
 //}
 
 - (UILabel *)votingLabel { return self.scoreLabel; }
@@ -118,6 +119,12 @@
 - (void)setAuthorLabelText:(NSString *)authorLabelText {
     self.authorLabel.text = authorLabelText;
     self.authorLabel.hidden = authorLabelText.length == 0;
+}
+
+- (void)setVisited:(BOOL)visited {
+    _visited = visited;
+    
+    self.titleLabel.textColor = visited ? [UIColor noVoteColor] : [UIColor blackColor];
 }
 
 - (NSArray<UIView*> *)opaqueViews {

@@ -10,7 +10,7 @@
 
 
 @interface TTCensorshipControl ()
-@property (nonatomic, readonly) id<TTCensorshipDelegate> censorshipDelegate;
+@property (nonatomic, weak, readonly) id<TTCensorshipDelegate> censorshipDelegate;
 @end
 
 @implementation TTCensorshipControl
@@ -23,7 +23,7 @@
     self = [super initWithItems:@[@"Visible", @"All"]];
     if (self) {
         _censorshipDelegate = delegate;
-        delegate.showsAll = YES;
+        delegate.showsAll = NO;
         
         self.selectedSegmentIndex = 0;
         [self addTarget:self action:@selector(segmentChanged) forControlEvents:UIControlEventValueChanged];

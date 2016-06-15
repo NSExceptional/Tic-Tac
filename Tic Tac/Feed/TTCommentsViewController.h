@@ -7,11 +7,15 @@
 //
 
 #import "TTTableViewController.h"
+#import "TTCommentsHeaderView.h"
 
 
 @interface TTCommentsViewController : TTTableViewController
 
 + (instancetype)commentsForYak:(YYYak *)yak;
 + (instancetype)commentsForNotification:(YYNotification *)notification;
+
+@property (nonatomic, readonly) YYYak *yak;
+@property (nonatomic, readonly) TTCommentsHeaderView *commentsHeaderView;
 
 @end
