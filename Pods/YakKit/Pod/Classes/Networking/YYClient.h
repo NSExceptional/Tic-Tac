@@ -10,7 +10,9 @@
 #import "YakKit-Constants.h"
 
 @import CoreLocation;
-@class YYConfiguration, YYUser, YYPeekLocation, YYYak, YYComment, YYNotification, YYVotable;
+@class LYRClient;
+@class YYConfiguration, YYUser, YYPeekLocation;
+@class YYYak, YYComment, YYNotification, YYVotable;
 
 
 extern BOOL YYIsValidUserIdentifier(NSString * _Nonnull uid);
@@ -30,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSString         *userIdentifier;
 @property (nonatomic, readonly) NSString         *baseURLForRegion;
 @property (nonatomic          ) NSString         *region;
+/// Set this property manually if you want to use chat. Requires the LayerKit framework.
+@property (nonatomic, nullable) LYRClient        *layerClient;
 
 #pragma mark General
 /// Updates the `configuration` object. Will post kYYDidUpdateConfigurationNotification on success before calling the completion block.
@@ -40,15 +44,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)authenticateForWeb:(void(^)(NSString *code, NSInteger timeout, NSError *error))completion;
 
 #pragma mark Making requests
-- (NSDictionary *)generalParams:(nullable NSDictionary *)additional;
-- (void)postTo:(NSString *)endpoint callback:(nullable ResponseBlock)callback;
-- (void)postTo:(NSString *)endpoint params:(nullable NSDictionary *)params sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
-- (void)postTo:(NSString *)endpoint params:(nullable NSDictionary *)params httpBodyParams:(nullable NSDictionary *)bodyParams sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
-- (void)get:(NSString *)endpoint callback:(nullable ResponseBlock)callback;
-- (void)get:(NSString *)endpoint params:(nullable NSDictionary *)params sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
-- (void)get:(NSString *)endpoint params:(nullable NSDictionary *)params headers:(nullable NSDictionary *)headers sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
 
-- (NSString *)signRequest:(NSString *)endpoint params:(NSDictionary *)params;
+- (NSDictionary *)generalQuery:(nullable NSDictionary *)additional;
+- (void)postTo:(NSString *)endpoint callback:(nullable ResponseBlock)callback;
+- (void)postTo:(NSString *)endpoint body:(NSDictionary *)body callback:(ResponseBlock)callback;
+- (void)postTo:(NSString *)endpoint query:(nullable NSDictionary *)params sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
+- (void)postTo:(NSString *)endpoint query:(nullable NSDictionary *)params body:(nullable NSDictionary *)bodyParams sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
+- (void)get:(NSString *)endpoint callback:(nullable ResponseBlock)callback;
+- (void)get:(NSString *)endpoint query:(nullable NSDictionary *)params sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
+- (void)get:(NSString *)endpoint query:(nullable NSDictionary *)params headers:(nullable NSDictionary *)headers sign:(BOOL)sign callback:(nullable ResponseBlock)callback;
+
+- (NSString *)signRequest:(NSString *)endpoint query:(NSDictionary *)params;
 
 #pragma mark Internal
 - (void)completeWithClass:(Class)cls jsonArray:(NSArray *)objects error:(NSError *)error completion:(ArrayBlock)completion;

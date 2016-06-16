@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "56911CE66256702790FC185F245699B5"
-               BuildableName = "libObjc-iOS-Extensions.a"
+               BlueprintIdentifier = "6F8C9C5A0FDE0CDB4B108EC34BA00890"
+               BuildableName = "Objc_iOS_Extensions.framework"
                BlueprintName = "Objc-iOS-Extensions"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "56911CE66256702790FC185F245699B5"
-            BuildableName = "libObjc-iOS-Extensions.a"
+            BlueprintIdentifier = "6F8C9C5A0FDE0CDB4B108EC34BA00890"
+            BuildableName = "Objc_iOS_Extensions.framework"
             BlueprintName = "Objc-iOS-Extensions"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -60,15 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "56911CE66256702790FC185F245699B5"
-            BuildableName = "libObjc-iOS-Extensions.a"
-            BlueprintName = "Objc-iOS-Extensions"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

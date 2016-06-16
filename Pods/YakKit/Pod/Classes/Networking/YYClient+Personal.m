@@ -11,6 +11,7 @@
 #import "YYYak.h"
 #import "NSArray+YakKit.h"
 
+
 @implementation YYClient (Personal)
 
 #pragma mark Helper methods
@@ -54,7 +55,7 @@
                             @"parentID": notification.thingIdentifier,
                             @"status": read ? @"read" : @"unread",
                             @"userID": self.userIdentifier};
-    [self postTo:URL(kBaseNotifyURL, kepMarkNotification) params:[self generalParams:nil] httpBodyParams:query sign:YES callback:^(NSDictionary *json, NSError *error) {
+    [self postTo:URL(kBaseNotifyURL, kepMarkNotification) query:[self generalQuery:nil] body:query sign:YES callback:^(NSDictionary *json, NSError *error) {
         if (error) {
             YYRunBlockP(completion, error);
         } else {
@@ -70,7 +71,7 @@
     NSDictionary *query = @{@"notificationIDs[]": [[notifications valueForKeyPath:@"@unionOfObjects.identifier"] componentsJoinedByString:@","],
                             @"status": read ? @"read" : @"unread",
                             @"userID": self.userIdentifier};
-    [self postTo:URL(kBaseNotifyURL, kepMarkNotificationsBatch) params:[self generalParams:nil] httpBodyParams:query sign:YES callback:^(NSDictionary *json, NSError *error) {
+    [self postTo:URL(kBaseNotifyURL, kepMarkNotificationsBatch) query:[self generalQuery:nil] body:query sign:YES callback:^(NSDictionary *json, NSError *error) {
         if (error) {
             YYRunBlockP(completion, error);
         } else {

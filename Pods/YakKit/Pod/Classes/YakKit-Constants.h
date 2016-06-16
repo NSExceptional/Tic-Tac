@@ -83,6 +83,7 @@ extern NSString * const kepStartVerification;
 extern NSString * const kepEndVerification;
 
 #pragma mark Misc
+extern NSString * const kepLayerAuthentication;
 extern NSString * const kepLogEvent;
 /// Goes with kBaseContent
 extern NSString * const kepRefreshersLocate;

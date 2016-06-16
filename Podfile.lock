@@ -1,6 +1,9 @@
 PODS:
+  - Atlas (1.0.23):
+    - LayerKit (>= 0.21.0)
   - AutoCoding (2.2.1)
   - FLEX (2.3.0)
+  - LayerKit (0.21.1)
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
     - libextobjc/EXTConcreteProtocol (= 0.4.1)
@@ -50,8 +53,10 @@ PODS:
     - Mantle
 
 DEPENDENCIES:
+  - Atlas
   - AutoCoding
   - FLEX
+  - LayerKit
   - libextobjc
   - Masonry
   - MCSwipeTableViewCell
@@ -71,12 +76,14 @@ CHECKOUT OPTIONS:
     :commit: 72146162cbfd4a9534c9903fcd659e124303a0d3
     :git: https://github.com/ThePantsThief/MirrorKit.git
   YakKit:
-    :commit: 322739c731f341c26c1b042ce5e175422c3dcef9
+    :commit: 39f2809d7b3b1fd64e5be9936a968c3e404087d2
     :git: https://github.com/ThePantsThief/YakKit.git
 
 SPEC CHECKSUMS:
+  Atlas: acf154ee2a10c6257a47e872366154653932302f
   AutoCoding: b47e528426c84346371dd532b8e6458929e4da34
   FLEX: ba80ea13d2c784e85e616137fd4eff164781e364
+  LayerKit: 7d77cfa591a3b82e76dfa1c7b477d90ccd87feb0
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
   Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
@@ -87,4 +94,6 @@ SPEC CHECKSUMS:
   TBAlertController: 7fd7af7693e3b68ba27a3f1b756685db182cc8d0
   YakKit: 4d8f80e2d135d23cdf80ba18a153ced14e550239
 
-COCOAPODS: 0.38.0
+PODFILE CHECKSUM: dd4982eeb140a48d14cee735c901c9ca657aaad3
+
+COCOAPODS: 1.0.1

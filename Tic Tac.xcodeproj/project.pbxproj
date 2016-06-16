@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E51347CD76C70F537B0BBF4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FF4A92F5993BA051B2D00C /* libPods.a */; };
+		0377D8070B1B4DCC6F211890 /* Pods_Tic_Tac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7520F1A81C2E54FC29CE61B4 /* Pods_Tic_Tac.framework */; };
 		9037FF7A1D109F20000CCC81 /* NSNumber+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF791D109F20000CCC81 /* NSNumber+Score.m */; };
 		9037FF7D1D10B89B000CCC81 /* TTCensorshipControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF7C1D10B89B000CCC81 /* TTCensorshipControl.m */; };
 		90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */; };
@@ -54,7 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1199B1BE707A13DCEE6DFFE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7520F1A81C2E54FC29CE61B4 /* Pods_Tic_Tac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tic_Tac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9037FF781D109F20000CCC81 /* NSNumber+Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Score.h"; sourceTree = "<group>"; };
 		9037FF791D109F20000CCC81 /* NSNumber+Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Score.m"; sourceTree = "<group>"; };
 		9037FF7B1D10B89B000CCC81 /* TTCensorshipControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCensorshipControl.h; sourceTree = "<group>"; };
@@ -63,7 +63,6 @@
 		90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationCell.m; sourceTree = "<group>"; };
 		90906DF61D0B1C66002A8CFA /* YYNotification+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYNotification+Util.h"; sourceTree = "<group>"; };
 		90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYNotification+Util.m"; sourceTree = "<group>"; };
-		A0FF4A92F5993BA051B2D00C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableViewController.h; sourceTree = "<group>"; };
 		B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableViewController.m; sourceTree = "<group>"; };
 		B44F16041CDA977A002DF423 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -141,7 +140,8 @@
 		B4E743811CC6E0C700670CC6 /* Tic-Tac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tic-Tac-Prefix.pch"; sourceTree = "<group>"; };
 		B4E743831CC6E41400670CC6 /* UIColor+TicTac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TicTac.h"; sourceTree = "<group>"; };
 		B4E743841CC6E41400670CC6 /* UIColor+TicTac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TicTac.m"; sourceTree = "<group>"; };
-		BEC4E696B22FE63E85BD1D3D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B57F1CE47E134856190097AF /* Pods-Tic Tac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac.debug.xcconfig"; sourceTree = "<group>"; };
+		CFDE953E9FF83A84D5F8ECED /* Pods-Tic Tac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,18 +149,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E51347CD76C70F537B0BBF4 /* libPods.a in Frameworks */,
+				0377D8070B1B4DCC6F211890 /* Pods_Tic_Tac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AEE73BF5FD4601076DAF410D /* Pods */ = {
+		90A5901D1D13350F00BCC186 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				BEC4E696B22FE63E85BD1D3D /* Pods.debug.xcconfig */,
-				1199B1BE707A13DCEE6DFFE3 /* Pods.release.xcconfig */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		90D9CBDCB973B44FFE61203D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B57F1CE47E134856190097AF /* Pods-Tic Tac.debug.xcconfig */,
+				CFDE953E9FF83A84D5F8ECED /* Pods-Tic Tac.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -170,8 +177,8 @@
 			children = (
 				B4E73C451CC6A7D500670CC6 /* Tic Tac */,
 				B4E73C441CC6A7D500670CC6 /* Products */,
-				AEE73BF5FD4601076DAF410D /* Pods */,
-				B574DA96B90400729A77A569 /* Frameworks */,
+				90D9CBDCB973B44FFE61203D /* Pods */,
+				E35EFA1977FDBF837BE14FBC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,8 +202,9 @@
 				B4E73C611CC6A98200670CC6 /* Core */,
 				B4E73C591CC6A8DB00670CC6 /* Onboarding */,
 				B4E73C5A1CC6A8E600670CC6 /* Feed */,
-				B4E73C5D1CC6A90B00670CC6 /* Profile */,
 				B4E73C5C1CC6A8FB00670CC6 /* Notifications */,
+				90A5901D1D13350F00BCC186 /* Chat */,
+				B4E73C5D1CC6A90B00670CC6 /* Profile */,
 				B4E73C5B1CC6A8F000670CC6 /* Settings */,
 				B4E73C461CC6A7D500670CC6 /* Supporting Files */,
 			);
@@ -338,10 +346,10 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		B574DA96B90400729A77A569 /* Frameworks */ = {
+		E35EFA1977FDBF837BE14FBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A0FF4A92F5993BA051B2D00C /* libPods.a */,
+				7520F1A81C2E54FC29CE61B4 /* Pods_Tic_Tac.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -353,11 +361,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4E73C541CC6A7D500670CC6 /* Build configuration list for PBXNativeTarget "Tic Tac" */;
 			buildPhases = (
-				81D8385A69C1BDA506CA89A3 /* Check Pods Manifest.lock */,
+				88E4751CFBA94C61A15DB73E /* [CP] Check Pods Manifest.lock */,
 				B4E73C3F1CC6A7D500670CC6 /* Sources */,
 				B4E73C401CC6A7D500670CC6 /* Frameworks */,
 				B4E73C411CC6A7D500670CC6 /* Resources */,
-				5027E5298DF47E7760E40D04 /* Copy Pods Resources */,
+				B0D42A7F1C84F8D46673F9BE /* [CP] Embed Pods Frameworks */,
+				A4C74BF0A88350424FFBA260 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -434,34 +443,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5027E5298DF47E7760E40D04 /* Copy Pods Resources */ = {
+		88E4751CFBA94C61A15DB73E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		81D8385A69C1BDA506CA89A3 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A4C74BF0A88350424FFBA260 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0D42A7F1C84F8D46673F9BE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -601,7 +625,7 @@
 		};
 		B4E73C551CC6A7D500670CC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEC4E696B22FE63E85BD1D3D /* Pods.debug.xcconfig */;
+			baseConfigurationReference = B57F1CE47E134856190097AF /* Pods-Tic Tac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -618,7 +642,7 @@
 		};
 		B4E73C561CC6A7D500670CC6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1199B1BE707A13DCEE6DFFE3 /* Pods.release.xcconfig */;
+			baseConfigurationReference = CFDE953E9FF83A84D5F8ECED /* Pods-Tic Tac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
