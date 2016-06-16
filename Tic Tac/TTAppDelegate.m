@@ -9,6 +9,7 @@
 #import "TTAppDelegate.h"
 #import "TTWelcomeViewController.h"
 #import "TTCache.h"
+@import LayerKit;
 
 
 #define kYYLat 31.534173
@@ -31,12 +32,23 @@
     // Default preferences
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
     
+    // Setup layer client (will connect in the view controller
+    NSURL *production = [NSURL URLWithString:@"layer:///apps/production/18426d48-f4eb-11e5-9d56-61d800001f29"];
+    LYRClient *layer = [LYRClient clientWithAppID:production];
+    [YYClient sharedClient].layerClient = layer;
+    
     // Login / get current user
     NSString *userIdentifier = [NSUserDefaults currentUserIdentifier];
     if (userIdentifier) {
         [YYClient sharedClient].userIdentifier = userIdentifier;
         [YYClient sharedClient].location = [[CLLocation alloc] initWithLatitude:kYYLat longitude:kYYLong];
-        [[YYClient sharedClient] updateUser:nil];
+        [[YYClient sharedClient] updateUser:^(NSError *error) {
+            if (!error) {
+                if ([YYClient sharedClient].currentUser.handle) {
+                    
+                }
+            }
+        }];
         
         self.window.rootViewController = [TTTabBarController new];
         [self.tabBarController notifyUserIsReady];
