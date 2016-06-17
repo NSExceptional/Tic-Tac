@@ -1,5 +1,5 @@
 //
-//  TTChatViewController.h
+//  TTChatListViewController.h
 //  Tic Tac
 //
 //  Created by CBORD Waco on 6/17/16.
@@ -8,7 +8,6 @@
 
 #import <Atlas/Atlas.h>
 
-
-@interface TTChatViewController : ATLConversationViewController
+@interface TTChatListViewController : ATLConversationListViewController
 
 @end

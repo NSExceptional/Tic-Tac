@@ -11,7 +11,7 @@
 #import "TTNotificationsViewController.h"
 #import "TTProfileViewController.h"
 #import "TTSettingsViewController.h"
-#import "Atlas.h"
+#import "TTChatListViewController.h"
 
 
 @interface TTTabBarController ()
@@ -28,12 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    id chat = [ATLConversationListViewController conversationListViewControllerWithLayerClient:[YYClient sharedClient].layerClient];
+    id chat = [TTChatListViewController conversationListViewControllerWithLayerClient:[YYClient sharedClient].layerClient];
     self.viewControllers = @[[TTFeedViewController inNavigationController],
                              [TTNotificationsViewController inNavigationController],
-                             [[UINavigationController alloc] initWithRootViewController:chat]],
+                             [[UINavigationController alloc] initWithRootViewController:chat],
                              [TTProfileViewController inNavigationController],
-                             [TTSettingsViewController inNavigationController];
+                             [TTSettingsViewController inNavigationController]];
     
     NSArray *icons = @[@"tab_feed", @"tab_notifications", @"tab_profile", @"tab_profile", @"tab_settings"];
     NSArray *titles = @[@"Feed", @"Notifications", @"Chat", @"Profile", @"Settings"];

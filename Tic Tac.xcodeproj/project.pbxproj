@@ -12,7 +12,8 @@
 		9037FF7D1D10B89B000CCC81 /* TTCensorshipControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF7C1D10B89B000CCC81 /* TTCensorshipControl.m */; };
 		90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */; };
 		90906DF81D0B1C66002A8CFA /* YYNotification+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */; };
-		90A590201D135F9300BCC186 /* TTChatViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 90A5901F1D135F9300BCC186 /* TTChatViewController.h */; };
+		90D68E711D147D700054A9E1 /* TTChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D68E701D147D700054A9E1 /* TTChatListViewController.m */; };
+		90D68E741D149D310054A9E1 /* TTChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D68E731D149D310054A9E1 /* TTChatViewController.m */; };
 		B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */; };
 		B44F16051CDA977A002DF423 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44F16041CDA977A002DF423 /* Defaults.plist */; };
 		B44F16081CDA98AC002DF423 /* TTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B44F16071CDA98AC002DF423 /* TTCache.m */; };
@@ -64,8 +65,10 @@
 		90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationCell.m; sourceTree = "<group>"; };
 		90906DF61D0B1C66002A8CFA /* YYNotification+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYNotification+Util.h"; sourceTree = "<group>"; };
 		90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYNotification+Util.m"; sourceTree = "<group>"; };
-		90A5901E1D135F9300BCC186 /* TTChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatViewController.m; sourceTree = "<group>"; };
-		90A5901F1D135F9300BCC186 /* TTChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatViewController.h; sourceTree = "<group>"; };
+		90D68E6F1D147D700054A9E1 /* TTChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatListViewController.h; sourceTree = "<group>"; };
+		90D68E701D147D700054A9E1 /* TTChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatListViewController.m; sourceTree = "<group>"; };
+		90D68E721D149D310054A9E1 /* TTChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatViewController.h; sourceTree = "<group>"; };
+		90D68E731D149D310054A9E1 /* TTChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatViewController.m; sourceTree = "<group>"; };
 		B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableViewController.h; sourceTree = "<group>"; };
 		B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableViewController.m; sourceTree = "<group>"; };
 		B44F16041CDA977A002DF423 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -162,8 +165,10 @@
 		90A5901D1D13350F00BCC186 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				90A5901F1D135F9300BCC186 /* TTChatViewController.h */,
-				90A5901E1D135F9300BCC186 /* TTChatViewController.m */,
+				90D68E6F1D147D700054A9E1 /* TTChatListViewController.h */,
+				90D68E701D147D700054A9E1 /* TTChatListViewController.m */,
+				90D68E721D149D310054A9E1 /* TTChatViewController.h */,
+				90D68E731D149D310054A9E1 /* TTChatViewController.m */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -506,8 +511,9 @@
 				B4558A151CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m in Sources */,
 				B471391C1CD6DC6900B1DAAF /* YYVotable+Removed.m in Sources */,
 				B4C204F81CD9BBCC00564A83 /* TTReplyViewController.m in Sources */,
-				90A590201D135F9300BCC186 /* TTChatViewController.h in Sources */,
+				90D68E711D147D700054A9E1 /* TTChatListViewController.m in Sources */,
 				B4712D261CD6AF5900B1DAAF /* NSDate+AgeString.m in Sources */,
+				90D68E741D149D310054A9E1 /* TTChatViewController.m in Sources */,
 				B4E73C601CC6A97600670CC6 /* TTTabBarController.m in Sources */,
 				90906DF81D0B1C66002A8CFA /* YYNotification+Util.m in Sources */,
 				B4E73C6B1CC6D8CA00670CC6 /* TTWelcomeButton.m in Sources */,

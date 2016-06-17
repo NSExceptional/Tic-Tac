@@ -53,7 +53,7 @@ BOOL YYIsValidUserIdentifier(NSString *uid) {
 - (id)init {
     self = [super init];
     if (self) {
-        self.region = @"us-east-api";
+        self.region = @"us-central-api";
     }
     
     return self;
@@ -185,8 +185,14 @@ static NSMutableArray *requestCache;
         request = [[NSMutableURLRequest alloc] initWithURL:url];//[NSURL URLWithString:url]];
     }
     
+    // Some use JSON
+    NSData *body = ({
+        BOOL isData = [params isKindOfClass:[NSData class]];
+        isData ? params : [[NSString queryStringWithParams:params] dataUsingEncoding:NSUTF8StringEncoding];
+    });
+    
     request.URL = url;//[NSURL URLWithString:url];
-    request.HTTPBody   = [[NSString queryStringWithParams:params] dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody   = body;
     request.HTTPMethod = post ? @"POST" : @"GET";
     request.allHTTPHeaderFields = headers;
     
@@ -199,10 +205,10 @@ static NSMutableArray *requestCache;
 
 - (NSString *)signRequest:(NSString *)endpoint query:(NSDictionary *)params {
     NSMutableString *message = [NSMutableString stringWithString:endpoint];
-    NSString *salt = [NSString timestamp];
+    NSString *salt = [[NSString timestamp] substringToIndex:10];
     //    NSArray *keys = [params.allKeys sortedArrayUsingSelector:@selector(compare:)];
     
-    // Append parameters and salt to message before hashing
+    // Append parameters to message before hashing
     if (params.count) {
         [message appendFormat:@"?%@", [NSString queryStringWithParams:params]];
     }
@@ -288,7 +294,7 @@ static NSMutableArray *requestCache;
 }
 
 - (void)postTo:(NSString *)endpoint body:(NSDictionary *)body callback:(ResponseBlock)callback {
-    [self postTo:endpoint query:[self generalQuery:nil] body:@{} sign:YES callback:callback];
+    [self postTo:endpoint query:[self generalQuery:nil] body:body sign:YES callback:callback];
 }
 
 - (void)postTo:(NSString *)endpoint query:(NSDictionary *)params sign:(BOOL)sign callback:(ResponseBlock)callback {
