@@ -35,7 +35,7 @@
                              [TTProfileViewController inNavigationController],
                              [TTSettingsViewController inNavigationController]];
     
-    NSArray *icons = @[@"tab_feed", @"tab_notifications", @"tab_profile", @"tab_profile", @"tab_settings"];
+    NSArray *icons = @[@"tab_feed", @"tab_notifications", @"tab_chat", @"tab_profile", @"tab_settings"];
     NSArray *titles = @[@"Feed", @"Notifications", @"Chat", @"Profile", @"Settings"];
     
     NSInteger i = 0;

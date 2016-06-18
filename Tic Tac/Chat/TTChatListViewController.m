@@ -38,13 +38,9 @@
             [self displayOptionalError:error];
             if (success) {
                 if ([YYClient sharedClient].currentUser.handle) {
-                    if (self.layer.authenticatedUser) {
-                        //                        [self loadConversations];
-                    } else {
+                    if (!self.layer.authenticatedUser) {
                         [self authenticateWithLayer];
                     }
-                } else {
-                    // No handle, no chat?
                 }
             }
         }];
@@ -63,36 +59,13 @@
             [[YYClient sharedClient] authenticateForLayer:nonce completion:^(NSString *identityToken, NSError *error2) {
                 [self displayOptionalError:error2 message:@"Failed to authenticate chat"];
                 if (!error2) {
-                    [self.layer authenticateWithIdentityToken:identityToken completion:^(LYRIdentity *authenticatedUser, NSError *error3) {
+                    [self.layer authenticateWithIdentityToken:identityToken completion:^(LYRIdentity *user, NSError *error3) {
                         [self displayOptionalError:error3 message:@"Failed to authenticate chat"];
-                        if (!error3) {
-                            [self didAuthenticate];
-                        }
                     }];
                 }
             }];
         }
     }];
-}
-
-- (void)didAuthenticate {
-    
-}
-
-- (void)loadConversations {
-    //    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
-    //    query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-    //    query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
-    //    query.limit = 20;
-    //    query.offset = 0;
-    //    
-    //    NSError *error;
-    //    NSOrderedSet *messages = [self.layer executeQuery:query error:&error];
-    //    if (!error) {
-    //        NSLog(@"%tu messages in conversation", messages.count);
-    //    } else {
-    //        NSLog(@"Query failed with error %@", error);
-    //    }
 }
 
 #pragma mark ATLConversationListViewControllerDelegate
@@ -107,11 +80,11 @@
 
 - (NSString *)conversationListViewController:(ATLConversationListViewController *)list titleForConversation:(LYRConversation *)conversation {
     // Get participants without myself
-    NSMutableSet *participantIdentifiers = conversation.participants.mutableCopy;
-    [participantIdentifiers minusSet:[NSSet setWithObject:self.layerClient.authenticatedUser]];
+    NSMutableSet<LYRIdentity*> *users = conversation.participants.mutableCopy;
+    [users minusSet:[NSSet setWithObject:self.layerClient.authenticatedUser]];
     
-    if (participantIdentifiers.count == 0) return @"No Participants";
-    return [participantIdentifiers.allObjects.firstObject userID];
+    if (users.count == 0) return @"No Participants";
+    return conversation.metadata[@"users"][users.allObjects.firstObject.userID][@"handle"] ?: users.allObjects.firstObject.userID;
 }
 
 #pragma mark - Participant Delegate

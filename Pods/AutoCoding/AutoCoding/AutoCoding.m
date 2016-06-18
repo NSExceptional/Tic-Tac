@@ -264,7 +264,7 @@ static NSString *const AutocodingException = @"AutocodingException";
         }
     }
 }
-
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     [self setWithCoder:aDecoder];

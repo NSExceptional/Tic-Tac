@@ -188,7 +188,7 @@ static NSMutableArray *requestCache;
     // Some use JSON
     NSData *body = ({
         BOOL isData = [params isKindOfClass:[NSData class]];
-        isData ? params : [[NSString queryStringWithParams:params] dataUsingEncoding:NSUTF8StringEncoding];
+        isData ? (id)params : [[NSString queryStringWithParams:params] dataUsingEncoding:NSUTF8StringEncoding];
     });
     
     request.URL = url;//[NSURL URLWithString:url];

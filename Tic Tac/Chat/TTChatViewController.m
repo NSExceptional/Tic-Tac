@@ -9,6 +9,30 @@
 #import "TTChatViewController.h"
 
 
+@interface TTChatParticipant : NSObject <ATLParticipant>
++ (instancetype)make:(NSString *)identifier users:(NSDictionary *)metadata;
+@property (nonatomic, readonly) NSString *firstName;
+@property (nonatomic, readonly) NSString *lastName;
+@property (nonatomic, readonly) NSString *displayName;
+@property (nonatomic, readonly) NSString *userID;
+@property (nonatomic, readonly) NSURL    *avatarImageURL;
+@property (nonatomic, readonly) UIImage  *avatarImage;
+@property (nonatomic, readonly) NSString *avatarInitials;
+@end
+@implementation TTChatParticipant
+
++ (instancetype)make:(NSString *)identifier users:(NSDictionary *)metadata {
+    NSDictionary *user = metadata[identifier];
+    if (!user) return nil;
+    
+    TTChatParticipant *participant = [self new];
+    participant->_userID = identifier;
+    participant->_displayName = user[@"handle"];
+    return participant;
+}
+
+@end
+
 @interface TTChatViewController () <ATLConversationViewControllerDelegate, ATLConversationViewControllerDataSource>
 @end
 
@@ -31,7 +55,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         formatter = [NSDateFormatter new];
-        formatter.dateStyle = NSDateFormatterShortStyle;
+        formatter.dateStyle = NSDateFormatterMediumStyle;
     });
     
     return formatter;
@@ -54,12 +78,12 @@
             return;
         }
         
-        NSString *checkmark = @"✔︎";
+//        NSString *checkmark = @"✔︎";
         NSString *messageStatus;
         UIColor *textColor = [UIColor lightGrayColor];
         switch (status) {
             case LYRRecipientStatusInvalid: {
-                textColor = [UIColor redColor];
+                textColor = [UIColor colorWithRed:1.000 green:0.400 blue:0.400 alpha:1.000];
                 messageStatus = @"Error";
                 break;
             }
@@ -74,12 +98,12 @@
                 break;
             }
             case LYRRecipientStatusDelivered: {
-                textColor = [UIColor orangeColor];
+                textColor = [UIColor colorWithWhite:0.500 alpha:1.000];
                 messageStatus = @"Delivered";
                 break;
             }
             case LYRRecipientStatusRead: {
-                textColor = [UIColor greenColor];
+                textColor = [UIColor colorWithWhite:0.500 alpha:1.000];
                 messageStatus = @"Read";
                 break;
             }
@@ -89,6 +113,10 @@
     }];
     
     return mergedStatuses;
+}
+
+- (id<ATLParticipant>)conversationViewController:(ATLConversationViewController *)convVC participantForIdentity:(LYRIdentity *)identity {
+    return [TTChatParticipant make:identity.userID users:self.conversation.metadata[@"users"]];
 }
 
 - (void)userDidTapLink:(NSNotification *)notification {

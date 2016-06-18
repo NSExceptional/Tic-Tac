@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSArray<ObjectType> *removed;
 @property (nonatomic, readonly) NSArray<ObjectType> *allObjects;
 
-@property (nonatomic) ArraySourceBlock removedObjectsPool;
+@property (nonatomic, copy) ArraySourceBlock removedObjectsPool;
 
 @property (nonatomic, copy) ObjectType (^chooseDuplicate)(ObjectType original, ObjectType duplicate);
 @property (nonatomic, copy) NSPredicate *filter;
