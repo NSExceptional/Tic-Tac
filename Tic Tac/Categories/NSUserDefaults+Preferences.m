@@ -81,7 +81,7 @@ NSMutableOrderedSet *visitedPosts;
              @"92099E85-7D70-4AF1-8F2A-65316CC80F41",
              @"F336DE49-6AE0-4979-AEE5-74919B959762",
              @"91281688-4356-4540-80B8-E25D2AE07BC0"];
-    return [DEFAULT arrayForKey:kPref_otherUserIdentifiers];
+    return [DEFAULT arrayForKey:kPref_otherUserIdentifiers] ?: @[];
 }
 
 + (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref {

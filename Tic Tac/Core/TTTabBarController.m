@@ -60,6 +60,7 @@
     self.ready = YES;
     
     [[YYClient sharedClient] updateUser:^(NSError *error) {
+        [[YYClient sharedClient] updateConfiguration:nil];
         if (!error) {
             YYClient *client = [YYClient sharedClient];
             if (client.currentUser.handle) {
