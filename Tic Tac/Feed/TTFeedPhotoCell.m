@@ -11,14 +11,14 @@
 
 @implementation TTFeedPhotoCell
 
-- (void)setupStacks {
-    [super setupStacks];
+- (void)initializeSubviews {
+    [super initializeSubviews];
     
     _mediaImageView = [[UIImageView alloc] initWithImage:nil];
     self.mediaImageView.clipsToBounds = YES;
     self.mediaImageView.contentMode   = UIViewContentModeScaleAspectFill;
     
-    [self.stackVerticalMain addArrangedSubview:self.mediaImageView];
+    [self.contentView addSubview:self.mediaImageView];
 }
 
 @end

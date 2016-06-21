@@ -178,6 +178,8 @@
         self.useNewUserButtonAction();
     } else if (sender == self.userTokenButton) {
         self.useTokenButtonAction();
+    } else if (sender == self.authTokenButton) {
+        
     } else {
         [NSException raise:NSInternalInconsistencyException format:@"Unknown button tapped in welcome view"];
     }

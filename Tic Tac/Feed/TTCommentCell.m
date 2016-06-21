@@ -24,18 +24,29 @@ static NSDictionary *avatars;
     self.repliesEnabled = YES;
 }
 
-- (void)setupStacks {
-    [super setupStacks];
-    
+- (void)initializeSubviews {
+    [super initializeSubviews];
+ 
     self.replyCountLabel.hidden = YES;
     
     _iconImageView = [[UIImageView alloc] initWithImage:nil];
     self.iconImageView.clipsToBounds = YES;
     self.iconImageView.contentMode   = UIViewContentModeScaleAspectFill;
     [self.iconImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [self.stackVerticalMain setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.contentView addSubview:self.iconImageView];
+}
+
+- (MASViewAttribute *)leftOfTitleLabel { return self.iconImageView.mas_trailing; }
+- (void)updateConstraints {
+    CGFloat inset = self.separatorInset.left;
+    CGFloat horizontalTopBottomInset = 12;//inset * (2.f/3.f);
+    UIEdgeInsets insets = UIEdgeInsetsMake(horizontalTopBottomInset, inset, horizontalTopBottomInset, inset);
     
-    [self.stackHorizontalMain insertArrangedSubview:self.iconImageView atIndex:0];
+    [self.iconImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.top.equalTo(self.contentView).insets(insets);
+    }];
+    
+    [super updateConstraints];
 }
 
 - (void)didLongPressCell:(UILongPressGestureRecognizer *)gesture {
@@ -58,7 +69,7 @@ static NSDictionary *avatars;
 }
 
 - (CGFloat)preferredTitleLabelMaxWidth {
-    return [super preferredTitleLabelMaxWidth] - (CGRectGetWidth(self.iconImageView.frame) + self.stackHorizontalMain.spacing);
+    return [super preferredTitleLabelMaxWidth] - (CGRectGetWidth(self.iconImageView.frame) + 10);
 }
 
 - (void)setRepliesEnabled:(BOOL)repliesEnabled {

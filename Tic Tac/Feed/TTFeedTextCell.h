@@ -22,12 +22,9 @@
 @property (nonatomic, readonly) UILabel *authorLabel;
 @property (nonatomic, readonly) UILabel *replyCountLabel;
 
-@property (nonatomic, readonly) UIStackView *stackVerticalMain;
-@property (nonatomic, readonly) UIStackView *stackHorizontalMain;
-@property (nonatomic, readonly) UIStackView *stackHorizontalTop;
+- (void)initializeSubviews;
+@property (nonatomic, readonly) MASViewAttribute *leftOfTitleLabel;
 
-/// To be overridden by subclasses. Do not call directly.
-- (void)setupStacks;
 /// For scrolling optimization
 @property (nonatomic, readonly) NSArray<UIView*> *opaqueViews;
 /// For proper row heights

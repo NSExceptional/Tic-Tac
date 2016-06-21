@@ -26,6 +26,8 @@
         delegate.showsAll = NO;
         
         self.selectedSegmentIndex = 0;
+        [self setWidth:100 forSegmentAtIndex:0];
+        [self setWidth:100 forSegmentAtIndex:1];
         [self addTarget:self action:@selector(segmentChanged) forControlEvents:UIControlEventValueChanged];
     }
     
