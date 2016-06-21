@@ -178,7 +178,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 + (NSMutableArray<YYComment*> *)diskCachedCommentsForYakWithIdentifier:(NSString *)identifier {
     NSString *path = pathsToCommentCaches[identifier];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
+    if (path && [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
         
         // Load comments at path, unarchive
         NSArray *comments = [NSArray arrayWithContentsOfFile:path];

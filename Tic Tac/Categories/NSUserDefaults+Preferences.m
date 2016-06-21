@@ -15,6 +15,17 @@ NSMutableOrderedSet *visitedPosts;
 #define DEFAULT [NSUserDefaults standardUserDefaults]
 @implementation NSUserDefaults (Preferences)
 
+#pragma mark Prefs
+
++ (BOOL)showBlockedContent {
+    return YES;
+//    return [DEFAULT boolForKey:kPref_showBlockedContent];
+}
+
++ (void)setShowBlockedContent:(BOOL)pref {
+    [DEFAULT setBool:pref forKey:kPref_showBlockedContent];
+}
+
 + (BOOL)refreshFeedOnUserChange {
     return [DEFAULT boolForKey:kPref_refreshFeedOnUserChange];
 }
@@ -23,18 +34,47 @@ NSMutableOrderedSet *visitedPosts;
     [DEFAULT setBool:pref forKey:kPref_refreshFeedOnUserChange];
 }
 
++ (NSInteger)daysToKeepHistory {
+    return [DEFAULT integerForKey:kPref_clearHistoryAfterDays];
+}
+
++ (void)setDaysToKeepHistory:(NSInteger)pref {
+    [DEFAULT setInteger:pref forKey:kPref_clearHistoryAfterDays];
+}
+
+#pragma mark Users
+
 + (NSArray<NSString*> *)allUserIdentifiers {
     NSString *cur = [self currentUserIdentifier];
     return cur ? [[self otherUserIdentifiers] arrayByAddingObject:cur] : [self otherUserIdentifiers];
 }
+
+
++ (NSString *)unusedUserIdentifier {
+    return @"F0298880-19F0-4FEA-8357-BD480E621EB8";
+//    return [DEFAULT stringForKey:kPref_unusedUserIdentifier];
+}
+
++ (void)setUnusedUserIdentifier:(NSString *)unused {
+    NSParameterAssert(unused);
+    [DEFAULT setObject:unused forKey:kPref_unusedUserIdentifier];
+}
+
 
 + (NSString *)currentUserIdentifier {
     return [DEFAULT stringForKey:kPref_currentUserIdentifier];
 }
 
 + (void)setCurrentUserIdentifier:(NSString *)pref {
+    NSParameterAssert(pref);
+    
+    NSString *current = [self currentUserIdentifier];
+    if (current && ![current isEqualToString:pref]) {
+        [self setOtherUserIdentifiers:[[self otherUserIdentifiers] arrayByAddingObject:current]];
+    }
     [DEFAULT setObject:pref forKey:kPref_currentUserIdentifier];
 }
+
 
 + (NSArray<NSString*> *)otherUserIdentifiers {
     return @[@"352552DE-C5AC-4FA8-8EE0-F0FC1BF521EA",
@@ -45,17 +85,21 @@ NSMutableOrderedSet *visitedPosts;
 }
 
 + (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref {
+    NSParameterAssert(pref);
     [DEFAULT setObject:pref forKey:kPref_otherUserIdentifiers];
 }
 
-// TODO other stuff
 
-+ (NSInteger)daysToKeepHistory {
-    return [DEFAULT integerForKey:kPref_clearHistoryAfterDays];
++ (NSString *)handleForUserIdentifier:(NSString *)userid {
+    NSParameterAssert(userid);
+    return [DEFAULT dictionaryForKey:kPref_handlesToUserIdentifiers][userid];
 }
 
-+ (void)setDaysToKeepHistory:(NSInteger)pref {
-    [DEFAULT setInteger:pref forKey:kPref_clearHistoryAfterDays];
++ (void)setHandle:(NSString *)handle forUserIdentifier:(NSString *)userid {
+    NSParameterAssert(handle); NSParameterAssert(userid);
+    NSMutableDictionary *handles = [DEFAULT dictionaryForKey:kPref_handlesToUserIdentifiers].mutableCopy;
+    handles[userid] = handle;
+    [DEFAULT setObject:handles forKey:kPref_handlesToUserIdentifiers];
 }
 
 @end

@@ -44,10 +44,9 @@
     self.delegate = self;
     self.dataSource = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTapLink:)
-                                                 name:ATLUserDidTapLinkNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTapPhoneNumber:)
-                                                 name:ATLUserDidTapPhoneNumberNotification object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(userDidTapLink:) name:ATLUserDidTapLinkNotification object:nil];
+    [center addObserver:self selector:@selector(userDidTapPhoneNumber:) name:ATLUserDidTapPhoneNumberNotification object:nil];
 }
 
 + (NSDateFormatter *)dateFormatter {
@@ -63,7 +62,7 @@
 
 - (NSAttributedString *)conversationViewController:(ATLConversationViewController *)convVC attributedStringForDisplayOfDate:(NSDate *)date {
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline],
-                                 NSForegroundColorAttributeName: [UIColor grayColor] };
+                                 NSForegroundColorAttributeName: [UIColor grayColor]};
     return [[NSAttributedString alloc] initWithString:[[TTChatViewController dateFormatter] stringFromDate:date] attributes:attributes];
 }
 

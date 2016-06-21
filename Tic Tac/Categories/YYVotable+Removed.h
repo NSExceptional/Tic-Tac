@@ -11,6 +11,7 @@
 
 @interface YYVotable (Removed)
 
-@property () BOOL removed;
+@property (nonatomic) BOOL removed;
+@property (nonatomic) BOOL blocked;
 
 @end

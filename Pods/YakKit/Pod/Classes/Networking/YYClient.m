@@ -59,6 +59,15 @@ BOOL YYIsValidUserIdentifier(NSString *uid) {
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    YYClient *new      = [YYClient new];
+    new.currentUser    = self.currentUser;
+    new.location       = self.location;
+    new.userIdentifier = self.userIdentifier;
+    new.region         = self.region;
+    new.layerClient    = self.layerClient;
+}
+
 - (void)setRegion:(NSString *)region {
     NSParameterAssert(region);
     _region = region;
