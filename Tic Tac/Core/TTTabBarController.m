@@ -59,6 +59,14 @@
 - (void)notifyUserIsReady {
     self.ready = YES;
     
+    [[YYClient sharedClient] updateUser:^(NSError *error) {
+//        if (!error) {
+//            if ([YYClient sharedClient].currentUser.handle) {
+//                
+//            }
+//        }
+    }];
+    
     [self.feed refresh];
     [self.notifications refresh];
 }

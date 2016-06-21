@@ -42,13 +42,6 @@
     if (userIdentifier) {
         [YYClient sharedClient].userIdentifier = userIdentifier;
         [YYClient sharedClient].location = [[CLLocation alloc] initWithLatitude:kYYLat longitude:kYYLong];
-        [[YYClient sharedClient] updateUser:^(NSError *error) {
-            if (!error) {
-                if ([YYClient sharedClient].currentUser.handle) {
-                    
-                }
-            }
-        }];
         
         self.window.rootViewController = [TTTabBarController new];
         [self.tabBarController notifyUserIsReady];
