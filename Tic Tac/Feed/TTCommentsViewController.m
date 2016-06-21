@@ -27,7 +27,7 @@
 
 + (instancetype)commentsForNotification:(YYNotification *)notification {
     TTCommentsViewController *comments = [self new];
-
+    
     [[YYClient sharedClient] getYak:notification completion:^(YYYak *yak, NSError *error) {
         [comments displayOptionalError:error];
         if (!error) {
@@ -110,19 +110,70 @@
 - (void)reloadComments {
     if (self.loadingData) return;
     
+    __block NSArray *unusedComments = nil;
+    __block BOOL loadingUnused = NO, loadingUsed = YES;
     self.loadingData = YES;
+    
+    // Load comments from usual account
     [[YYClient sharedClient] getCommentsForYak:self.yak completion:^(NSArray *collection, NSError *error) {
-        self.loadingData = NO;
+        loadingUsed = NO;
+        self.loadingData = loadingUnused && loadingUsed;
         
         [self displayOptionalError:error message:@"Failed to load comments"];
         if (!error) {
             [self analyzeComments:collection];
             [TTCache cacheComments:collection forYak:self.yak];
             [self.dataSource setArray:collection];
+            [self checkForBlockedComments:unusedComments];
             [self.tableView reloadSection:0];
             [self.refreshControl endRefreshing];
         }
     }];
+    
+    // Load and check for potentially blocked comments
+    NSString *unused = [NSUserDefaults unusedUserIdentifier];
+    if ([NSUserDefaults showBlockedContent] && unused) {
+        // Make temporary client
+        YYClient *temp = [YYClient sharedClient].copy;
+        temp.userIdentifier = unused;
+        temp.layerClient = nil;
+        
+        loadingUnused = YES;
+        [temp getCommentsForYak:self.yak completion:^(NSArray *collection, NSError *error) {
+            loadingUnused    = NO;
+            self.loadingData = loadingUnused && loadingUsed;
+            unusedComments   = collection;
+            
+            // If we already loaded the rest...
+            if (!error && self.dataSource.count && [self checkForBlockedComments:collection]) {
+                [self analyzeComments:collection]; // Only need to analyze the new ones
+                [self.tableView reloadSection:0];
+                [self.refreshControl endRefreshing];
+            }
+        }];
+    }
+}
+
+/// @return Whether blocked comments were found and added
+- (BOOL)checkForBlockedComments:(NSArray *)unused {
+    if (!unused.count || !self.dataSource.count) { return NO; }
+    
+    // Remove existing
+    NSMutableSet *blocked = [NSMutableSet setWithArray:unused];
+    [blocked minusSet:[NSSet setWithArray:self.dataSource]];
+    
+    // Set blocked, cache, merge
+    if (blocked.count) {
+        for (YYComment *comment in blocked) {
+            comment.blocked = YES;
+        }
+        
+        [TTCache cacheComments:blocked.allObjects forYak:self.yak];
+        [self.dataSource addObjectsFromArray:blocked.allObjects];
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (void)reloadCommentSectionData {
@@ -181,29 +232,32 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    YYComment *comment = self.arrayToUse[indexPath.row];
-    
-    if ([comment.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
-        [self showOptionsForComment:comment];
-    }
+    [self showOptionsForComment:self.arrayToUse[indexPath.row]];
 }
 
 - (void)showOptionsForComment:(YYComment *)comment {
-    TBAlertController *delete = [TBAlertController alertViewWithTitle:@"More Options" message:nil];
-    [delete setCancelButtonWithTitle:@"Cancel"];
+    TBAlertController *options = [TBAlertController alertViewWithTitle:@"More Options" message:nil];
+    [options setCancelButtonWithTitle:@"Cancel"];
     
-    [delete addOtherButtonWithTitle:@"Delete" buttonAction:^(NSArray *textFieldStrings) {
-        [TBNetworkActivity push];
-        [[YYClient sharedClient] deleteYakOrComment:comment completion:^(NSError *error) {
-            [TBNetworkActivity pop];
-            [self displayOptionalError:error];
-            if (!error) {
-                [self reloadComments];
-            }
-        }];
+    [options addOtherButtonWithTitle:@"Copy text" buttonAction:^(NSArray *textFieldStrings) {
+        [UIPasteboard generalPasteboard].string = comment.body;
     }];
     
-    [delete show];
+    if ([comment.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
+        [options addOtherButtonWithTitle:@"Delete" buttonAction:^(NSArray *textFieldStrings) {
+            [TBNetworkActivity push];
+            [[YYClient sharedClient] deleteYakOrComment:comment completion:^(NSError *error) {
+                [TBNetworkActivity pop];
+                [self displayOptionalError:error];
+                if (!error) {
+                    [self reloadComments];
+                }
+            }];
+        }];
+        [options setDestructiveButtonIndex:1];
+    }
+    
+    [options show];
 }
 
 #pragma mark Cell configuration
@@ -213,8 +267,8 @@
     cell.scoreLabel.attributedText = [@(comment.score) scoreStringForVote:comment.voteStatus];
     cell.ageLabel.text             = comment.created.relativeTimeString;
     cell.authorLabel.text          = comment.authorText;
-    cell.votable                   = comment;
-    cell.votingSwipesEnabled       = !self.yak.isReadOnly;
+    cell.votable                   = comment; // removed, blocked, etc
+    cell.votingSwipesEnabled       = !(self.yak.isReadOnly || comment.blocked);
     cell.repliesEnabled            = !self.yak.isReadOnly;
     cell.replyAction               = ^{
         [self replyToUser:comment.username ?: comment.authorText];
