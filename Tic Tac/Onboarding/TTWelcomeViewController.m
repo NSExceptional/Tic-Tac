@@ -33,7 +33,11 @@
     self.welcomeView.useNewUserButtonAction = ^{
         appdelegate.window.rootViewController = appdelegate.tabBarController;
         [appdelegate setupNewUser:^{
-            [appdelegate.tabBarController notifyUserIsReady];
+            // Present, set window root, notify
+            [self presentViewController:appdelegate.tabBarController animated:YES completion:^{
+                [UIApplication sharedApplication].keyWindow.rootViewController = appdelegate.tabBarController;
+                [appdelegate.tabBarController notifyUserIsReady];
+            }];
         }];
     };
     
@@ -55,9 +59,15 @@
         if (YYIsValidUserIdentifier(textFieldStrings[0])) {
             [NSUserDefaults setCurrentUserIdentifier:textFieldStrings[0]];
             [YYClient sharedClient].userIdentifier = textFieldStrings[0];
-            [self presentViewController:tabBarController animated:YES completion:^{
-                [tabBarController notifyUserIsReady];
-            }];
+            
+            if (self.presentingViewController) {
+                [self.navigationController ?: self dismissAnimated];
+            } else {
+                [self presentViewController:tabBarController animated:YES completion:^{
+                    [UIApplication sharedApplication].keyWindow.rootViewController = tabBarController;
+                    [tabBarController notifyUserIsReady];
+                }];
+            }
         }
         else {
             [self notifyOfIncorrectUserIdentifierFormat:tabBarController];

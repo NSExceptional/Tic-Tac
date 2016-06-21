@@ -179,6 +179,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9041EA1C1D19969700032805 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				B45C70361CC8C240002164FF /* TTCommentsViewController.h */,
+				B45C70371CC8C240002164FF /* TTCommentsViewController.m */,
+				B4712D211CD6AB9900B1DAAF /* TTCommentsHeaderView.h */,
+				B4712D221CD6AB9900B1DAAF /* TTCommentsHeaderView.m */,
+				B45C70391CC8C24F002164FF /* TTCommentCell.h */,
+				B45C703A1CC8C24F002164FF /* TTCommentCell.m */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
 		90A5901D1D13350F00BCC186 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,18 +276,13 @@
 		B4E73C5A1CC6A8E600670CC6 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				9041EA1C1D19969700032805 /* Comments */,
 				B45C70241CC830B7002164FF /* TTFeedViewController.h */,
 				B45C70251CC830B7002164FF /* TTFeedViewController.m */,
 				B45C702A1CC85072002164FF /* TTFeedTextCell.h */,
 				B45C702B1CC85072002164FF /* TTFeedTextCell.m */,
 				B4558A161CC8D12D00ABA4C1 /* TTFeedPhotoCell.h */,
 				B4558A171CC8D12D00ABA4C1 /* TTFeedPhotoCell.m */,
-				B45C70361CC8C240002164FF /* TTCommentsViewController.h */,
-				B45C70371CC8C240002164FF /* TTCommentsViewController.m */,
-				B4712D211CD6AB9900B1DAAF /* TTCommentsHeaderView.h */,
-				B4712D221CD6AB9900B1DAAF /* TTCommentsHeaderView.m */,
-				B45C70391CC8C24F002164FF /* TTCommentCell.h */,
-				B45C703A1CC8C24F002164FF /* TTCommentCell.m */,
 				B4C204F61CD9BBCC00564A83 /* TTReplyViewController.h */,
 				B4C204F71CD9BBCC00564A83 /* TTReplyViewController.m */,
 			);
