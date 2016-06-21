@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) UILongPressGestureRecognizer *godModeGesture;
 
 @property (nonatomic) BOOL visited;
+@property (nonatomic) BOOL blocked;
 @property (nonatomic) NSString *authorLabelText;
 
 @property (nonatomic, readonly) UILabel *titleLabel;

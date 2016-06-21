@@ -114,7 +114,16 @@
 - (void)setVisited:(BOOL)visited {
     _visited = visited;
     
-    self.titleLabel.textColor = visited ? [UIColor noVoteColor] : [UIColor blackColor];
+    if (self.blocked) {
+        self.titleLabel.textColor = visited ? [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.500] : [UIColor redColor];
+    } else {
+        self.titleLabel.textColor = visited ? [UIColor noVoteColor] : [UIColor blackColor];
+    }
+}
+
+- (void)setVotable:(YYVotable *)votable {
+    super.votable = votable;
+    self.blocked  = votable.blocked;
 }
 
 - (NSArray<UIView*> *)opaqueViews {
@@ -123,6 +132,15 @@
 
 - (CGFloat)preferredTitleLabelMaxWidth {
     return CGRectGetWidth(self.frame) - 2 * self.separatorInset.left;
+}
+
+- (void)setBlocked:(BOOL)blocked {
+    _blocked = blocked;
+    if (blocked) {
+        self.titleLabel.textColor = [UIColor redColor];
+    } else {
+        self.titleLabel.textColor = [UIColor blackColor];
+    }
 }
 
 /// For efficiency
