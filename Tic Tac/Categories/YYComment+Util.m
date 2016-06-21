@@ -46,12 +46,12 @@ static NSDictionary *iconDescriptions;
                              @"004": @"sailboat",
                              @"005": @"fire",
                              @"006": @"socks",
-                             @"007": @"hot air balloon",
+                             @"007": @"balloon",
                              @"008": @"anchor",
                              @"009": @"lantern",
                              @"010": @"compass",
                              @"011": @"hook",
-                             @"012": @"bear claw",
+                             @"012": @"paw",
                              @"013": @"map",
                              @"014": @"mushroom",
                              @"015": @"shovel",
@@ -104,6 +104,10 @@ static NSDictionary *iconDescriptions;
     
     NSString *color = colorDescriptions[self.backgroundIdentifier];
     NSString *icon  = iconDescriptions[self.overlayIdentifier];
+    
+    if (!color) {
+        color = colorDescriptions[[self.backgroundIdentifier stringByReplacingOccurrencesOfString:@"WEB" withString:@""]];
+    }
     
     if (self.username) {
         return [NSString stringWithFormat:@"%@ %@ | %@", color, icon, self.username];

@@ -66,6 +66,7 @@ BOOL YYIsValidUserIdentifier(NSString *uid) {
     new.userIdentifier = self.userIdentifier;
     new.region         = self.region;
     new.layerClient    = self.layerClient;
+    return new;
 }
 
 - (void)setRegion:(NSString *)region {

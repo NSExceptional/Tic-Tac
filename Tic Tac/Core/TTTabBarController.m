@@ -60,11 +60,12 @@
     self.ready = YES;
     
     [[YYClient sharedClient] updateUser:^(NSError *error) {
-//        if (!error) {
-//            if ([YYClient sharedClient].currentUser.handle) {
-//                
-//            }
-//        }
+        if (!error) {
+            YYClient *client = [YYClient sharedClient];
+            if (client.currentUser.handle) {
+                [NSUserDefaults setHandle:client.currentUser.handle forUserIdentifier:client.userIdentifier];
+            }
+        }
     }];
     
     [self.feed refresh];

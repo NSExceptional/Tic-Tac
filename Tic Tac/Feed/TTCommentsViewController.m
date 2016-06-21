@@ -147,7 +147,7 @@
             // If we already loaded the rest...
             if (!error && self.dataSource.count && [self checkForBlockedComments:collection]) {
                 [self analyzeComments:collection]; // Only need to analyze the new ones
-                [self.tableView reloadSection:0];
+                [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
             }
         }];

@@ -97,7 +97,7 @@ NSMutableOrderedSet *visitedPosts;
 
 + (void)setHandle:(NSString *)handle forUserIdentifier:(NSString *)userid {
     NSParameterAssert(handle); NSParameterAssert(userid);
-    NSMutableDictionary *handles = [DEFAULT dictionaryForKey:kPref_handlesToUserIdentifiers].mutableCopy;
+    NSMutableDictionary *handles = [DEFAULT dictionaryForKey:kPref_handlesToUserIdentifiers].mutableCopy ?: [NSMutableDictionary new];
     handles[userid] = handle;
     [DEFAULT setObject:handles forKey:kPref_handlesToUserIdentifiers];
 }
