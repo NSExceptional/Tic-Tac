@@ -17,7 +17,7 @@
 
 - (void)displayOptionalError:(NSError *)error message:(NSString *)message {
     if (error) {
-        [[TBAlertController simpleOKAlertWithTitle:message message:error.localizedDescription] showFromViewController:self];
+        [[TBAlertController simpleOKAlertWithTitle:message message:error.localizedDescription] show];
     }
 }
 

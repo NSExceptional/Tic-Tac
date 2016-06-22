@@ -70,23 +70,32 @@ NSMutableOrderedSet *visitedPosts;
     
     NSString *current = [self currentUserIdentifier];
     if (current && ![current isEqualToString:pref]) {
-        [self setOtherUserIdentifiers:[[self otherUserIdentifiers] arrayByAddingObject:current]];
+        NSMutableArray *others = [self otherUserIdentifiers].mutableCopy;
+        [others removeObject:pref];
+        [others addObject:current];
+        [self setOtherUserIdentifiers:others];
     }
     [DEFAULT setObject:pref forKey:kPref_currentUserIdentifier];
 }
 
 
 + (NSArray<NSString*> *)otherUserIdentifiers {
-    return @[@"352552DE-C5AC-4FA8-8EE0-F0FC1BF521EA",
-             @"92099E85-7D70-4AF1-8F2A-65316CC80F41",
-             @"F336DE49-6AE0-4979-AEE5-74919B959762",
-             @"91281688-4356-4540-80B8-E25D2AE07BC0"];
+//    return @[@"352552DE-C5AC-4FA8-8EE0-F0FC1BF521EA",
+//             @"92099E85-7D70-4AF1-8F2A-65316CC80F41",
+//             @"F336DE49-6AE0-4979-AEE5-74919B959762",
+//             @"91281688-4356-4540-80B8-E25D2AE07BC0"];
     return [DEFAULT arrayForKey:kPref_otherUserIdentifiers] ?: @[];
 }
 
 + (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref {
     NSParameterAssert(pref);
     [DEFAULT setObject:pref forKey:kPref_otherUserIdentifiers];
+}
+
++ (void)removeOtherUserIdentifier:(NSString *)pref {
+    NSMutableArray *identifiers = [self otherUserIdentifiers].mutableCopy;
+    [identifiers removeObject:pref];
+    [self setOtherUserIdentifiers:identifiers];
 }
 
 

@@ -32,10 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.rowHeight      = UITableViewAutomaticDimension;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
-    self.tableView.rowHeight      = UITableViewAutomaticDimension;
-    self.tableView.layoutMargins  = UIEdgeInsetsZero;
+    self.tableView.separatorInset     = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.tableView.rowHeight          = UITableViewAutomaticDimension;
+    self.tableView.layoutMargins      = UIEdgeInsetsZero;
     
     [self.tableView registerClass:[TTFeedTextCell class] forCellReuseIdentifier:kFeedTextCellReuse];
     [self.tableView registerClass:[TTFeedPhotoCell class] forCellReuseIdentifier:kFeedPhotoCellReuse];

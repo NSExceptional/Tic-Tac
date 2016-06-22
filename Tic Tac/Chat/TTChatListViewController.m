@@ -18,54 +18,16 @@
 
 + (instancetype)conversationListViewControllerWithLayerClient:(LYRClient *)layerClient {
     TTChatListViewController *chat = [super conversationListViewControllerWithLayerClient:layerClient];
-    [chat connectToLayerAndInitialize];
     return chat;
 }
 
 - (LYRClient *)layer { return [YYClient sharedClient].layerClient; }
 
 - (void)viewDidLoad {
-    [self connectToLayerAndInitialize];
     [super viewDidLoad];
     
     self.dataSource = self;
     self.delegate   = self;
-}
-
-- (void)connectToLayerAndInitialize {
-    if (!self.layer.isConnected) {
-        [self.layer connectWithCompletion:^(BOOL success, NSError *error) {
-            [self displayOptionalError:error];
-            if (success) {
-                if ([YYClient sharedClient].currentUser.handle) {
-                    if (!self.layer.authenticatedUser) {
-                        [self authenticateWithLayer];
-                    }
-                }
-            }
-        }];
-    } else if (!self.layer.authenticatedUser) {
-        [self authenticateWithLayer];
-    }
-}
-
-- (void)authenticateWithLayer {
-    NSAssert(!self.layer.authenticatedUser, @"Already authenticated with layer");
-    
-    [self.layer requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
-        assert((!nonce && error) || (nonce && !error));
-        [self displayOptionalError:error message:@"Failed to authenticate chat"];
-        if (!error) {
-            [[YYClient sharedClient] authenticateForLayer:nonce completion:^(NSString *identityToken, NSError *error2) {
-                [self displayOptionalError:error2 message:@"Failed to authenticate chat"];
-                if (!error2) {
-                    [self.layer authenticateWithIdentityToken:identityToken completion:^(LYRIdentity *user, NSError *error3) {
-                        [self displayOptionalError:error3 message:@"Failed to authenticate chat"];
-                    }];
-                }
-            }];
-        }
-    }];
 }
 
 #pragma mark ATLConversationListViewControllerDelegate

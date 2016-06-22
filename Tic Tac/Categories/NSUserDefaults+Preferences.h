@@ -33,6 +33,7 @@
 
 + (NSArray<NSString*> *)otherUserIdentifiers;
 + (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref;
++ (void)removeOtherUserIdentifier:(NSString *)pref;
 
 + (NSString *)handleForUserIdentifier:(NSString *)userid;
 + (void)setHandle:(NSString *)handle forUserIdentifier:(NSString *)userid;
