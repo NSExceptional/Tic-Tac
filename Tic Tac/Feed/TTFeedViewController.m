@@ -84,6 +84,7 @@
     
     TTFeedTextCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:reuse];
     [self configureCell:cell forYak:yak];
+    cell.titleLabel.preferredMaxLayoutWidth = cell.preferredTitleLabelMaxWidth;
     [cell layoutIfNeeded];
     return cell;
 }

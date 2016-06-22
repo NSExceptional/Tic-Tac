@@ -18,7 +18,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self initializeSubviews];
-        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
         _godModeGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(presentGodModeActions:)];
         [self.contentView addGestureRecognizer:_godModeGesture];
@@ -96,6 +95,7 @@
     [self.ageLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     [self.authorLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.replyCountLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     
     [super updateConstraints];
 }
@@ -131,7 +131,7 @@
 }
 
 - (CGFloat)preferredTitleLabelMaxWidth {
-    return CGRectGetWidth(self.frame) - 2 * self.separatorInset.left;
+    return CGRectGetWidth([UIScreen mainScreen].bounds) - 2 * self.separatorInset.left;
 }
 
 - (void)setBlocked:(BOOL)blocked {

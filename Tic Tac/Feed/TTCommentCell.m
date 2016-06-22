@@ -69,7 +69,7 @@ static NSDictionary *avatars;
 }
 
 - (CGFloat)preferredTitleLabelMaxWidth {
-    return [super preferredTitleLabelMaxWidth] - (CGRectGetWidth(self.iconImageView.frame) + 10);
+    return [super preferredTitleLabelMaxWidth] - (CGRectGetWidth(self.iconImageView.frame) + 15);
 }
 
 - (void)setRepliesEnabled:(BOOL)repliesEnabled {
