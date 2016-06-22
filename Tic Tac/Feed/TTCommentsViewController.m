@@ -220,6 +220,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TTCommentCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:kCommentCellReuse];
     [self configureCell:cell forComment:self.arrayToUse[indexPath.row]];
+    cell.titleLabel.preferredMaxLayoutWidth = cell.preferredTitleLabelMaxWidth;
     [cell layoutIfNeeded];
     return cell;
 }
