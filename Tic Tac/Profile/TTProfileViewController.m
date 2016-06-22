@@ -53,6 +53,7 @@ static NSString * const kProfileReuse = @"kProfileReuse";
     welcome.navigationItem.leftBarButtonItem = cancel;
     
     [self presentViewController:nav animated:YES completion:nil];
+    // TODO chat does not update when adding a new user
 }
 
 - (void)showMyYaks {
@@ -93,6 +94,7 @@ static NSString * const kProfileReuse = @"kProfileReuse";
             [TBNetworkActivity pop];
             [wait dismiss];
             TTTabBarController *tabs = (id)[UIApplication sharedApplication].keyWindow.rootViewController;
+            [tabs notifyUserIsReady];
             [tabs updateChatList];
         }
     };

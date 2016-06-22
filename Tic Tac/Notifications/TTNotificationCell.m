@@ -37,8 +37,11 @@
     }];
     [self.contentLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.left.right.bottom.equalTo(self.contentView).insets(UIEdgeInsetsMake(inset, inset, inset, inset)).priorityMedium();
+        make.left.right.equalTo(self.titleLabel);
+        make.bottom.equalTo(self.contentView).insets(UIEdgeInsetsMake(inset, inset, inset, inset));
     }];
+    
+    [self.contentLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
     [super updateConstraints];
 }

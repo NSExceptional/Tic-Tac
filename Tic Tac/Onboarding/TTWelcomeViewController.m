@@ -61,6 +61,7 @@
             [YYClient sharedClient].userIdentifier = textFieldStrings[0];
             
             if (self.presentingViewController) {
+                [tabBarController notifyUserIsReady];
                 [self.navigationController ?: self dismissAnimated];
             } else {
                 [self presentViewController:tabBarController animated:YES completion:^{

@@ -22,6 +22,7 @@
     [super viewDidLoad];
     
     _dataSource = [TTFeedArray new];
+    self.dataSource.tagsRemovedObjects = NO;
     self.dataSource.sortDescriptorKey = @"updated";
     self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYNotification *notification, id bindings) {
         return notification.reason != YYNotificationReasonVote;
@@ -41,7 +42,7 @@
         self.loadingData = NO;
         [self displayOptionalError:error];
         if (!error) {
-            [self.dataSource addObjectsFromArray:collection];
+            [self.dataSource setArray:collection];
             [self.tableView reloadSection:0];
             [self updateBadge];
             [self.refreshControl endRefreshing];

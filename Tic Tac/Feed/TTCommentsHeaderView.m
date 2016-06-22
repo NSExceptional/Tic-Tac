@@ -103,7 +103,7 @@
 + (BOOL)requiresConstraintBasedLayout { return YES; }
 - (void)updateConstraints {
     CGFloat bottomInset = 15, topInset = 10, hInset = 15;
-    UIEdgeInsets insets  = UIEdgeInsetsMake(topInset, hInset, bottomInset, hInset);
+    UIEdgeInsets insets = UIEdgeInsetsMake(topInset, hInset, bottomInset, hInset);
     
     [self.hairlineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(1.f/[UIScreen mainScreen].scale));
@@ -130,7 +130,7 @@
     
     [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.replyCountLabel.mas_bottom).offset(bottomInset);
-        make.left.right.equalTo(self).insets(insets);
+        make.left.right.equalTo(self).insets(insets).priorityMedium();
     }];
     [self.addCommentButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleLabel.mas_bottom).offset(bottomInset);

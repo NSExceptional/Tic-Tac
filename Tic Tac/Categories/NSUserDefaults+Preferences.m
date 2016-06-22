@@ -46,7 +46,8 @@ NSMutableOrderedSet *visitedPosts;
 
 + (NSArray<NSString*> *)allUserIdentifiers {
     NSString *cur = [self currentUserIdentifier];
-    return cur ? [[self otherUserIdentifiers] arrayByAddingObject:cur] : [self otherUserIdentifiers];
+    NSArray *all = cur ? [[self otherUserIdentifiers] arrayByAddingObject:cur] : [self otherUserIdentifiers];
+    return [all sortedArrayUsingSelector:@selector(compare:)];
 }
 
 
@@ -89,6 +90,7 @@ NSMutableOrderedSet *visitedPosts;
 
 + (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref {
     NSParameterAssert(pref);
+    pref = [pref sortedArrayUsingSelector:@selector(compare:)];
     [DEFAULT setObject:pref forKey:kPref_otherUserIdentifiers];
 }
 

@@ -35,6 +35,10 @@ NS_OPTIONS(NSUInteger, YYVotableObjectStatus) {
 }
 
 - (void)setRemoved:(BOOL)removed {
+    // Delete a week from JUNE 21
+    if (self.tag == kOldWasRemovedTagValue) {
+        self.tag = 0;
+    }
     if (removed) {
         self.tag |= YYVotableObjectStatusRemoved;
     } else {
