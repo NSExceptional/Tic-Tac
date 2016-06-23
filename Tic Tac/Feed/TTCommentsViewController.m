@@ -121,12 +121,22 @@
         
         [self displayOptionalError:error message:@"Failed to load comments"];
         if (!error) {
+            BOOL scroll = self.dataSource.count == 0;
+            
             [self analyzeComments:collection];
             [TTCache cacheComments:collection forYak:self.yak];
             [self.dataSource setArray:collection];
             [self checkForBlockedComments:unusedComments];
             [self.tableView reloadSection:0];
             [self.refreshControl endRefreshing];
+            
+            // Scroll to the bottom
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.333 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (scroll && self.dataSource.count) {
+                    NSIndexPath *last = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
+                    [self.tableView scrollToRowAtIndexPath:last atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                }
+            });
         }
     }];
     
