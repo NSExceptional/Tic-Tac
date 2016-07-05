@@ -10,6 +10,6 @@ pod 'YakKit', :git => 'https://github.com/ThePantsThief/YakKit.git'
 pod 'Objc-iOS-Extensions'
 pod 'libextobjc'
 pod 'AutoCoding'
-pod 'LayerKit'
 pod 'Atlas'
+pod 'TBURLRequestOptions', :git => 'https://github.com/ThePantsThief/TBURLRequestOptions.git'
 end
