@@ -1,0 +1,6 @@
+framework module TBURLRequestOptions {
+  umbrella header "TBURLRequestOptions-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -95,6 +95,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Objc-Foundation-Extensions/Objc_Foundation_Extensions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Objc-iOS-Extensions/Objc_iOS_Extensions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TBAlertController/TBAlertController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/TBURLRequestOptions/TBURLRequestOptions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/YakKit/YakKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
 fi
@@ -110,6 +111,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Objc-Foundation-Extensions/Objc_Foundation_Extensions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Objc-iOS-Extensions/Objc_iOS_Extensions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TBAlertController/TBAlertController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/TBURLRequestOptions/TBURLRequestOptions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/YakKit/YakKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
 fi
