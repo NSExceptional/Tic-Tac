@@ -35,7 +35,7 @@
         
         self.fieldDescriptionLabel = [[UILabel alloc] init];
         self.fieldDescriptionLabel.numberOfLines = 0;
-        self.fieldDescriptionLabel.font = [[self class] labelFont];
+        self.fieldDescriptionLabel.font = [UIFont fontWithName:@"Menlo-Regular" size:12];
         [self addSubview:self.fieldDescriptionLabel];
         
         self.fieldDescriptionDivider = [[self class] dividerView];
