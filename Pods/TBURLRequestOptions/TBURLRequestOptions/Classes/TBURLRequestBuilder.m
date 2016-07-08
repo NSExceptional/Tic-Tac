@@ -52,7 +52,6 @@ static NSMutableDictionary *progressToTasks;
 /// Returns the reciever
 - (instancetype)build:(TBURLRequestBuilder *)builder;
 @property (nonatomic) BOOL background;
-@property (nonatomic) NSMutableURLRequest *internalRequest;
 @end
 
 @implementation TBURLRequestBuilder
@@ -186,17 +185,22 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
         builder->_headers = MergeDictionaries(builder->_headers, @{@"Content-Type": builder->_contentTypeHeader});
     }
     
-    NSURL *url = [NSURL URLWithString:builder->_URL ?: [builder->_baseURL stringByAppendingPathComponent:builder->_endpoint]];
-    if (_internalRequest) {
-        self.internalRequest.URL = url;
-    } else {
-        self.internalRequest = [NSMutableURLRequest requestWithURL:url];
+    NSString *urlString = builder->_URL ?: [builder->_baseURL stringByAppendingString:builder->_endpoint];
+    if (builder->_queries) {
+        urlString = [NSString stringWithFormat:@"%@?%@", urlString, builder->_queries.queryString];
     }
     
-    self.internalRequest.HTTPBody            = builder.mutlipartBodyData ?: builder->_body;
-    self.internalRequest.allHTTPHeaderFields = builder->_headers;
-    self.internalRequest.timeoutInterval     = builder->_timeout;
-    self.internalRequest.networkServiceType  = builder->_serviceType;
+    NSURL *url = [NSURL URLWithString:urlString];
+    if (_request) {
+        self.request.URL = url;
+    } else {
+        self.request = [NSMutableURLRequest requestWithURL:url];
+    }
+    
+    self.request.HTTPBody            = builder.mutlipartBodyData ?: builder->_body;
+    self.request.allHTTPHeaderFields = builder->_headers;
+    self.request.timeoutInterval     = builder->_timeout;
+    self.request.networkServiceType  = builder->_serviceType;
     
     self.background = builder->_background;
     _configuration  = builder->_configuration;
@@ -207,7 +211,7 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
     return self;
 }
 
-- (NSMutableURLRequest *)request { return self.internalRequest.copy; }
+- (void)setRequest:(NSMutableURLRequest *)request { NSParameterAssert(request); _request = request; }
 - (NSURLSessionConfiguration *)configuration { return _session.configuration ?: _configuration ?: defaultURLSessionConfig; }
 - (NSURLSession *)session {
     if (!_session) {
@@ -227,9 +231,9 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
 
 - (NSProgress *)start:(NSString *)method callback:(TBResponseBlock)completion {
     NSParameterAssert(method);
-    self.internalRequest.HTTPMethod = method;
+    self.request.HTTPMethod = method;
     
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:self.internalRequest completionHandler:^(NSData *d, NSURLResponse *r, NSError *e) {
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData *d, NSURLResponse *r, NSError *e) {
         [TBResponseParser parseResponseData:d response:(id)r error:e callback:completion];
     }];
     [task resume];

@@ -41,11 +41,11 @@
     [[YYClient sharedClient] getNotifications:^(NSArray *collection, NSError *error) {
         self.loadingData = NO;
         [self displayOptionalError:error];
+        [self.refreshControl endRefreshing];
         if (!error) {
             [self.dataSource setArray:collection];
             [self.tableView reloadSection:0];
             [self updateBadge];
-            [self.refreshControl endRefreshing];
         }
     }];
 }
