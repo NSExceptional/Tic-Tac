@@ -1,9 +1,9 @@
 PODS:
-  - Atlas (1.0.23):
-    - LayerKit (>= 0.21.0)
-  - AutoCoding (2.2.1)
+  - Atlas (1.0.25):
+    - LayerKit (~> 0.22.0)
+  - AutoCoding (2.2.2)
   - FLEX (2.3.0)
-  - LayerKit (0.21.1)
+  - LayerKit (0.22.0)
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
     - libextobjc/EXTConcreteProtocol (= 0.4.1)
@@ -42,16 +42,17 @@ PODS:
   - Mantle (2.0.7):
     - Mantle/extobjc (= 2.0.7)
   - Mantle/extobjc (2.0.7)
-  - Masonry (1.0.0)
+  - Masonry (1.0.1)
   - MCSwipeTableViewCell (2.1.4)
   - MirrorKit (1.0.1)
   - Objc-Foundation-Extensions (0.1.0)
   - Objc-iOS-Extensions (0.1.2):
     - Objc-Foundation-Extensions
-  - TBAlertController (3.0.0)
+  - TBAlertController (3.0.1)
   - TBURLRequestOptions (0.1.2)
-  - YakKit (0.1.1):
+  - YakKit (0.2.0):
     - Mantle
+    - TBURLRequestOptions
 
 DEPENDENCIES:
   - Atlas
@@ -64,14 +65,11 @@ DEPENDENCIES:
   - MirrorKit (from `https://github.com/ThePantsThief/MirrorKit.git`)
   - Objc-iOS-Extensions
   - TBAlertController
-  - TBURLRequestOptions (from `https://github.com/ThePantsThief/TBURLRequestOptions.git`)
   - YakKit (from `https://github.com/ThePantsThief/YakKit.git`)
 
 EXTERNAL SOURCES:
   MirrorKit:
     :git: https://github.com/ThePantsThief/MirrorKit.git
-  TBURLRequestOptions:
-    :git: https://github.com/ThePantsThief/TBURLRequestOptions.git
   YakKit:
     :git: https://github.com/ThePantsThief/YakKit.git
 
@@ -79,29 +77,24 @@ CHECKOUT OPTIONS:
   MirrorKit:
     :commit: 72146162cbfd4a9534c9903fcd659e124303a0d3
     :git: https://github.com/ThePantsThief/MirrorKit.git
-  TBURLRequestOptions:
-    :commit: ccc2a99a68dcfc06b26878a7f29a0bfbede32ec0
-    :git: https://github.com/ThePantsThief/TBURLRequestOptions.git
   YakKit:
-    :commit: 39f2809d7b3b1fd64e5be9936a968c3e404087d2
+    :commit: afe41dbf6464f866265d447c64f6181f1ad9e0fb
     :git: https://github.com/ThePantsThief/YakKit.git
 
 SPEC CHECKSUMS:
-  Atlas: acf154ee2a10c6257a47e872366154653932302f
-  AutoCoding: b47e528426c84346371dd532b8e6458929e4da34
+  Atlas: 6fdfdb6267231e6587c601ef1aa43808e739e25d
+  AutoCoding: 56fa46dbfa89d44189a26ce64e6a470ed8ff4661
   FLEX: ba80ea13d2c784e85e616137fd4eff164781e364
-  LayerKit: 7d77cfa591a3b82e76dfa1c7b477d90ccd87feb0
+  LayerKit: dc3f45305bd0d520e5a586247d93c6e03b803ccd
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
-  Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
   MirrorKit: b858a0185d5050c1bfca37198c00acfadce2df5e
   Objc-Foundation-Extensions: 0e24d6a4b986d2398305f6b382c1031093f3ee5c
   Objc-iOS-Extensions: 53bf6306f79c6e8aa711490f7c39d7da7c7af7e7
-  TBAlertController: 7fd7af7693e3b68ba27a3f1b756685db182cc8d0
+  TBAlertController: cadaec5909aa7af37f4a345fb260ce9b3b0ad0c6
   TBURLRequestOptions: 4fde70099bdd413f8abfefca316ec5289169a2b6
-  YakKit: 4d8f80e2d135d23cdf80ba18a153ced14e550239
+  YakKit: 510a46d0131b648c05079e05704464714d187972
 
-PODFILE CHECKSUM: 5851aa9ad7dd6454cfda93f3b93f9e436d97f4b4
-
-COCOAPODS: 1.0.1
+COCOAPODS: 0.39.0

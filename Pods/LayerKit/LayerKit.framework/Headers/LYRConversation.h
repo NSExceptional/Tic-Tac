@@ -18,31 +18,47 @@
 ///---------------------------
 
 /**
- @abstract The option key for configuring metadata during Conversation creation.
- @discussion The `LYRConversationOptionsMetadataKey` enables developers to configure metadata on the conversation at the moment it is created, guaranteeing that the
- metadata will be available on the conversation when the change notification is published. The value given must be an `NSDictionary` of `NSString` key-value pairs. The 
- functionality provided is identical to calling `setValuesForMetadataKeyPathsWithDictionary:merge:` with a `merge` argument of `NO` on the conversation after initialization.
+ @abstract A `LYRConversationOptions` object encapsulates configuration of an `LYRConversation` object.
+ @discussion Use this class to configure the behavior of a conversation during the time of the initialization
+ of the `LYRConversation` object instance.
  */
-extern NSString * _Nonnull const LYRConversationOptionsMetadataKey;
+@interface LYRConversationOptions : NSObject <NSCoding, NSCopying>
 
 /**
- @abstract The option key for configuring whether or not clients should write delivery receipts for messages in the conversation.
- @discussion When `YES`, clients will write delivery receipts and a delineation will be made between `LYRRecipientStatusSent` and `LYRRecipientStatusDelivered`. When `NO`,
- messages will remain in the `LYRRecipientStatusSent` state until explicitly marked as read. Disabling delivery receipts improves performance for conversations that
- do not benefit from them.
+ @abstract It configures whether or not Conversations are created such that they are guaranteed to be a
+ single distinctive Conversation among the set of participants.
+ @discussion Because Layer supports offline use-cases and sets of users may attempt to communicate among
+ identical groups concurrently, it is possible to inadvertently create Conversations that from the end-user
+ perspective appear as separate threads where they were expecting a single one to exist. This behavior can
+ be addressed by requesting Layer to create a Conversation that is distinct among the set of participants
+ via this `distinctByParticipants` boolean flag. When `YES`, Layer will guarantee that among the initial set
+ of participants there will exist one (and only one) distinct Conversation. This guarantee will persist
+ until the participants list is modified as the mutation may result in an overlap with existing Conversations.
+ When `NO`, the distinctive guarantee is not requested and a new Conversation will be created among the set
+ of participants without regard for any existing Conversations (distinct or otherwise).
+ @discussion Default value is `YES`.
  */
-extern NSString * _Nonnull const LYRConversationOptionsDeliveryReceiptsEnabledKey;
+@property (nonatomic, assign) BOOL distinctByParticipants;
 
 /**
- @abstract The option key for configuring whether or not Conversations are created such that they are guaranteed to be a single distinctive Conversation among the set of participants.
- @discussion Because Layer supports offline use-cases and sets of users may attempt to communicate among identical groups concurrently, it is possible to inadvertently create Conversations that
- from the end-user perspective appear as separate threads where they were expecting a single one to exist. This behavior can be addressed by requesting Layer to create a Conversation that is distinct
- among the set of participants via the `LYRConversationOptionsDistinctByParticipantsKey` option key. When `YES`, Layer will guarantee that among the initial set of participants there will exist one (and only one)
- distinct Conversation. This guarantee will persist until the participants list is modified as the mutation may result in an overlap with existing Conversations. When `NO`, the distinctive guarantee is not requested
- and a new Conversation will be created among the set of participants without regard for any existing Conversations
- (distinct or otherwise).
+ @abstract When `YES`, clients will write delivery receipts and a delineation will be made between
+ `LYRRecipientStatusSent` and `LYRRecipientStatusDelivered`. When `NO`, messages will remain in the
+ `LYRRecipientStatusSent` state until explicitly marked as read. Disabling delivery receipts improves
+ performance for conversations that do not benefit from them.
+ @discussion Default value is `YES`.
  */
-extern NSString * _Nonnull const LYRConversationOptionsDistinctByParticipantsKey;
+@property (nonatomic, assign) BOOL deliveryReceiptsEnabled;
+
+/**
+ @abstract The `metadata` property enables developers to configure metadata on the `LYRConversation` instance
+ at the moment it is created, guaranteeing that the metadata will be available on the conversation when the
+ change notification is published. The value given must be an `NSDictionary` of `NSString` key-value pairs. The
+ functionality provided is identical to calling `setValuesForMetadataKeyPathsWithDictionary:merge:` with a
+ `merge` argument of `NO` on the conversation after initialization.
+ */
+@property (nonatomic, strong, nullable) NSDictionary *metadata;
+
+@end
 
 ///------------------------------------
 /// @name Typing Indicator Notification
@@ -56,15 +72,40 @@ extern NSString * _Nonnull const LYRConversationDidReceiveTypingIndicatorNotific
 
 /**
  @abstract A key into the user info of a `LYRConversationDidReceiveTypingIndicatorNotification` notification whose value is
- a `NSNumber` containing a unsigned integer whose value corresponds to a `LYRTypingIndicator`.
+ an `LYRTypingIndicator` instance containing the typing indicator action and the participant's identity that caused the action.
  */
-extern NSString * _Nonnull const LYRTypingIndicatorValueUserInfoKey;
+extern NSString * _Nonnull const LYRTypingIndicatorObjectUserInfoKey;
+
+///-----------------------
+/// @name Typing Indicator
+///-----------------------
 
 /**
- @abstract A key into the user info of a `LYRConversationDidReceiveTypingIndicatorNotification` notification whose value is
- a `NSString` specifying the participant who changed typing state.
+ @abstract The `LYRTypingIndicatorAction` enumeration describes the states of a typing status of a participant in a conversation.
  */
-extern NSString * _Nonnull const LYRTypingIndicatorParticipantUserInfoKey;
+typedef NS_ENUM(NSUInteger, LYRTypingIndicatorAction) {
+    LYRTypingIndicatorActionBegin   = 0,
+    LYRTypingIndicatorActionPause   = 1,
+    LYRTypingIndicatorActionFinish  = 2
+};
+
+/**
+ @abstract The `LYRTypingIndicator` object encapsulated the typing indicator action value and the participant
+ identity which is bundled in the `LYRConversationDidReceiveTypingIndicatorNotification`'s userInfo.
+ */
+@interface LYRTypingIndicator : NSObject
+
+/**
+ @abstract The action value that represents the last typing indicator state that the participant caused.
+ */
+@property (nonatomic, readonly) LYRTypingIndicatorAction action;
+
+/**
+ @abstract Participant that caused the last typing indicator action.
+ */
+@property (nonatomic, readonly, nonnull) LYRIdentity *sender;
+
+@end
 
 ///-------------------------------------------------
 /// @name Conversation Synchronization Notifications
@@ -230,9 +271,9 @@ extern NSString * _Nonnull const LYRConversationSynchronizationProgressUserInfoK
 
 /**
  @abstract Sends a typing indicator to the conversation.
- @param typingIndicator An `LYRTypingIndicator` value indicating the change in typing state to be sent.
+ @param typingIndicator An `LYRTypingIndicatorAction` value indicating the change in typing state to be sent.
  */
-- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator;
+- (void)sendTypingIndicator:(LYRTypingIndicatorAction)typingIndicatorAction;
 
 ///--------------------------------
 /// @name Deleting the Conversation

@@ -18,6 +18,7 @@
 #import "LYRPolicy.h"
 #import "LYRProgress.h"
 #import "LYRSession.h"
+#import "LYRClientOptions.h"
 
 @class LYRClient, LYRQuery, LYRQueryController, LYRObjectChange;
 
@@ -145,33 +146,6 @@ extern NSString * _Nonnull const LYRClientContentTransferObjectUserInfoKey;
 extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 
 
-///-----------------------------
-/// @name Initialization Options
-///-----------------------------
-
-/**
- @abstract A key into the `options` of client initialization method `+clientWithID:options:`
- that sets the client synchronization behavior whose value should be one of the
- `LYRClientSynchronizationPolicy`'s enum values.
- @see LYRClientSynchronizationPolicy enum.
- */
-extern NSString * _Nonnull const LYRClientOptionSynchronizationPolicy;
-
-/**
- @abstract A key into the `options` of client initialization method `+clientWithID:options:`
- that should be used in conjuction with `LYRClientOptionSynchronizationPolicy : @(LYRClientSynchronizationPolicyMessageCount)`.
- @see LYRClientSynchronizationPolicy enum.
- */
-extern NSString * _Nonnull const LYRClientOptionSynchronizationMessageCount;
-
-/**
- @abstract A key into the `options` of client initialization method `+clientWithID:options:`
- that configures the client deauthentication behavior whose value should be one of the
- `LYRClientDeauthenticationPolicy`'s enum values.
- @see LYRClientDeauthenticationPolicy enum.
- */
-extern NSString * _Nonnull const LYRClientOptionDeauthenticationPolicy;
-
 ///----------------------
 /// @name Client Delegate
 ///----------------------
@@ -289,23 +263,29 @@ extern NSString * _Nonnull const LYRClientOptionDeauthenticationPolicy;
 /**
  @abstract Creates and returns a new Layer client instance.
  @param appID An app id url obtained from the Layer Developer Portal. https://developer.layer.com/projects
- @param options Options to the client initialization. @see LYRClientOptionSynchronizationPolicy.
+ @param options Options to the client initialization.
  @return Returns a newly created Layer client object, or `nil` in the case the client cannot not be initialized due to file protection.
+ @see LYRClientOptions
  @warning Throws `NSInternalInconsistencyException` when creating another Layer Client instance with the same `appID` value under the same process (application).
  However multiple instances of Layer Client with the same `appID` are allowed if running the code under Unit Tests.  Make sure to initialize the client when the 
  file access is available if the app uses NSFileProtection.
  */
-+ (nullable instancetype)clientWithAppID:(nonnull NSURL *)appID options:(nullable NSDictionary<NSString *, id> *)options;
++ (nonnull instancetype)clientWithAppID:(nonnull NSURL *)appID delegate:(nonnull id<LYRClientDelegate>)delegate options:(nullable LYRClientOptions *)options;
 
 /**
  @abstract The object that acts as the delegate of the receiving client.
  */
-@property (nonatomic, weak, nullable) id<LYRClientDelegate> delegate;
+@property (nonatomic, readonly, nonnull) id<LYRClientDelegate> delegate;
 
 /**
  @abstract The app key.
  */
 @property (nonatomic, copy, readonly, nonnull) NSURL *appID;
+
+/**
+ @abstract Returns a copy of the options that the client was initialized with.
+ */
+@property (nonatomic, copy, readonly, nonnull) LYRClientOptions *options;
 
 ///--------------------------------
 /// @name Managing Connection State
@@ -450,21 +430,21 @@ extern NSString * _Nonnull const LYRClientOptionDeauthenticationPolicy;
  @abstract Creates a new Conversation with the given set of participants.
  @discussion This method will create a new `LYRConversation` instance. Creating new message instances with a new `LYRConversation` object instance and sending them will also result in creation of a new conversation for other participants. An attempt to create a 1:1 conversation with a blocked participant will result in an error. If you wish to ensure that only one Conversation exists for a set of participants then set the value for the `LYRConversationOptionsDistinctByParticipantsKey` key to true in the `options` parameter.
  @param participants A set of participants with which to initialize the new Conversation.
- @param options A dictionary of options to apply to the conversation.
+ @param options An instance of `LYRConversationOptions` containing options to apply to the conversation.
  @param error A pointer to an error that upon failure is set to an error object describing why execution failed.
  @return The newly created Conversation or `nil` if an attempt is made to create a conversation with a distinct participants list, but one already exists. The existing conversation will be set as the value for the `LYRExistingDistinctConversationKey` in the `userInfo` dictionary of the error parameter.
  */
-- (nullable LYRConversation *)newConversationWithParticipants:(nonnull NSSet<NSString *> *)participants options:(nullable NSDictionary<NSString *, id> *)options error:(NSError * _Nullable * _Nullable)error;
+- (nullable LYRConversation *)newConversationWithParticipants:(nonnull NSSet<NSString *> *)participants options:(nullable LYRConversationOptions *)options error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Creates and returns a new message with the given set of message parts.
  @discussion This method will allow a maximum of 1000 parts per message.
  @param messageParts An array of `LYRMessagePart` objects specifying the content of the message. Cannot be `nil` or empty.
- @param options A dictionary of options to apply to the message.
+ @param options An instance of `LYRMessageOptions` containing options to apply to the newly initialized `LYRMessage` instance.
  @return A new message that is ready to be sent.
  @raises NSInvalidArgumentException Raised if `conversation` is `nil` or `messageParts` is empty.
  */
-- (nullable LYRMessage *)newMessageWithParts:(nonnull NSArray<LYRMessagePart *> *)messageParts options:(nullable NSDictionary<NSString *, id> *)options error:(NSError * _Nullable * _Nullable)error;
+- (nullable LYRMessage *)newMessageWithParts:(nonnull NSArray<LYRMessagePart *> *)messageParts options:(nullable LYRMessageOptions *)options error:(NSError * _Nullable * _Nullable)error;
 
 ///---------------
 /// @name Querying
@@ -633,20 +613,6 @@ extern NSString * _Nonnull const LYRClientOptionDeauthenticationPolicy;
  @discussion The default value is `0`.
  */
 @property (nonatomic) LYRSize autodownloadMaximumContentSize;
-
-///-------------------------------
-/// @name Synchronization Policies
-///-------------------------------
-
-/**
- @abstract The synchronization policy the client was initialized with.
- */
-@property (nonatomic, readonly) LYRClientSynchronizationPolicy synchronizationPolicy;
-
-/**
- @abstract The synchronization policy options the client was initialized with.
- */
-@property (nonatomic, readonly, nonnull) NSDictionary *synchronizationPolicyOptions;
 
 ///---------------------
 /// @name Helper Methods

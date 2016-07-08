@@ -20,7 +20,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ATLAddressBarView.h"
-#import "ATLParticipant.h"
+#import "ATLParticipantTableViewCell.h"
 
 @class ATLAddressBarViewController;
 
@@ -105,6 +105,37 @@ NS_ASSUME_NONNULL_BEGIN
  a UIButton object represented by the `addContactButton` property.
  */
 @property (nonatomic) ATLAddressBarView *addressBarView;
+
+///----------------------------------------
+/// @name Configuring the Participants List
+///----------------------------------------
+
+/**
+ @abstract The color for the title label displayed in the default `ATLAddressBarViewController` cell. Default is `ATLBlueColor()`.
+ */
+@property (nonatomic) UIColor *defaultCellTitleColor;
+
+/**
+ @abstract The `UITableViewCell` subclass for customizing the display of participants.
+ @discussion If you wish to provide your own custom class, your class must conform to the `ATLParticipantPresenting` protocol.
+ @default `ATLParticipantTableViewCell.h`
+ @raises NSInternalInconsistencyException Raised if the value is mutated after the receiver has been presented.
+ */
+@property (nonatomic) Class<ATLParticipantPresenting> cellClass;
+
+/**
+ @abstract Sets the height for cells within the receiver.
+ @default `56.0`
+ @raises NSInternalInconsistencyException Raised if the value is mutated after the receiver has been presented.
+ */
+@property (nonatomic, assign) CGFloat rowHeight;
+
+/**
+ @abstract Defines the sort ordering of the participant list.
+ @default `ATLParticipantPickerSortTypeFirstName`.
+ @raises NSInternalInconsistencyException Raised if the value is mutated after the receiver has been presented.
+ */
+@property (nonatomic, assign) ATLParticipantPickerSortType sortType;
 
 ///----------------------
 // @name UI Configuration

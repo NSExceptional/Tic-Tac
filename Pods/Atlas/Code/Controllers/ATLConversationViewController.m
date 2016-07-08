@@ -593,13 +593,13 @@ static NSInteger const ATLPhotoActionSheet = 1000;
 - (void)messageInputToolbarDidType:(ATLMessageInputToolbar *)messageInputToolbar
 {
     if (!self.conversation) return;
-    [self.conversation sendTypingIndicator:LYRTypingDidBegin];
+    [self.conversation sendTypingIndicator:LYRTypingIndicatorActionBegin];
 }
 
 - (void)messageInputToolbarDidEndTyping:(ATLMessageInputToolbar *)messageInputToolbar
 {
     if (!self.conversation) return;
-    [self.conversation sendTypingIndicator:LYRTypingDidFinish];
+    [self.conversation sendTypingIndicator:LYRTypingIndicatorActionFinish];
 }
 
 #pragma mark - Message Sending
@@ -782,14 +782,12 @@ static NSInteger const ATLPhotoActionSheet = 1000;
     if (!self.conversation) return;
     if (!notification.object) return;
     if (![notification.object isEqual:self.conversation]) return;
-    
-    NSString *participantID = notification.userInfo[LYRTypingIndicatorParticipantUserInfoKey];
-    NSNumber *statusNumber = notification.userInfo[LYRTypingIndicatorValueUserInfoKey];
-    LYRTypingIndicator status = statusNumber.unsignedIntegerValue;
-    if (status == LYRTypingDidBegin) {
-        [self.typingParticipantIDs addObject:participantID];
+
+    LYRTypingIndicator *typingIndicator = notification.userInfo[LYRTypingIndicatorObjectUserInfoKey];
+    if (typingIndicator.action == LYRTypingIndicatorActionBegin) {
+        [self.typingParticipantIDs addObject:typingIndicator.sender.userID];
     } else {
-        [self.typingParticipantIDs removeObject:participantID];
+        [self.typingParticipantIDs removeObject:typingIndicator.sender.userID];
     }
     [self updateTypingIndicatorOverlay:YES];
 }
@@ -1163,9 +1161,9 @@ static NSInteger const ATLPhotoActionSheet = 1000;
     conversation = [self existingConversationWithParticipantIdentifiers:participantIdentifiers];
     if (conversation) return conversation;
     
-    BOOL deliveryReceiptsEnabled = participants.count <= 5;
-    NSDictionary *options = @{LYRConversationOptionsDeliveryReceiptsEnabledKey: @(deliveryReceiptsEnabled)};
-    conversation = [self.layerClient newConversationWithParticipants:participantIdentifiers options:options error:nil];
+    LYRConversationOptions *conversationOptions = [LYRConversationOptions new];
+    conversationOptions.deliveryReceiptsEnabled = participants.count <= 5;
+    conversation = [self.layerClient newConversationWithParticipants:participantIdentifiers options:conversationOptions error:nil];
     return conversation;
 }
 

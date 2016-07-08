@@ -15,6 +15,7 @@
 - (NSData *)AES128DecryptedDataWithKey:(NSString *)key;
 - (NSData *)AES128EncryptedDataWithKey:(NSString *)key iv:(NSString *)iv;
 - (NSData *)AES128DecryptedDataWithKey:(NSString *)key iv:(NSString *)iv;
+- (NSData *)AES128DecryptedDataWithKeyData:(NSData *)key ivData:(NSData *)iv;
 
 /** Pads data using PKCS5. blockSize defaults to 16 if given 0. */
 - (NSData *)pad:(NSUInteger)blockSize;
@@ -30,6 +31,7 @@
 @property (nonatomic, readonly) BOOL isMPEG4;
 @property (nonatomic, readonly) BOOL isMedia;
 @property (nonatomic, readonly) BOOL isCompressed;
+@property (nonatomic, readonly) NSString *appropriateFileExtension;
 
 @end
 

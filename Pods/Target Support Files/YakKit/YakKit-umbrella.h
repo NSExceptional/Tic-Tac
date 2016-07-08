@@ -2,10 +2,6 @@
 
 #import "YakKit-Constants.h"
 #import "YakKit.h"
-#import "NSArray+YakKit.h"
-#import "NSData+YakKit.h"
-#import "NSDictionary+YakKit.h"
-#import "NSString+YakKit.h"
 #import "YYComment.h"
 #import "YYConfiguration.h"
 #import "YYNotification.h"

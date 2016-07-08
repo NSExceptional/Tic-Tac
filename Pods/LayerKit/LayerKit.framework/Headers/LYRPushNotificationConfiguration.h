@@ -11,7 +11,7 @@
 /**
  @abstract The `LYRPushNotificationConfiguration` class models the push notification configuration options provided by the Layer messaging service. It provides for customizing push notifications for all recipients of a message or on a per recipient basis.
  */
-@interface LYRPushNotificationConfiguration : NSObject
+@interface LYRPushNotificationConfiguration : NSObject <NSCoding, NSCopying>
 
 /**
  @abstract A string that is the displayed text in the push notification.

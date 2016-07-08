@@ -52,19 +52,6 @@ typedef NS_ENUM(NSInteger, LYRObjectChangeType) {
 };
 
 ///-----------------------
-/// @name Typing Indicator
-///-----------------------
-
-/**
- @abstract The `LYRTypingIndicator` enumeration describes the states of a typing status of a participant in a conversation.
- */
-typedef NS_ENUM(NSUInteger, LYRTypingIndicator) {
-    LYRTypingDidBegin   = 0,
-    LYRTypingDidPause   = 1,
-    LYRTypingDidFinish  = 2
-};
-
-///-----------------------
 /// @name Content Transfer
 ///-----------------------
 
@@ -82,22 +69,22 @@ typedef NS_ENUM(NSInteger, LYRContentTransferType) {
 
 typedef NS_ENUM(NSUInteger, LYRClientSynchronizationPolicy) {
     /**
-     @abstract Client will perform the synchronization process by fetching the complete history for all conversations, using this sync policy.
+     @abstract Configures the client to synchronize the complete history of each conversation.
      */
-    LYRClientSynchronizationPolicyCompleteHistory,
+    LYRClientSynchronizationPolicyCompleteHistory   = 1,
     
     /**
-     @abstract Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.
-     If all messages in a conversations have been marked as read, the client will fetch the last (most recent) message in the conversation in the initial sync.
+     @abstract Configures the client to synchronize all messages up to first unread message in each conversation.
+     If all messages in a given conversations have been marked as read, the client will fetch the last (most recent) message in the conversation in the initial sync.
      @discussion This is the default synchronization policy, if not specified in the options when initializing the `LYRClient`.
      */
-    LYRClientSynchronizationPolicyUnreadOnly,
+    LYRClientSynchronizationPolicyUnreadOnly        = 2,
     
     /**
-     @abstract Client will perform the synchronization process by fetching last few recent messages -- count is defined with the `LYRClientOptionSynchronizationMessageCount` key
+     @abstract Configures the client to synchronize a target number of messages for each conversation.
      that needs to be passed along in the options dictionary of the client initializer.
      */
-    LYRClientSynchronizationPolicyMessageCount
+    LYRClientSynchronizationPolicyPartialHistory    = 3
 };
 
 typedef NS_ENUM(NSUInteger, LYRMessageSyncOptions) {

@@ -4,6 +4,7 @@
 #import "LYRActor.h"
 #import "LYRAnnouncement.h"
 #import "LYRClient.h"
+#import "LYRClientOptions.h"
 #import "LYRConstants.h"
 #import "LYRConversation.h"
 #import "LYRErrors.h"

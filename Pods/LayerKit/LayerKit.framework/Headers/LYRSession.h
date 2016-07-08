@@ -9,10 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "LYRIdentity.h"
 
+/**
+ @abstract The `LYRSessionState` enumeration describes the authentication states that an `LYRSession` can be in.
+ */
 typedef NS_ENUM(NSUInteger, LYRSessionState) {
+    /**
+     @abstract The session is unauthenticated. The session is either new or has been explicitly deauthenticated.
+     */
     LYRSessionStateUnauthenticated,
+    
+    /**
+     @abstract The session is authenticated and valid. This is the normal operational state for a session. Messaging services are available.
+     */
     LYRSessionStateAuthenticated,
-    LYRSessionStateChallenged,
+    
+    /**
+     @abstract The session has been challenged. The previous session has expired or been invalidated and must be reauthenticated. Messaging services are unavailable until the challenge is resolved.
+     */
+    LYRSessionStateChallenged
 };
 
 /**

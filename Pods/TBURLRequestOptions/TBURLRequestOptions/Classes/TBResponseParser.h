@@ -25,6 +25,8 @@ typedef void (^TBResponseBlock)(TBResponseParser *parser);
 
 #pragma mark - TBResponseParser
 @interface TBResponseParser : NSObject
+
++ (instancetype)error:(NSError *)error;
 + (void)parseResponseData:(NSData *)data
                  response:(NSHTTPURLResponse *)response
                     error:(NSError *)error
@@ -109,8 +111,7 @@ typedef NS_ENUM(NSUInteger, TBHTTPStatusCode) {
     TBHTTPStatusCodeAuthenticationRequired = 511,
 };
 
-#define TBHTTPStatusCodeDescription(TBHTTPStatusCode) TBHTTPStatusCodeDescriptionFromString(@(#TBHTTPStatusCode))
-extern NSString * TBHTTPStatusCodeDescriptionFromString(NSString *codeString);
+extern NSString * TBHTTPStatusCodeDescriptionFromString(TBHTTPStatusCode code);
 
 #pragma mark String constants
 

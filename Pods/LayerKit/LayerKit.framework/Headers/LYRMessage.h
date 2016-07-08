@@ -45,6 +45,21 @@ typedef NS_ENUM(NSInteger, LYRRecipientStatus) {
  */
 extern NSString * _Nonnull const LYRMessageOptionsPushNotificationConfigurationKey;
 
+/**
+ @abstract A `LYRMessageOptions` object encapsulates configuration of a newly instantiated `LYRMessage` object meant to be sent out.
+ @discussion Use this class to configure the behavior of a message during the time of the initialization of the
+   `LYRMessage` object instance.
+ */
+@interface LYRMessageOptions : NSObject <NSCoding, NSCopying>
+
+/**
+ @abstract Push notification configuration sent to the Layer services along with the newly initialized `LYRMessage` instance.
+ @discussion @see `LYRPushNotificationConfiguration` for per recipient customization options.
+ */
+@property (nonatomic, copy, nullable) LYRPushNotificationConfiguration *pushNotificationConfiguration;
+
+@end
+
 //------------------------------------------------------------
 
 /**

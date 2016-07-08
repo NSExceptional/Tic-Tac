@@ -42,6 +42,7 @@ static NSMutableDictionary *progressToTasks;
     NSURLRequestNetworkServiceType _serviceType;
     NSURLSessionConfiguration *_configuration;
     NSURLSession *_session;
+    id _metadata;
 }
 @property (nonatomic, readonly) NSData *mutlipartBodyData;
 @property (nonatomic, readonly) NSString *multipartContentTypeHeader;
@@ -56,7 +57,7 @@ static NSMutableDictionary *progressToTasks;
 
 @implementation TBURLRequestBuilder
 
-+ (TBURLRequestProxy *)make:(void (^)(TBURLRequestBuilder *make))configurationHandler {
++ (TBURLRequestProxy *)make:(void (^)(TBURLRequestBuilder *))configurationHandler {
     TBURLRequestBuilder *builder = [self new];
     configurationHandler(builder);
     return [[TBURLRequestProxy new] build:builder];
@@ -105,6 +106,7 @@ BuilderOptionAutoIMP(NSTimeInterval, timeout)
 BuilderOptionAutoIMP(NSURLRequestNetworkServiceType, serviceType);
 BuilderOptionAutoIMP(NSURLSessionConfiguration *, configuration);
 BuilderOptionAutoIMP(NSURLSession *, session);
+BuilderOptionAutoIMP(id, metadata);
 
 
 BuilderOptionIMP(NSString *, bodyString, {
@@ -200,11 +202,13 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
     _configuration  = builder->_configuration;
     self.session    = builder->_session;
     
+    self.metadata = builder->_metadata;
+    
     return self;
 }
 
 - (NSMutableURLRequest *)request { return self.internalRequest.copy; }
-- (NSURLSessionConfiguration *)configuration { return self.session.configuration ?: _configuration ?: defaultURLSessionConfig; }
+- (NSURLSessionConfiguration *)configuration { return _session.configuration ?: _configuration ?: defaultURLSessionConfig; }
 - (NSURLSession *)session {
     if (!_session) {
         _session = [NSURLSession sessionWithConfiguration:self.configuration delegate:self delegateQueue:nil];
@@ -228,6 +232,7 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
     NSURLSessionTask *task = [self.session dataTaskWithRequest:self.internalRequest completionHandler:^(NSData *d, NSURLResponse *r, NSError *e) {
         [TBResponseParser parseResponseData:d response:(id)r error:e callback:completion];
     }];
+    [task resume];
     
     // NSProgress for task 
     if (self.session.delegate == self) {

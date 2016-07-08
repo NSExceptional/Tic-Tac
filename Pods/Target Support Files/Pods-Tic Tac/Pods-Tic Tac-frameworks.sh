@@ -16,7 +16,7 @@ install_framework()
     local source="$1"
   fi
 
-  local destination="${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
+  local destination="${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
 
   if [ -L "${source}" ]; then
       echo "Symlinked..."
@@ -59,8 +59,8 @@ code_sign_if_enabled() {
   if [ -n "${EXPANDED_CODE_SIGN_IDENTITY}" -a "${CODE_SIGNING_REQUIRED}" != "NO" -a "${CODE_SIGNING_ALLOWED}" != "NO" ]; then
     # Use the current code_sign_identitiy
     echo "Code Signing $1 with Identity ${EXPANDED_CODE_SIGN_IDENTITY_NAME}"
-    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements \"$1\""
-    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements "$1"
+    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements \"$1\""
+    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements "$1"
   fi
 }
 
@@ -84,34 +84,34 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/Atlas/Atlas.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/AutoCoding/AutoCoding.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/FLEX/FLEX.framework"
+  install_framework "Pods-Tic Tac/Atlas.framework"
+  install_framework "Pods-Tic Tac/AutoCoding.framework"
+  install_framework "Pods-Tic Tac/FLEX.framework"
   install_framework "${PODS_ROOT}/LayerKit/LayerKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MCSwipeTableViewCell/MCSwipeTableViewCell.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MirrorKit/MirrorKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Objc-Foundation-Extensions/Objc_Foundation_Extensions.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Objc-iOS-Extensions/Objc_iOS_Extensions.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/TBAlertController/TBAlertController.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/TBURLRequestOptions/TBURLRequestOptions.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YakKit/YakKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
+  install_framework "Pods-Tic Tac/MCSwipeTableViewCell.framework"
+  install_framework "Pods-Tic Tac/Mantle.framework"
+  install_framework "Pods-Tic Tac/Masonry.framework"
+  install_framework "Pods-Tic Tac/MirrorKit.framework"
+  install_framework "Pods-Tic Tac/Objc_Foundation_Extensions.framework"
+  install_framework "Pods-Tic Tac/Objc_iOS_Extensions.framework"
+  install_framework "Pods-Tic Tac/TBAlertController.framework"
+  install_framework "Pods-Tic Tac/TBURLRequestOptions.framework"
+  install_framework "Pods-Tic Tac/YakKit.framework"
+  install_framework "Pods-Tic Tac/libextobjc.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/Atlas/Atlas.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/AutoCoding/AutoCoding.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/FLEX/FLEX.framework"
+  install_framework "Pods-Tic Tac/Atlas.framework"
+  install_framework "Pods-Tic Tac/AutoCoding.framework"
+  install_framework "Pods-Tic Tac/FLEX.framework"
   install_framework "${PODS_ROOT}/LayerKit/LayerKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MCSwipeTableViewCell/MCSwipeTableViewCell.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MirrorKit/MirrorKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Objc-Foundation-Extensions/Objc_Foundation_Extensions.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Objc-iOS-Extensions/Objc_iOS_Extensions.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/TBAlertController/TBAlertController.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/TBURLRequestOptions/TBURLRequestOptions.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YakKit/YakKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
+  install_framework "Pods-Tic Tac/MCSwipeTableViewCell.framework"
+  install_framework "Pods-Tic Tac/Mantle.framework"
+  install_framework "Pods-Tic Tac/Masonry.framework"
+  install_framework "Pods-Tic Tac/MirrorKit.framework"
+  install_framework "Pods-Tic Tac/Objc_Foundation_Extensions.framework"
+  install_framework "Pods-Tic Tac/Objc_iOS_Extensions.framework"
+  install_framework "Pods-Tic Tac/TBAlertController.framework"
+  install_framework "Pods-Tic Tac/TBURLRequestOptions.framework"
+  install_framework "Pods-Tic Tac/YakKit.framework"
+  install_framework "Pods-Tic Tac/libextobjc.framework"
 fi
