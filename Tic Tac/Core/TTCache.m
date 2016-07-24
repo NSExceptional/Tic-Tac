@@ -22,7 +22,7 @@ static BOOL visitedPostsDelta = NO;
 static BOOL yakCacheDelta     = NO;
 static BOOL commentCacheDelta = NO;
 
-static NSUInteger const kYakCacheSize = 5000;
+static NSUInteger const kYakCacheSize = 2000;
 static NSUInteger const kVisitedPostsSize = 10000;
 
 @implementation TTCache
@@ -45,6 +45,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
         [self loadYakCache];
         [self readCommentCacheDirectory];
         [self cleanCommentCaches];
+        [self cleanYakCache];
         
         [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(saveVisitedPosts) userInfo:nil repeats:YES];
         [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(saveYakCache) userInfo:nil repeats:YES];
