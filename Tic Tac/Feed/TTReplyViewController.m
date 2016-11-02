@@ -88,7 +88,7 @@
 }
 
 - (void)submit {
-    self.onSubmit(self.textView.text, NO);
+    self.onSubmit(self.textView.text, YES);
     [self.navigationController dismissAnimated];
 }
 

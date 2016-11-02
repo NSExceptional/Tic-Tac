@@ -21,13 +21,14 @@
         
         _godModeGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(presentGodModeActions:)];
         [self.contentView addGestureRecognizer:_godModeGesture];
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
-                                                          object:self queue:nil usingBlock:^(NSNotification *note) {
-                                                              _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-                                                              for (UILabel *label in @[_scoreLabel, _ageLabel, _authorLabel, _replyCountLabel]) {
-                                                                  label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-                                                              }
-                                                          }];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserverForName:UIContentSizeCategoryDidChangeNotification
+                        object:self queue:nil usingBlock:^(NSNotification *note) {
+                            _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+                            for (UILabel *label in @[_scoreLabel, _ageLabel, _authorLabel, _replyCountLabel]) {
+                                label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+                            }
+                        }];
     }
     
     return self;
