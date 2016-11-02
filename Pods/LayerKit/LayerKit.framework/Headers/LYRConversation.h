@@ -156,7 +156,7 @@ extern NSString * _Nonnull const LYRConversationSynchronizationProgressUserInfoK
 
 /**
  @abstract The date and time that the conversation was created.
- @discussion This value specifies the time that receiver was locally created and will vary across devices.
+ @discussion This value specifies the time that the conversation was created on the Layer backend and is sychronized across devices.
  
  The `createdAt` property is queryable using all predicate operators.
  */

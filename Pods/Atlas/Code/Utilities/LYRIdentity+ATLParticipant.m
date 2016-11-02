@@ -24,10 +24,14 @@
 
 - (NSString *)avatarInitials
 {
-    if (self.firstName && self.lastName) {
-        return [NSString stringWithFormat:@"%@%@", [self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
+    NSString * initials = @"";
+    if (self.firstName && self.firstName.length > 0 && self.lastName && self.lastName.length > 0) {
+        initials = [NSString stringWithFormat:@"%@%@", [self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
     }
-    return [self.displayName substringToIndex:2];
+    else if (self.displayName && self.displayName.length > 1) {
+      initials = [self.displayName substringToIndex:2];
+    }
+    return initials;
 }
 
 - (UIImage *)avatarImage

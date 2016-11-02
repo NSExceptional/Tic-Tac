@@ -554,10 +554,7 @@ UIImage *ATLMediaAttachmentGenerateThumbnailFromVideoFileURL(NSURL *videoFileURL
     assetImageGenerator.appliesPreferredTrackTransform = YES;
     NSError *error = NULL;
     AVAssetTrack *videoAssetTrack = [[URLasset tracksWithMediaType:AVMediaTypeVideo] firstObject];
-    CMTime time;
-    if (videoAssetTrack) {
-        time = CMTimeMake(0, videoAssetTrack.nominalFrameRate);
-    }
+    CMTime time = CMTimeMake(0, videoAssetTrack.nominalFrameRate);
     CGImageRef imageRef = [assetImageGenerator copyCGImageAtTime:time actualTime:NULL error:&error];
     if (error) {
         NSLog(@"Failed to create thumbnail!");

@@ -33,11 +33,14 @@
         _error    = error;
         
         NSString *contentType = self.contentType;
-        _hasJSON       = [contentType hasPrefix:TBContentType.JSON] && data.length;
-        _hasHTML       = [contentType isEqualToString:TBContentType.HTML] && data.length;
-        _hasXML        = [contentType isEqualToString:TBContentType.XML] && data.length;
-        _hasJavascript = [contentType isEqualToString:TBContentType.javascript] && data.length;
-        _hasText       = ([contentType hasPrefix:@"text"] || _hasXML || _hasJSON) && data.length;
+        
+        if (data.length) {
+            _hasJSON       = [contentType hasPrefix:TBContentType.JSON];
+            _hasHTML       = [contentType hasPrefix:TBContentType.HTML];
+            _hasXML        = [contentType hasPrefix:TBContentType.XML] || [contentType hasPrefix:TBContentType.textXML];
+            _hasJavascript = [contentType hasPrefix:TBContentType.javascript];
+            _hasText       = [contentType hasPrefix:@"text"] || _hasXML || _hasJSON || _hasJavascript;
+        }
         
         if (!error) {
             NSUInteger code = self.response.statusCode;
@@ -88,15 +91,19 @@
 TB_NAMESPACE_IMP(TBContentType) {
     .CSS                = @"texg/css",
     .formURLEncoded     = @"application/x-www-form-urlencoded",
+    .GIF                = @"image/gif",
     .GZIP               = @"application/gzip",
     .HTML               = @"text/html",
     .javascript         = @"application/javascript",
+    .JPEG               = @"image/jpeg",
     .JSON               = @"application/json",
     .JWT                = @"application/jwt",
     .markdown           = @"text/markdown",
+    .MPEG4VideoGeneric  = @"video/mpeg4-generic",
     .multipartFormData  = @"multipart/form-data",
-    .multipartEncrypted = @"mutlipart/encrypted",
+    .multipartEncrypted = @"multipart/encrypted",
     .plainText          = @"text/plain",
+    .PNG                = @"image/png",
     .rtf                = @"text/rtf",
     .textXML            = @"text/xml",
     .XML                = @"application/xml",

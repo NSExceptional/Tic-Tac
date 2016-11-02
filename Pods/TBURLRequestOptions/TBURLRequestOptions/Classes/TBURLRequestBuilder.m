@@ -132,17 +132,19 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
     
     NSMutableData *body = [NSMutableData data];
     // Initial boundary
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", _boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    // Raw data
-    [_multipartData enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSData *data, BOOL *stop) {
-        [body appendData:[NSData boundary:_boundary withKey:key forDataValue:data]];
-    }];
+    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", _boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
     // Form parameters
     if (_multipartStrings) {
         [_multipartStrings enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
             [body appendData:[NSData boundary:_boundary withKey:key forStringValue:obj]];
         }];
     }
+    
+    // Raw data
+    [_multipartData enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSData *data, BOOL *stop) {
+        [body appendData:[NSData boundary:_boundary withKey:key forDataValue:data]];
+    }];
     
     // Replace last \r\n with --
     [body replaceBytesInRange:NSMakeRange(body.length-2, 2) withBytes:[@"--" dataUsingEncoding:NSUTF8StringEncoding].bytes];
@@ -157,8 +159,9 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
             _boundary = _boundary ?: [NSUUID UUID].UUIDString;
             return [NSString stringWithFormat:@"%@; boundary=%@", _contentTypeHeader, _boundary];
         }
+        return _contentTypeHeader;
     } else if (_multipartData || _multipartStrings) {
-        _contentTypeHeader = @"mutlipart/form-data";
+        _contentTypeHeader = TBContentType.multipartFormData;
         return self.multipartContentTypeHeader;
     }
     
@@ -182,7 +185,7 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
     // Explicit Content-Type
     NSString *contentType = builder.multipartContentTypeHeader ?: builder->_contentTypeHeader;
     if (contentType) {
-        builder->_headers = MergeDictionaries(builder->_headers, @{@"Content-Type": builder->_contentTypeHeader});
+        builder->_headers = MergeDictionaries(builder->_headers, @{@"Content-Type": contentType});
     }
     
     NSString *urlString = builder->_URL ?: [builder->_baseURL stringByAppendingString:builder->_endpoint];
@@ -238,7 +241,7 @@ BuilderOptionIMP(NSDictionary *, bodyJSONFormString, {
     }];
     [task resume];
     
-    // NSProgress for task 
+    // NSProgress for task
     if (self.session.delegate == self) {
         NSProgress *progress = [NSProgress progressWithTotalUnitCount:100];
         progressToTasks[@(task.taskIdentifier)] = progress;

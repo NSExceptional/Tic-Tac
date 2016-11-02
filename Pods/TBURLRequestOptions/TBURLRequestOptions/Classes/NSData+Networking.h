@@ -27,11 +27,16 @@
 
 @property (nonatomic, readonly) BOOL isJPEG;
 @property (nonatomic, readonly) BOOL isPNG;
-@property (nonatomic, readonly) BOOL isImage;
+@property (nonatomic, readonly) BOOL isGIF;
+@property (nonatomic, readonly) BOOL isImage; // All 3
+@property (nonatomic, readonly) BOOL isStillImage; // Not include GIF
 @property (nonatomic, readonly) BOOL isMPEG4;
-@property (nonatomic, readonly) BOOL isMedia;
+@property (nonatomic, readonly) BOOL isMedia; // All of the above and only the above
+/// Checks for PK ZIP, GZIP, GZ, TGZ, TAR.Z, 7z, and bzip2
 @property (nonatomic, readonly) BOOL isCompressed;
 @property (nonatomic, readonly) NSString *appropriateFileExtension;
+/// Supports some of the compression types
+@property (nonatomic, readonly) NSString *contentType;
 
 @end
 

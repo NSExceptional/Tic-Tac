@@ -21,6 +21,25 @@
 
 static NSString *const ATLParticipantTableMiscellaneaSectionTitle = @"#";
 
+static NSString *ATLInitialForName(NSString *name)
+{
+    if (name.length == 0) {
+        return ATLParticipantTableMiscellaneaSectionTitle;
+    }
+    NSString *initial = [name substringToIndex:1];
+    initial = [initial decomposedStringWithCanonicalMapping];
+    if (initial.length > 1) {
+        initial = [initial substringToIndex:1];
+    }
+    initial = initial.uppercaseString;
+    NSCharacterSet *uppercaseCharacters = [NSCharacterSet uppercaseLetterCharacterSet];
+    NSRange range = [initial rangeOfCharacterFromSet:uppercaseCharacters];
+    if (range.location == NSNotFound) {
+        return ATLParticipantTableMiscellaneaSectionTitle;
+    }
+    return initial;
+}
+
 @interface ATLParticipantTableSectionData : NSObject
 
 @property (nonatomic) NSRange participantsRange;
@@ -33,9 +52,12 @@ static NSString *const ATLParticipantTableMiscellaneaSectionTitle = @"#";
 
 @interface ATLParticipantTableDataSet ()
 
+@property (nonatomic) NSMutableArray *participants;
+@property (nonatomic) ATLParticipantPickerSortType sortType;
+@property (nonatomic) NSSortDescriptor *sortDescriptor;
 @property (nonatomic) NSArray *sectionTitles;
-@property (nonatomic) NSArray *participants;
 @property (nonatomic) NSArray *sections;
+@property (nonatomic) BOOL sectionsNeedUpdating;
 
 @end
 
@@ -43,66 +65,66 @@ static NSString *const ATLParticipantTableMiscellaneaSectionTitle = @"#";
 
 + (instancetype)dataSetWithParticipants:(NSSet *)participants sortType:(ATLParticipantPickerSortType)sortType
 {
-    NSSortDescriptor *sortDescriptor;
-    switch (sortType) {
-        case ATLParticipantPickerSortTypeFirstName:
-            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedStandardCompare:)];
-            break;
-        case ATLParticipantPickerSortTypeLastName:
-            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES selector:@selector(localizedStandardCompare:)];
-            break;
-    }
-    NSArray *sortedParticipants = [participants sortedArrayUsingDescriptors:@[sortDescriptor]];
-
-    NSMutableArray *sections = [NSMutableArray new];
-    NSMutableArray *sectionTitles = [NSMutableArray new];
-    NSString *currentSectionTitle;
-    ATLParticipantTableSectionData *currentSectionData;
-    for (id<ATLParticipant> participant in sortedParticipants) {
-        NSString *name;
-        switch (sortType) {
-            case ATLParticipantPickerSortTypeFirstName:
-                name = participant.firstName;
-                break;
-            case ATLParticipantPickerSortTypeLastName:
-                name = participant.lastName;
-                break;
-        }
-        NSString *initial = [self initialForName:name];
-        if ([initial isEqualToString:currentSectionTitle]) {
-            NSRange range = currentSectionData.participantsRange;
-            range.length += 1;
-            currentSectionData.participantsRange = range;
-        } else {
-            currentSectionTitle = initial;
-            [sectionTitles addObject:currentSectionTitle];
-            ATLParticipantTableSectionData *priorSectionData = currentSectionData;
-            currentSectionData = [ATLParticipantTableSectionData new];
-            currentSectionData.participantsRange = NSMakeRange(NSMaxRange(priorSectionData.participantsRange), 1);
-            [sections addObject:currentSectionData];
-        }
-    }
-
-    ATLParticipantTableDataSet *dataSet = [self new];
-    dataSet.participants = sortedParticipants;
-    dataSet.sectionTitles = sectionTitles;
-    dataSet.sections = sections;
-    return dataSet;
+    return [[self alloc] initWithParticipants:participants sortType:sortType];
 }
 
-+ (NSString *)initialForName:(NSString *)name
+- (id)initWithParticipants:(NSSet *)participants sortType:(ATLParticipantPickerSortType)sortType
 {
-    if (name.length == 0) return ATLParticipantTableMiscellaneaSectionTitle;
-    NSString *initial = [name substringToIndex:1];
-    initial = [initial decomposedStringWithCanonicalMapping];
-    if (initial.length > 1) {
-        initial = [initial substringToIndex:1];
+    self = [super init];
+    if (self) {
+        _participants = [participants.allObjects mutableCopy];
+        _sortType = sortType;
+        switch (self.sortType) {
+            case ATLParticipantPickerSortTypeFirstName:
+                _sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedStandardCompare:)];
+                break;
+            case ATLParticipantPickerSortTypeLastName:
+                _sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES selector:@selector(localizedStandardCompare:)];
+                break;
+        }
+        _sectionsNeedUpdating = YES;
     }
-    initial = initial.uppercaseString;
-    NSCharacterSet *uppercaseCharacters = [NSCharacterSet uppercaseLetterCharacterSet];
-    NSRange range = [initial rangeOfCharacterFromSet:uppercaseCharacters];
-    if (range.location == NSNotFound) return ATLParticipantTableMiscellaneaSectionTitle;
-    return initial;
+    return self;
+}
+
+#pragma mark -
+
+- (void)addParticipant:(id<ATLParticipant>)participant
+{
+    if (![self.participants containsObject:participant]) {
+        [self.participants addObject:participant];
+        self.sectionsNeedUpdating = YES;
+    }
+}
+
+- (void)removeParticipant:(id<ATLParticipant>)participant
+{
+    if ([self.participants containsObject:participant]) {
+        [self.participants removeObject:participant];
+        self.sectionsNeedUpdating = YES;
+    }
+}
+
+- (void)particpant:(id<ATLParticipant>)participant updatedProperty:(NSString *)property
+{
+    if ([self.participants containsObject:participant] && [self.sortDescriptor.key isEqualToString:property]) {
+        self.sectionsNeedUpdating = YES;
+    }
+}
+#pragma mark -
+
+- (NSArray *)sections
+{
+    [self updateSectionsIfNeeded];
+    NSAssert(_sections != nil, @"_sections did not get created");
+    return _sections;
+}
+
+- (NSArray<NSString *> *)sectionTitles
+{
+    [self updateSectionsIfNeeded];
+    NSAssert(_sectionTitles != nil, @"_sectionTitles did not get created");
+    return _sectionTitles;
 }
 
 - (NSUInteger)numberOfSections
@@ -137,6 +159,51 @@ static NSString *const ATLParticipantTableMiscellaneaSectionTitle = @"#";
         *stop = YES;
     }];
     return indexPath;
+}
+
+#pragma mark -
+
+- (void)updateSectionsIfNeeded
+{
+    if (!self.sectionsNeedUpdating) {
+        return;
+    }
+
+    NSArray *sortedParticipants = [self.participants sortedArrayUsingDescriptors:@[self.sortDescriptor]];
+
+    NSMutableArray *sections = [NSMutableArray new];
+    NSMutableArray *sectionTitles = [NSMutableArray new];
+    NSString *currentSectionTitle;
+    ATLParticipantTableSectionData *currentSectionData;
+    for (id<ATLParticipant> participant in sortedParticipants) {
+        NSString *name;
+        switch (self.sortType) {
+            case ATLParticipantPickerSortTypeFirstName:
+                name = participant.firstName;
+                break;
+            case ATLParticipantPickerSortTypeLastName:
+                name = participant.lastName;
+                break;
+        }
+        NSString *initial = ATLInitialForName(name);
+        if ([initial isEqualToString:currentSectionTitle]) {
+            NSRange range = currentSectionData.participantsRange;
+            range.length += 1;
+            currentSectionData.participantsRange = range;
+        } else {
+            currentSectionTitle = initial;
+            [sectionTitles addObject:currentSectionTitle];
+            ATLParticipantTableSectionData *priorSectionData = currentSectionData;
+            currentSectionData = [ATLParticipantTableSectionData new];
+            currentSectionData.participantsRange = NSMakeRange(NSMaxRange(priorSectionData.participantsRange), 1);
+            [sections addObject:currentSectionData];
+        }
+    }
+
+    self.participants = [sortedParticipants mutableCopy];
+    self.sections = sections;
+    self.sectionTitles = sectionTitles;
+    self.sectionsNeedUpdating = NO;
 }
 
 @end

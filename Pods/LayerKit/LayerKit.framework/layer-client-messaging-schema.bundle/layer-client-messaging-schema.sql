@@ -200,7 +200,7 @@ CREATE TABLE "streams" (
   deleted_at DATETIME, 
   min_synced_seq INTEGER, 
   max_synced_seq INTEGER, metadata_timestamp INTEGER, is_distinct INTEGER NOT NULL DEFAULT 0
-, type INTEGER NOT NULL DEFAULT 1, total_message_event_count INTEGER NOT NULL DEFAULT 0, unread_message_event_count INTEGER NOT NULL DEFAULT 0, least_recent_unread_message_event_seq INTEGER, last_message_event_received_at DATETIME, last_message_event_seq INTEGER, deletion_mode INTEGER DEFAULT 0, starting_seq INTEGER, mutation_seq INTEGER);
+, type INTEGER NOT NULL DEFAULT 1, total_message_event_count INTEGER NOT NULL DEFAULT 0, unread_message_event_count INTEGER NOT NULL DEFAULT 0, least_recent_unread_message_event_seq INTEGER, last_message_event_received_at DATETIME, last_message_event_seq INTEGER, deletion_mode INTEGER DEFAULT 0, starting_seq INTEGER, mutation_seq INTEGER, created_at DATETIME);
 
 CREATE TABLE syncable_changes (
   change_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -602,3 +602,7 @@ INSERT INTO schema_migrations (version) VALUES (20160222121515239);
 INSERT INTO schema_migrations (version) VALUES (20160314154801167);
 
 INSERT INTO schema_migrations (version) VALUES (20160414154223977);
+
+INSERT INTO schema_migrations (version) VALUES (20160708161810428);
+
+INSERT INTO schema_migrations (version) VALUES (20160708161832582);

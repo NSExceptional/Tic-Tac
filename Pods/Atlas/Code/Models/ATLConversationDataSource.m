@@ -64,7 +64,9 @@ NSInteger const ATLQueryControllerPaginationWindow = 30;
 {
     self = [super init];
     if (self) {
-        NSUInteger numberOfMessagesAvailable = [layerClient countForQuery:query error:nil];
+        // Setting 0 for pagination causes messages in a new conversation to not display
+        // A minimum of 1 ensures all messages display correctly
+        NSUInteger numberOfMessagesAvailable = MAX(1, [layerClient countForQuery:query error:nil]);
         NSUInteger numberOfMessagesToDisplay = MIN(numberOfMessagesAvailable, ATLQueryControllerPaginationWindow);
     
         NSError *error = nil;

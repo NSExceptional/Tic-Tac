@@ -42,7 +42,8 @@ extern NSString * _Nonnull const LYRQueryingErrorDomain;
 typedef NS_ENUM(NSUInteger, LYRQueryError) {
     LYRQueryErrorUnqueryableProperty        =   12000, // The specified property is not available for querying.
     LYRQueryErrorUnsupportedPredicate       =   12001, // The property & operator specified are not a supported combination.
-    LYRQueryErrorUnsupportedSortDescriptor  =   12002  // The property specified is not available for sorting.
+    LYRQueryErrorUnsupportedSortDescriptor  =   12002, // The property specified is not available for sorting.
+    LYRQueryErrorInvalidInputValue          =   12003  // The value given is not usable with the given predicate operator.
 };
 
 /**

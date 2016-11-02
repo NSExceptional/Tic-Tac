@@ -8,11 +8,11 @@ If you have any questions, comments, or issues related to any products distribut
 
 LayerKit is the iOS SDK for interacting with the Layer communications cloud. It provides a simple, object oriented interface to the rich messaging capabilities provided by the platform.
 
-In order to use LayerKit you must be a registered developer with a provisioned application identifier and have configured a backend system to act as an identity provider for your client applications. All aspects of this setup are covered in detail in the [Layer Integration Guide](https://preview.layer.com/docs/integration).
+In order to use LayerKit you must be a registered developer with a provisioned application identifier and have configured a backend system to act as an identity provider for your client applications. All aspects of this setup are covered in detail in the [Layer iOS Documentation](https://docs.layer.com/sdk/ios/install).
 
 ### Installation
 
-LayerKit can be installed directly into your application by importing a framework or via CocoaPods. Quick installation instructions are provided below for reference, but please refer to the [Layer Integration Guide](https://preview.layer.com/docs/integration) for full details and troubleshooting.
+LayerKit can be installed directly into your application by importing a framework or via CocoaPods. Quick installation instructions are provided below for reference, but please refer to the [Layer iOS Documentation](https://docs.layer.com/sdk/ios/install) for full details and troubleshooting.
 
 #### CocoaPods Installation
 
@@ -74,7 +74,7 @@ Once you have finished installing LayerKit via CocoaPods or framework, you can t
 }
 ```
 
-Launch your application and verify that the connection is successful. You are now ready to begin authenticating clients and sending messages. Please refer to the [Layer Integration Guide](https://developer.layer.com/docs/guide) for details.
+Launch your application and verify that the connection is successful. You are now ready to begin authenticating clients and sending messages. Please refer to the [Layer iOS Documentation](https://docs.layer.com/sdk/ios/install) for details.
 
 ## Contact
 

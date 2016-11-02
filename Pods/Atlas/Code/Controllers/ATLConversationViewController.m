@@ -228,6 +228,7 @@ static NSInteger const ATLPhotoActionSheet = 1000;
     if (conversation) {
         [self fetchLayerMessages];
     } else {
+        self.conversationDataSource.queryController.delegate = nil;
         self.conversationDataSource = nil;
         [self.collectionView reloadData];
     }
@@ -256,7 +257,7 @@ static NSInteger const ATLPhotoActionSheet = 1000;
     }
     self.conversationDataSource.queryController.delegate = self;
     self.queryController = self.conversationDataSource.queryController;
-    self.showingMoreMessagesIndicator = NO;
+    self.showingMoreMessagesIndicator = [self.conversationDataSource moreMessagesAvailable];
     [self.collectionView reloadData];
 }
 
@@ -481,7 +482,7 @@ static NSInteger const ATLPhotoActionSheet = 1000;
     
     NSDate *date = message.sentAt ?: [NSDate date];
     NSTimeInterval interval = [date timeIntervalSinceDate:previousMessage.sentAt];
-    if (interval > self.dateDisplayTimeInterval) {
+    if (abs(interval) > self.dateDisplayTimeInterval) {
         return YES;
     }
     return NO;

@@ -22,9 +22,48 @@
 
 @class LYRClient, LYRQuery, LYRQueryController, LYRObjectChange;
 
-///-------------------------------------
-/// @name Client Lifecycle Notifications
-///-------------------------------------
+///------------------------------
+/// @name Transport Notifications
+///------------------------------
+
+/**
+ @abstract Posted when the client has scheduled an attempt to connect to Layer.
+ */
+extern NSString * _Nonnull const LYRClientWillAttemptToConnectNotification;
+
+/**
+ @abstract The key into the `userInfo` of a `LYRClientWillAttemptToConnectNotification` notification for retrieving the current attempt number.
+ */
+extern NSString * _Nonnull const LYRClientConnectionAttemptNumberUserInfoKey;
+
+/**
+ @abstract The key into the `userInfo` of a `LYRClientWillAttemptToConnectNotification` notification for retrieving the total number of connection attempts that will be made.
+ */
+extern NSString * _Nonnull const LYRClientConnectionAttemptLimitUserInfoKey;
+
+/**
+ @abstract The key into the `userInfo` of a `LYRClientWillAttemptToConnectNotification` notification for retrieving the amount of delay that will be applied before performing another connection attempt.
+ */
+extern NSString * _Nonnull const LYRClientConnectionAttemptDelayIntervalUserInfoKey;
+
+/**
+ @abstract Posted when the client has successfully connected to Layer.
+ */
+extern NSString * _Nonnull const LYRClientDidConnectNotification;
+
+/**
+ @abstract Posted when the client has lost an established connection to Layer.
+ */
+extern NSString * _Nonnull const LYRClientDidLoseConnectionNotification;
+
+/**
+ @abstract Posted when the client has lost the connection to Layer.
+ */
+extern NSString * _Nonnull const LYRClientDidDisconnectNotification;
+
+///-----------------------------------
+/// @name Authentication Notifications
+///-----------------------------------
 
 /**
  @abstract Posted when a client has authenticated successfully.
@@ -41,20 +80,39 @@ extern NSString * _Nonnull const LYRClientAuthenticatedUserIDUserInfoKey;
  */
 extern NSString * _Nonnull const LYRClientDidDeauthenticateNotification;
 
+///---------------------------------------
+/// @name Session Management Notifications
+///---------------------------------------
+
+/**
+ @abstract Posted when the client has created a new session.
+ */
+extern NSString * _Nonnull const LYRClientDidCreateSessionNotification;
+
+/**
+ @abstract Posted when the client has authenticated a session.
+ */
+extern NSString * _Nonnull const LYRClientDidAuthenticateSessionNotification;
+
+/**
+ @abstract Posted when the client has resumed an existing session.
+ */
+extern NSString * _Nonnull const LYRClientDidResumeSessionNotification;
+
 /**
  @abstract Posted when the client has switched sessions.
  */
 extern NSString * _Nonnull const LYRClientDidSwitchSessionNotification;
 
 /**
- @abstract Posted when a client is beginning a synchronization operation.
+ @abstract Posted when the client has destroyed a session.
  */
-extern NSString * _Nonnull const LYRClientWillBeginSynchronizationNotification;
+extern NSString * _Nonnull const LYRClientDidDestroySessionNotification;
 
 /**
- @abstract Posted when a client has finished a synchronization operation.
+ @abstract A key into the user info dictionary of a `LYRClient` session notification specifying the session that was affected.
  */
-extern NSString * _Nonnull const LYRClientDidFinishSynchronizationNotification;
+extern NSString * _Nonnull const LYRClientSessionUserInfoKey;
 
 ///---------------------------
 /// @name Change Notifications
@@ -79,25 +137,24 @@ extern NSString * _Nonnull const LYRClientObjectsDidChangeNotification;
  */
 extern NSString * _Nonnull const LYRClientObjectChangesUserInfoKey;
 
-/**
- @abstract Posted when the client has scheduled an attempt to connect to Layer.
- */
-extern NSString * _Nonnull const LYRClientWillAttemptToConnectNotification;
+///-------------------------------------------------------
+/// @name Synchronization & Content Transfer Notifications
+///-------------------------------------------------------
 
 /**
- @abstract Posted when the client has successfully connected to Layer.
+ @abstract Posted when a client is beginning a synchronization operation.
  */
-extern NSString * _Nonnull const LYRClientDidConnectNotification;
+extern NSString * _Nonnull const LYRClientWillBeginSynchronizationNotification;
 
 /**
- @abstract Posted when the client has lost an established connection to Layer.
+ @abstract Posted when a client has finished a synchronization operation.
  */
-extern NSString * _Nonnull const LYRClientDidLoseConnectionNotification;
+extern NSString * _Nonnull const LYRClientDidFinishSynchronizationNotification;
 
 /**
- @abstract Posted when the client has lost the connection to Layer.
+ @abstract Posted when a client has finished synchronizing policies.
  */
-extern NSString * _Nonnull const LYRClientDidDisconnectNotification;
+extern NSString * _Nonnull const LYRClientDidFinishPolicySynchronizationNotification;
 
 /**
  @abstract The key into the `userInfo` of the `LYRClientWillBeginSynchronizationNotification` whose value is the `LYRProgress` instance
@@ -171,6 +228,10 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 
 @optional
 
+///----------------
+/// @name Transport
+///----------------
+
 /**
  @abstract Informs the delegate that the client is making an attempt to connect to Layer.
  @param client The client attempting the connection.
@@ -199,6 +260,10 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
  */
 - (void)layerClientDidDisconnect:(nonnull LYRClient *)client;
 
+///---------------------
+/// @name Authentication
+///---------------------
+
 /**
  @abstract Tells the delegate that a client has successfully authenticated with Layer.
  @param client The client that has authenticated successfully.
@@ -213,6 +278,49 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
  @param client The client that was deauthenticated.
  */
 - (void)layerClientDidDeauthenticate:(nonnull LYRClient *)client;
+
+///---------------
+/// @name Sessions
+///---------------
+
+/**
+ @abstract Tells the delegate that the client has created a new session.
+ @param client The client that created the session.
+ @param session The session that was created.
+ */
+- (void)layerClient:(nonnull LYRClient *)client didCreateSession:(nonnull LYRSession *)session;
+
+/**
+ @abstract Tells the delegate that the client has authenticated a session.
+ @param client The client that authenticated the session.
+ @param session The session that was authenticated.
+ */
+- (void)layerClient:(nonnull LYRClient *)client didAuthenticateSession:(nonnull LYRSession *)session;
+
+/**
+ @abstract Tells the delegate that the client has resumed an existing authenticated session.
+ @param client The client that resumed the session.
+ @param session The session that was resumed.
+ */
+- (void)layerClient:(nonnull LYRClient *)client didResumeSession:(nonnull LYRSession *)session;
+
+/**
+ @abstract Tells the delegate that the client has switched to another session.
+ @param client The client that has switched sessions.
+ @param session The session that the client has switched to.
+ */
+- (void)layerClient:(nonnull LYRClient *)client didSwitchToSession:(nonnull LYRSession *)session;
+
+/**
+ @abstract Tells the delegate that the client has destroyed an existing session.
+ @param client The client that destroyed the session.
+ @param session The session that was destroyed.
+ */
+- (void)layerClient:(nonnull LYRClient *)client didDestroySession:(nonnull LYRSession *)session;
+
+///-------------------------------------------
+/// @name Synchronization & Content Management
+///-------------------------------------------
 
 /**
  @abstract Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.
@@ -620,6 +728,7 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 
 /**
  @abstract Waits for the creation of an object with the specified identifier and calls the completion block with the object if found or an error if it times out.
+ @discussion The completion block is always invoked on the main thread.
  @param objectIdentifier The identifier of the object expected to be created.
  @param timeout The specified time the method should wait for the object creation before timing out.
  @param completion The block that will be called once the operation completes with either the expected object or an error.
@@ -631,11 +740,18 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 ///----------------
 
 /**
- @abstract Captures a debug snapshot of the current state of the Layer powered application and persists it to the file system.
+ @abstract Captures a debug snapshot of the current state of the Layer client object and persists it to the file system.
  @param completion A block to be called upon completion of the asynchronous request for a debug snapshot. The block takes one parameter: an `NSURL` location of the snapshot on the file system.
  @discussion The debug snapshot is a zip file containing the following: 1. A JSON dump of diagnostic information about the `LYRClient` 2. A copy of the local database, 3. A copy of any accumulated log files.
  */
 - (void)captureDebugSnapshotWithCompletion:(nonnull void(^)(NSURL * _Nullable snapshotPath, NSError * _Nullable error))completion;
+
+/**
+ @abstract Returns a string describing the state of the subsystems underlying the Layer client.
+ @discussion The diagnostic description string can be useful when investigating client issues via logging.
+ @return A string describing the underlying state of the receiving client object.
+ */
+- (nonnull NSString *)diagnosticDescription;
 
 /**
  @abstract When `YES`, `LayerKit` will log detailed debugging information to both the XCode debugger and the file system.
@@ -644,7 +760,7 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 @property (nonatomic) BOOL debuggingEnabled;
 
 /**
- @abstract Configures the log level for the specified component
+ @abstract Configures the log level for the specified component.
  @param level The log level to be set for the component.
  @param component The component to configure.
  */

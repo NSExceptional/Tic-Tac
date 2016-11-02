@@ -85,7 +85,7 @@ extern NSString * _Nonnull const LYRMessageOptionsPushNotificationConfigurationK
  @abstract The conversation that the receiver is a part of.
  @discussion The `conversation` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
-@property (nonatomic, readonly, nonnull) LYRConversation *conversation LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM(LYRMessagePart);
+@property (nonatomic, readonly, nullable) LYRConversation *conversation LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM(LYRMessagePart);
 
 /**
  @abstract An array of message parts (modeled by the `LYRMessagePart` class) that provide access to the content of the receiver.
@@ -123,7 +123,7 @@ extern NSString * _Nonnull const LYRMessageOptionsPushNotificationConfigurationK
 
 /**
  @abstract The sender who sent the message.
- @discussion The `sender` can be an authenticated user or from a platform, specificed by the sender's properties `userID` and `name`.  They are mutually exclusive.  Both properties are queryable from `LYRMessage`.
+ @discussion The `sender` can be an authenticated user or from a platform, specificed by the sender's properties `userID` and `name`. They are mutually exclusive. The sender's `userID` and `name` properties are queryable from `LYRMessage`.
  */
 @property (nonatomic, readonly, nonnull) LYRIdentity *sender;
 
