@@ -32,8 +32,7 @@
     self.viewControllers = @[[TTFeedViewController inNavigationController],
                              [TTNotificationsViewController inNavigationController],
                              [[UINavigationController alloc] initWithRootViewController:chat],
-                             [TTProfileViewController inNavigationController],
-                             [TTSettingsViewController inNavigationController]];
+                             [TTProfileViewController inNavigationController]];
     
     NSArray *icons = @[@"tab_feed", @"tab_notifications", @"tab_chat", @"tab_profile", @"tab_settings"];
     NSArray *titles = @[@"Feed", @"Notifications", @"Chat", @"Profile", @"Settings"];
