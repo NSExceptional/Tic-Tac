@@ -83,7 +83,8 @@
         return (id)self.window.rootViewController;
     }
     
-    return nil;
+    // New vc if no registered user
+    return [TTTabBarController new];
 }
 
 - (void)setupNewUser:(VoidBlock)completion {
