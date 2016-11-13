@@ -37,12 +37,10 @@
         temp.location  = [self scatter:orig];
         temp.userIdentifier = userIdentifier;
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((i++)/2.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            action(temp);
-            if (i == [NSUserDefaults otherUserIdentifiers].count) {
-                [TBNetworkActivity pop];
-            }
-        });
+        action(temp);
+        if (++i == [NSUserDefaults otherUserIdentifiers].count) {
+            [TBNetworkActivity pop];
+        }
     }
 }
 

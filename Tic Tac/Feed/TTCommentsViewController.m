@@ -123,7 +123,7 @@
         if (!error) {
             BOOL scroll = self.dataSource.count == 0;
             
-            [self analyzeComments:collection];
+//            [self analyzeComments:collection];
             [TTCache cacheComments:collection forYak:self.yak];
             [self.dataSource setArray:collection];
             [self checkForBlockedComments:unusedComments];
@@ -156,7 +156,7 @@
             
             // If we already loaded the rest...
             if (!error && self.dataSource.count && [self checkForBlockedComments:collection]) {
-                [self analyzeComments:collection]; // Only need to analyze the new ones
+//                [self analyzeComments:collection]; // Only need to analyze the new ones
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
             }
@@ -207,6 +207,7 @@
     }];
 }
 
+/// Assigns usernames to comments with missing usernames based on backID + overlayID
 - (void)analyzeComments:(NSArray *)comments {
     NSMutableDictionary *handles = [NSMutableDictionary dictionary];
     for (YYComment *comment in comments) {
@@ -277,7 +278,7 @@
     cell.titleLabel.text           = comment.body;
     cell.scoreLabel.attributedText = [@(comment.score) scoreStringForVote:comment.voteStatus];
     cell.ageLabel.text             = comment.created.relativeTimeString;
-    cell.authorLabel.text          = comment.authorText;
+    cell.authorLabel.text          = comment.username ?: comment.authorText;
     cell.votable                   = comment; // removed, blocked, etc
     cell.votingSwipesEnabled       = !(self.yak.isReadOnly || comment.blocked);
     cell.repliesEnabled            = !self.yak.isReadOnly;
