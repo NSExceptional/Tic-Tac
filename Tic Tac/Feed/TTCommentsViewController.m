@@ -52,7 +52,7 @@
 
 - (void)dismissAndNotifyYakRemoved {
     [self.navigationController popViewControllerAnimated:YES];
-    [[TBAlertController simpleOKAlertWithTitle:@"Yak Not Available" message:@"This yak has been removed."] show];
+    [[TBAlertController simpleOKAlertWithTitle:@"Yak Not Available" message:@"This yak has been removed."] showNow];
 }
 
 - (id)init {
@@ -269,7 +269,7 @@
         [options setDestructiveButtonIndex:1];
     }
     
-    [options show];
+    [options showNow];
 }
 
 #pragma mark Cell configuration

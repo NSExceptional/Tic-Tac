@@ -23,7 +23,7 @@
     [god addOtherButtonWithTitle:@"Revoke upvotes" target:self action:@selector(superUnpvote:) withObject:votable];
     [god addOtherButtonWithTitle:@"Revoke downvotes" target:self action:@selector(superUndownvote:) withObject:votable];
     [god setCancelButtonWithTitle:@"Cancel"];
-    [god show];
+    [god showNow];
 }
 
 + (void)superSomething:(void(^)(YYClient *client))action {

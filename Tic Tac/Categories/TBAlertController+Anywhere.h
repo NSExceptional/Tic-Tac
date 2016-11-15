@@ -11,6 +11,6 @@
 
 @interface TBAlertController (Anywhere)
 
-- (void)show;
+- (void)showNow;
 
 @end

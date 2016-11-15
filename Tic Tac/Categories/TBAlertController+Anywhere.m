@@ -10,7 +10,7 @@
 
 @implementation TBAlertController (Anywhere)
 
-- (void)show {
+- (void)showNow {
     [self showFromViewController:[[UIApplication sharedApplication].delegate.window topMostViewController]];
 }
 
