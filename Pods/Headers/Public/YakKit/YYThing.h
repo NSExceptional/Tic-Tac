@@ -1,0 +1,1 @@
+../../../YakKit/Pod/Classes/Model/YYThing.h

@@ -19,7 +19,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@import LayerKit;
+//@import LayerKit;
+#import <LayerKit/LayerKit.h>
 #import "ATLConversationTableViewCell.h"
 #import "ATLAvatarItem.h"
 #import "ATLParticipant.h"

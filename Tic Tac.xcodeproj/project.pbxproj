@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		78C96B4D6D87F7C570982988 /* Pods_Tic_Tac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277561482BA6EDDD59A022CB /* Pods_Tic_Tac.framework */; };
+		424EE29EDA7043D790B6BE40 /* libPods-Tic Tac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95E93FE5232609D8E3BF44A9 /* libPods-Tic Tac.a */; };
 		9037FF7A1D109F20000CCC81 /* NSNumber+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF791D109F20000CCC81 /* NSNumber+Score.m */; };
 		9037FF7D1D10B89B000CCC81 /* TTCensorshipControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF7C1D10B89B000CCC81 /* TTCensorshipControl.m */; };
 		90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */; };
@@ -56,7 +56,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		277561482BA6EDDD59A022CB /* Pods_Tic_Tac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tic_Tac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31223DB9125202BD58A8EDA0 /* Pods-Tic Tac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac.debug.xcconfig"; sourceTree = "<group>"; };
 		9037FF781D109F20000CCC81 /* NSNumber+Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Score.h"; sourceTree = "<group>"; };
 		9037FF791D109F20000CCC81 /* NSNumber+Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Score.m"; sourceTree = "<group>"; };
@@ -70,6 +69,7 @@
 		90D68E701D147D700054A9E1 /* TTChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatListViewController.m; sourceTree = "<group>"; };
 		90D68E721D149D310054A9E1 /* TTChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatViewController.h; sourceTree = "<group>"; };
 		90D68E731D149D310054A9E1 /* TTChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatViewController.m; sourceTree = "<group>"; };
+		95E93FE5232609D8E3BF44A9 /* libPods-Tic Tac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tic Tac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableViewController.h; sourceTree = "<group>"; };
 		B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableViewController.m; sourceTree = "<group>"; };
 		B44F16041CDA977A002DF423 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78C96B4D6D87F7C570982988 /* Pods_Tic_Tac.framework in Frameworks */,
+				424EE29EDA7043D790B6BE40 /* libPods-Tic Tac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +165,7 @@
 		38D2F97D7037B38928638030 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				277561482BA6EDDD59A022CB /* Pods_Tic_Tac.framework */,
+				95E93FE5232609D8E3BF44A9 /* libPods-Tic Tac.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

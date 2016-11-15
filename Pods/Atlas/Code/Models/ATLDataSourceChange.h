@@ -19,7 +19,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@import LayerKit;
+//@import LayerKit;
+#import <LayerKit/LayerKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @interface ATLDataSourceChange : NSObject

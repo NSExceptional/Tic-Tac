@@ -1,4 +1,4 @@
-use_frameworks!
+
 
 target 'Tic Tac' do
 pod 'MirrorKit', :git => 'https://github.com/ThePantsThief/MirrorKit.git'

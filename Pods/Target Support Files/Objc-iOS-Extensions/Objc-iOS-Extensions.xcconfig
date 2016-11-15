@@ -1,7 +1,7 @@
 CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR/Objc-iOS-Extensions
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Objc-Foundation-Extensions"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/LayerKit"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Objc-iOS-Extensions" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Atlas" "${PODS_ROOT}/Headers/Public/AutoCoding" "${PODS_ROOT}/Headers/Public/FLEX" "${PODS_ROOT}/Headers/Public/LayerKit" "${PODS_ROOT}/Headers/Public/MCSwipeTableViewCell" "${PODS_ROOT}/Headers/Public/Mantle" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/MirrorKit" "${PODS_ROOT}/Headers/Public/Objc-Foundation-Extensions" "${PODS_ROOT}/Headers/Public/Objc-iOS-Extensions" "${PODS_ROOT}/Headers/Public/TBAlertController" "${PODS_ROOT}/Headers/Public/TBURLRequestOptions" "${PODS_ROOT}/Headers/Public/YakKit" "${PODS_ROOT}/Headers/Public/libextobjc"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Objc-Foundation-Extensions"
 OTHER_LDFLAGS = -framework "UIKit"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

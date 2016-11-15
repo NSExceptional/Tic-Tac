@@ -1,6 +1,0 @@
-framework module MirrorKit {
-  umbrella header "MirrorKit-umbrella.h"
-
-  export *
-  module * { export * }
-}
