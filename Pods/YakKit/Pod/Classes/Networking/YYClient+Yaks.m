@@ -23,7 +23,6 @@
         make.baseURL(kBaseFeedURL).endpoint(kepGetYaksAndLocations);
         make.queries([self generalQuery:@{@"loc": @"false"}]);
     } callback:^(TBResponseParser *parser) {
-        [parser setValue:@YES forKey:@"hasJSON"];
         [self completeWithClass:[YYYak class] jsonArray:parser.JSON[@"messages"] error:parser.error completion:completion];
     }];
 }
@@ -74,7 +73,6 @@
     [self get:^(TBURLRequestBuilder *make) {
         make.endpoint(kepGetComments).queries([self generalQuery:@{@"messageID": yak.identifier}]);
     } callback:^(TBResponseParser *parser) {
-        [parser setValue:@YES forKey:@"hasJSON"];
         [self completeWithClass:[YYComment class] jsonArray:parser.JSON[@"comments"] error:parser.error completion:completion];
     }];
 }
