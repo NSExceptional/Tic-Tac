@@ -8,8 +8,6 @@
 
 #import "MCSwipeTableViewCell.h"
 
-#define viewToUse (self.customColorViewContainerView ?: self)
-
 static CGFloat const kMCStop1                       = 0.25; // Percentage limit to trigger the first action
 static CGFloat const kMCStop2                       = 0.75; // Percentage limit to trigger the second action
 static CGFloat const kMCBounceAmplitude             = 20.0; // Maximum bounce amplitude when using the MCSwipeTableViewCellModeSwitch mode
@@ -105,8 +103,8 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     
     // Setup Gesture Recognizer.
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGestureRecognizer:)];
-    _panGestureRecognizer.delegate = self;
     [self addGestureRecognizer:_panGestureRecognizer];
+    _panGestureRecognizer.delegate = self;
 }
 
 - (void)initDefaults {
@@ -162,38 +160,40 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     BOOL isContentViewBackgroundClear = !self.contentView.backgroundColor;
     if (isContentViewBackgroundClear) {
         BOOL isBackgroundClear = [self.backgroundColor isEqual:[UIColor clearColor]];
-        self.contentView.backgroundColor = isBackgroundClear ? [UIColor whiteColor] : self.backgroundColor;
+        self.contentView.backgroundColor = isBackgroundClear ? [UIColor whiteColor] :self.backgroundColor;
     }
     
-    // RET
-    UIImage *contentViewScreenshotImage = [self imageWithView:viewToUse];
+    UIImage *contentViewScreenshotImage = [self imageWithView:self];
     
     if (isContentViewBackgroundClear) {
         self.contentView.backgroundColor = nil;
     }
     
-    _colorIndicatorView                  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewToUse.frame.size.width, viewToUse.frame.size.height)];
+    _colorIndicatorView = [[UIView alloc] initWithFrame:self.bounds];
     _colorIndicatorView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-    _colorIndicatorView.backgroundColor  = self.defaultColor ? self.defaultColor : [UIColor clearColor];
+    _colorIndicatorView.backgroundColor = self.defaultColor ? self.defaultColor : [UIColor clearColor];
+    [self addSubview:_colorIndicatorView];
     
-    _slidingView             = [[UIView alloc] init];
+    _slidingView = [[UIView alloc] init];
     _slidingView.contentMode = UIViewContentModeCenter;
+    [_colorIndicatorView addSubview:_slidingView];
     
     _contentScreenshotView = [[UIImageView alloc] initWithImage:contentViewScreenshotImage];
-    
-    // RET
-    [_colorIndicatorView addSubview:_slidingView];
-    [viewToUse addSubview:_colorIndicatorView];
-    [viewToUse addSubview:_contentScreenshotView];
+    [self addSubview:_contentScreenshotView];
 }
 
 - (void)uninstallSwipingView {
-    [_slidingView removeFromSuperview];
-    [_colorIndicatorView removeFromSuperview];
-    [_contentScreenshotView removeFromSuperview];
+    if (!_contentScreenshotView) {
+        return;
+    }
     
+    [_slidingView removeFromSuperview];
     _slidingView = nil;
+    
+    [_colorIndicatorView removeFromSuperview];
     _colorIndicatorView = nil;
+    
+    [_contentScreenshotView removeFromSuperview];
     _contentScreenshotView = nil;
 }
 
@@ -262,7 +262,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     UIGestureRecognizerState state      = [gesture state];
     CGPoint translation                 = [gesture translationInView:self];
     CGPoint velocity                    = [gesture velocityInView:self];
-    CGFloat percentage                  = [self percentageWithOffset:CGRectGetMinX(_contentScreenshotView.frame) relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+    CGFloat percentage                  = [self percentageWithOffset:CGRectGetMinX(_contentScreenshotView.frame) relativeToWidth:CGRectGetWidth(self.bounds)];
     NSTimeInterval animationDuration    = [self animationDurationWithVelocity:velocity];
     _direction                          = [self directionWithPercentage:percentage];
     
@@ -271,8 +271,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
         
         [self setupSwipingView];
         
-        // LUNA
-        CGPoint center = {MIN(_contentScreenshotView.center.x + translation.x, [UIScreen mainScreen].bounds.size.width+1), _contentScreenshotView.center.y};
+        CGPoint center = {_contentScreenshotView.center.x + translation.x, _contentScreenshotView.center.y};
         _contentScreenshotView.center = center;
         [self animateWithOffset:CGRectGetMinX(_contentScreenshotView.frame)];
         [gesture setTranslation:CGPointZero inView:self];
@@ -376,7 +375,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
 }
 
 - (NSTimeInterval)animationDurationWithVelocity:(CGPoint)velocity {
-    CGFloat width                           = CGRectGetWidth(viewToUse.bounds);
+    CGFloat width                           = CGRectGetWidth(self.bounds);
     NSTimeInterval animationDurationDiff    = kMCDurationHighLimit - kMCDurationLowLimit;
     CGFloat horizontalVelocity              = velocity.x;
     
@@ -494,7 +493,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
 #pragma mark - Movement
 
 - (void)animateWithOffset:(CGFloat)offset {
-    CGFloat percentage = [self percentageWithOffset:offset relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+    CGFloat percentage = [self percentageWithOffset:offset relativeToWidth:CGRectGetWidth(self.bounds)];
     
     UIView *view = [self viewWithPercentage:percentage];
     
@@ -518,33 +517,33 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     }
     
     CGPoint position = CGPointZero;
-    position.y = CGRectGetHeight(viewToUse.bounds) / 2.0;
+    position.y = CGRectGetHeight(self.bounds) / 2.0;
     
     if (isDragging) {
         if (percentage >= 0 && percentage < _firstTrigger) {
-            position.x = [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+            position.x = [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(self.bounds)];
         }
         
         else if (percentage >= _firstTrigger) {
-            position.x = [self offsetWithPercentage:percentage - (_firstTrigger / 2) relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+            position.x = [self offsetWithPercentage:percentage - (_firstTrigger / 2) relativeToWidth:CGRectGetWidth(self.bounds)];
         }
         
         else if (percentage < 0 && percentage >= -_firstTrigger) {
-            position.x = CGRectGetWidth(viewToUse.bounds) - [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+            position.x = CGRectGetWidth(self.bounds) - [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(self.bounds)];
         }
         
         else if (percentage < -_firstTrigger) {
-            position.x = CGRectGetWidth(viewToUse.bounds) + [self offsetWithPercentage:percentage + (_firstTrigger / 2) relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+            position.x = CGRectGetWidth(self.bounds) + [self offsetWithPercentage:percentage + (_firstTrigger / 2) relativeToWidth:CGRectGetWidth(self.bounds)];
         }
     }
     
     else {
         if (_direction == MCSwipeTableViewCellDirectionRight) {
-            position.x = [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+            position.x = [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(self.bounds)];
         }
         
         else if (_direction == MCSwipeTableViewCellDirectionLeft) {
-            position.x = CGRectGetWidth(viewToUse.bounds) - [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+            position.x = CGRectGetWidth(self.bounds) - [self offsetWithPercentage:(_firstTrigger / 2) relativeToWidth:CGRectGetWidth(self.bounds)];
         }
         
         else {
@@ -552,7 +551,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
         }
     }
     
-    CGSize activeViewSize  = view.bounds.size;
+    CGSize activeViewSize = view.bounds.size;
     CGRect activeViewFrame = CGRectMake(position.x - activeViewSize.width / 2.0,
                                         position.y - activeViewSize.height / 2.0,
                                         activeViewSize.width,
@@ -568,18 +567,18 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     CGFloat origin;
     
     if (direction == MCSwipeTableViewCellDirectionLeft) {
-        origin = -CGRectGetWidth(viewToUse.bounds);
+        origin = -CGRectGetWidth(self.bounds);
     }
     
     else if (direction == MCSwipeTableViewCellDirectionRight) {
-        origin = CGRectGetWidth(viewToUse.bounds);
+        origin = CGRectGetWidth(self.bounds);
     }
     
     else {
         origin = 0;
     }
     
-    CGFloat percentage = [self percentageWithOffset:origin relativeToWidth:CGRectGetWidth(viewToUse.bounds)];
+    CGFloat percentage = [self percentageWithOffset:origin relativeToWidth:CGRectGetWidth(self.bounds)];
     CGRect frame = _contentScreenshotView.frame;
     frame.origin.x = origin;
     
@@ -591,7 +590,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     
     [UIView animateWithDuration:duration delay:0 options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
         _contentScreenshotView.frame = frame;
-        //_slidingView.alpha = 0;
+        _slidingView.alpha = 0;
         [self slideViewWithPercentage:percentage view:_activeView isDragging:self.shouldAnimateIcons];
     } completion:^(BOOL finished) {
         [self executeCompletionBlock];
@@ -666,10 +665,10 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
 #pragma mark - Utilities
 
 - (UIImage *)imageWithView:(UIView *)view {
-//    CGFloat scale = [[UIScreen mainScreen] scale];
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, scale);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
 }

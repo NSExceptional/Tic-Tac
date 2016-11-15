@@ -68,26 +68,9 @@
     [data writeToFile:path atomically:atomically];
 }
 
-- (instancetype)arrayByApplyingBlockToElements:(id(^)(id object))block {
-    NSMutableArray *array = [NSMutableArray array];
-    for (id obj in self) {
-        [array addObject:block(obj)];
-    }
-    
-    return array.copy;
-}
-
 - (NSString *)JSONString {
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:0 error:nil];
     return data ? [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] : @"[]";
-}
-
-- (void)archiveRootObjectsAndWriteToFile:(NSString *)path atomically:(BOOL)atomically {
-    NSMutableArray *data = [NSMutableArray array];
-    for (id<NSCoding> thing in self)
-        [data addObject:[NSKeyedArchiver archivedDataWithRootObject:thing]];
-    
-    [data writeToBinaryFile:path atomically:atomically];
 }
 
 @end

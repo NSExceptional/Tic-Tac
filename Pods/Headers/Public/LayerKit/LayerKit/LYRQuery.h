@@ -1,1 +1,0 @@
-../../../../LayerKit/LayerKit.framework/Headers/LYRQuery.h

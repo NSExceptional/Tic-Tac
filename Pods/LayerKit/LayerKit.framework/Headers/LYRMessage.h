@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "LYRQuery.h"
 #import "LYRConstants.h"
-#import "LYRActor.h"
 #import "LYRPushNotificationConfiguration.h"
 #import "LYRIdentity.h"
 

@@ -31,12 +31,8 @@
 
 + (UIImage *)imageByDrawingIcon:(UIImage *)icon onTopOf:(UIImage *)background iconTint:(UIColor *)iconTint bgColor:(UIColor *)bgColor {
     
-    if (iconTint) {
-        icon = [icon tintedImageWithColor:iconTint];
-    }
-    if (bgColor) {
-        background = [background tintedImageWithColor:bgColor];
-    }
+    icon = [icon tintedImageWithColor:iconTint];
+    background = [background tintedImageWithColor:bgColor];
     
     UIGraphicsBeginImageContextWithOptions(background.size, NO, 0.0f);
     CGRect mainBounds = CGRectMake(0, 0, background.size.width, background.size.height);

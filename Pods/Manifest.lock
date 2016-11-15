@@ -3,7 +3,7 @@ PODS:
     - LayerKit (>= 0.23.0)
   - AutoCoding (2.2.2)
   - FLEX (2.4.0)
-  - LayerKit (0.23.2)
+  - LayerKit (0.23.3)
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
     - libextobjc/EXTConcreteProtocol (= 0.4.1)
@@ -49,8 +49,8 @@ PODS:
   - Objc-iOS-Extensions (0.1.2):
     - Objc-Foundation-Extensions
   - TBAlertController (3.0.1)
-  - TBURLRequestOptions (0.1.4)
-  - YakKit (0.2.1):
+  - TBURLRequestOptions (0.1.5)
+  - YakKit (0.2.2):
     - Mantle
     - TBURLRequestOptions
 
@@ -78,14 +78,14 @@ CHECKOUT OPTIONS:
     :commit: c7bb0d9dd4c7b7c6c6245ee07fc059ba590873e1
     :git: https://github.com/ThePantsThief/MirrorKit.git
   YakKit:
-    :commit: 52043a6d8e18f2062039e1aef12e9f324c0515a9
+    :commit: f51c2975e0a68ef873653f7b0ae0528690fd4e9e
     :git: https://github.com/ThePantsThief/YakKit.git
 
 SPEC CHECKSUMS:
   Atlas: 82ea2777b9bed19bc3704fd8b265af0301786d8c
   AutoCoding: 56fa46dbfa89d44189a26ce64e6a470ed8ff4661
   FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
-  LayerKit: 247c0099a6c09ef8ac9fd93ded3559d81dcfdc31
+  LayerKit: 128b3b0c036422458d621f81f36e6b42d372feba
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -94,7 +94,9 @@ SPEC CHECKSUMS:
   Objc-Foundation-Extensions: 0e24d6a4b986d2398305f6b382c1031093f3ee5c
   Objc-iOS-Extensions: 53bf6306f79c6e8aa711490f7c39d7da7c7af7e7
   TBAlertController: cadaec5909aa7af37f4a345fb260ce9b3b0ad0c6
-  TBURLRequestOptions: 28d0ee0531c5c6e6d138b57a833a4227b3d400d9
-  YakKit: 1c38ccca35fd1ce04a7a9c70dbcd879cca26d162
+  TBURLRequestOptions: badb2323efa0cfc4a88c47ab851142ec7dc09dc2
+  YakKit: cef31df32ae7b957f5f03351279e98db73394435
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: a0de347b9e8c8bee915bc9b2b329725d73532f7b
+
+COCOAPODS: 1.1.1

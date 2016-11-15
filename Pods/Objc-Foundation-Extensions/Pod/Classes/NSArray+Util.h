@@ -21,11 +21,7 @@
 
 - (void)writeToBinaryFile:(NSString *)path atomically:(BOOL)atomically;
 
-- (instancetype)arrayByApplyingBlockToElements:(id(^)(id object))block;
-
 /// Will never return nil.
 - (NSString *)JSONString;
-
-- (void)archiveRootObjectsAndWriteToFile:(NSString *)path atomically:(BOOL)atomically;
 
 @end

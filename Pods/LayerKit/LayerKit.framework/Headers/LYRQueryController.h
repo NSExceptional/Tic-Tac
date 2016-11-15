@@ -187,19 +187,19 @@ typedef NS_ENUM(NSUInteger, LYRQueryControllerChangeType) {
 
 /**
  @abstract Tells the delegate that the result set of query controller is about to change.
- @param The query controller that is changing.
+ @param queryController The query controller that is changing.
  */
 - (void)queryControllerWillChangeContent:(nonnull LYRQueryController *)queryController;
 
 /**
  @abstract Tells the delegate that the result set of query controller has changed.
- @param The query controller that has changed.
+ @param queryController The query controller that has changed.
  */
 - (void)queryControllerDidChangeContent:(nonnull LYRQueryController *)queryController;
 
 /**
  @abstract Tells the delegate that a particular object in the result set of query controller has changed.
- @param The query controller that is changing.
+ @param queryController The query controller that is changing.
  @param object The object that has changed in the result set.
  @param indexPath The index path of the object or `nil` if the change is an insert.
  @param type An enumerated value that specifies the type of change that is occurring.

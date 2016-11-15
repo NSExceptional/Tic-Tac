@@ -1,1 +1,0 @@
-../../../Atlas/Code/Views/ATLConversationCollectionView.h

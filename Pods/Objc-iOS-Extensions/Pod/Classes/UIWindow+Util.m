@@ -12,7 +12,7 @@
 @implementation UIWindow (Util)
 
 - (UINavigationController *)rootNavigationController {
-    if ([self.rootViewController isKindOfClass:[UINavigationController class]]) {
+    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
         return (id)self.rootViewController;
     }
     

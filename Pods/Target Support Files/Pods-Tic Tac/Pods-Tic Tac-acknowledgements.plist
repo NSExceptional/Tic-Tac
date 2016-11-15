@@ -217,6 +217,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 </string>
+			<key>License</key>
+			<string>Apache2</string>
 			<key>Title</key>
 			<string>Atlas</string>
 			<key>Type</key>
@@ -247,6 +249,8 @@ freely, subject to the following restrictions:
    misrepresented as being the original software.
 
 3. This notice may not be removed or altered from any source distribution.</string>
+			<key>License</key>
+			<string>zlib</string>
 			<key>Title</key>
 			<string>AutoCoding</string>
 			<key>Type</key>
@@ -282,6 +286,8 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 </string>
+			<key>License</key>
+			<string>BSD</string>
 			<key>Title</key>
 			<string>FLEX</string>
 			<key>Type</key>
@@ -301,7 +307,7 @@ If You comply with this agreement, You have the rights below.
 
 (2) SCOPE OF LICENSE. The SDK is licensed, not sold. This agreement only gives You some rights to use the SDK. Layer specifically does not grant any express or implied rights under its patents with respect to your Authorized Applications. In doing so, You must comply with any technical limitations in the SDK that only allow You to use it in certain ways. You may not: (a) reverse engineer, decompile, distribute or disassemble the SDK, except and only to the extent that applicable law expressly permits; or (b) make more copies of the SDK than specified in this agreement, except and only to the extent applicable law expressly permits; or (c) publish the SDK for others to copy; or (d) rent, lease or lend the SDK.
 
-(3) USE OF THE SERVICES. Your use of the Services, and the use of the Services by anyone hosting or using your Authorized Application, is governed by the then-current Terms of Services (&#8220;TOS&#8221;) which can be found at: https://layer.com/terms.
+(3) USE OF THE SERVICES. Your use of the Services, and the use of the Services by anyone hosting or using your Authorized Application, is governed by the then-current Terms of Services (“TOS”) which can be found at: https://layer.com/terms.
 
 (4) EXPORT RESTRICTIONS. THE SDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE SDK.
 	
@@ -325,6 +331,8 @@ If You comply with this agreement, You have the rights below.
   
   b. claims for breach of contract, breach of warranty, guarantee or condition, strict liability, negligence, or other tort to the extent permitted by applicable law.
 </string>
+			<key>License</key>
+			<string>Commercial</string>
 			<key>Title</key>
 			<string>LayerKit</string>
 			<key>Type</key>
@@ -351,6 +359,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.</string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>MCSwipeTableViewCell</string>
 			<key>Type</key>
@@ -380,6 +390,8 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>Mantle</string>
 			<key>Type</key>
@@ -406,6 +418,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.</string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>Masonry</string>
 			<key>Type</key>
@@ -433,6 +447,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>MirrorKit</string>
 			<key>Type</key>
@@ -460,6 +476,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>Objc-Foundation-Extensions</string>
 			<key>Type</key>
@@ -487,6 +505,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>Objc-iOS-Extensions</string>
 			<key>Type</key>
@@ -514,6 +534,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>TBAlertController</string>
 			<key>Type</key>
@@ -541,6 +563,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>TBURLRequestOptions</string>
 			<key>Type</key>
@@ -568,6 +592,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>YakKit</string>
 			<key>Type</key>
@@ -594,6 +620,8 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </string>
+			<key>License</key>
+			<string>MIT</string>
 			<key>Title</key>
 			<string>libextobjc</string>
 			<key>Type</key>
@@ -601,7 +629,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Generated by CocoaPods - http://cocoapods.org</string>
+			<string>Generated by CocoaPods - https://cocoapods.org</string>
 			<key>Title</key>
 			<string></string>
 			<key>Type</key>

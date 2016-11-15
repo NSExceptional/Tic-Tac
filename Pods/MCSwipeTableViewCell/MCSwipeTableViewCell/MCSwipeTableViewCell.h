@@ -34,10 +34,10 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellMode) {
     /** Disabled swipe.  */
     MCSwipeTableViewCellModeNone = 0,
 
-    /** Upon swipe, the cell is exited from the view. Useful for destructive actions. */
+    /** Upon swipe the cell if exited from the view. Useful for destructive actions. */
     MCSwipeTableViewCellModeExit,
 
-    /** Upon swipe, the cell is automatically swiped back to its initial position. */
+    /** Upon swipe the cell if automatically swiped back to it's initial position. */
     MCSwipeTableViewCellModeSwitch
 };
 
@@ -56,9 +56,6 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 
 @interface MCSwipeTableViewCell : UITableViewCell
 
-/** Custom view for my comment cells */
-@property (nonatomic, strong) UIView *customColorViewContainerView;
-
 /** Delegate of `MCSwipeTableViewCell` */
 @property (nonatomic, assign) id <MCSwipeTableViewCellDelegate> delegate;
 
@@ -67,92 +64,92 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
  * 
  * @discussion Only applied for version of iOS > 7.
  */
-@property (nonatomic, assign) CGFloat damping;
+@property (nonatomic, assign, readwrite) CGFloat damping;
 
 /**
  * Velocity of the spring animation. Expressed in points per second (pts/s).
  *
  * @discussion Only applied for version of iOS > 7.
  */
-@property (nonatomic, assign) CGFloat velocity;
+@property (nonatomic, assign, readwrite) CGFloat velocity;
 
 /** Duration of the animations. */
-@property (nonatomic, assign) NSTimeInterval animationDuration;
+@property (nonatomic, assign, readwrite) NSTimeInterval animationDuration;
 
 
 /** Color for background, when no state has been triggered. */
-@property (nonatomic, strong) UIColor *defaultColor;
+@property (nonatomic, strong, readwrite) UIColor *defaultColor;
 
 
 /** 1st color of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, strong) UIColor *color1;
+@property (nonatomic, strong, readwrite) UIColor *color1;
 
 /** 2nd color of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, strong) UIColor *color2;
+@property (nonatomic, strong, readwrite) UIColor *color2;
 
 /** 1st color of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, strong) UIColor *color3;
+@property (nonatomic, strong, readwrite) UIColor *color3;
 
 /** 2nd color of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, strong) UIColor *color4;
+@property (nonatomic, strong, readwrite) UIColor *color4;
 
 
 /** 1st view of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, strong) UIView *view1;
+@property (nonatomic, strong, readwrite) UIView *view1;
 
 /** 2nd view of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, strong) UIView *view2;
+@property (nonatomic, strong, readwrite) UIView *view2;
 
 /** 1st view of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, strong) UIView *view3;
+@property (nonatomic, strong, readwrite) UIView *view3;
 
 /** 2nd view of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, strong) UIView *view4;
+@property (nonatomic, strong, readwrite) UIView *view4;
 
 
 /** 1st Block of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, copy) MCSwipeCompletionBlock completionBlock1;
+@property (nonatomic, copy, readwrite) MCSwipeCompletionBlock completionBlock1;
 
 /** 2nd Block of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, copy) MCSwipeCompletionBlock completionBlock2;
+@property (nonatomic, copy, readwrite) MCSwipeCompletionBlock completionBlock2;
 
 /** 1st Block of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, copy) MCSwipeCompletionBlock completionBlock3;
+@property (nonatomic, copy, readwrite) MCSwipeCompletionBlock completionBlock3;
 
 /** 2nd Block of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, copy) MCSwipeCompletionBlock completionBlock4;
+@property (nonatomic, copy, readwrite) MCSwipeCompletionBlock completionBlock4;
 
 
 // Percentage of when the first and second action are activated, respectively
 
 /** Percentage value to trigger the 1st state of a swipe gesture. */
-@property (nonatomic, assign) CGFloat firstTrigger;
+@property (nonatomic, assign, readwrite) CGFloat firstTrigger;
 
 /** Percentage value to trigger the 2nd state of a swipe gesture. */
-@property (nonatomic, assign) CGFloat secondTrigger;
+@property (nonatomic, assign, readwrite) CGFloat secondTrigger;
 
 
 /** 1st `MCSwipeTableViewCellMode` of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, assign) MCSwipeTableViewCellMode modeForState1;
+@property (nonatomic, assign, readwrite) MCSwipeTableViewCellMode modeForState1;
 
 /** 2nd `MCSwipeTableViewCellMode` of the state triggered during a Left -> Right swipe. */
-@property (nonatomic, assign) MCSwipeTableViewCellMode modeForState2;
+@property (nonatomic, assign, readwrite) MCSwipeTableViewCellMode modeForState2;
 
 /** 1st `MCSwipeTableViewCellMode` of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, assign) MCSwipeTableViewCellMode modeForState3;
+@property (nonatomic, assign, readwrite) MCSwipeTableViewCellMode modeForState3;
 
 /** 2nd `MCSwipeTableViewCellMode` of the state triggered during a Right -> Left swipe. */
-@property (nonatomic, assign) MCSwipeTableViewCellMode modeForState4;
+@property (nonatomic, assign, readwrite) MCSwipeTableViewCellMode modeForState4;
 
 
 /** Boolean indicator to know if the cell is currently dragged. */
 @property (nonatomic, assign, readonly, getter=isDragging) BOOL dragging;
 
 /** Boolean to enable/disable the dragging ability of a cell. */
-@property (nonatomic, assign) BOOL shouldDrag;
+@property (nonatomic, assign, readwrite) BOOL shouldDrag;
 
 /** Boolean to enable/disable the animation of the view during the swipe.  */
-@property (nonatomic, assign) BOOL shouldAnimateIcons;
+@property (nonatomic, assign, readwrite) BOOL shouldAnimateIcons;
 
 /**
  *  Configures the properties of a cell.
@@ -176,9 +173,6 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
  *  @param completion Callback block executed at the end of the animation.
  */
 - (void)swipeToOriginWithCompletion:(void(^)(void))completion;
-
-/** Remove swipe views. */
-- (void)initDefaults;
 
 @end
 

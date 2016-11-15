@@ -160,7 +160,7 @@ extern NSString * _Nonnull const LYRConversationSynchronizationProgressUserInfoK
  
  The `createdAt` property is queryable using all predicate operators.
  */
-@property (nonatomic, readonly, nonnull) NSDate *createdAt LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nullable) NSDate *createdAt LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract Returns the last Message recevied or sent in this Conversation.

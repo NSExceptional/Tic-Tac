@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LYRActor.h"
+#import "LYRQuery.h"
+
 @class LYRMessage;
 
 /**
