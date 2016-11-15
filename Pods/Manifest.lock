@@ -78,7 +78,7 @@ CHECKOUT OPTIONS:
     :commit: c7bb0d9dd4c7b7c6c6245ee07fc059ba590873e1
     :git: https://github.com/ThePantsThief/MirrorKit.git
   YakKit:
-    :commit: f51c2975e0a68ef873653f7b0ae0528690fd4e9e
+    :commit: 78b496263364bcbeb7556eb833a6cc95412104f9
     :git: https://github.com/ThePantsThief/YakKit.git
 
 SPEC CHECKSUMS:

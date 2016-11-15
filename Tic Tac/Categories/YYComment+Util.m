@@ -24,8 +24,8 @@ static NSDictionary *iconDescriptions;
                               @"005": @"blue",
                               @"006": @"purple",
                               @"007": @"pink",
-                              @"008": @"light grey",
-                              @"009": @"dark grey",
+                              @"008": @"grey", // light
+                              @"009": @"grey", // dark
                               @"011": @"tan",
                               @"012": @"black",
                               @"013": @"grey",
