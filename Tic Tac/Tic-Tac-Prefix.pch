@@ -9,9 +9,9 @@
 
 #import "Tic-Tac-Constants.h"
 #import "MirrorKit.h"
-#import "FLEX/FLEXManager.h"
-#import "Masonry/Masonry.h"
-#import "YakKit/YakKit.h"
+#import "FLEXManager.h"
+#import "Masonry.h"
+#import "YakKit.h"
 #import "EXTScope.h"
 #import "TBAlertController.h"
 #import "TTFeedArray.h"
