@@ -25,7 +25,7 @@
     self.dataSource.tagsRemovedObjects = NO;
     self.dataSource.sortDescriptorKey = @"updated";
     self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYNotification *notification, id bindings) {
-        return notification.reason != YYNotificationReasonVote;
+        return ![notification.subject containsString:@"votes on your"];
     }];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self refresh];
