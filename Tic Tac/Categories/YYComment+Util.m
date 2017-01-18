@@ -99,7 +99,27 @@ static NSDictionary *iconDescriptions;
                              @"057": @"snowman",
                              @"058": @"present",
                              @"059": @"light",
-                             @"060": @"dradle",};
+                             @"060": @"dradle",
+                             @"HOLIDAY001": @"skate",
+                             @"HOLIDAY002": @"snowflake",
+                             @"HOLIDAY003": @"cup",
+                             @"HOLIDAY004": @"ribbon",
+                             @"HOLIDAY005": @"candle",
+                             @"HOLIDAY006": @"snowglobe",
+                             @"HOLIDAY007": @"ornament",
+                             @"HOLIDAY008": @"mistletoe",
+                             @"HOLIDAY009": @"candycane",
+                             @"HOLIDAY010": @"cookie",
+                             @"HOLIDAY011": @"sweater",
+                             @"HOLIDAY012": @"beanie",
+                             @"HOLIDAY013": @"mittens",
+                             @"HOLIDAY014": @"coffee",
+                             @"HOLIDAY015": @"bells",
+                             @"HOLIDAY016": @"tree",
+                             @"HOLIDAY017": @"snowman",
+                             @"HOLIDAY018": @"present",
+                             @"HOLIDAY019": @"light",
+                             @"HOLIDAY020": @"dradle",};
     });
     
     NSString *color = colorDescriptions[self.backgroundIdentifier];

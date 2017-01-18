@@ -16,9 +16,12 @@
 @property (nonatomic, copy) void (^onSubmit)(NSString *, BOOL);
 
 @property (nonatomic) MASConstraint *textViewHeight;
+
+@property (nonatomic, readonly) BOOL useHandle;
 @end
 
 @implementation TTReplyViewController
+@synthesize useHandle = _useHandle;
 
 + (UINavigationController *)initialText:(NSString *)text limit:(NSUInteger)limit  onSubmit:(void(^)(NSString *text, BOOL useHandle))submit {
     return [[UINavigationController alloc] initWithRootViewController:[[self alloc] initWithInitialText:text limit:limit andSubmitAction:submit]];
@@ -54,8 +57,17 @@
             self.textViewHeight = make.height.equalTo(view.mas_height);
         }];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleUseHandle)];
+        tap.numberOfTapsRequired = 2;
+        tap.numberOfTouchesRequired = 2;
+        [view addGestureRecognizer:tap];
+        
         view;
     });
+}
+
+- (void)toggleUseHandle {
+    _useHandle = !_useHandle;
 }
 
 - (void)keyboardDidAppear:(NSNotification *)notification {
@@ -88,7 +100,7 @@
 }
 
 - (void)submit {
-    self.onSubmit(self.textView.text, YES);
+    self.onSubmit(self.textView.text, self.useHandle);
     [self.navigationController dismissAnimated];
 }
 
@@ -100,6 +112,10 @@
     NSString *newString = [textView.text stringByReplacingCharactersInRange:range withString:text];
     self.navigationItem.rightBarButtonItem.enabled = newString.length > 0;
     return newString.length < _characterLimit;
+}
+
+- (BOOL)useHandle {
+    return _useHandle;
 }
 
 @end

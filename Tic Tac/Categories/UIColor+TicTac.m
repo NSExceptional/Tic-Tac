@@ -11,6 +11,7 @@
 
 @implementation UIColor (TicTac)
 
+/// #7242E7
 + (instancetype)themeColor {
     return [UIColor colorWithRed:0.448 green:0.261 blue:0.909 alpha:1.000];
 }
