@@ -495,7 +495,6 @@
 		EDC39F0EFB388FC0D4A44F66BFDE72D7 /* FLEXKeyboardShortcutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6E6E4EC1E81EA2E0728C52549E9714 /* FLEXKeyboardShortcutManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		EF3F3AE08A065BD8C2EBE3BABCD9CAFB /* NSArray+Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E2F4DF1A099CD568C5061E32002899D /* NSArray+Util.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF6D5667B95823ACF43A4153C1024F0D /* ATLConversationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 76964DD848F5F8A79B80139D7A26C962 /* ATLConversationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF798DE0FB011CA6A9D6D949103DD956 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A135C121DED23CAF0872E4129B39757 /* Info.plist */; };
 		EF935EF5C699874A1CE2423FAF8055B2 /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A699BA65A2EDD6230A6F0644D5805191 /* MCSwipeTableViewCell.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F075812C629E8A3C79762708BA9A24F2 /* FLEXFileBrowserSearchOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = CD729DF96D9B05A3D4285CBD50E7C7DE /* FLEXFileBrowserSearchOperation.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F13390FE1929EE5909EB41FEFEA69005 /* ATLBaseConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19E14214DAED6194A2ACB7A3ACDA52 /* ATLBaseConversationViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -706,7 +705,7 @@
 		25CE0EF68C4116CFF56624F7D8B209F6 /* YakKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YakKit.xcconfig; sourceTree = "<group>"; };
 		26270639983F8B0FB952751767FC18F4 /* ATLParticipantSectionHeaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLParticipantSectionHeaderView.h; path = Code/Views/ATLParticipantSectionHeaderView.h; sourceTree = "<group>"; };
 		2639D28BF4E93AF426D5778E839B380F /* UIImageView+Filter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Filter.h"; path = "Pod/Classes/UIImageView+Filter.h"; sourceTree = "<group>"; };
-		2684AABCF6E8C46D95784E4DAC36ABD2 /* libObjc-iOS-Extensions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libObjc-iOS-Extensions.a"; path = "libObjc-iOS-Extensions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2684AABCF6E8C46D95784E4DAC36ABD2 /* libObjc-iOS-Extensions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libObjc-iOS-Extensions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26D0AC784E74158422214D4A314F37ED /* YYNotification.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYNotification.m; path = Pod/Classes/Model/YYNotification.m; sourceTree = "<group>"; };
 		26DABD0D0D3A28244D7BF8E56615202F /* ATLAddressBarView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLAddressBarView.m; path = Code/Views/ATLAddressBarView.m; sourceTree = "<group>"; };
 		27687F23B6B2500FB63498CC815B45E4 /* Pods-Tic Tac-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tic Tac-dummy.m"; sourceTree = "<group>"; };
@@ -726,23 +725,23 @@
 		2ADA5634D68CCE0F98DE00676F0D576E /* NSInvocation+EXT.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSInvocation+EXT.m"; path = "extobjc/NSInvocation+EXT.m"; sourceTree = "<group>"; };
 		2B164CFEA52FCA048CFD3FFC2B29A0FC /* MirrorKit-Constants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MirrorKit-Constants.h"; path = "Pod/MirrorKit-Constants.h"; sourceTree = "<group>"; };
 		2B1C7C58328E621D11952A58BA02C7CD /* YYClient+Misc.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YYClient+Misc.h"; path = "Pod/Classes/Networking/YYClient+Misc.h"; sourceTree = "<group>"; };
-		2BE9C60E410DD21A1EE7151E4EAEFDD0 /* libMasonry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMasonry.a; path = libMasonry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BE9C60E410DD21A1EE7151E4EAEFDD0 /* libMasonry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMasonry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3E968E0352CA49DF63D1D95AD9BA9F /* ATLMediaAttachment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLMediaAttachment.m; path = Code/Models/ATLMediaAttachment.m; sourceTree = "<group>"; };
 		2C74F67BDD7EDDB62D8E49D7B73E1D14 /* FLEXRealmDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXRealmDefines.h; path = Classes/GlobalStateExplorers/DatabaseBrowser/FLEXRealmDefines.h; sourceTree = "<group>"; };
 		2CC96C1DA61FEDE2C7326622B3934E91 /* MTLTransformerErrorHandling.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLTransformerErrorHandling.h; path = Mantle/MTLTransformerErrorHandling.h; sourceTree = "<group>"; };
 		2D7EB18D1CF05F0F015B4B3A1D7B3FBF /* ATLConversationCollectionViewFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLConversationCollectionViewFooter.h; path = Code/Views/ATLConversationCollectionViewFooter.h; sourceTree = "<group>"; };
 		2D82ECDAB7CC4364AFB7A910D43F7696 /* ResourceBundle-AtlasResource-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-AtlasResource-Info.plist"; sourceTree = "<group>"; };
-		2DA4DBED2322C4A0F9825890960E0BE2 /* camera_dark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "camera_dark@2x.png"; path = "Resources/camera_dark@2x.png"; sourceTree = "<group>"; };
+		2DA4DBED2322C4A0F9825890960E0BE2 /* camera_dark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "camera_dark@2x.png"; path = "Resources/camera_dark@2x.png"; sourceTree = "<group>"; };
 		2DC9D5F48E3BE67C7CDD3C60E602632F /* Mantle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Mantle.h; path = Mantle/Mantle.h; sourceTree = "<group>"; };
 		2DD3A7A5F5C5EB507A37111BA4C32C10 /* UIViewController+Util.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Util.m"; path = "Pod/Classes/UIViewController+Util.m"; sourceTree = "<group>"; };
 		2E63CBB2F23F9185ECF1712D249494FA /* FLEXHeapEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXHeapEnumerator.m; path = Classes/Utility/FLEXHeapEnumerator.m; sourceTree = "<group>"; };
 		2E77ED9B246C40FFFC6A053705E5F54B /* ATLConversationCollectionViewMoreMessagesHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLConversationCollectionViewMoreMessagesHeader.m; path = Code/Views/ATLConversationCollectionViewMoreMessagesHeader.m; sourceTree = "<group>"; };
 		2E8B9675448C6FEAC1051422405D317A /* ATLMessagePresenting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLMessagePresenting.h; path = Code/Protocols/ATLMessagePresenting.h; sourceTree = "<group>"; };
 		2EBDC7EF3E04FE0386F09F4FEA551A4B /* EXTConcreteProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTConcreteProtocol.h; path = extobjc/EXTConcreteProtocol.h; sourceTree = "<group>"; };
-		2F45B646D154823417CAE399DC2CBE6F /* plus@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "plus@3x.png"; path = "Resources/plus@3x.png"; sourceTree = "<group>"; };
+		2F45B646D154823417CAE399DC2CBE6F /* plus@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "plus@3x.png"; path = "Resources/plus@3x.png"; sourceTree = "<group>"; };
 		2FE9470F914828F42385A2213F791C01 /* NSDictionary+MTLManipulationAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+MTLManipulationAdditions.m"; path = "Mantle/NSDictionary+MTLManipulationAdditions.m"; sourceTree = "<group>"; };
-		320E0218F2E90E99B72A3E55853DCEE9 /* location_dark.png */ = {isa = PBXFileReference; includeInIndex = 1; name = location_dark.png; path = Resources/location_dark.png; sourceTree = "<group>"; };
-		321DC5E822D2A78624E6300558832DB6 /* libAutoCoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAutoCoding.a; path = libAutoCoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		320E0218F2E90E99B72A3E55853DCEE9 /* location_dark.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = location_dark.png; path = Resources/location_dark.png; sourceTree = "<group>"; };
+		321DC5E822D2A78624E6300558832DB6 /* libAutoCoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAutoCoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3241DBC95215FE72F3881644E12A2BF4 /* FLEXInstancesTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXInstancesTableViewController.h; path = Classes/GlobalStateExplorers/FLEXInstancesTableViewController.h; sourceTree = "<group>"; };
 		32D91634191F8CBA707F034F053E1646 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASCompositeConstraint.m; path = Masonry/MASCompositeConstraint.m; sourceTree = "<group>"; };
 		32E3CBF3CC0EFAA26FCC04E2C49EF491 /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
@@ -803,7 +802,7 @@
 		4DE0AC7571B3E5A4FA4BE9204263DB35 /* FLEXToolbarItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXToolbarItem.h; path = Classes/Toolbar/FLEXToolbarItem.h; sourceTree = "<group>"; };
 		4DE701176EFD59914F7AC3F9BEA225E7 /* NSAttributedString+Util.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+Util.m"; path = "Pod/Classes/NSAttributedString+Util.m"; sourceTree = "<group>"; };
 		4E86A1125F2EAF2C9CDFB91F6E77475C /* FLEXTableColumnHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXTableColumnHeader.m; path = Classes/GlobalStateExplorers/DatabaseBrowser/FLEXTableColumnHeader.m; sourceTree = "<group>"; };
-		4EC731CDD34C7F78585FDECD3844A63A /* camera_dark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "camera_dark@3x.png"; path = "Resources/camera_dark@3x.png"; sourceTree = "<group>"; };
+		4EC731CDD34C7F78585FDECD3844A63A /* camera_dark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "camera_dark@3x.png"; path = "Resources/camera_dark@3x.png"; sourceTree = "<group>"; };
 		4EF6278CA5B5B7E3E60CDC7143949673 /* NSData+Networking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+Networking.m"; path = "TBURLRequestOptions/Classes/NSData+Networking.m"; sourceTree = "<group>"; };
 		4F0B21D62BFB42822B6E218F79BAE519 /* ATLDataSourceChange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLDataSourceChange.m; path = Code/Models/ATLDataSourceChange.m; sourceTree = "<group>"; };
 		504DE3319FCE63B481620FAE04CA7A09 /* ATLOutgoingMessageCollectionViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLOutgoingMessageCollectionViewCell.h; path = Code/Views/ATLOutgoingMessageCollectionViewCell.h; sourceTree = "<group>"; };
@@ -832,7 +831,7 @@
 		5A50C0FEB94311E3B80645B047A5D7A2 /* MTLModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTLModel.m; path = Mantle/MTLModel.m; sourceTree = "<group>"; };
 		5A68DEE1B24B75D2ECB0F47EEC1E36C1 /* FLEXTableListViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXTableListViewController.h; path = Classes/GlobalStateExplorers/DatabaseBrowser/FLEXTableListViewController.h; sourceTree = "<group>"; };
 		5B6184A67DCA0D9234CC0A82A3B954E1 /* YYThreatCheck.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYThreatCheck.h; path = Pod/Classes/Model/YYThreatCheck.h; sourceTree = "<group>"; };
-		5BA766EE24A3C1599F7A58E143D72F4A /* location_dark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "location_dark@3x.png"; path = "Resources/location_dark@3x.png"; sourceTree = "<group>"; };
+		5BA766EE24A3C1599F7A58E143D72F4A /* location_dark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "location_dark@3x.png"; path = "Resources/location_dark@3x.png"; sourceTree = "<group>"; };
 		5C32993F1BC79F46BF4EAED228A4C28B /* YYUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYUser.m; path = Pod/Classes/Model/YYUser.m; sourceTree = "<group>"; };
 		5D3EBC781D90E54840854EF7F4C531CC /* MKMethod.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKMethod.m; path = Pod/Classes/MKMethod.m; sourceTree = "<group>"; };
 		5D6245E591036558415DA03D0DDEE16E /* ATLConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLConstants.h; path = Code/Utilities/ATLConstants.h; sourceTree = "<group>"; };
@@ -842,7 +841,7 @@
 		5EE596FDB2DA5FAD14A0501086A2E5D5 /* YYClient+Personal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YYClient+Personal.h"; path = "Pod/Classes/Networking/YYClient+Personal.h"; sourceTree = "<group>"; };
 		5EF4583F21C560579210C8E633849E83 /* FLEXNetworkTransactionTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXNetworkTransactionTableViewCell.h; path = Classes/Network/FLEXNetworkTransactionTableViewCell.h; sourceTree = "<group>"; };
 		5FE1AFBB9AAAE86A4E7163E542ED7AD9 /* FLEXFieldEditorViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXFieldEditorViewController.m; path = Classes/Editing/FLEXFieldEditorViewController.m; sourceTree = "<group>"; };
-		5FF646C6583FEE682BE9B94AE0414143 /* block.png */ = {isa = PBXFileReference; includeInIndex = 1; name = block.png; path = Resources/block.png; sourceTree = "<group>"; };
+		5FF646C6583FEE682BE9B94AE0414143 /* block.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = block.png; path = Resources/block.png; sourceTree = "<group>"; };
 		6013B7C29C0A92CD91983886F2A8A889 /* FLEXManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXManager.h; path = Classes/FLEXManager.h; sourceTree = "<group>"; };
 		604314C4ADC53D2E814DDAFCD1170F51 /* NSArray+MTLManipulationAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MTLManipulationAdditions.h"; path = "Mantle/NSArray+MTLManipulationAdditions.h"; sourceTree = "<group>"; };
 		60AB259973D5A3C46A79D9A12A6A7594 /* FLEXToolbarItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXToolbarItem.m; path = Classes/Toolbar/FLEXToolbarItem.m; sourceTree = "<group>"; };
@@ -854,7 +853,7 @@
 		63DA16AD0D20C165C55CBD31A8BC19D9 /* TBAlertController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TBAlertController.h; path = Classes/TBAlertController.h; sourceTree = "<group>"; };
 		641AA5BF6700C80F8855403FF37C88D7 /* MKProtocolBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKProtocolBuilder.m; path = Pod/Classes/MKProtocolBuilder.m; sourceTree = "<group>"; };
 		64B79353F876F4F85A9F48AB657C2BB0 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
-		64F1A9A3A0874E49EA7EC8184998C1DB /* libFLEX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libFLEX.a; path = libFLEX.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		64F1A9A3A0874E49EA7EC8184998C1DB /* libFLEX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFLEX.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		650FE5547C1511B02998283BAE3A8F34 /* FLEXFileBrowserSearchOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXFileBrowserSearchOperation.m; path = Classes/GlobalStateExplorers/FLEXFileBrowserSearchOperation.m; sourceTree = "<group>"; };
 		669BF75C52CA0A94E852ADA775297B34 /* FLEXSystemLogTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXSystemLogTableViewCell.m; path = Classes/GlobalStateExplorers/SystemLog/FLEXSystemLogTableViewCell.m; sourceTree = "<group>"; };
 		679D43C3C9AE7492B07709043D6500AA /* FLEXTableListViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXTableListViewController.m; path = Classes/GlobalStateExplorers/DatabaseBrowser/FLEXTableListViewController.m; sourceTree = "<group>"; };
@@ -880,11 +879,11 @@
 		70B3357D089A49107093C2AF9DEFB7FC /* ATLMessageInputToolbar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLMessageInputToolbar.m; path = Code/Views/ATLMessageInputToolbar.m; sourceTree = "<group>"; };
 		71755795A7BAF7178CCBE4EAFEA9C188 /* YYClient+Registration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YYClient+Registration.m"; path = "Pod/Classes/Networking/YYClient+Registration.m"; sourceTree = "<group>"; };
 		71802B357D47D9474038553E8F9D3B84 /* TBURLRequestOptions.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TBURLRequestOptions.xcconfig; sourceTree = "<group>"; };
-		719A172AC49EA50716DE6C711CBA10F3 /* layerLogo@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "layerLogo@3x.png"; path = "Resources/layerLogo@3x.png"; sourceTree = "<group>"; };
+		719A172AC49EA50716DE6C711CBA10F3 /* layerLogo@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "layerLogo@3x.png"; path = "Resources/layerLogo@3x.png"; sourceTree = "<group>"; };
 		719ED52C9C4E023A6E47A6CDD0A44AB7 /* FLEXArgumentInputStructView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXArgumentInputStructView.h; path = Classes/Editing/ArgumentInputViews/FLEXArgumentInputStructView.h; sourceTree = "<group>"; };
 		71A787D1534AA52064040EFC70E15D65 /* MTLJSONAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLJSONAdapter.h; path = Mantle/MTLJSONAdapter.h; sourceTree = "<group>"; };
 		727AE224BFE2C987CEA1212160AD5C9B /* FLEXKeyboardHelpViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXKeyboardHelpViewController.h; path = Classes/Utility/FLEXKeyboardHelpViewController.h; sourceTree = "<group>"; };
-		72A8021EEE4463967880C6F5932BDCDF /* block@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "block@3x.png"; path = "Resources/block@3x.png"; sourceTree = "<group>"; };
+		72A8021EEE4463967880C6F5932BDCDF /* block@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "block@3x.png"; path = "Resources/block@3x.png"; sourceTree = "<group>"; };
 		72EF720FE2623A54803D4F420EA33B80 /* MKPropertyAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKPropertyAttributes.h; path = Pod/Classes/MKPropertyAttributes.h; sourceTree = "<group>"; };
 		73094AA25D80D01036D88A2A01D1725A /* EXTNil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTNil.m; path = extobjc/EXTNil.m; sourceTree = "<group>"; };
 		7367692552F05566F741ACF45B8FB29B /* FLEXArgumentInputNumberView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXArgumentInputNumberView.h; path = Classes/Editing/ArgumentInputViews/FLEXArgumentInputNumberView.h; sourceTree = "<group>"; };
@@ -910,7 +909,7 @@
 		7F014DA332C9C82A7B92F585D866DC14 /* MTLValueTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLValueTransformer.h; path = Mantle/MTLValueTransformer.h; sourceTree = "<group>"; };
 		7FED867C31BEA49249FAA4CA637C1928 /* ATLParticipantPresenting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLParticipantPresenting.h; path = Code/Protocols/ATLParticipantPresenting.h; sourceTree = "<group>"; };
 		8140B4E50900BEEA93EF8C8E53DB2373 /* FLEXViewExplorerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXViewExplorerViewController.h; path = Classes/ObjectExplorers/FLEXViewExplorerViewController.h; sourceTree = "<group>"; };
-		81DD3DBC3277089F974F544D44568E69 /* libTBURLRequestOptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libTBURLRequestOptions.a; path = libTBURLRequestOptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		81DD3DBC3277089F974F544D44568E69 /* libTBURLRequestOptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTBURLRequestOptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		81DE67EEA3D6F0C1890654AE2AAC3554 /* UIPasteboard+Util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIPasteboard+Util.h"; path = "Pod/Classes/UIPasteboard+Util.h"; sourceTree = "<group>"; };
 		8223EB3D6765B0A16585B9E6038F37BF /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		83C3B989B82F8FB7695434AA35F34EF5 /* MTLValueTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTLValueTransformer.m; path = Mantle/MTLValueTransformer.m; sourceTree = "<group>"; };
@@ -926,11 +925,11 @@
 		8630349E29234E17D6EECAFBA8FC9A5D /* ATLAvatarItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLAvatarItem.h; path = Code/Protocols/ATLAvatarItem.h; sourceTree = "<group>"; };
 		86639547379BAA4362751BCE95610993 /* YYVotable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYVotable.h; path = Pod/Classes/Model/YYVotable.h; sourceTree = "<group>"; };
 		86831804EB7100EB7C2BF96D25FE25BA /* MirrorKit-Constants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MirrorKit-Constants.m"; path = "Pod/MirrorKit-Constants.m"; sourceTree = "<group>"; };
-		86B0BCB97B7AC2710604EBE1C485FBC6 /* libMCSwipeTableViewCell.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMCSwipeTableViewCell.a; path = libMCSwipeTableViewCell.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		86B0BCB97B7AC2710604EBE1C485FBC6 /* libMCSwipeTableViewCell.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMCSwipeTableViewCell.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		87B55E567A1F115EE4203309A72569FB /* FLEXWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXWebViewController.h; path = Classes/GlobalStateExplorers/FLEXWebViewController.h; sourceTree = "<group>"; };
 		87D0D947C4C5C4EEDB0865E45ED89473 /* MKClassBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKClassBuilder.h; path = Pod/Classes/MKClassBuilder.h; sourceTree = "<group>"; };
-		8867F38E1CFFF660BB832317042B65F8 /* chevron@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "chevron@3x.png"; path = "Resources/chevron@3x.png"; sourceTree = "<group>"; };
-		89B371A1944DB007000F3AE38F5264EA /* chevron@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "chevron@2x.png"; path = "Resources/chevron@2x.png"; sourceTree = "<group>"; };
+		8867F38E1CFFF660BB832317042B65F8 /* chevron@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "chevron@3x.png"; path = "Resources/chevron@3x.png"; sourceTree = "<group>"; };
+		89B371A1944DB007000F3AE38F5264EA /* chevron@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "chevron@2x.png"; path = "Resources/chevron@2x.png"; sourceTree = "<group>"; };
 		8A0CC4568E7FE1BEBBAB6ED70320CDF0 /* ATLConversationTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLConversationTableViewCell.m; path = Code/Views/ATLConversationTableViewCell.m; sourceTree = "<group>"; };
 		8A60294C2429A7129BBBBBB9010C5C44 /* ATLConversationCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLConversationCollectionView.m; path = Code/Views/ATLConversationCollectionView.m; sourceTree = "<group>"; };
 		8AC45429713BAFBE88C5E7EC0F67516E /* FLEXNetworkHistoryTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXNetworkHistoryTableViewController.h; path = Classes/Network/FLEXNetworkHistoryTableViewController.h; sourceTree = "<group>"; };
@@ -956,8 +955,8 @@
 		925AC2CCBFA69B6947232C4A5A776193 /* FLEXObjectExplorerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXObjectExplorerViewController.h; path = Classes/ObjectExplorers/FLEXObjectExplorerViewController.h; sourceTree = "<group>"; };
 		927AB94E3687128BE9BCBFE11B904C1B /* FLEXHierarchyTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXHierarchyTableViewController.m; path = Classes/ViewHierarchy/FLEXHierarchyTableViewController.m; sourceTree = "<group>"; };
 		935CC1E1DAC082854C27CF8A4A36E034 /* Pods-Tic Tac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tic Tac.debug.xcconfig"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		949071350C7AF9982F193EAB228DBBAF /* libTBAlertController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libTBAlertController.a; path = libTBAlertController.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		949071350C7AF9982F193EAB228DBBAF /* libTBAlertController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTBAlertController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DD3182E678DCB3C42EA0B5B35B0C49 /* NSValueTransformer+MTLInversionAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSValueTransformer+MTLInversionAdditions.h"; path = "Mantle/NSValueTransformer+MTLInversionAdditions.h"; sourceTree = "<group>"; };
 		94EFC6080A8F13F617048A363902DD39 /* AutoCoding.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AutoCoding.xcconfig; sourceTree = "<group>"; };
 		94F851CA3F935EFC8C8ED3C92982EC3D /* TBResponseParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TBResponseParser.h; path = TBURLRequestOptions/Classes/TBResponseParser.h; sourceTree = "<group>"; };
@@ -1023,15 +1022,15 @@
 		AD86523B6D4E7C1681C7C46C30A753E3 /* ATLParticipant.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLParticipant.h; path = Code/Protocols/ATLParticipant.h; sourceTree = "<group>"; };
 		AFE82F14D149A159872B6B7E2FE33312 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASLayoutConstraint.h; path = Masonry/MASLayoutConstraint.h; sourceTree = "<group>"; };
 		AFEDE280609D07BECEDF3AEA5B050F68 /* NSObject+Reflection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Reflection.m"; path = "Pod/Categories/NSObject+Reflection.m"; sourceTree = "<group>"; };
-		B04C299B0319F61F7091659EA68917BD /* layerLogo@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "layerLogo@2x.png"; path = "Resources/layerLogo@2x.png"; sourceTree = "<group>"; };
+		B04C299B0319F61F7091659EA68917BD /* layerLogo@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "layerLogo@2x.png"; path = "Resources/layerLogo@2x.png"; sourceTree = "<group>"; };
 		B06E7D70B8F91B9B33B33A36DE165B0A /* FLEXSystemLogTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXSystemLogTableViewController.m; path = Classes/GlobalStateExplorers/SystemLog/FLEXSystemLogTableViewController.m; sourceTree = "<group>"; };
 		B090730C96B10598D91EB911B43C770C /* UIView+Util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+Util.h"; path = "Pod/Classes/UIView+Util.h"; sourceTree = "<group>"; };
 		B0BC1BFABABBB909A0493FAC62F217EF /* NSDictionary+MTLManipulationAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+MTLManipulationAdditions.h"; path = "Mantle/NSDictionary+MTLManipulationAdditions.h"; sourceTree = "<group>"; };
 		B10B5C7C09A39059824BAA4425EEADC2 /* UINavigationController+Util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+Util.h"; path = "Pod/Classes/UINavigationController+Util.h"; sourceTree = "<group>"; };
 		B1394A99DDFEC4986929B34FF275C6A2 /* FLEXExplorerToolbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXExplorerToolbar.h; path = Classes/Toolbar/FLEXExplorerToolbar.h; sourceTree = "<group>"; };
 		B165369A29C71961378DAE7D7CD53335 /* FLEXNetworkTransaction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXNetworkTransaction.m; path = Classes/Network/FLEXNetworkTransaction.m; sourceTree = "<group>"; };
-		B1D95F4FFD97902DDF1F4A9179579B4A /* plus.png */ = {isa = PBXFileReference; includeInIndex = 1; name = plus.png; path = Resources/plus.png; sourceTree = "<group>"; };
-		B2D1C7BC047D829A325D0A7939C5A282 /* libYakKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libYakKit.a; path = libYakKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D95F4FFD97902DDF1F4A9179579B4A /* plus.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = plus.png; path = Resources/plus.png; sourceTree = "<group>"; };
+		B2D1C7BC047D829A325D0A7939C5A282 /* libYakKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYakKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2EAACCC82D6E1B2A250539D8B1D1451 /* MTLReflection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLReflection.h; path = Mantle/MTLReflection.h; sourceTree = "<group>"; };
 		B3452F9DA4ECF15C013AC47B3560C29A /* ATLMessageBubbleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLMessageBubbleView.m; path = Code/Views/ATLMessageBubbleView.m; sourceTree = "<group>"; };
 		B362FC6AE387D457F79572320C7679D6 /* YYClient+Profiles.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YYClient+Profiles.m"; path = "Pod/Classes/Networking/YYClient+Profiles.m"; sourceTree = "<group>"; };
@@ -1066,7 +1065,7 @@
 		C2ADDE8068AB119B2D775C4B80E3A62C /* EXTADT.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTADT.m; path = extobjc/EXTADT.m; sourceTree = "<group>"; };
 		C2CDFD3693D099443FE1ACFD5B5A407E /* YYComment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYComment.m; path = Pod/Classes/Model/YYComment.m; sourceTree = "<group>"; };
 		C347AE8848B206852ABD8E726E7F63EA /* TBAlertController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TBAlertController-dummy.m"; sourceTree = "<group>"; };
-		C37B525AE893B1860502CCD467AB5F90 /* libObjc-Foundation-Extensions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libObjc-Foundation-Extensions.a"; path = "libObjc-Foundation-Extensions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C37B525AE893B1860502CCD467AB5F90 /* libObjc-Foundation-Extensions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libObjc-Foundation-Extensions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FD5782A4BB033FEECDD1F1B6EC4A07 /* YakKit-Constants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YakKit-Constants.m"; path = "Pod/Classes/YakKit-Constants.m"; sourceTree = "<group>"; };
 		C3FDEC837A3A61BBDD6B8E0888604C45 /* NSRange+Util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSRange+Util.h"; path = "Pod/Classes/NSRange+Util.h"; sourceTree = "<group>"; };
 		C4016874A2CA2CF7C4D4010B8CB48D91 /* FLEXNetworkObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXNetworkObserver.h; path = Classes/Network/PonyDebugger/FLEXNetworkObserver.h; sourceTree = "<group>"; };
@@ -1075,8 +1074,8 @@
 		C5665CA1409D9224FFBB326B0D7D2E76 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		C5900BA47A6C95EDF9CC611802FB43F6 /* FLEXRuntimeUtility.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXRuntimeUtility.m; path = Classes/Utility/FLEXRuntimeUtility.m; sourceTree = "<group>"; };
 		C63E616620FED5570CF1F232878AC470 /* TBURLRequestOptions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TBURLRequestOptions-dummy.m"; sourceTree = "<group>"; };
-		C668B5C83653A80BC5D71109B52157A6 /* AtlasResource.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AtlasResource.bundle; path = AtlasResource.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6B7E8EDFFFBC93C0D2371A04C13065C /* libPods-Tic Tac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Tic Tac.a"; path = "libPods-Tic Tac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C668B5C83653A80BC5D71109B52157A6 /* AtlasResource.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtlasResource.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6B7E8EDFFFBC93C0D2371A04C13065C /* libPods-Tic Tac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tic Tac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76E7E30A16FDC42BCFF88CF2E12AB10 /* ATLLocationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLLocationManager.m; path = Code/Utilities/ATLLocationManager.m; sourceTree = "<group>"; };
 		C7BDDD0AFD202BE832874417629A823D /* YYYak.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYYak.h; path = Pod/Classes/Model/YYYak.h; sourceTree = "<group>"; };
 		C7E465D9AA5BB78FEC8DB989F4764B1C /* ATLMessageCollectionViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLMessageCollectionViewCell.m; path = Code/Views/ATLMessageCollectionViewCell.m; sourceTree = "<group>"; };
@@ -1090,7 +1089,7 @@
 		CADBE15AD29AD4B6DB270A317CB59679 /* FLEXNetworkSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXNetworkSettingsTableViewController.h; path = Classes/Network/FLEXNetworkSettingsTableViewController.h; sourceTree = "<group>"; };
 		CC279242C128064B819276F4F466B081 /* TBAlertController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TBAlertController.xcconfig; sourceTree = "<group>"; };
 		CD33B9F2FA0D8EA24133F1AF5FD13013 /* FLEXWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXWebViewController.m; path = Classes/GlobalStateExplorers/FLEXWebViewController.m; sourceTree = "<group>"; };
-		CD550509AD0969AF762E62427E41BDD1 /* block@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "block@2x.png"; path = "Resources/block@2x.png"; sourceTree = "<group>"; };
+		CD550509AD0969AF762E62427E41BDD1 /* block@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "block@2x.png"; path = "Resources/block@2x.png"; sourceTree = "<group>"; };
 		CD626210D0AA91CD4D7640419C01FA11 /* FLEX-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FLEX-dummy.m"; sourceTree = "<group>"; };
 		CD729DF96D9B05A3D4285CBD50E7C7DE /* FLEXFileBrowserSearchOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXFileBrowserSearchOperation.h; path = Classes/GlobalStateExplorers/FLEXFileBrowserSearchOperation.h; sourceTree = "<group>"; };
 		CE5A35A0F3E87967935982B1E87BEEC5 /* UIResponder+ATLFirstResponder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIResponder+ATLFirstResponder.h"; path = "Code/Utilities/UIResponder+ATLFirstResponder.h"; sourceTree = "<group>"; };
@@ -1105,14 +1104,14 @@
 		D8879BE31539B668624E99D2976CE277 /* ATLConversationDataSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLConversationDataSource.m; path = Code/Models/ATLConversationDataSource.m; sourceTree = "<group>"; };
 		D8F30F03941D7D098BCDE73152F55D48 /* EXTScope.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = Mantle/extobjc/EXTScope.m; sourceTree = "<group>"; };
 		D8F6537041A93EB9F5779B55FB0C8EA2 /* ATLAddressBarTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLAddressBarTextView.h; path = Code/Views/ATLAddressBarTextView.h; sourceTree = "<group>"; };
-		DAE15EECB9B9788A3755EAB6EEA2FD5A /* liblibextobjc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = liblibextobjc.a; path = liblibextobjc.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAE15EECB9B9788A3755EAB6EEA2FD5A /* liblibextobjc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibextobjc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB1D03F033C017B8760596A41D97D557 /* ATLConversationCollectionViewMoreMessagesHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLConversationCollectionViewMoreMessagesHeader.h; path = Code/Views/ATLConversationCollectionViewMoreMessagesHeader.h; sourceTree = "<group>"; };
 		DBA4FDF7EA578EC4B2EBABB7B5F97099 /* FLEXSystemLogMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXSystemLogMessage.h; path = Classes/GlobalStateExplorers/SystemLog/FLEXSystemLogMessage.h; sourceTree = "<group>"; };
 		DC1C19A8AE9420902F64544BB3D58B4E /* ATLConversationTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLConversationTableViewCell.h; path = Code/Views/ATLConversationTableViewCell.h; sourceTree = "<group>"; };
 		DC4B160C90968197896C61B495077E38 /* UISearchBar+Util.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UISearchBar+Util.m"; path = "Pod/Classes/UISearchBar+Util.m"; sourceTree = "<group>"; };
 		DD48EC633284B84F9A590834E24786C6 /* ATLIncomingMessageCollectionViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLIncomingMessageCollectionViewCell.h; path = Code/Views/ATLIncomingMessageCollectionViewCell.h; sourceTree = "<group>"; };
 		DD5AFDEBD692F7D0C4CD5EF1C9FC0904 /* NSArray+Util.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Util.m"; path = "Pod/Classes/NSArray+Util.m"; sourceTree = "<group>"; };
-		DDD796CF02CEFA8D7A00367A2EF7F5C2 /* layerLogo.png */ = {isa = PBXFileReference; includeInIndex = 1; name = layerLogo.png; path = Resources/layerLogo.png; sourceTree = "<group>"; };
+		DDD796CF02CEFA8D7A00367A2EF7F5C2 /* layerLogo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = layerLogo.png; path = Resources/layerLogo.png; sourceTree = "<group>"; };
 		DE0543BF2B943237B98246D1B2548D31 /* MKProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKProtocol.h; path = Pod/Classes/MKProtocol.h; sourceTree = "<group>"; };
 		DE5686AE9161C6F786E1BB75DEBE1365 /* YYYak.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYYak.m; path = Pod/Classes/Model/YYYak.m; sourceTree = "<group>"; };
 		DE8534E8021FC80340FB63CC046D70E4 /* ATLTypingIndicatorViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATLTypingIndicatorViewController.m; path = Code/Controllers/ATLTypingIndicatorViewController.m; sourceTree = "<group>"; };
@@ -1134,7 +1133,7 @@
 		E6501B5CE3B58A058B30DC153604CFB4 /* MASConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Masonry/MASConstraint.h; sourceTree = "<group>"; };
 		E656971669C14AF0365683B741809388 /* FLEXArgumentInputView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXArgumentInputView.m; path = Classes/Editing/ArgumentInputViews/FLEXArgumentInputView.m; sourceTree = "<group>"; };
 		E76129CC61450FA086A856E16CD55E31 /* ATLLocationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLLocationManager.h; path = Code/Utilities/ATLLocationManager.h; sourceTree = "<group>"; };
-		E77123E5DE30D3C391FBCBEAA132D2BB /* libAtlas.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAtlas.a; path = libAtlas.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E77123E5DE30D3C391FBCBEAA132D2BB /* libAtlas.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAtlas.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E791910CE578C415A1D9E0377D29AD75 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTRuntimeExtensions.m; path = extobjc/EXTRuntimeExtensions.m; sourceTree = "<group>"; };
 		E7E6C4A89DD0D31CF3F69063D7FFC1E2 /* YYPeekLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYPeekLocation.h; path = Pod/Classes/Model/YYPeekLocation.h; sourceTree = "<group>"; };
 		E7E9C464E2F4D10C0B64C90D84361D83 /* FLEXSetExplorerViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXSetExplorerViewController.m; path = Classes/ObjectExplorers/FLEXSetExplorerViewController.m; sourceTree = "<group>"; };
@@ -1143,7 +1142,7 @@
 		E9743B3BE66D1D19E53648370CA09866 /* FLEXCookiesTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXCookiesTableViewController.m; path = Classes/GlobalStateExplorers/FLEXCookiesTableViewController.m; sourceTree = "<group>"; };
 		E9BC00FDF04170F0D66B6F4DB94EBCA5 /* ATLConversationListViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLConversationListViewController.h; path = Code/Controllers/ATLConversationListViewController.h; sourceTree = "<group>"; };
 		E9ECA62AE1B753D3BE2FA674DD1451C6 /* FLEXArrayExplorerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXArrayExplorerViewController.h; path = Classes/ObjectExplorers/FLEXArrayExplorerViewController.h; sourceTree = "<group>"; };
-		EA444D681D2D77BA5DC20743B8BE093F /* chevron.png */ = {isa = PBXFileReference; includeInIndex = 1; name = chevron.png; path = Resources/chevron.png; sourceTree = "<group>"; };
+		EA444D681D2D77BA5DC20743B8BE093F /* chevron.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = chevron.png; path = Resources/chevron.png; sourceTree = "<group>"; };
 		EACC2EF37148849463DE6528FAEE3D0E /* FLEXObjectExplorerViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXObjectExplorerViewController.m; path = Classes/ObjectExplorers/FLEXObjectExplorerViewController.m; sourceTree = "<group>"; };
 		EADCF971906BB114C9B3E920D1D5D724 /* ATLConversationCollectionViewHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATLConversationCollectionViewHeader.h; path = Code/Views/ATLConversationCollectionViewHeader.h; sourceTree = "<group>"; };
 		EB14F8269E0D21B6078B4214A480A30F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -1157,10 +1156,10 @@
 		ECB50DC84A47CA83528A36B53332D06F /* FLEXIvarEditorViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXIvarEditorViewController.h; path = Classes/Editing/FLEXIvarEditorViewController.h; sourceTree = "<group>"; };
 		ECDB4266CDDD689F78DCB09057ACDE84 /* FLEXSystemLogTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXSystemLogTableViewController.h; path = Classes/GlobalStateExplorers/SystemLog/FLEXSystemLogTableViewController.h; sourceTree = "<group>"; };
 		ECE1E1055A2327DC6136DA90CA888E14 /* FLEXClassesTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXClassesTableViewController.m; path = Classes/GlobalStateExplorers/FLEXClassesTableViewController.m; sourceTree = "<group>"; };
-		ED35714DDCF63D5CF7BA4D7F9C3BB06B /* layerbell.caf */ = {isa = PBXFileReference; includeInIndex = 1; name = layerbell.caf; path = Resources/layerbell.caf; sourceTree = "<group>"; };
+		ED35714DDCF63D5CF7BA4D7F9C3BB06B /* layerbell.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = layerbell.caf; path = Resources/layerbell.caf; sourceTree = "<group>"; };
 		EE7C46379AED54121093CBBD4D1AC35D /* NSDate-Utilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate-Utilities.h"; path = "Pod/Classes/NSDate-Utilities.h"; sourceTree = "<group>"; };
-		EEBF09B39B4C1C3EFEDF7DF6C7B5F5FD /* camera_dark.png */ = {isa = PBXFileReference; includeInIndex = 1; name = camera_dark.png; path = Resources/camera_dark.png; sourceTree = "<group>"; };
-		EF09853A3C9431EC4F6D2DFBF269F57D /* libMantle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMantle.a; path = libMantle.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEBF09B39B4C1C3EFEDF7DF6C7B5F5FD /* camera_dark.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = camera_dark.png; path = Resources/camera_dark.png; sourceTree = "<group>"; };
+		EF09853A3C9431EC4F6D2DFBF269F57D /* libMantle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMantle.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F05E2891690C0C949ABC9E8B51B512AE /* NSDictionary+MTLJSONKeyPath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+MTLJSONKeyPath.m"; path = "Mantle/NSDictionary+MTLJSONKeyPath.m"; sourceTree = "<group>"; };
 		F101E33728371B1C31F0D0C7FF6C1D63 /* EXTSafeCategory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTSafeCategory.h; path = extobjc/EXTSafeCategory.h; sourceTree = "<group>"; };
 		F11F3ADEE7A9963ADD618C2304D39E9E /* YakKit-Constants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YakKit-Constants.h"; path = "Pod/Classes/YakKit-Constants.h"; sourceTree = "<group>"; };
@@ -1175,10 +1174,10 @@
 		F4DDF9C5712EC559E73506C8DDC7A527 /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
 		F4E8F3F9E2F177279A44BD34A9D816AE /* NSMethodSignature+EXT.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMethodSignature+EXT.h"; path = "extobjc/NSMethodSignature+EXT.h"; sourceTree = "<group>"; };
 		F54B88BD12007E3492A6CCDE7BBE43AE /* YakKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YakKit-prefix.pch"; sourceTree = "<group>"; };
-		F5E2A126D2626E7BD5677F712AC13A11 /* libMirrorKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMirrorKit.a; path = libMirrorKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5E2A126D2626E7BD5677F712AC13A11 /* libMirrorKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMirrorKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6444D3AE9D41F4BD7B3A6BBB6839CA6 /* FLEXUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXUtility.h; path = Classes/Utility/FLEXUtility.h; sourceTree = "<group>"; };
 		F64CB2487C62018EEA15D7219ED9979B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		F6545FEEFE043E71BCCF4D7EA8E96DF3 /* location_dark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "location_dark@2x.png"; path = "Resources/location_dark@2x.png"; sourceTree = "<group>"; };
+		F6545FEEFE043E71BCCF4D7EA8E96DF3 /* location_dark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "location_dark@2x.png"; path = "Resources/location_dark@2x.png"; sourceTree = "<group>"; };
 		F6952F6B974536C29A624BE9D781F4CF /* FLEXClassExplorerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXClassExplorerViewController.h; path = Classes/ObjectExplorers/FLEXClassExplorerViewController.h; sourceTree = "<group>"; };
 		F699CAB7AEF8933AB04E2689C34CF57F /* YYClient+Misc.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YYClient+Misc.m"; path = "Pod/Classes/Networking/YYClient+Misc.m"; sourceTree = "<group>"; };
 		F88A3DE47D36B970B2467DB444359E8B /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASAdditions.h"; path = "Masonry/NSArray+MASAdditions.h"; sourceTree = "<group>"; };
@@ -1187,7 +1186,7 @@
 		FA7ADFC01FF64A29FB7013677B9BAA56 /* FLEXTableLeftCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLEXTableLeftCell.h; path = Classes/GlobalStateExplorers/DatabaseBrowser/FLEXTableLeftCell.h; sourceTree = "<group>"; };
 		FA7B0064DDA698FEE1BC1757E8DC6216 /* FLEXFieldEditorView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLEXFieldEditorView.m; path = Classes/Editing/FLEXFieldEditorView.m; sourceTree = "<group>"; };
 		FBBD8D069F375CAFB92C2D746AD98471 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		FD1224571008BA567B9E49700BEFA2A8 /* plus@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "plus@2x.png"; path = "Resources/plus@2x.png"; sourceTree = "<group>"; };
+		FD1224571008BA567B9E49700BEFA2A8 /* plus@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "plus@2x.png"; path = "Resources/plus@2x.png"; sourceTree = "<group>"; };
 		FD67D269792FD21D085927E9F3E89D5E /* NSData+Networking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+Networking.h"; path = "TBURLRequestOptions/Classes/NSData+Networking.h"; sourceTree = "<group>"; };
 		FF51BD7309866CA0F61484A0EDFD3102 /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
 		FF794515959AB0E52D32A0F1F7A68797 /* EXTADT.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTADT.h; path = extobjc/EXTADT.h; sourceTree = "<group>"; };
@@ -1353,7 +1352,6 @@
 			children = (
 				2196BC072FBD24F22BFFD3C6C9B5F8BF /* Frameworks */,
 			);
-			name = LayerKit;
 			path = LayerKit;
 			sourceTree = "<group>";
 		};
@@ -1373,7 +1371,6 @@
 				A699BA65A2EDD6230A6F0644D5805191 /* MCSwipeTableViewCell.m */,
 				E5D820F0132FB419B5B35FDE9CB11F96 /* Support Files */,
 			);
-			name = MCSwipeTableViewCell;
 			path = MCSwipeTableViewCell;
 			sourceTree = "<group>";
 		};
@@ -1444,7 +1441,6 @@
 				2103E123D1EB4A049F2B49605C71AF79 /* NSString+Utilities.m */,
 				CEA80D604E7CA009E39B6B3BD55884FF /* Support Files */,
 			);
-			name = MirrorKit;
 			path = MirrorKit;
 			sourceTree = "<group>";
 		};
@@ -1477,7 +1473,6 @@
 				1F00EF5E80592A5F3D7187E30B82CA89 /* AutoCoding.m */,
 				9E4F052C63F99A00E2699DA510FA2494 /* Support Files */,
 			);
-			name = AutoCoding;
 			path = AutoCoding;
 			sourceTree = "<group>";
 		};
@@ -1674,7 +1669,6 @@
 				10DAFD8DD9A430CFBEE3572528285084 /* FLEXWindow.m */,
 				E27B40CF141A4E8450DB991B113B37A6 /* Support Files */,
 			);
-			name = FLEX;
 			path = FLEX;
 			sourceTree = "<group>";
 		};
@@ -1728,7 +1722,6 @@
 				85C4D2A2EA53E28DB63275B6F578AF69 /* UIWindow+Util.m */,
 				9D12CDB4A5134442D4B81D1D282E99FF /* Support Files */,
 			);
-			name = "Objc-iOS-Extensions";
 			path = "Objc-iOS-Extensions";
 			sourceTree = "<group>";
 		};
@@ -1805,7 +1798,6 @@
 				C2339E801F9A143AEE3FF38E7B3EAC25 /* Support Files */,
 				7F7D10D44D96E0207911DBC7C9C3AD4C /* UmbrellaHeader */,
 			);
-			name = libextobjc;
 			path = libextobjc;
 			sourceTree = "<group>";
 		};
@@ -1830,7 +1822,6 @@
 				612D308EBD162D7EB01FEE7DEF610BC8 /* NSString+Util.m */,
 				2CCBBC23FE4C664715F72B7FA56E7A1A /* Support Files */,
 			);
-			name = "Objc-Foundation-Extensions";
 			path = "Objc-Foundation-Extensions";
 			sourceTree = "<group>";
 		};
@@ -1902,7 +1893,6 @@
 				EA1F69237A8A1709BEB61DCD0768E018 /* extobjc */,
 				24A6EBEFC2C7C2CE457B9D60B5F44165 /* Support Files */,
 			);
-			name = Mantle;
 			path = Mantle;
 			sourceTree = "<group>";
 		};
@@ -1923,7 +1913,6 @@
 				E297FD03853FF16EB6EC6D234E45745D /* TBURLRequestBuilder.m */,
 				81D0E6912B508BB53E2E6F9E9F0579C2 /* Support Files */,
 			);
-			name = TBURLRequestOptions;
 			path = TBURLRequestOptions;
 			sourceTree = "<group>";
 		};
@@ -1968,7 +1957,6 @@
 				8223EB3D6765B0A16585B9E6038F37BF /* ViewController+MASAdditions.m */,
 				B1CA5C9C89EE582F6D481B9E06DC5501 /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -2150,7 +2138,6 @@
 				E7B6953779866AE28209AFC7A02A4DFC /* Resources */,
 				42617F3737255B937BEDBC905B43C1BD /* Support Files */,
 			);
-			name = Atlas;
 			path = Atlas;
 			sourceTree = "<group>";
 		};
@@ -2216,7 +2203,6 @@
 				DE5686AE9161C6F786E1BB75DEBE1365 /* YYYak.m */,
 				7E6B625EDA2E888C787513F771F12720 /* Support Files */,
 			);
-			name = YakKit;
 			path = YakKit;
 			sourceTree = "<group>";
 		};
@@ -2269,7 +2255,6 @@
 				EC34E2011C73E958DC2CF624028E451B /* TBAlertController.m */,
 				1B506E19F94A7726DB62218ADBBC8416 /* Support Files */,
 			);
-			name = TBAlertController;
 			path = TBAlertController;
 			sourceTree = "<group>";
 		};
@@ -2956,7 +2941,6 @@
 				13D09C921605F9A0931D1671F1ACBF4A /* chevron.png in Resources */,
 				BC473D5597915C1ECF5201C1FEB938A8 /* chevron@2x.png in Resources */,
 				AEC7206ACE1D23CDE95783E482622DAF /* chevron@3x.png in Resources */,
-				EF798DE0FB011CA6A9D6D949103DD956 /* Info.plist in Resources */,
 				A6879D571D27B79028FB3EABD17DFBE9 /* layerbell.caf in Resources */,
 				6D459A20A32BAB7C97411F19886DB7B0 /* layerLogo.png in Resources */,
 				5B4C1C38AF7EBFB399F70C708BA45001 /* layerLogo@2x.png in Resources */,
