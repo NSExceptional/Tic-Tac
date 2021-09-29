@@ -9,7 +9,6 @@
 #import "TTProfileViewController.h"
 #import "TTWelcomeViewController.h"
 #import "TTTabBarController.h"
-@import LayerKit;
 
 
 static NSString * const kProfileReuse = @"kProfileReuse";
@@ -95,7 +94,6 @@ static NSString * const kProfileReuse = @"kProfileReuse";
             [wait dismiss];
             TTTabBarController *tabs = (id)[UIApplication sharedApplication].keyWindow.rootViewController;
             [tabs notifyUserIsReady];
-            [tabs updateChatList];
         }
     };
     
@@ -110,39 +108,6 @@ static NSString * const kProfileReuse = @"kProfileReuse";
         [self displayOptionalError:error];
         wait.message = @"Updated configuration…";
         maybeDismiss();
-    }];
-    
-    // Sign out of chat
-    LYRClient *layer = [YYClient sharedClient].layerClient;
-    [layer deauthenticateWithCompletion:^(BOOL success, NSError *error) {
-        [self displayOptionalError:error];
-        if (success) {
-            wait.message = @"Signed out of chat…";
-            // Nonce
-            [layer requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
-                [self displayOptionalError:error];
-                if (nonce) {
-                    wait.message = @"Signing into chat…";
-                    // Identity token
-                    [[YYClient sharedClient] authenticateForLayer:nonce completion:^(NSString *string, NSError *error) {
-                        [self displayOptionalError:error];
-                        if (!error) {
-                            // Sign in
-                            [layer authenticateWithIdentityToken:string completion:^(LYRIdentity *user, NSError *error) {
-                                [self displayOptionalError:error];
-                                maybeDismiss();
-                            }];
-                        } else {
-                            maybeDismiss();
-                        }
-                    }];
-                } else {
-                    maybeDismiss();
-                }
-            }];
-        } else {
-            maybeDismiss();
-        }
     }];
 }
 

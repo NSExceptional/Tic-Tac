@@ -119,8 +119,10 @@
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     // Add subviews
-    for (UIView *view in @[_circle, _welcomeLabel, _descriptionLabel, _useNewUserButton, _userTokenButton, _hairline, _authTokenButton])
-        [self addSubview:view], [view sizeToFit];
+    for (UIView *view in @[_circle, _welcomeLabel, _descriptionLabel, _useNewUserButton, _userTokenButton, _hairline, _authTokenButton]) {
+        [self addSubview:view];
+        [view sizeToFit];
+    }
 }
 
 - (void)layoutSubviews {

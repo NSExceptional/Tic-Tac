@@ -44,7 +44,7 @@
         [labels addObject:label];
         [self.contentView addSubview:label];
     }
-    _titleLabel = labels[0], _scoreLabel = labels[1], _ageLabel = labels[2], _authorLabel = labels[3], _replyCountLabel = labels[4];
+    _titleLabel = labels[0]; _scoreLabel = labels[1]; _ageLabel = labels[2]; _authorLabel = labels[3]; _replyCountLabel = labels[4];
     
     // Label fonts and colors
     self.titleLabel.font       = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];

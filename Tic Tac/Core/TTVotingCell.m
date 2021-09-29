@@ -124,6 +124,7 @@
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
     self.votable = nil;
 }
 

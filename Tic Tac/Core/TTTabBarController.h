@@ -12,6 +12,5 @@
 @interface TTTabBarController : UITabBarController
 
 - (void)notifyUserIsReady;
-- (void)updateChatList;
 
 @end

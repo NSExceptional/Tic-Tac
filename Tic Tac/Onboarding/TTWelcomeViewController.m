@@ -27,7 +27,7 @@
 - (TTWelcomeView *)welcomeView { return (id)self.view; }
 
 - (UIWindow *)window {
-    return [(id)[UIApplication sharedApplication] window];
+    return [(id)[UIApplication sharedApplication] keyWindow];
 }
 
 - (TTTabBarController *)tabBarController {

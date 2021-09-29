@@ -12,8 +12,6 @@
 		9037FF7D1D10B89B000CCC81 /* TTCensorshipControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037FF7C1D10B89B000CCC81 /* TTCensorshipControl.m */; };
 		90906DF51D0B1B8D002A8CFA /* TTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */; };
 		90906DF81D0B1C66002A8CFA /* YYNotification+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */; };
-		90D68E711D147D700054A9E1 /* TTChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D68E701D147D700054A9E1 /* TTChatListViewController.m */; };
-		90D68E741D149D310054A9E1 /* TTChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D68E731D149D310054A9E1 /* TTChatViewController.m */; };
 		B43FE39C1CD90AF60050BB0D /* TTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */; };
 		B44F16051CDA977A002DF423 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44F16041CDA977A002DF423 /* Defaults.plist */; };
 		B44F16081CDA98AC002DF423 /* TTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B44F16071CDA98AC002DF423 /* TTCache.m */; };
@@ -66,10 +64,6 @@
 		90906DF41D0B1B8D002A8CFA /* TTNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationCell.m; sourceTree = "<group>"; };
 		90906DF61D0B1C66002A8CFA /* YYNotification+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYNotification+Util.h"; sourceTree = "<group>"; };
 		90906DF71D0B1C66002A8CFA /* YYNotification+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYNotification+Util.m"; sourceTree = "<group>"; };
-		90D68E6F1D147D700054A9E1 /* TTChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatListViewController.h; sourceTree = "<group>"; };
-		90D68E701D147D700054A9E1 /* TTChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatListViewController.m; sourceTree = "<group>"; };
-		90D68E721D149D310054A9E1 /* TTChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatViewController.h; sourceTree = "<group>"; };
-		90D68E731D149D310054A9E1 /* TTChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatViewController.m; sourceTree = "<group>"; };
 		95E93FE5232609D8E3BF44A9 /* libPods-Tic Tac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tic Tac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B43FE39A1CD90AF60050BB0D /* TTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableViewController.h; sourceTree = "<group>"; };
 		B43FE39B1CD90AF60050BB0D /* TTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableViewController.m; sourceTree = "<group>"; };
@@ -185,17 +179,6 @@
 			name = Comments;
 			sourceTree = "<group>";
 		};
-		90A5901D1D13350F00BCC186 /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-				90D68E6F1D147D700054A9E1 /* TTChatListViewController.h */,
-				90D68E701D147D700054A9E1 /* TTChatListViewController.m */,
-				90D68E721D149D310054A9E1 /* TTChatViewController.h */,
-				90D68E731D149D310054A9E1 /* TTChatViewController.m */,
-			);
-			path = Chat;
-			sourceTree = "<group>";
-		};
 		B4E73C3A1CC6A7D500670CC6 = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +211,6 @@
 				B4E73C591CC6A8DB00670CC6 /* Onboarding */,
 				B4E73C5A1CC6A8E600670CC6 /* Feed */,
 				B4E73C5C1CC6A8FB00670CC6 /* Notifications */,
-				90A5901D1D13350F00BCC186 /* Chat */,
 				B4E73C5D1CC6A90B00670CC6 /* Profile */,
 				B4E73C5B1CC6A8F000670CC6 /* Settings */,
 				B4E73C461CC6A7D500670CC6 /* Supporting Files */,
@@ -404,7 +386,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = TT;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Tanner Bennett";
 				TargetAttributes = {
 					B4E73C421CC6A7D500670CC6 = {
@@ -415,10 +397,9 @@
 			};
 			buildConfigurationList = B4E73C3E1CC6A7D500670CC6 /* Build configuration list for PBXProject "Tic Tac" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				cs,
@@ -514,9 +495,7 @@
 				B4558A151CC8CDEA00ABA4C1 /* TTMakeHandleViewController.m in Sources */,
 				B471391C1CD6DC6900B1DAAF /* YYVotable+Removed.m in Sources */,
 				B4C204F81CD9BBCC00564A83 /* TTReplyViewController.m in Sources */,
-				90D68E711D147D700054A9E1 /* TTChatListViewController.m in Sources */,
 				B4712D261CD6AF5900B1DAAF /* NSDate+AgeString.m in Sources */,
-				90D68E741D149D310054A9E1 /* TTChatViewController.m in Sources */,
 				B4E73C601CC6A97600670CC6 /* TTTabBarController.m in Sources */,
 				90906DF81D0B1C66002A8CFA /* YYNotification+Util.m in Sources */,
 				B4E73C6B1CC6D8CA00670CC6 /* TTWelcomeButton.m in Sources */,
@@ -565,14 +544,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_MISSING_NOESCAPE = NO;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -596,7 +585,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -612,14 +601,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_MISSING_NOESCAPE = NO;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -637,7 +636,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -653,9 +652,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pantsthief.Tic-Tac";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yikyak.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -670,9 +669,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pantsthief.Tic-Tac";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yikyak.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
