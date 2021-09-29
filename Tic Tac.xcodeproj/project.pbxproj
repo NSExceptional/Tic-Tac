@@ -53,6 +53,7 @@
 		B4E73C6D1CC6D8CA00670CC6 /* TTWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C6A1CC6D8CA00670CC6 /* TTWelcomeViewController.m */; };
 		B4E743801CC6D96500670CC6 /* TTBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E7437F1CC6D96500670CC6 /* TTBorderButton.m */; };
 		B4E743851CC6E41400670CC6 /* UIColor+TicTac.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E743841CC6E41400670CC6 /* UIColor+TicTac.m */; };
+		C35DACB5270525D000AA95E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C35DACB4270525D000AA95E6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +148,7 @@
 		B4E743811CC6E0C700670CC6 /* Tic-Tac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tic-Tac-Prefix.pch"; sourceTree = "<group>"; };
 		B4E743831CC6E41400670CC6 /* UIColor+TicTac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TicTac.h"; sourceTree = "<group>"; };
 		B4E743841CC6E41400670CC6 /* UIColor+TicTac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TicTac.m"; sourceTree = "<group>"; };
+		C35DACB4270525D000AA95E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C94FB64A5EE099EEC1C6F993 /* Pods-Tic Tac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +217,7 @@
 		B4E73C451CC6A7D500670CC6 /* Tic Tac */ = {
 			isa = PBXGroup;
 			children = (
+				C35DACB4270525D000AA95E6 /* GoogleService-Info.plist */,
 				B4E73C491CC6A7D500670CC6 /* TTAppDelegate.h */,
 				B4E73C4A1CC6A7D500670CC6 /* TTAppDelegate.m */,
 				B4743ACB1D03AE3900B566E5 /* TTManager.h */,
@@ -383,7 +386,6 @@
 				B4E73C3F1CC6A7D500670CC6 /* Sources */,
 				B4E73C401CC6A7D500670CC6 /* Frameworks */,
 				B4E73C411CC6A7D500670CC6 /* Resources */,
-				21761697FC57C7379C704BE2 /* [CP] Embed Pods Frameworks */,
 				55B636291BFE95DE89B08F84 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -416,6 +418,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				cs,
@@ -453,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4E73C581CC6A80100670CC6 /* LaunchScreen.xib in Resources */,
+				C35DACB5270525D000AA95E6 /* GoogleService-Info.plist in Resources */,
 				B4E73C4D1CC6A7D500670CC6 /* Assets.xcassets in Resources */,
 				B44F16051CDA977A002DF423 /* Defaults.plist in Resources */,
 			);
@@ -461,34 +465,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		21761697FC57C7379C704BE2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		470F69F4CE8CCCD88D921D99 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tic Tac-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		55B636291BFE95DE89B08F84 /* [CP] Copy Pods Resources */ = {
@@ -497,13 +489,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates-Cpp.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Cpp.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
