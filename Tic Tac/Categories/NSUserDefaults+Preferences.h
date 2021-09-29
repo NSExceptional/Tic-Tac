@@ -12,29 +12,20 @@
 @interface NSUserDefaults (Preferences)
 
 #pragma mark Prefs
-+ (BOOL)showBlockedContent;
-+ (void)setShowBlockedContent:(BOOL)pref;
-
-+ (BOOL)refreshFeedOnUserChange;
-+ (void)setRefreshFeedOnUserChange:(BOOL)pref;
+@property (nonatomic, readonly, class) BOOL showBlockedContent;
+@property (nonatomic, readonly, class) BOOL refreshFeedOnUserChange;
 
 /// Defaults to 7
-+ (NSInteger)daysToKeepHistory;
-+ (void)setDaysToKeepHistory:(NSInteger)pref;
+@property (nonatomic, class) NSInteger daysToKeepHistory;
 
 #pragma mark Users
-+ (NSArray<NSString*> *)allUserIdentifiers;
+@property (nonatomic, readonly, class) NSArray<NSString*> *allUserIdentifiers;
 
-+ (NSString *)unusedUserIdentifier;
-+ (void)setUnusedUserIdentifier:(NSString *)unused;
+@property (nonatomic, class) NSString *unusedUserIdentifier;
+@property (nonatomic, class) NSString *currentUserIdentifier;
+@property (nonatomic, class) NSArray<NSString*> *otherUserIdentifiers;
 
-+ (NSString *)currentUserIdentifier;
-+ (void)setCurrentUserIdentifier:(NSString *)pref;
-
-+ (NSArray<NSString*> *)otherUserIdentifiers;
-+ (void)setOtherUserIdentifiers:(NSArray<NSString*> *)pref;
 + (void)removeOtherUserIdentifier:(NSString *)pref;
-
 + (NSString *)handleForUserIdentifier:(NSString *)userid;
 + (void)setHandle:(NSString *)handle forUserIdentifier:(NSString *)userid;
 
