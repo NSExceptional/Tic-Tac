@@ -9,7 +9,6 @@
 #import "TTAppDelegate.h"
 #import "TTWelcomeViewController.h"
 #import "TTCache.h"
-@import LayerKit;
 
 
 #define kYYLat 31.534173
@@ -22,23 +21,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Window
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     [self.window makeKeyAndVisible];
     
     // Appearance
     [self customizeAppearance];
-//    [[FLEXManager sharedManager] showExplorer];
     
     // Default preferences
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
-    
-    // Setup layer client (will connect in the view controller
-    NSURL *production = [NSURL URLWithString:@"layer:///apps/production/18426d48-f4eb-11e5-9d56-61d800001f29"];
-    LYRClient *layer = [LYRClient clientWithAppID:production];
-    [YYClient sharedClient].layerClient = layer;
+    NSString *defaultsPath = [NSBundle.mainBundle pathForResource:@"Defaults" ofType:@"plist"];
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:defaultsPath];
+    [NSUserDefaults.standardUserDefaults registerDefaults:defaults];
     
     // Login / get current user
-    NSString *userIdentifier = [NSUserDefaults currentUserIdentifier];
+    NSString *userIdentifier = NSUserDefaults.currentUserIdentifier;
     if (userIdentifier) {
         [YYClient sharedClient].userIdentifier = userIdentifier;
         [YYClient sharedClient].location = [[CLLocation alloc] initWithLatitude:kYYLat longitude:kYYLong];
@@ -49,7 +44,9 @@
         self.window.rootViewController = [TTWelcomeViewController new];
     }
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:[FLEXManager sharedManager] action:@selector(showExplorer)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+        initWithTarget:FLEXManager.sharedManager action:@selector(showExplorer)
+    ];
     tap.numberOfTouchesRequired = 3;
     [self.window addGestureRecognizer:tap];
     
@@ -71,11 +68,11 @@
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     
-    MKMethod *statusBar = [MKMethod methodForSelector:@selector(preferredStatusBarStyle)
-                                                class:[UINavigationController class] instance:YES];
-    [UINavigationController replaceImplementationOfMethod:statusBar with:imp_implementationWithBlock(^(UINavigationController *me) {
-        return UIStatusBarStyleLightContent;
-    }) useInstance:YES];
+//    MKMethod *statusBar = [MKMethod methodForSelector:@selector(preferredStatusBarStyle)
+//                                                class:[UINavigationController class] instance:YES];
+//    [UINavigationController replaceImplementationOfMethod:statusBar with:imp_implementationWithBlock(^(UINavigationController *me) {
+//        return UIStatusBarStyleLightContent;
+//    }) useInstance:YES];
 }
 
 - (TTTabBarController *)tabBarController {

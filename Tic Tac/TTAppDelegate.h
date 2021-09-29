@@ -12,10 +12,8 @@
 
 @interface TTAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic) UIWindow *window;
 @property (nonatomic, readonly) TTTabBarController *tabBarController;
-
-- (void)setupNewUser:(VoidBlock)completion;
 
 @end
 
