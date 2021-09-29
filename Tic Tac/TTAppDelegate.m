@@ -8,8 +8,9 @@
 
 #import "TTAppDelegate.h"
 #import "TTWelcomeViewController.h"
+#import "TBAlertController+Anywhere.h"
 #import "TTCache.h"
-
+@import Firebase;
 
 #define kYYLat 31.534173
 #define kYYLong -97.123863
@@ -31,6 +32,8 @@
     NSString *defaultsPath = [NSBundle.mainBundle pathForResource:@"Defaults" ofType:@"plist"];
     NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:defaultsPath];
     [NSUserDefaults.standardUserDefaults registerDefaults:defaults];
+    
+    [FIRApp configure];
     
     // Login / get current user
     NSString *userIdentifier = NSUserDefaults.currentUserIdentifier;
@@ -85,7 +88,18 @@
 }
 
 - (void)setupNewUser:(VoidBlock)completion {
-    
+    [[FIRPhoneAuthProvider provider]
+        verifyPhoneNumber:@"XXXXXXXXXX"
+        UIDelegate:nil
+        completion:^(NSString *verificationID, NSError *error) {
+            if (error) {
+                [TBAlertController simpleOKAlertWithTitle:@"Error" message:error.localizedDescription];
+                return;
+            }
+        
+            [TBAlertController simpleOKAlertWithTitle:@"Logged In!" message:verificationID];
+        }
+    ];
 }
 
 @end
