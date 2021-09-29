@@ -1,1 +1,0 @@
-../../../Atlas/Code/Utilities/LYRIdentity+ATLParticipant.h

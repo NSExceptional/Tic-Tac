@@ -1,1 +1,0 @@
-../../../Atlas/Code/Views/ATLConversationCollectionViewFooter.h
