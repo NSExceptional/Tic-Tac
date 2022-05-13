@@ -75,7 +75,8 @@ static NSUInteger const kVisitedPostsSize = 10000;
 + (void)loadYakCache {
     if ([[NSFileManager defaultManager] fileExistsAtPath:pathToYaks isDirectory:nil]) {
         // Load and unarchive yaks
-        [yaks addObjectsFromArray:[[NSArray arrayWithContentsOfFile:pathToYaks] arrayByApplyingBlockToElements:^id(NSData *data) {
+        NSArray *datas = [NSArray arrayWithContentsOfFile:pathToYaks];
+        [yaks addObjectsFromArray:[datas arrayByApplyingBlockToElements:^id(NSData *data) {
             return [NSKeyedUnarchiver unarchiveObjectWithData:data];
         }]];
     } else {
