@@ -88,7 +88,7 @@ static NSString * const kProfileReuse = @"kProfileReuse";
     TBAlertController *wait = [TBAlertController alertViewWithTitle:@"Just a moment…" message:nil];
     [wait showFromViewController:self];
     
-    VoidBlock maybeDismiss = ^{
+    YYVoidBlock maybeDismiss = ^{
         if (++count == 3) {
             [TBNetworkActivity pop];
             [wait dismiss];

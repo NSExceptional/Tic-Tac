@@ -13,9 +13,9 @@
 
 @property (nonatomic) BOOL isOP;
 @property (nonatomic) BOOL repliesEnabled;
-@property (nonatomic, copy) VoidBlock replyAction;
+@property (nonatomic, copy) YYVoidBlock replyAction;
 
-@property (nonatomic, copy) VoidBlock longPressAction;
+@property (nonatomic, copy) YYVoidBlock longPressAction;
 
 - (void)setIcon:(NSString *)icon withColor:(NSString *)color;
 

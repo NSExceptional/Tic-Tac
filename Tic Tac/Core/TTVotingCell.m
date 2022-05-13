@@ -46,7 +46,7 @@
     self.mode = MCSwipeTableViewCellModeSwitch;
     
     @weakify(self);
-    ErrorBlock undo = ^(NSError *error) { @strongify(self);
+    YYErrorBlock undo = ^(NSError *error) { @strongify(self);
         if (error) {
             [error showWithTitle:@"Error submitting vote"];
             [self setVoteColor:[UIColor colorForVote:self.previousVoteStatus]];

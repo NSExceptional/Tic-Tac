@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef void (^VoidBlock)();
+#import <YakKit/YakKit.h>
 
 
 @interface TTWelcomeView : UIView
 
-@property (nonatomic, copy) VoidBlock useNewUserButtonAction;
-@property (nonatomic, copy) VoidBlock useTokenButtonAction;
-@property (nonatomic, copy) VoidBlock logoTapAction;
+@property (nonatomic, copy) YYVoidBlock useNewUserButtonAction;
+@property (nonatomic, copy) YYVoidBlock signInButtonAction;
+@property (nonatomic, copy) YYVoidBlock logoTapAction;
 
 @end

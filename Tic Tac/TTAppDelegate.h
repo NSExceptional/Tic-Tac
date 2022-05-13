@@ -15,7 +15,7 @@
 @property (nonatomic) UIWindow *window;
 @property (nonatomic, readonly) TTTabBarController *tabBarController;
 
-- (void)setupNewUser:(VoidBlock)completion;
+- (void)setupNewUser:(YYVoidBlock)completion;
 
 @end
 

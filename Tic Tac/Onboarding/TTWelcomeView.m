@@ -179,7 +179,7 @@
     if (sender == self.useNewUserButton){
         self.useNewUserButtonAction();
     } else if (sender == self.userTokenButton) {
-        self.useTokenButtonAction();
+        self.signInButtonAction();
     } else if (sender == self.authTokenButton) {
         
     } else {
@@ -187,7 +187,7 @@
     }
 }
 
-- (void)setLogoTapAction:(VoidBlock)logoTapAction {
+- (void)setLogoTapAction:(YYVoidBlock)logoTapAction {
     _logoTapAction = [logoTapAction copy];
     if (logoTapAction) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoTapped)];
