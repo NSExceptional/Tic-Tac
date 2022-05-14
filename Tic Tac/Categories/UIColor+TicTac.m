@@ -58,4 +58,64 @@
     }
 }
 
++ (UIColor *)colorWithHexString:(NSString *)hex {
+    NSString *colorString = [hex stringByReplacingOccurrencesOfString:@"#" withString:@""].uppercaseString;
+    CGFloat alpha, red, blue, green;
+    
+    switch (colorString.length) {
+        // #RGB
+        case 3: {
+            alpha = 1.0f;
+            red = [self colorComponentFrom:colorString start:0 length:1];
+            green = [self colorComponentFrom:colorString start:1 length:1];
+            blue = [self colorComponentFrom:colorString start:2 length:1];
+            
+            break;
+        }
+        // #ARGB
+        case 4: {
+            alpha = [self colorComponentFrom:colorString start:0 length:1];
+            red = [self colorComponentFrom:colorString start:1 length:1];
+            green = [self colorComponentFrom:colorString start:2 length:1];
+            blue = [self colorComponentFrom:colorString start:3 length:1];
+            
+            break;
+        }
+        // #RRGGBB
+        case 6: {
+            alpha = 1.0f;
+            red = [self colorComponentFrom:colorString start:0 length:2];
+            green = [self colorComponentFrom:colorString start:2 length:2];
+            blue = [self colorComponentFrom:colorString start:4 length:2];
+            
+            break;
+        }
+        // #AARRGGBB
+        case 8: {
+            alpha = [self colorComponentFrom:colorString start:0 length:2];
+            red = [self colorComponentFrom:colorString start:2 length:2];
+            green = [self colorComponentFrom:colorString start:4 length:2];
+            blue = [self colorComponentFrom:colorString start:6 length:2];
+            
+            break;
+        }
+            
+        default: {
+            @throw NSInternalInconsistencyException;
+            break;
+        }
+    }
+    
+    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+}
+
++ (CGFloat)colorComponentFrom:(NSString *)string start:(NSUInteger)start length:(NSUInteger)length {
+    NSString *substr = [string substringWithRange: NSMakeRange(start, length)];
+    NSString *hex = length == 2 ? substr : [NSString stringWithFormat: @"%@%@", substr, substr];
+    unsigned hexComponent;
+    [[NSScanner scannerWithString:hex] scanHexInt:&hexComponent];
+    
+    return hexComponent / 255.0;
+}
+
 @end

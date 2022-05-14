@@ -24,4 +24,7 @@
 
 + (UIColor *)colorForVote:(YYVoteStatus)vote;
 
++ (UIColor *)colorWithHexString:(NSString *)hex;
++ (CGFloat)colorComponentFrom:(NSString *)string start:(NSUInteger)start length:(NSUInteger)length;
+
 @end
