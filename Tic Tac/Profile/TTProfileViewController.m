@@ -92,7 +92,7 @@ static NSString * const kProfileReuse = @"kProfileReuse";
         if (++count == 3) {
             [TBNetworkActivity pop];
             [wait dismiss];
-            TTTabBarController *tabs = (id)[UIApplication sharedApplication].keyWindow.rootViewController;
+            TTTabBarController *tabs = (id)UIApplication.sharedApplication.delegate.window.rootViewController;
             [tabs notifyUserIsReady];
         }
     };

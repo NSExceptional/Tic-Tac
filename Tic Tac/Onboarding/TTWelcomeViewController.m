@@ -50,7 +50,7 @@
         [appdelegate setupNewUser:^{
             // Present, set window root, notify
             [self presentViewController:self.tabBarController animated:YES completion:^{
-                [UIApplication sharedApplication].keyWindow.rootViewController = appdelegate.tabBarController;
+                UIApplication.sharedApplication.delegate.window.rootViewController = appdelegate.tabBarController;
                 [appdelegate.tabBarController notifyUserIsReady];
             }];
         }];
@@ -166,7 +166,7 @@
         [self.navigationController ?: self dismissAnimated];
     } else {
         [self presentViewController:tabBarController animated:YES completion:^{
-            UIApplication.sharedApplication.keyWindow.rootViewController = tabBarController;
+            UIApplication.sharedApplication.delegate.window.rootViewController = tabBarController;
             [tabBarController notifyUserIsReady];
         }];
     }
