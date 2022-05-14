@@ -79,8 +79,8 @@
 #pragma mark Notifications
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSString *title = @"Did Register with APNS";
     NSString *token = @(*((NSUInteger *)deviceToken.bytes)).stringValue;
+//    NSString *title = @"Did Register with APNS";
 //    [[TBAlertController simpleOKAlertWithTitle:title message:token] showNow];
     NSLog(@"🟦 Did Register with APNS: %@", token);
     
