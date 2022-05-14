@@ -20,6 +20,19 @@
 
 @implementation TTAppDelegate
 
++ (void)load {
+    FLEXMethod *bundleID = [NSBundle flex_methodNamed:@"bundleIdentifier"];
+    IMP orig = bundleID.implementation;
+    bundleID.implementation = imp_implementationWithBlock(^(NSBundle *bundle) {
+        NSString *identifier = ((NSString *(*)(id, SEL))orig)(bundle, @selector(bundleIdentifier));
+        if (bundle == NSBundle.mainBundle) {
+            return @"com.yikyak.2";
+        }
+        
+        return identifier;
+    });
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Window
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
