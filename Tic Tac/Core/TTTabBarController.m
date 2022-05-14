@@ -56,7 +56,6 @@
 - (void)notifyUserIsReady {
     self.ready = YES;
  
-    [[YYClient sharedClient] updateConfiguration:nil];
     [[YYClient sharedClient] updateUser:^(NSError *error) {
         if (!error) {
             YYClient *client = [YYClient sharedClient];

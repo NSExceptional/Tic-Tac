@@ -104,11 +104,6 @@ static NSString * const kProfileReuse = @"kProfileReuse";
         wait.message = @"Updated user…";
         maybeDismiss();
     }];
-    [[YYClient sharedClient] updateConfiguration:^(NSError *error) {
-        [self displayOptionalError:error];
-        wait.message = @"Updated configuration…";
-        maybeDismiss();
-    }];
 }
 
 - (void)setSelectedProfileIdx:(NSInteger)idx {
