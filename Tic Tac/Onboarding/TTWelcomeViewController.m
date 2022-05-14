@@ -54,10 +54,10 @@
     };
     
     // Use an existing profile
-    self.welcomeView.useTokenButtonAction = ^{
+    self.welcomeView.signInButtonAction = ^{
         // Temporary until I feel like designing an entire screen for this
         if ([YYClient sharedClient].location) {
-            [self promptForUserIdentifier];
+            [self promptForPhoneNumber];
         } else {
             [self promptForLocation];
         }
@@ -69,68 +69,126 @@
     [getLocationPrompt addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Latitude";
         textField.delegate = self;
+        textField.text = @"31.534173";
     }];
     [getLocationPrompt addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Longitude";
         textField.delegate = self;
+        textField.text = @"-97.123863";
     }];
     
     [getLocationPrompt setCancelButtonWithTitle:@"Cancel"];
     [getLocationPrompt addOtherButtonWithTitle:@"Next" buttonAction:^(NSArray<NSString*> *textFieldStrings) {
         CLLocationDegrees lat = textFieldStrings[0].floatValue;
         CLLocationDegrees lng = textFieldStrings[1].floatValue;
-        [YYClient sharedClient].location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
-        [self promptForUserIdentifier];
+        YYClient.sharedClient.location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+        [self promptForPhoneNumber];
     }];
     
     [getLocationPrompt showFromViewController:self];
 }
 
-- (void)promptForUserIdentifier {
-    NSString *message = @"Your handle, yakarma, and notifications will be restored.";
-    TBAlertController *getUserIdentifierPrompt = [TBAlertController alertViewWithTitle:@"Log-in with user token" message:message];
-    [getUserIdentifierPrompt addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
-    [getUserIdentifierPrompt setCancelButtonWithTitle:@"Cancel"];
-    [getUserIdentifierPrompt addOtherButtonWithTitle:@"Go" buttonAction:^(NSArray *textFieldStrings) {
-        
-        // Display the tab bar, or tell them it wasn't a valid user token.
-        if (YYIsValidUserIdentifier(textFieldStrings[0])) {
-            // Must be grabbed before setting current user ID
-            TTTabBarController *tabBarController = self.tabBarController;
-            [NSUserDefaults setCurrentUserIdentifier:textFieldStrings[0]];
-            [YYClient sharedClient].userIdentifier = textFieldStrings[0];
+- (void)promptForPhoneNumber {
+    [TBAlert makeAlert:^(TBAlert *make) {
+        make.title(@"Sign In with Your Phone Number");
+        make.message(@"Your handle, yakarma, and notifications will be restored.");
+        make.configuredTextField(^(UITextField *textField) {
+            textField.placeholder = @"Phone Number";
+            textField.keyboardType = UIKeyboardTypePhonePad;
             
-            if (self.presentingViewController) {
-                [self.tabBarController notifyUserIsReady];
-                [self.navigationController ?: self dismissAnimated];
-            } else {
-                [self presentViewController:tabBarController animated:YES completion:^{
-                    [UIApplication sharedApplication].keyWindow.rootViewController = tabBarController;
-                    [tabBarController notifyUserIsReady];
+            textField.textContentType = UITextContentTypeTelephoneNumber;
+            textField.returnKeyType = UIReturnKeyGo;            
+        });
+        make.button(@"Cancel").cancelStyle();
+        make.button(@"Go").handler(^(NSArray<NSString *> *textFieldStrings) {
+            // Display the tab bar, or tell them it wasn't a valid user token.
+            if (YYIsValidPhoneNumber(textFieldStrings[0])) {
+                NSString *phone = YYExtractFormattedPhoneNumber(textFieldStrings[0]);
+                
+                // Display loading alert
+                TBAlertController *loading = [TBAlertController alertViewWithTitle:@"One Moment…" message:nil];
+                [loading showFromViewController:self];
+                
+                [YYClient.sharedClient startSignInWithPhone:phone verify:^(NSString *vid, NSError *error) {
+                    [loading dismissAnimated:YES completion:^{
+                        if (error) {
+                            [self signInFailed:error];
+                        } else {
+                            [self promptForVerificationCode:vid];
+                        }
+                    }];
+                    
                 }];
             }
-        }
-        else {
-            [self notifyOfIncorrectUserIdentifierFormat];
-        }
-    }];
-    
-    [getUserIdentifierPrompt showFromViewController:self];
+            else {
+                [self notifyOfIncorrectPhoneFormat];
+            }
+        });
+    } showFrom:self];
 }
 
-- (void)notifyOfIncorrectUserIdentifierFormat {
-    NSString *message = @"Looks like that wasn't a valid user token. Try again.";
-    TBAlertController *tryAgain = [TBAlertController alertViewWithTitle:@"Oops!" message:message];
-    [tryAgain addOtherButtonWithTitle:@"OK" buttonAction:^(NSArray *textFieldStrings) {
-        [self promptForUserIdentifier];
-    }];
+- (void)promptForVerificationCode:(NSString *)verificationID {
+    [TBAlert makeAlert:^(TBAlert * _Nonnull make) {
+        make.title(@"SMS Verification").message(@"Enter the code we sent you.");
+        make.configuredTextField(^(UITextField *textField) {
+            textField.placeholder = @"6-digit code";
+            textField.keyboardType = UIKeyboardTypePhonePad;
+            textField.textContentType = UITextContentTypeTelephoneNumber;
+            textField.returnKeyType = UIReturnKeyGo;    
+        });
+        make.button(@"Cancel").cancelStyle();
+        make.button(@"Verify").handler(^(NSArray<NSString *> *strings) {
+            // Display loading alert
+            TBAlertController *loading = [TBAlertController alertViewWithTitle:@"One Moment…" message:nil];
+            [loading showFromViewController:self];
+            
+            [YYClient.sharedClient verifyPhone:strings[0] identifier:verificationID completion:^(NSError *error) {
+                [loading dismissAnimated:YES completion:^{
+                    if (error) {
+                        [self signInFailed:error];
+                    } else {
+                        [self didSignIn];
+                    }
+                }];
+            }];
+        });
+    } showFrom:self];
+}
+
+- (void)didSignIn {
+    TTTabBarController *tabBarController = self.tabBarController;
     
-    [tryAgain showFromViewController:self];
+    if (self.presentingViewController) {
+        [self.tabBarController notifyUserIsReady];
+        [self.navigationController ?: self dismissAnimated];
+    } else {
+        [self presentViewController:tabBarController animated:YES completion:^{
+            UIApplication.sharedApplication.keyWindow.rootViewController = tabBarController;
+            [tabBarController notifyUserIsReady];
+        }];
+    }
+}
+
+- (void)notifyOfIncorrectPhoneFormat {
+    [TBAlert makeAlert:^(TBAlert *make) {
+        make.title(@"Oops!");
+        make.message(@"Looks like that wasn't a valid US phone number. Try again. Include your area code.");
+        make.button(@"Dismiss").cancelStyle().handler(^(NSArray<NSString *> *strings) {
+            [self promptForPhoneNumber];
+        });
+    } showFrom:self];
+}
+
+- (void)signInFailed:(NSError *)error {
+    [TBAlert makeAlert:^(TBAlert *make) {
+        make.title(@"Sign In Failed").message(error.localizedDescription);
+        make.button(@"Dismiss").cancelStyle();
+    } showFrom:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
 }
 
 #pragma mark UITextFieldDelegate

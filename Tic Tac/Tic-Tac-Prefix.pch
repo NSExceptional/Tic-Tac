@@ -22,6 +22,7 @@
 #pragma mark Categories
 
 #import "Objc-iOS-Extensions.h"
+#import "NSArray+Util.h"
 #import "UIColor+TicTac.h"
 #import "UIViewController+TicTac.h"
 #import "NSUserDefaults+Preferences.h"

@@ -10,6 +10,8 @@
 #import "TTWelcomeViewController.h"
 #import "TBAlertController+Anywhere.h"
 #import "TTCache.h"
+#import <FLEX.h>
+@import UserNotifications;
 @import Firebase;
 
 #define kYYLat 31.534173
@@ -66,8 +68,50 @@
     tap.numberOfTouchesRequired = 3;
     [self.window addGestureRecognizer:tap];
     
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound)
+        completionHandler:^(BOOL granted, NSError *error) {
+    }];
+    
     return YES;
 }
+
+#pragma mark Notifications
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *title = @"Did Register with APNS";
+    NSString *token = @(*((NSUInteger *)deviceToken.bytes)).stringValue;
+//    [[TBAlertController simpleOKAlertWithTitle:title message:token] showNow];
+    NSLog(@"🟦 Did Register with APNS: %@", token);
+    
+    [[FIRAuth auth] setAPNSToken:deviceToken type:FIRAuthAPNSTokenTypeProd];
+}
+
+- (void)application:(UIApplication *)app didReceiveRemoteNotification:(NSDictionary *)notification {
+//    NSString *title = @"Did Receive Push Notification";
+//    [[TBAlertController simpleOKAlertWithTitle:title message:notification.description] showNow];
+}
+
+- (void)application:(UIApplication *)app didReceiveRemoteNotification:(NSDictionary *)notification
+                                               fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completion {
+//    NSString *title = @"Did Receive Background Notification";
+//    [[TBAlertController simpleOKAlertWithTitle:title message:notification.description] showNow];
+    
+    if ([FIRAuth.auth canHandleNotification:notification]) {
+        completion(UIBackgroundFetchResultNoData);
+        return;
+    }
+}
+
+//- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+//       willPresentNotification:(UNNotification *)notification
+//         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler API_AVAILABLE(ios(14.0)) {
+//    NSString *title = @"Did Receive Push Notification";
+//    [[TBAlertController simpleOKAlertWithTitle:title message:notification.request.content.title] showNow];
+//    completionHandler(UNNotificationPresentationOptionBanner);
+//}
+
+#pragma mark Other events
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     [TTCache maybeSaveAllComments];
@@ -94,19 +138,8 @@
     return [TTTabBarController new];
 }
 
-- (void)setupNewUser:(VoidBlock)completion {
-    [[FIRPhoneAuthProvider provider]
-        verifyPhoneNumber:@"XXXXXXXXXX"
-        UIDelegate:nil
-        completion:^(NSString *verificationID, NSError *error) {
-            if (error) {
-                [TBAlertController simpleOKAlertWithTitle:@"Error" message:error.localizedDescription];
-                return;
-            }
-        
-            [TBAlertController simpleOKAlertWithTitle:@"Logged In!" message:verificationID];
-        }
-    ];
+- (void)setupNewUser:(YYVoidBlock)completion {
+
 }
 
 @end
