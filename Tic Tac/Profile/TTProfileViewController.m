@@ -39,7 +39,7 @@ static NSString * const kProfileReuse = @"kProfileReuse";
 }
 
 - (void)updateTitle {
-    YYUser *user = [YYClient sharedClient].currentUser;
+    YYUser *user = YYClient.sharedClient.currentUser;
     self.title = user.handle ? [NSString stringWithFormat:@"%@ | %@", user.handle, @(user.karma).stringValue] : @(user.karma).stringValue;
     self.navigationController.title = user.handle ?: @"Profile";
 }
@@ -98,8 +98,8 @@ static NSString * const kProfileReuse = @"kProfileReuse";
     };
     
     [NSUserDefaults setCurrentUserIdentifier:identifier];
-    [YYClient sharedClient].userIdentifier = identifier;
-    [[YYClient sharedClient] updateUser:^(NSError *error) {
+    YYClient.sharedClient.userIdentifier = identifier;
+    [YYClient.sharedClient updateUser:^(NSError *error) {
         [self displayOptionalError:error];
         wait.message = @"Updated user…";
         maybeDismiss();

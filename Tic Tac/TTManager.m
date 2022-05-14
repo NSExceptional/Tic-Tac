@@ -27,7 +27,7 @@
 }
 
 + (void)superSomething:(void(^)(YYClient *client))action {
-    CLLocation *orig = [YYClient sharedClient].location;
+    CLLocation *orig = YYClient.sharedClient.location;
     
     NSInteger i = 0;
     [TBNetworkActivity push];

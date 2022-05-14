@@ -56,7 +56,7 @@
     // Use an existing profile
     self.welcomeView.signInButtonAction = ^{
         // Temporary until I feel like designing an entire screen for this
-        if ([YYClient sharedClient].location) {
+        if (YYClient.sharedClient.location) {
             [self promptForPhoneNumber];
         } else {
             [self promptForLocation];

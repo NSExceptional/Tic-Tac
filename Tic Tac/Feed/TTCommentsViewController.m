@@ -28,7 +28,7 @@
 + (instancetype)commentsForNotification:(YYNotification *)notification {
     TTCommentsViewController *comments = [self new];
     
-    [[YYClient sharedClient] getYak:notification completion:^(YYYak *yak, NSError *error) {
+    [YYClient.sharedClient getYak:notification completion:^(YYYak *yak, NSError *error) {
         [comments displayOptionalError:error];
         if (!error) {
             [TTCache cacheYak:yak];
@@ -115,7 +115,7 @@
     self.loadingData = YES;
     
     // Load comments from usual account
-    [[YYClient sharedClient] getCommentsForYak:self.yak completion:^(NSArray *collection, NSError *error) {
+    [YYClient.sharedClient getCommentsForYak:self.yak completion:^(NSArray *collection, NSError *error) {
         loadingUsed = NO;
         self.loadingData = loadingUnused && loadingUsed;
         
@@ -144,7 +144,7 @@
     NSString *unused = [NSUserDefaults unusedUserIdentifier];
     if ([NSUserDefaults showBlockedContent] && unused) {
         // Make temporary client
-        YYClient *temp = [YYClient sharedClient].copy;
+        YYClient *temp = YYClient.sharedClient.copy;
         temp.userIdentifier = unused;
         
         loadingUnused = YES;
@@ -187,7 +187,7 @@
 
 - (void)reloadCommentSectionData {
     // Delete button
-    if ([self.yak.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
+    if ([self.yak.authorIdentifier isEqualToString:YYClient.sharedClient.currentUser.identifier]) {
         id delete = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePost)];
         self.navigationItem.rightBarButtonItem = delete;
     }
@@ -200,7 +200,7 @@
     [self.navigationController popViewControllerAnimated:YES];
     
     [TBNetworkActivity push];
-    [[YYClient sharedClient] deleteYakOrComment:self.yak completion:^(NSError *error) {
+    [YYClient.sharedClient deleteYakOrComment:self.yak completion:^(NSError *error) {
         [TBNetworkActivity pop];
         [self displayOptionalError:error];
     }];
@@ -254,10 +254,10 @@
         [UIPasteboard generalPasteboard].string = comment.body;
     }];
     
-    if ([comment.authorIdentifier isEqualToString:[YYClient sharedClient].currentUser.identifier]) {
+    if ([comment.authorIdentifier isEqualToString:YYClient.sharedClient.currentUser.identifier]) {
         [options addOtherButtonWithTitle:@"Delete" buttonAction:^(NSArray *textFieldStrings) {
             [TBNetworkActivity push];
-            [[YYClient sharedClient] deleteYakOrComment:comment completion:^(NSError *error) {
+            [YYClient.sharedClient deleteYakOrComment:comment completion:^(NSError *error) {
                 [TBNetworkActivity pop];
                 [self displayOptionalError:error];
                 if (!error) {
@@ -313,7 +313,7 @@
 - (void)submitReplyToYak:(NSString *)reply useHandle:(BOOL)useHandle {
     NSParameterAssert(reply.length < 200 && reply.length > 0);
     
-    [[YYClient sharedClient] postComment:reply toYak:self.yak useHandle:useHandle completion:^(NSError *error) {
+    [YYClient.sharedClient postComment:reply toYak:self.yak useHandle:useHandle completion:^(NSError *error) {
         [self displayOptionalError:error message:@"Failed to submit reply"];
         if (!error) {
             [self reloadComments];

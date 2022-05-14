@@ -53,8 +53,8 @@
     // Login / get current user
     NSString *userIdentifier = NSUserDefaults.currentUserIdentifier;
     if (userIdentifier) {
-        [YYClient sharedClient].userIdentifier = userIdentifier;
-        [YYClient sharedClient].location = [[CLLocation alloc] initWithLatitude:kYYLat longitude:kYYLong];
+        YYClient.sharedClient.userIdentifier = userIdentifier;
+        YYClient.sharedClient.location = [[CLLocation alloc] initWithLatitude:kYYLat longitude:kYYLong];
         
         self.window.rootViewController = [TTTabBarController new];
         [self.tabBarController notifyUserIsReady];

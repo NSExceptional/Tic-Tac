@@ -83,7 +83,7 @@
         [self setVoteColor:[UIColor noVoteColor]];
         [self setupSwipeActions];
         
-        [[YYClient sharedClient] removeVote:self.votable completion:undo];
+        [YYClient.sharedClient removeVote:self.votable completion:undo];
     };
     self.upvote = swipeDone { @strongify(self);
         if (self.previousVoteStatus == YYVoteStatusUpvoted) {
@@ -98,7 +98,7 @@
             self.previousColor         = self.votingLabel.textColor;
             self.newVoteStatus         = YYVoteStatusUpvoted;
             [self setVoteColor:[UIColor upvoteColor]];
-            [[YYClient sharedClient] upvote:self.votable completion:undo];
+            [YYClient.sharedClient upvote:self.votable completion:undo];
         }
         
         [self setupSwipeActions];
@@ -116,7 +116,7 @@
             self.previousColor         = self.votingLabel.textColor;
             self.newVoteStatus         = YYVoteStatusDownvoted;
             [self setVoteColor:[UIColor downvoteColor]];
-            [[YYClient sharedClient] downvote:self.votable completion:undo];
+            [YYClient.sharedClient downvote:self.votable completion:undo];
         }
         
         [self setupSwipeActions];

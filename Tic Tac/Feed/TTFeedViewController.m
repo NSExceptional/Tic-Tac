@@ -45,7 +45,7 @@
     if (self.loadingData) return;
     
     self.loadingData = YES;
-    [[YYClient sharedClient] getLocalYaks:^(NSArray *collection, NSError *error) {
+    [YYClient.sharedClient getLocalYaks:^(NSArray *collection, NSError *error) {
         self.loadingData = NO;
         [self displayOptionalError:error];
         if (!error) {
@@ -60,7 +60,7 @@
 - (void)composePost {
     [self.navigationController presentViewController:[TTReplyViewController initialText:nil limit:200 onSubmit:^(NSString *text, BOOL useHandle) {
         [TBNetworkActivity push];
-        [[YYClient sharedClient] postYak:text useHandle:useHandle completion:^(NSError *error) {
+        [YYClient.sharedClient postYak:text useHandle:useHandle completion:^(NSError *error) {
             [self displayOptionalError:error];
             [TBNetworkActivity pop];
         }];

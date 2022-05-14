@@ -38,7 +38,7 @@
     if (self.loadingData) return;
     
     self.loadingData = YES;
-    [[YYClient sharedClient] getNotifications:^(NSArray *collection, NSError *error) {
+    [YYClient.sharedClient getNotifications:^(NSArray *collection, NSError *error) {
         self.loadingData = NO;
         [self displayOptionalError:error];
         [self.refreshControl endRefreshing];
@@ -55,7 +55,7 @@
     
     __block int count = 0;
     for (YYNotification *note in self.dataSource) {
-        [[YYClient sharedClient] mark:note read:YES completion:^(NSError *error) {
+        [YYClient.sharedClient mark:note read:YES completion:^(NSError *error) {
             [self displayOptionalError:error];
             if (++count == self.dataSource.count) {
                 self.markingRead = NO;
@@ -63,7 +63,7 @@
             }
         }];
     }
-    //    [[YYClient sharedClient] markEach:self.dataSource read:YES completion:^(NSError *error) {
+    //    [YYClient.sharedClient markEach:self.dataSource read:YES completion:^(NSError *error) {
     //        self.markingRead = NO;
     //        [self displayOptionalError:error];
     //        [self refresh];
@@ -125,7 +125,7 @@
     }
     
     if (notification.unread) {
-        [[YYClient sharedClient] mark:notification read:YES completion:^(NSError *error) {
+        [YYClient.sharedClient mark:notification read:YES completion:^(NSError *error) {
             [self displayOptionalError:error];
             [notification setValue:@NO forKey:@"unread"];
             [self updateBadge];
