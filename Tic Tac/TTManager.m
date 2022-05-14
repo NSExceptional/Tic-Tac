@@ -33,7 +33,6 @@
     [TBNetworkActivity push];
     for (NSString *userIdentifier in [NSUserDefaults allUserIdentifiers]) {
         YYClient *temp = [YYClient new];
-        temp.region    = kRegionUSCentral;
         temp.location  = [self scatter:orig];
         temp.userIdentifier = userIdentifier;
         
