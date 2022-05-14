@@ -10,9 +10,9 @@
 
 
 /// Map of {yak id: path}
-static NSMutableDictionary *pathsToCommentCaches;
-static NSMutableOrderedSet *yaks;
-static NSCache<NSString *, NSMutableArray *> *yaksToComments;
+static NSMutableDictionary<NSString *, NSString *> *pathsToCommentCaches;
+static NSMutableOrderedSet<YYYak *> *yaks;
+static NSCache<NSString *, NSMutableArray<YYComment *> *> *yaksToComments;
 static NSMutableOrderedSet *visitedPostIdentifiers;
 static NSString *documentsDirectory;
 static NSString *pathToYaks;
@@ -75,9 +75,9 @@ static NSUInteger const kVisitedPostsSize = 10000;
 + (void)loadYakCache {
     if ([NSFileManager.defaultManager fileExistsAtPath:pathToYaks isDirectory:nil]) {
         // Load and unarchive yaks
-        NSArray *datas = [NSArray arrayWithContentsOfFile:pathToYaks];
+        NSArray<NSData *> *datas = [NSArray arrayWithContentsOfFile:pathToYaks];
         [yaks addObjectsFromArray:[datas arrayByApplyingBlockToElements:^id(NSData *data) {
-            return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            return [NSKeyedUnarchiver unarchivedObjectOfClass:[YYYak class] fromData:data error:nil];
         }]];
     } else {
         if (![@[] writeToFile:pathToYaks atomically:YES]) {
@@ -104,12 +104,14 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 + (void)readCommentCacheDirectory {
     if ([NSFileManager.defaultManager fileExistsAtPath:pathToCommentsDirectory isDirectory:nil]) {
-        NSArray *comments = [NSFileManager.defaultManager contentsOfDirectoryAtPath:pathToCommentsDirectory error:nil];
+        NSArray<NSString *> *comments = [NSFileManager.defaultManager
+            contentsOfDirectoryAtPath:pathToCommentsDirectory error:nil
+        ];
         
-        NSArray *commentPaths = [comments arrayByApplyingBlockToElements:^id(NSString *filename) {
+        NSArray<NSString *> *commentPaths = [comments arrayByApplyingBlockToElements:^id(NSString *filename) {
             return [pathToCommentsDirectory stringByAppendingPathComponent:filename];
         }];
-        NSArray *yakIdentifiers = [comments arrayByApplyingBlockToElements:^id(NSString *name) {
+        NSArray<NSString *> *yakIdentifiers = [comments arrayByApplyingBlockToElements:^id(NSString *name) {
             return [@"R/" stringByAppendingString:[name stringByReplacingOccurrencesOfString:@".plist" withString:@""]];
         }];
         
@@ -140,7 +142,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     }
 }
 
-+ (void)saveComments:(NSArray *)comments forYakWithIdentifier:(NSString *)identifier {
++ (void)saveComments:(NSArray<YYComment *> *)comments forYakWithIdentifier:(NSString *)identifier {
     // Get path or create path and store it
     NSString *path = pathsToCommentCaches[identifier];
     if (!path) {
@@ -183,14 +185,14 @@ static NSUInteger const kVisitedPostsSize = 10000;
     if (path && [NSFileManager.defaultManager fileExistsAtPath:path isDirectory:nil]) {
         
         // Load comments at path, unarchive
-        NSArray *comments = [NSArray arrayWithContentsOfFile:path];
-        comments = [comments arrayByApplyingBlockToElements:^id(NSData *data) {
-            return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSArray<NSData *> *commentsData = [NSArray arrayWithContentsOfFile:path];
+        NSArray<YYComment *> *comments = [commentsData arrayByApplyingBlockToElements:^id(NSData *data) {
+            return [NSKeyedUnarchiver unarchivedObjectOfClass:[YYComment class] fromData:data error:nil];
         }];
         
         NSAssert(comments.count, @"Comments are only archived if there are more than 0 of them, something is wrong");
         
-        NSMutableArray *memory = [yaksToComments objectForKey:identifier];
+        NSMutableArray<YYComment *> *memory = [yaksToComments objectForKey:identifier];
         if (memory) {
             memory = [self mergeOld:memory into:comments];
         } else {
@@ -212,7 +214,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     
     // Remove first so we keep the most up to date yak.
     // Cache is only trimmed on application launch.
-    NSMutableArray *comments = [self _commentsForYakWithIdentifier:comment.yakIdentifier];
+    NSMutableArray<YYComment *> *comments = [self _commentsForYakWithIdentifier:comment.yakIdentifier];
     
     [comments removeObject:comment];
     [comments addObject:comment];
@@ -224,7 +226,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     commentCacheDelta = YES;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *cached = [self _commentsForYakWithIdentifier:identifier];
+        NSMutableArray<YYComment *> *cached = [self _commentsForYakWithIdentifier:identifier];
         
         // Add to memory cache
         cached = [self mergeOld:cached into:comments];
@@ -237,7 +239,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     NSInteger daysToKeepHistory = [NSUserDefaults daysToKeepHistory];
     
     // Remove caches over N days old
-    NSMutableArray *toRemove = [NSMutableArray array];
+    NSMutableArray<NSString *> *toRemove = [NSMutableArray array];
     [pathsToCommentCaches enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, NSString *path, BOOL *stop) {
         NSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:nil];
         if (attributes) {
@@ -268,7 +270,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     NSInteger daysToKeepHistory = [NSUserDefaults daysToKeepHistory];
     
     // Remove old yaks
-    NSMutableArray *toRemove = [NSMutableArray array];
+    NSMutableArray<YYYak *> *toRemove = [NSMutableArray array];
     for (YYYak *yak in yaks) {
         if ([yak.created daysBeforeDate:now] > daysToKeepHistory) {
             [toRemove addObject:yak];
