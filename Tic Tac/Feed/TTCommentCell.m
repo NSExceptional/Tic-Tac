@@ -7,12 +7,12 @@
 //
 
 #import "TTCommentCell.h"
-
+#import "UIColor+TicTac.h"
 
 static NSDictionary *avatars;
 
 @interface TTCommentCell ()
-@property (nonatomic, readonly) UIImageView *iconImageView;
+@property (nonatomic, readonly) UILabel *iconLabel;
 @end
 
 @implementation TTCommentCell
@@ -29,20 +29,20 @@ static NSDictionary *avatars;
  
     self.replyCountLabel.hidden = YES;
     
-    _iconImageView = [[UIImageView alloc] initWithImage:nil];
-    self.iconImageView.clipsToBounds = YES;
-    self.iconImageView.contentMode   = UIViewContentModeScaleAspectFill;
-    [self.iconImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [self.contentView addSubview:self.iconImageView];
+    _iconLabel = [[UIImageView alloc] initWithImage:nil];
+    self.iconLabel.clipsToBounds = YES;
+    self.iconLabel.contentMode   = UIViewContentModeScaleAspectFill;
+    [self.iconLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.contentView addSubview:self.iconLabel];
 }
 
-- (MASViewAttribute *)leftOfTitleLabel { return self.iconImageView.mas_trailing; }
+- (MASViewAttribute *)leftOfTitleLabel { return self.iconLabel.mas_trailing; }
 - (void)updateConstraints {
     CGFloat inset = self.separatorInset.left;
     CGFloat horizontalTopBottomInset = 12;//inset * (2.f/3.f);
     UIEdgeInsets insets = UIEdgeInsetsMake(horizontalTopBottomInset, inset, horizontalTopBottomInset, inset);
     
-    [self.iconImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.iconLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.equalTo(self.contentView).insets(insets);
     }];
     
@@ -55,21 +55,13 @@ static NSDictionary *avatars;
     }
 }
 
-- (void)setIcon:(UIImage *)icon {
-    self.iconImageView.image = icon;
-    self.iconImageView.layer.cornerRadius = icon.size.width/2.f;
-}
-
-- (void)setIcon:(NSString *)iconName withColor:(NSString *)colorName {
-    UIImage *icon  = [UIImage imageNamed:[@"icon_" stringByAppendingString:iconName]];
-    UIImage *color = [UIImage imageNamed:[@"color_" stringByAppendingString:colorName]];
-    
-    UIImage *avatar = [UIImage imageByDrawingIcon:icon onTopOf:color iconTint:nil bgColor:nil];
-    [self setIcon:avatar];
+- (void)setIcon:(NSString *)emoji withColor:(NSString *)hexColor {
+    self.iconLabel.text = emoji;
+    self.iconLabel.backgroundColor = [UIColor colorWithHexString:hexColor];
 }
 
 - (CGFloat)preferredTitleLabelMaxWidth {
-    return [super preferredTitleLabelMaxWidth] - (self.iconImageView.image.size.width + 15);
+    return [super preferredTitleLabelMaxWidth] - (self.iconLabel.frame.size.width + 15);
 }
 
 - (void)setRepliesEnabled:(BOOL)repliesEnabled {

@@ -285,7 +285,7 @@
         [self replyToUser:comment.username ?: comment.authorText];
     };
     
-    [cell setIcon:comment.overlayIdentifier withColor:comment.backgroundIdentifier];
+    [cell setIcon:comment.emoji withColor:comment.colorHex];
 }
 
 #pragma mark Replying

@@ -17,6 +17,6 @@
 
 @property (nonatomic, copy) YYVoidBlock longPressAction;
 
-- (void)setIcon:(NSString *)icon withColor:(NSString *)color;
+- (void)setIcon:(NSString *)emoji withColor:(NSString *)color;
 
 @end
