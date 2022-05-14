@@ -12,7 +12,7 @@
 /// Map of {yak id: path}
 static NSMutableDictionary *pathsToCommentCaches;
 static NSMutableOrderedSet *yaks;
-static NSCache<NSString*, NSMutableArray*> *yaksToComments;
+static NSCache<NSString *, NSMutableArray *> *yaksToComments;
 static NSMutableOrderedSet *visitedPostIdentifiers;
 static NSString *documentsDirectory;
 static NSString *pathToYaks;
@@ -127,14 +127,14 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 /// Used to serialize comments
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-    NSMutableArray<YYComment*> *comments = obj;
+    NSMutableArray<YYComment *> *comments = obj;
     [[self class] saveComments:comments forYakWithIdentifier:comments.firstObject.yakIdentifier];
 }
 
 + (void)maybeSaveAllComments {
     if (commentCacheDelta) {
         commentCacheDelta = NO;
-        for (NSArray<YYComment*> *comments in [yaksToComments valueForKey:@"allObjects"]) {
+        for (NSArray<YYComment *> *comments in [yaksToComments valueForKey:@"allObjects"]) {
             [self saveComments:comments forYakWithIdentifier:comments.firstObject.yakIdentifier];
         }
     }
@@ -152,19 +152,19 @@ static NSUInteger const kVisitedPostsSize = 10000;
     [comments archiveRootObjectsAndWriteToFile:path atomically:YES];
 }
 
-+ (NSCache<NSString*, NSMutableArray<YYComment*>*> *)commentCache {
++ (NSCache<NSString *, NSMutableArray<YYComment *>*> *)commentCache {
     return (id)yaksToComments;
 }
 
-+ (NSArray<YYComment*> *)commentsForYakWithIdentifier:(NSString *)identifier {
++ (NSArray<YYComment *> *)commentsForYakWithIdentifier:(NSString *)identifier {
     return [self _commentsForYakWithIdentifier:identifier].copy;
 }
 
-//+ (NSMutableArray<YYComment*> *)_commentsForYakWithIdentifier:(NSString *)identifier {
+//+ (NSMutableArray<YYComment *> *)_commentsForYakWithIdentifier:(NSString *)identifier {
 //    return [yaksToComments objectForKey:identifier] ?: [self diskCachedCommentsForYakWithIdentifier:identifier] ?: [NSMutableArray array];
 //}
 
-+ (NSMutableArray<YYComment*> *)_commentsForYakWithIdentifier:(NSString *)identifier {
++ (NSMutableArray<YYComment *> *)_commentsForYakWithIdentifier:(NSString *)identifier {
     id comments = [yaksToComments objectForKey:identifier];
     if (comments) {
         NSLog(@"Returning from memory cache");
@@ -178,7 +178,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     return [NSMutableArray array];
 }
 
-+ (NSMutableArray<YYComment*> *)diskCachedCommentsForYakWithIdentifier:(NSString *)identifier {
++ (NSMutableArray<YYComment *> *)diskCachedCommentsForYakWithIdentifier:(NSString *)identifier {
     NSString *path = pathsToCommentCaches[identifier];
     if (path && [NSFileManager.defaultManager fileExistsAtPath:path isDirectory:nil]) {
         
@@ -203,7 +203,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     return nil;
 }
 
-+ (void)cacheComments:(NSArray<YYComment*> *)comments forYak:(YYYak *)yak {
++ (void)cacheComments:(NSArray<YYComment *> *)comments forYak:(YYYak *)yak {
     [self addToCommentCache:comments forYak:yak.identifier];
 }
 
@@ -219,7 +219,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     [yaksToComments setObject:comments forKey:comment.yakIdentifier cost:comments.count];
 }
 
-+ (void)addToCommentCache:(NSArray<YYComment*> *)comments forYak:(NSString *)identifier {
++ (void)addToCommentCache:(NSArray<YYComment *> *)comments forYak:(NSString *)identifier {
     if (!comments.count) return;
     commentCacheDelta = YES;
     
@@ -259,7 +259,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 #pragma mark Yaks
 
-+ (NSOrderedSet<YYYak*> *)yakCache {
++ (NSOrderedSet<YYYak *> *)yakCache {
     return yaks;
 }
 
@@ -289,7 +289,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     }
 }
 
-+ (void)cacheYaks:(NSArray<YYYak*> *)newYaks {
++ (void)cacheYaks:(NSArray<YYYak *> *)newYaks {
     yakCacheDelta = YES;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -316,7 +316,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 #pragma mark Visited posts
 
-+ (NSOrderedSet<NSString*> *)visitedPosts {
++ (NSOrderedSet<NSString *> *)visitedPosts {
     return visitedPostIdentifiers;
 }
 
