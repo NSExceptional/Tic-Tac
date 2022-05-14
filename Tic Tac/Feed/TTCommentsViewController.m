@@ -146,7 +146,6 @@
         // Make temporary client
         YYClient *temp = [YYClient sharedClient].copy;
         temp.userIdentifier = unused;
-        temp.layerClient = nil;
         
         loadingUnused = YES;
         [temp getCommentsForYak:self.yak completion:^(NSArray *collection, NSError *error) {
