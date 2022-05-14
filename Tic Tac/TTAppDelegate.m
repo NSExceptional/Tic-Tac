@@ -83,12 +83,6 @@
     [UINavigationBar appearance].barTintColor = [UIColor themeColor];
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-    
-//    MKMethod *statusBar = [MKMethod methodForSelector:@selector(preferredStatusBarStyle)
-//                                                class:[UINavigationController class] instance:YES];
-//    [UINavigationController replaceImplementationOfMethod:statusBar with:imp_implementationWithBlock(^(UINavigationController *me) {
-//        return UIStatusBarStyleLightContent;
-//    }) useInstance:YES];
 }
 
 - (TTTabBarController *)tabBarController {
