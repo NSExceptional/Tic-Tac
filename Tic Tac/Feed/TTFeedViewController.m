@@ -75,12 +75,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YYYak *yak = self.arrayToUse[indexPath.row];
-    NSString *reuse;
-    if (yak.hasMedia) {
-        reuse = kFeedPhotoCellReuse;
-    } else {
-        reuse = kFeedTextCellReuse;
-    }
+    NSString *reuse = kFeedTextCellReuse;
     
     TTFeedTextCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:reuse];
     [self configureCell:cell forYak:yak];
@@ -133,10 +128,6 @@
         cell.replyCountLabel.text = @"1 reply";
     } else {
         cell.replyCountLabel.text = [NSString stringWithFormat:@"%@ replies", @(yak.replyCount)];
-    }
-    
-    if (yak.hasMedia) {
-        [self findOrLoadImageforCell:(id)cell forYak:yak];
     }
 }
 
