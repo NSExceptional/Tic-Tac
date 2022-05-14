@@ -191,7 +191,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+//    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
 }
 
 #pragma mark UITextFieldDelegate

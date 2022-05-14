@@ -123,7 +123,7 @@
 
 - (void)customizeAppearance {
     self.window.tintColor = UIColor.themeColor;
-    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+//    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
     UINavigationBar.appearance.barTintColor = UIColor.themeColor;
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
     UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
