@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.viewControllers = @[[TTFeedViewController inNavigationController],
+    self.viewControllers = @[TTFeedViewController.inNavigationController,
                              [TTNotificationsViewController inNavigationController],
                              [UIViewController inNavigationController],
                              [TTProfileViewController inNavigationController]];

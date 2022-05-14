@@ -22,7 +22,7 @@ static NSString * const kProfileReuse = @"kProfileReuse";
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitle) name:kYYDidUpdateUserNotification object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateTitle) name:kYYDidUpdateUserNotification object:nil];
     }
     
     return self;

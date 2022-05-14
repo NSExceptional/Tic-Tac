@@ -99,7 +99,7 @@
     
     TTNotificationCell *cell = (id)[self.tableView dequeueReusableCellWithIdentifier:reuse];
     [self configureCell:cell forNotification:notification];
-    cell.titleLabel.preferredMaxLayoutWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - 30.f;
+    cell.titleLabel.preferredMaxLayoutWidth = CGRectGetWidth(UIScreen.mainScreen.bounds) - 30.f;
     [cell layoutIfNeeded];
     return cell;
 }

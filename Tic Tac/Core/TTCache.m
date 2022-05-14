@@ -63,7 +63,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
 }
 
 + (void)loadVisitedPosts {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:pathToVisitedPosts isDirectory:nil]) {
+    if ([NSFileManager.defaultManager fileExistsAtPath:pathToVisitedPosts isDirectory:nil]) {
         [visitedPostIdentifiers addObjectsFromArray:[NSArray arrayWithContentsOfFile:pathToVisitedPosts]];
     } else {
         if (![@[] writeToFile:pathToVisitedPosts atomically:YES]) {
@@ -73,7 +73,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
 }
 
 + (void)loadYakCache {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:pathToYaks isDirectory:nil]) {
+    if ([NSFileManager.defaultManager fileExistsAtPath:pathToYaks isDirectory:nil]) {
         // Load and unarchive yaks
         NSArray *datas = [NSArray arrayWithContentsOfFile:pathToYaks];
         [yaks addObjectsFromArray:[datas arrayByApplyingBlockToElements:^id(NSData *data) {
@@ -103,8 +103,8 @@ static NSUInteger const kVisitedPostsSize = 10000;
 }
 
 + (void)readCommentCacheDirectory {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:pathToCommentsDirectory isDirectory:nil]) {
-        NSArray *comments = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:pathToCommentsDirectory error:nil];
+    if ([NSFileManager.defaultManager fileExistsAtPath:pathToCommentsDirectory isDirectory:nil]) {
+        NSArray *comments = [NSFileManager.defaultManager contentsOfDirectoryAtPath:pathToCommentsDirectory error:nil];
         
         NSArray *commentPaths = [comments arrayByApplyingBlockToElements:^id(NSString *filename) {
             return [pathToCommentsDirectory stringByAppendingPathComponent:filename];
@@ -117,7 +117,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
     }
     else {
         NSError *error = nil;
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:pathToCommentsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
+        if (![NSFileManager.defaultManager createDirectoryAtPath:pathToCommentsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
             [NSException raise:NSInternalInconsistencyException format:@"Unable to create yak comment cache directory: %@", error.localizedDescription];
         }
     }
@@ -180,7 +180,7 @@ static NSUInteger const kVisitedPostsSize = 10000;
 
 + (NSMutableArray<YYComment*> *)diskCachedCommentsForYakWithIdentifier:(NSString *)identifier {
     NSString *path = pathsToCommentCaches[identifier];
-    if (path && [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
+    if (path && [NSFileManager.defaultManager fileExistsAtPath:path isDirectory:nil]) {
         
         // Load comments at path, unarchive
         NSArray *comments = [NSArray arrayWithContentsOfFile:path];
@@ -239,10 +239,10 @@ static NSUInteger const kVisitedPostsSize = 10000;
     // Remove caches over N days old
     NSMutableArray *toRemove = [NSMutableArray array];
     [pathsToCommentCaches enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, NSString *path, BOOL *stop) {
-        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+        NSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:nil];
         if (attributes) {
-            if ([[attributes fileCreationDate] daysBeforeDate:now] > daysToKeepHistory) {
-                [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+            if ([attributes.fileCreationDate daysBeforeDate:now] > daysToKeepHistory) {
+                [NSFileManager.defaultManager removeItemAtPath:path error:nil];
                 [toRemove addObject:identifier];
             }
         }

@@ -41,7 +41,7 @@
 - (void)loadView {
     self.view = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-        view.backgroundColor = [UIColor whiteColor];
+        view.backgroundColor = UIColor.whiteColor;
         
         _textView = [[UITextView alloc] initWithFrame:CGRectZero];
         _textView.font = [UIFont systemFontOfSize:21];
@@ -79,7 +79,7 @@
         self.textViewHeight = make.height.equalTo(@(CGRectGetHeight(self.view.frame) - CGRectGetHeight(keyboardFrame)));
     }];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -91,7 +91,7 @@
                                                                                           target:self action:@selector(cancel)];
     
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidAppear:) name:UIKeyboardDidShowNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(keyboardDidAppear:) name:UIKeyboardDidShowNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

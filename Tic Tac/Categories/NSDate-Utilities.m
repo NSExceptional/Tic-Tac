@@ -21,14 +21,14 @@
 
 + (NSDate *)dateWithDaysFromNow:(NSUInteger)days
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_DAY * days;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] + D_DAY * days;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;	
 }
 
 + (NSDate *)dateWithDaysBeforeNow:(NSUInteger)days
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_DAY * days;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] - D_DAY * days;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;
 }
@@ -45,28 +45,28 @@
 
 + (NSDate *)dateWithHoursFromNow:(NSUInteger)dHours
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_HOUR * dHours;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] + D_HOUR * dHours;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;	
 }
 
 + (NSDate *)dateWithHoursBeforeNow:(NSUInteger)dHours
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_HOUR * dHours;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] - D_HOUR * dHours;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;	
 }
 
 + (NSDate *)dateWithMinutesFromNow:(NSUInteger)dMinutes
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
 
 + (NSDate *)dateWithMinutesBeforeNow:(NSUInteger)dMinutes
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_MINUTE * dMinutes;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] - D_MINUTE * dMinutes;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
@@ -86,17 +86,17 @@
 
 - (BOOL)isToday
 {
-	return [self isEqualToDateIgnoringTime:[NSDate date]];
+	return [self isEqualToDateIgnoringTime:NSDate.date];
 }
 
 - (BOOL)isTomorrow
 {
-	return [self isEqualToDateIgnoringTime:[NSDate dateTomorrow]];
+	return [self isEqualToDateIgnoringTime:NSDate.dateTomorrow];
 }
 
 - (BOOL)isYesterday
 {
-	return [self isEqualToDateIgnoringTime:[NSDate dateYesterday]];
+	return [self isEqualToDateIgnoringTime:NSDate.dateYesterday];
 }
 
 // This hard codes the assumption that a week is 7 days
@@ -114,19 +114,19 @@
 
 - (BOOL)isThisWeek
 {
-	return [self isSameWeekAsDate:[NSDate date]];
+	return [self isSameWeekAsDate:NSDate.date];
 }
 
 - (BOOL)isNextWeek
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_WEEK;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] + D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return [self isSameYearAsDate:newDate];
 }
 
 - (BOOL)isLastWeek
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_WEEK;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] - D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return [self isSameYearAsDate:newDate];
 }
@@ -140,13 +140,13 @@
 
 - (BOOL)isThisYear
 {
-	return [self isSameWeekAsDate:[NSDate date]];
+	return [self isSameWeekAsDate:NSDate.date];
 }
 
 - (BOOL)isNextYear
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSCalendarUnitYear fromDate:self];
-	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSCalendarUnitYear fromDate:[NSDate date]];
+	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSCalendarUnitYear fromDate:NSDate.date];
 	
 	return ([components1 year] == ([components2 year] + 1));
 }
@@ -154,7 +154,7 @@
 - (BOOL)isLastYear
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSCalendarUnitYear fromDate:self];
-	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSCalendarUnitYear fromDate:[NSDate date]];
+	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSCalendarUnitYear fromDate:NSDate.date];
 	
 	return ([components1 year] == ([components2 year] - 1));
 }
@@ -265,7 +265,7 @@
 
 - (NSInteger)nearestHour
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_MINUTE * 30;
+	NSTimeInterval aTimeInterval = [NSDate.date timeIntervalSinceReferenceDate] + D_MINUTE * 30;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	NSDateComponents *components = [CURRENT_CALENDAR components:NSCalendarUnitHour fromDate:newDate];
 	return [components hour];

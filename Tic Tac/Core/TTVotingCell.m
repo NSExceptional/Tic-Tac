@@ -80,7 +80,7 @@
     self.revokeVote = swipeDone { @strongify(self);
         self.previousColor         = self.votingLabel.textColor;
         self.newVoteStatus         = YYVoteStatusNone;
-        [self setVoteColor:[UIColor noVoteColor]];
+        [self setVoteColor:UIColor.noVoteColor];
         [self setupSwipeActions];
         
         [YYClient.sharedClient removeVote:self.votable completion:undo];
@@ -97,7 +97,7 @@
             [self incrementScore];
             self.previousColor         = self.votingLabel.textColor;
             self.newVoteStatus         = YYVoteStatusUpvoted;
-            [self setVoteColor:[UIColor upvoteColor]];
+            [self setVoteColor:UIColor.upvoteColor];
             [YYClient.sharedClient upvote:self.votable completion:undo];
         }
         
@@ -115,7 +115,7 @@
             [self decrementScore];
             self.previousColor         = self.votingLabel.textColor;
             self.newVoteStatus         = YYVoteStatusDownvoted;
-            [self setVoteColor:[UIColor downvoteColor]];
+            [self setVoteColor:UIColor.downvoteColor];
             [YYClient.sharedClient downvote:self.votable completion:undo];
         }
         
@@ -170,8 +170,8 @@
             break;
     }
     
-    [self setSwipeGestureWithView:upvoteView color:[UIColor upvoteColor] mode:self.mode state:MCSwipeTableViewCellState1 completionBlock:self.upvote];
-    [self setSwipeGestureWithView:downvoteView color:[UIColor downvoteColor] mode:self.mode state:MCSwipeTableViewCellState2 completionBlock:self.downvote];
+    [self setSwipeGestureWithView:upvoteView color:UIColor.upvoteColor mode:self.mode state:MCSwipeTableViewCellState1 completionBlock:self.upvote];
+    [self setSwipeGestureWithView:downvoteView color:UIColor.downvoteColor mode:self.mode state:MCSwipeTableViewCellState2 completionBlock:self.downvote];
 }
 
 /** Allows the swipe forward gesture to take precedence over the cell's gestures. */
@@ -205,7 +205,7 @@
     if (removed) {
         self.backgroundColor = [UIColor colorWithRed:1.000 green:0.500 blue:0.500 alpha:1.000];
     } else {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = UIColor.whiteColor;
     }
 }
 

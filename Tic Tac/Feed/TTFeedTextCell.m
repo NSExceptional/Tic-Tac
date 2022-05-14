@@ -40,7 +40,7 @@
     for (NSInteger i = 0; i < 5; i++) {
         UILabel *label  = [[UILabel alloc] initWithFrame:CGRectZero];
         label.font      = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-        label.textColor = [UIColor noVoteColor];
+        label.textColor = UIColor.noVoteColor;
         [labels addObject:label];
         [self.contentView addSubview:label];
     }
@@ -48,8 +48,8 @@
     
     // Label fonts and colors
     self.titleLabel.font       = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.titleLabel.textColor  = [UIColor blackColor];
-    self.authorLabel.textColor = [UIColor themeColor];
+    self.titleLabel.textColor  = UIColor.blackColor;
+    self.authorLabel.textColor = UIColor.themeColor;
     self.titleLabel.numberOfLines = 0;
 }
 
@@ -116,9 +116,9 @@
     _visited = visited;
     
     if (self.blocked) {
-        self.titleLabel.textColor = visited ? [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.500] : [UIColor redColor];
+        self.titleLabel.textColor = visited ? [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.500] : UIColor.redColor;
     } else {
-        self.titleLabel.textColor = visited ? [UIColor noVoteColor] : [UIColor blackColor];
+        self.titleLabel.textColor = visited ? UIColor.noVoteColor : UIColor.blackColor;
     }
 }
 
@@ -132,21 +132,21 @@
 }
 
 - (CGFloat)preferredTitleLabelMaxWidth {
-    return CGRectGetWidth([UIScreen mainScreen].bounds) - 2 * self.separatorInset.left;
+    return CGRectGetWidth(UIScreen.mainScreen.bounds) - 2 * self.separatorInset.left;
 }
 
 - (void)setBlocked:(BOOL)blocked {
     _blocked = blocked;
     if (blocked) {
-        self.titleLabel.textColor = [UIColor redColor];
+        self.titleLabel.textColor = UIColor.redColor;
     } else {
-        self.titleLabel.textColor = [UIColor blackColor];
+        self.titleLabel.textColor = UIColor.blackColor;
     }
 }
 
 /// For efficiency
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
-    super.backgroundColor = backgroundColor ?: [UIColor whiteColor];
+    super.backgroundColor = backgroundColor ?: UIColor.whiteColor;
     
     for (UIView *view in self.opaqueViews) {
         view.backgroundColor = backgroundColor;

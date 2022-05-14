@@ -23,21 +23,24 @@
 
 @implementation TTWelcomeViewController
 
-- (void)loadView { self.view = [[TTWelcomeView alloc] initWithFrame:[UIScreen mainScreen].bounds]; }
+- (void)loadView {
+    self.view = [[TTWelcomeView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+}
+
 - (TTWelcomeView *)welcomeView { return (id)self.view; }
 
 - (UIWindow *)window {
-    return [(id)[UIApplication sharedApplication] keyWindow];
+    return UIApplication.sharedApplication.delegate.window;
 }
 
 - (TTTabBarController *)tabBarController {
-    return (id)[(id)[UIApplication sharedApplication].delegate tabBarController];
+    return (id)[(id)UIApplication.sharedApplication.delegate tabBarController];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    TTAppDelegate *appdelegate = (id)[UIApplication sharedApplication].delegate;
+    TTAppDelegate *appdelegate = (id)UIApplication.sharedApplication.delegate;
     
     // Generate a new user profile
     self.welcomeView.useNewUserButtonAction = ^{

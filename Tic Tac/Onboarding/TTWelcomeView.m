@@ -9,9 +9,9 @@
 #import "TTWelcomeView.h"
 #import "TTWelcomeButton.h"
 
-#define kIs3x ([UIScreen mainScreen].scale == 3.0)
-#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
-#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+#define kIs3x (UIScreen.mainScreen.scale == 3.0)
+#define SCREEN_WIDTH (UIScreen.mainScreen.bounds.size.width)
+#define SCREEN_HEIGHT (UIScreen.mainScreen.bounds.size.height)
 #define kNavBarHeight 44.f
 
 @interface TTWelcomeView ()
@@ -39,7 +39,7 @@
         [self initializeSubviews];
         @weakify(self);
         self.logoTapAction = ^{ @strongify(self);
-            self.tintColor                  = [UIColor themeColor];
+            self.tintColor                  = UIColor.themeColor;
             self.circle.backgroundColor     = self.tintColor;
             self.useNewUserButton.tintColor = self.tintColor;
             self.userTokenButton.tintColor  = self.tintColor;
@@ -52,7 +52,7 @@
 
 - (void)initializeSubviews {
     self.backgroundColor = [UIColor colorWithRed:0.937 green:0.937 blue:0.956 alpha:1];
-    self.tintColor = [UIColor themeColor];
+    self.tintColor = UIColor.themeColor;
     
     CGRect frame           = CGRectMake(0, 0, .5, .5);
     UIImage *booIcon       = [UIImage imageNamed:@"login_icon"];
@@ -64,13 +64,13 @@
     NSString *authTokeDesc = @"What is a user token?";
     
     self.logo             = [[UIImageView alloc] initWithImage:booIcon];
-    self.circle           = ({UIView *v = [UIView new]; v.backgroundColor = [UIColor themeColor]; v;});
+    self.circle           = ({UIView *v = [UIView new]; v.backgroundColor = UIColor.themeColor; v;});
     self.welcomeLabel     = [[UILabel alloc] initWithFrame:frame];
     self.descriptionLabel = [[UILabel alloc] initWithFrame:frame];
     self.useNewUserButton = [TTWelcomeButton buttonWithTitle:@"New User" subtitle:loginDesc];
     self.userTokenButton  = [TTWelcomeButton buttonWithTitle:@"Existing User" subtitle:signUpDesc];
     self.authTokenButton  = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.hairline         = ({UIView *v = [[UIView alloc] initWithFrame:frame]; v.backgroundColor = [UIColor welcomeHairlineColor]; v;});
+    self.hairline         = ({UIView *v = [[UIView alloc] initWithFrame:frame]; v.backgroundColor = UIColor.welcomeHairlineColor; v;});
     
     // Logo in circle
     _circle.backgroundColor = self.tintColor;
@@ -83,15 +83,15 @@
     // Buttons
     _useNewUserButton.dimensions = CGSizeMake(SCREEN_WIDTH*.9, SCREEN_HEIGHT*.10);
     _userTokenButton.dimensions = _useNewUserButton.dimensions;
-    [_useNewUserButton setTitleColorMagic:[UIColor blackColor]];
-    [_userTokenButton setTitleColorMagic:[UIColor blackColor]];
-    _useNewUserButton.selectedSubtitleColor  = [UIColor welcomeButtonSubtitleSelectedTextColor];
-    _userTokenButton.selectedSubtitleColor = [UIColor welcomeButtonSubtitleSelectedTextColor];
-    _useNewUserButton.selectedTitleColor     = [UIColor whiteColor];
-    _userTokenButton.selectedTitleColor    = [UIColor whiteColor];
+    [_useNewUserButton setTitleColorMagic:UIColor.blackColor];
+    [_userTokenButton setTitleColorMagic:UIColor.blackColor];
+    _useNewUserButton.selectedSubtitleColor  = UIColor.welcomeButtonSubtitleSelectedTextColor;
+    _userTokenButton.selectedSubtitleColor = UIColor.welcomeButtonSubtitleSelectedTextColor;
+    _useNewUserButton.selectedTitleColor     = UIColor.whiteColor;
+    _userTokenButton.selectedTitleColor    = UIColor.whiteColor;
     CGFloat radius = CGRectGetHeight(self.useNewUserButton.frame)/2.f;
     for (TTWelcomeButton *button in @[_useNewUserButton, _userTokenButton]) {
-        button.backgroundColor    = [UIColor clearColor];
+        button.backgroundColor    = UIColor.clearColor;
         button.layer.cornerRadius = radius;
         button.layer.borderWidth  = kIs3x ? 2 : 1;
         button.tintColor = self.tintColor;
@@ -126,7 +126,7 @@
 }
 
 - (void)layoutSubviews {
-    self.tintColor = [UIColor themeColor];
+    self.tintColor = UIColor.themeColor;
     
     // Logo in circle
     CGFloat boowh = kIs3x ? 154 : 115;
@@ -142,7 +142,7 @@
     CGFloat paddedWidth = SCREEN_WIDTH*.9;
     
     // Auth token section
-    [_hairline setFrameSize:CGSizeMake(paddedWidth, 1.f/[UIScreen mainScreen].scale)];
+    [_hairline setFrameSize:CGSizeMake(paddedWidth, 1.f/UIScreen.mainScreen.scale)];
     [_hairline centerXInView:self alignToBottomWithPadding:SCREEN_HEIGHT*.06];
     [_authTokenButton centerXInView:self centerYBetweenView:_hairline and:SCREEN_HEIGHT];
     
@@ -154,7 +154,7 @@
     [_useNewUserButton centerXInView:self alignToBottomWithPadding:SCREEN_HEIGHT*.12 + SCREEN_HEIGHT*.02 + CGRectGetHeight(_userTokenButton.frame)];
     CGFloat radius = CGRectGetHeight(_useNewUserButton.frame)/2.f;
     for (UIButton *button in @[_useNewUserButton, _userTokenButton]) {
-        button.backgroundColor    = [UIColor clearColor];
+        button.backgroundColor    = UIColor.clearColor;
         button.layer.cornerRadius = radius;
         button.layer.borderWidth  = 1.f;
         button.tintColor = self.tintColor;

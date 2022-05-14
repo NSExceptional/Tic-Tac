@@ -49,7 +49,7 @@
     self.titleLabel.font = [UIFont systemFontOfSize:17];
     self.clipsToBounds = YES;
     
-    self.backgroundColor       = [UIColor clearColor];
+    self.backgroundColor       = UIColor.clearColor;
     self.layer.backgroundColor = self.backgroundColor.CGColor;
     self.layer.borderColor     = self.tintColor.CGColor;
 }
@@ -61,7 +61,7 @@
             if (highlighted)
                 self.backgroundColor = self.borderColor;
             else
-                self.backgroundColor = [UIColor clearColor];
+                self.backgroundColor = UIColor.clearColor;
             // Swap title color
             if (_selectedTitleColor) {
                 if (highlighted) {

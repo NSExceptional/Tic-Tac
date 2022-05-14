@@ -19,7 +19,7 @@
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.titleLabel.font   = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         self.contentLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        self.contentLabel.textColor = [UIColor darkGrayColor];
+        self.contentLabel.textColor = UIColor.darkGrayColor;
         
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.contentLabel];

@@ -24,7 +24,7 @@ static NSString * const kHourOrLessFormat = @"m 'minutes ago'";
         formatter.dateFormat = kHourOrLessFormat;
     }
     
-    NSInteger hours = [self hoursBeforeDate:[NSDate date]];
+    NSInteger hours = [self hoursBeforeDate:NSDate.date];
     if (hours >= 337) {
         formatter.dateFormat = kTwoWeeksOrMoreFormat;
         return [formatter stringFromDate:self];
@@ -38,7 +38,7 @@ static NSString * const kHourOrLessFormat = @"m 'minutes ago'";
 }
 
 - (NSString *)minutesAgo {
-    NSInteger minutes = [self minutesBeforeDate:[NSDate date]];
+    NSInteger minutes = [self minutesBeforeDate:NSDate.date];
     if (minutes == 1) {
         return @"1m";
     }

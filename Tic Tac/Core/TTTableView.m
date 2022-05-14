@@ -44,7 +44,7 @@
             label.text = @"Nothing to see here!";
             label.font = [UIFont systemFontOfSize:27];
             label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = [UIColor noVoteColor];
+            label.textColor = UIColor.noVoteColor;
             label.alpha = 0;
             label;
         });

@@ -79,9 +79,9 @@ static NSDictionary *avatars;
     
     MCSwipeTableViewCellMode mode = repliesEnabled ? MCSwipeTableViewCellModeSwitch : MCSwipeTableViewCellModeNone;
     
-    UIImageView *imageView = [UIImageView imageViewWithImageNamed:@"reply" tintColor:[UIColor whiteColor]];
+    UIImageView *imageView = [UIImageView imageViewWithImageNamed:@"reply" tintColor:UIColor.whiteColor];
     @weakify(self);
-    [self setSwipeGestureWithView:imageView color:[UIColor replyColor]
+    [self setSwipeGestureWithView:imageView color:UIColor.replyColor
                              mode:mode state:MCSwipeTableViewCellState3
                   completionBlock:^(MCSwipeTableViewCell *swipeCell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) { @strongify(self);
                       YYRunBlock(self.replyAction);

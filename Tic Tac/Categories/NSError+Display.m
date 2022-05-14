@@ -12,11 +12,11 @@
 @implementation NSError (Display)
 
 - (void)show {
-    [[UIApplication sharedApplication].windows.firstObject.rootViewController displayOptionalError:self];
+    [UIApplication.sharedApplication.windows.firstObject.rootViewController displayOptionalError:self];
 }
 
 - (void)showWithTitle:(NSString *)message {
-    [[UIApplication sharedApplication].windows.firstObject.rootViewController displayOptionalError:self message:message];
+    [UIApplication.sharedApplication.windows.firstObject.rootViewController displayOptionalError:self message:message];
 }
 
 @end

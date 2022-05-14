@@ -52,17 +52,17 @@
         });
         
         self.titleLabel.numberOfLines = 0;
-        self.titleLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 20;
+        self.titleLabel.preferredMaxLayoutWidth = UIScreen.mainScreen.bounds.size.width - 20;
         
         self.replyCountLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         self.scoreLabel.font      = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         self.ageLabel.font        = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         self.authorLabel.font     = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         
-        self.replyCountLabel.textColor = [UIColor noVoteColor];
-        self.scoreLabel.textColor      = [UIColor noVoteColor];
-        self.ageLabel.textColor        = [UIColor noVoteColor];
-        self.authorLabel.textColor     = [UIColor themeColor];
+        self.replyCountLabel.textColor = UIColor.noVoteColor;
+        self.scoreLabel.textColor      = UIColor.noVoteColor;
+        self.ageLabel.textColor        = UIColor.noVoteColor;
+        self.authorLabel.textColor     = UIColor.themeColor;
         
         _hairlineView = [[UIView alloc] initWithFrame:CGRectZero];
         self.hairlineView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.200];
@@ -106,7 +106,7 @@
     UIEdgeInsets insets = UIEdgeInsetsMake(topInset, hInset, bottomInset, hInset);
     
     [self.hairlineView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(1.f/[UIScreen mainScreen].scale));
+        make.height.equalTo(@(1.f/UIScreen.mainScreen.scale));
         make.left.right.bottom.equalTo(self);
     }];
     

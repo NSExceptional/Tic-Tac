@@ -16,7 +16,7 @@ static NSInteger counter;
 + (void)push {
     @synchronized(self) {
         counter++;
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
     }
 }
 
@@ -24,7 +24,7 @@ static NSInteger counter;
     @synchronized(self) {
         counter--;
         if (counter == 0) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
         } if (counter < 0) {
             [NSException raise:NSGenericException format:@"Cannot pop from empty activity stack"];
         }
