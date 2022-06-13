@@ -203,9 +203,9 @@
 - (void)setRemoved:(BOOL)removed {
     _removed = removed;
     if (removed) {
-        self.backgroundColor = [UIColor colorWithRed:1.000 green:0.500 blue:0.500 alpha:1.000];
+        self.backgroundColor = UIColor.systemPinkColor;
     } else {
-        self.backgroundColor = UIColor.whiteColor;
+        self.backgroundColor = UIColor.systemBackgroundColor;
     }
 }
 

@@ -21,13 +21,12 @@
 @implementation TTTableViewController
 
 - (void)loadView {
-    self.tableView = [[TTTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.view = self.tableView;
+    self.view = [[TTTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 }
 
-- (TTTableView *)_tableView { return (id)super.tableView; };
+- (TTTableView *)_tableView { return (id)self.tableView; };
 
 - (void)viewDidLoad {
     [super viewDidLoad];

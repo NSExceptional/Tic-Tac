@@ -29,7 +29,7 @@ static NSDictionary *avatars;
  
     self.replyCountLabel.hidden = YES;
     
-    _iconLabel = [[UIImageView alloc] initWithImage:nil];
+    _iconLabel = [UILabel new];
     self.iconLabel.clipsToBounds = YES;
     self.iconLabel.contentMode   = UIViewContentModeScaleAspectFill;
     [self.iconLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];

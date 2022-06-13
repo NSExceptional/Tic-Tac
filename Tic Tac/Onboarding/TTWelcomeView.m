@@ -51,13 +51,13 @@
 }
 
 - (void)initializeSubviews {
-    self.backgroundColor = [UIColor colorWithRed:0.937 green:0.937 blue:0.956 alpha:1];
+    self.backgroundColor = UIColor.secondarySystemBackgroundColor;
     self.tintColor = UIColor.themeColor;
     
-    CGRect frame           = CGRectMake(0, 0, .5, .5);
+    CGRect frame           = CGRectZero;
     UIImage *booIcon       = [UIImage imageNamed:@"login_icon"];
     NSMutableAttributedString *welcomeToTicTac = [[NSMutableAttributedString alloc] initWithString:@"Welcome to Tic Tac"];;
-    NSString *description  = @"A sleek, powerful Yik yak client with the ability to filter posts, "
+    NSString *description  = @"A powerful Yik Yak client with the ability to filter posts, "
     @"change users, and more.";
     NSString *loginDesc    = @"Continue using a new Yik Yak account.";
     NSString *signUpDesc   = @"Enter the user token of an existing account.";
@@ -70,7 +70,11 @@
     self.useNewUserButton = [TTWelcomeButton buttonWithTitle:@"New User" subtitle:loginDesc];
     self.userTokenButton  = [TTWelcomeButton buttonWithTitle:@"Existing User" subtitle:signUpDesc];
     self.authTokenButton  = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.hairline         = ({UIView *v = [[UIView alloc] initWithFrame:frame]; v.backgroundColor = UIColor.welcomeHairlineColor; v;});
+    self.hairline         = ({
+        UIView *v = [[UIView alloc] initWithFrame:frame];
+        v.backgroundColor = UIColor.welcomeHairlineColor;
+        v;
+    });
     
     // Logo in circle
     _circle.backgroundColor = self.tintColor;
@@ -83,24 +87,15 @@
     // Buttons
     _useNewUserButton.dimensions = CGSizeMake(SCREEN_WIDTH*.9, SCREEN_HEIGHT*.10);
     _userTokenButton.dimensions = _useNewUserButton.dimensions;
-    [_useNewUserButton setTitleColorMagic:UIColor.blackColor];
-    [_userTokenButton setTitleColorMagic:UIColor.blackColor];
-    _useNewUserButton.selectedSubtitleColor  = UIColor.welcomeButtonSubtitleSelectedTextColor;
-    _userTokenButton.selectedSubtitleColor = UIColor.welcomeButtonSubtitleSelectedTextColor;
-    _useNewUserButton.selectedTitleColor     = UIColor.whiteColor;
-    _userTokenButton.selectedTitleColor    = UIColor.whiteColor;
-    CGFloat radius = CGRectGetHeight(self.useNewUserButton.frame)/2.f;
     for (TTWelcomeButton *button in @[_useNewUserButton, _userTokenButton]) {
-        button.backgroundColor    = UIColor.clearColor;
-        button.layer.cornerRadius = radius;
-        button.layer.borderWidth  = kIs3x ? 2 : 1;
         button.tintColor = self.tintColor;
-        button.fillsUponSelection = YES;
+        // Button is filled so we want white color
+        button.labelColor = UIColor.whiteColor;
     }
     
     // Welcome label font
-    id thinFont    = [UIFont systemFontOfSize:39 weight:UIFontWeightThin];
-    id regularFont = [UIFont systemFontOfSize:39 weight:UIFontWeightRegular];
+    id thinFont    = [UIFont systemFontOfSize:39 weight:UIFontWeightLight];
+    id regularFont = [UIFont systemFontOfSize:39 weight:UIFontWeightSemibold];
     [welcomeToTicTac addAttribute:NSFontAttributeName value:thinFont range:NSMakeRange(0, welcomeToTicTac.length)];
     [welcomeToTicTac addAttribute:NSFontAttributeName value:regularFont range:NSMakeRange(welcomeToTicTac.length-7, 7)];
     _welcomeLabel.attributedText = welcomeToTicTac;
@@ -112,7 +107,7 @@
     [body addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, body.length)];
     _descriptionLabel.attributedText = body;
     _descriptionLabel.textAlignment  = NSTextAlignmentCenter;
-    _descriptionLabel.numberOfLines  = 3;
+    _descriptionLabel.numberOfLines  = 0;
     
     // Button actions
     for (UIButton *button in @[_useNewUserButton, _userTokenButton, _authTokenButton])
@@ -143,22 +138,17 @@
     
     // Auth token section
     [_hairline setFrameSize:CGSizeMake(paddedWidth, 1.f/UIScreen.mainScreen.scale)];
-    [_hairline centerXInView:self alignToBottomWithPadding:SCREEN_HEIGHT*.06];
-    [_authTokenButton centerXInView:self centerYBetweenView:_hairline and:SCREEN_HEIGHT];
+    [_hairline centerXInView:self alignToBottomWithPadding:70];
+    [_authTokenButton centerXInView:self centerYBetweenView:_hairline and:SCREEN_HEIGHT - 30];
     
     // Buttons
     _authTokenButton.tintColor = self.tintColor;
-    _useNewUserButton.dimensions = CGSizeMake(paddedWidth, SCREEN_HEIGHT*.10);
+    _useNewUserButton.dimensions = CGSizeMake(paddedWidth, 30);
     _userTokenButton.dimensions = _useNewUserButton.dimensions;
     [_userTokenButton centerXInView:self alignToBottomWithPadding:SCREEN_HEIGHT*.12];
-    [_useNewUserButton centerXInView:self alignToBottomWithPadding:SCREEN_HEIGHT*.12 + SCREEN_HEIGHT*.02 + CGRectGetHeight(_userTokenButton.frame)];
-    CGFloat radius = CGRectGetHeight(_useNewUserButton.frame)/2.f;
-    for (UIButton *button in @[_useNewUserButton, _userTokenButton]) {
-        button.backgroundColor    = UIColor.clearColor;
-        button.layer.cornerRadius = radius;
-        button.layer.borderWidth  = 1.f;
-        button.tintColor = self.tintColor;
-    }
+    [_useNewUserButton centerXInView:self alignToBottomWithPadding:SCREEN_HEIGHT*.12 + SCREEN_HEIGHT*.02 + CGRectGetHeight(_userTokenButton.frame)];    
+    _userTokenButton.selectionFadeDuration = 0.1;
+    _useNewUserButton.selectionFadeDuration = 0.1;
     
     // Big labels
     [_welcomeLabel sizeToFit];

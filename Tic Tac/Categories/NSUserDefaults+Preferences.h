@@ -27,6 +27,6 @@
 
 + (void)removeOtherUserIdentifier:(NSString *)pref;
 + (NSString *)handleForUserIdentifier:(NSString *)userid;
-+ (void)setHandle:(NSString *)handle forUserIdentifier:(NSString *)userid;
+//+ (void)setHandle:(NSString *)handle forUserIdentifier:(NSString *)userid;
 
 @end

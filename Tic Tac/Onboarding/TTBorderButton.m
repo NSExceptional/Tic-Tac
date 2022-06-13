@@ -8,107 +8,156 @@
 
 #import "TTBorderButton.h"
 
-@interface TTBorderButton ()
-@property (nonatomic) UIColor *previousTitleColor;
+@interface CALayer (Private)
+@property (nonatomic) BOOL tb_continuousCorners;
+@property (nonatomic) BOOL continuousCorners;
 @end
 
-@implementation TTBorderButton
+@implementation CALayer (Private)
+@dynamic continuousCorners;
 
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self initialize];
-    }
-    
-    return self;
+static BOOL respondsToContinuousCorners = NO;
+
++ (void)load {
+    respondsToContinuousCorners = [CALayer
+        instancesRespondToSelector:@selector(setContinuousCorners:)
+    ];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self initialize];
+- (BOOL)tb_continuousCorners {
+    if (respondsToContinuousCorners) {
+        return self.continuousCorners;
     }
     
-    return self;
+    return NO;
+}
+
+- (void)setTb_continuousCorners:(BOOL)enabled {
+    if (respondsToContinuousCorners) {
+        if (@available(iOS 13, *)) {
+            self.cornerCurve = kCACornerCurveContinuous;
+        } else {
+            self.continuousCorners = enabled;
+        }
+    }
+}
+
+@end
+
+@interface TTOnboardButton ()
+@property (nonatomic) UIColor *currentColor;
+@property (nonatomic) UIColor *previousTitleColor;
+@property (nonatomic, readonly) UIColor *highlightColor;
+
+@property (nonatomic, readonly) UIColor *borderColor;
+@end
+
+@implementation TTOnboardButton
+
++ (instancetype)buttonWithStyle:(TTOnboardButtonStyle)style {
+    TTOnboardButton *button = [self alloc];
+    button->_appearanceStyle = style;
+    return [button init];
 }
 
 - (id)init {
     self = [super init];
     if (self) {
-        [self initialize];
+        self.selectionFadeDuration = 0;
+        self.labelColor = UIColor.labelColor;
+        self.currentColor = self.tintColor;
+        
+        if (self.appearanceStyle == TTOnboardButtonStyleBordered) {
+            self.borderWidth = 1;
+        }
+        
+        self.clipsToBounds = YES;
+        
+        self.layer.tb_continuousCorners = YES;
     }
     
     return self;
 }
 
-- (void)initialize {
-    self.borderColor  = self.tintColor;
-    self.borderWidth  = 1;
-    self.cornerRadius = 4;
+- (void)layoutSubviews {
+    [super layoutSubviews];
     
-    self.titleLabel.font = [UIFont systemFontOfSize:17];
-    self.clipsToBounds = YES;
-    
-    self.backgroundColor       = UIColor.clearColor;
-    self.layer.backgroundColor = self.backgroundColor.CGColor;
-    self.layer.borderColor     = self.tintColor.CGColor;
+    self.cornerRadius = self.frame.size.height * 0.28;
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
-    if (self.fillsUponSelection) {
-        super.highlighted = highlighted;
-        [UIView animateWithDuration:.2 animations:^{
-            if (highlighted)
-                self.backgroundColor = self.borderColor;
-            else
-                self.backgroundColor = UIColor.clearColor;
-            // Swap title color
-            if (_selectedTitleColor) {
-                if (highlighted) {
-                    _previousTitleColor       = self.titleLabel.textColor;
-                    self.titleLabel.textColor = _selectedTitleColor;
-                } else {
-                    self.titleLabel.textColor = _previousTitleColor;
-                    _previousTitleColor       = nil;
-                }
+    if (self.highlighted == highlighted) return;
+    super.highlighted = highlighted;
+    
+    [UIView animateWithDuration:self.selectionFadeDuration animations:^{
+        if (highlighted) {
+            self.currentColor = self.highlightColor;
+        } else {
+            self.currentColor = self.tintColor;
+        }
+        
+        // Swap title color
+        if (self.selectedLabelColor) {
+            if (highlighted) {
+                [self setTitleColor:self.selectedLabelColor forState:self.state];
+            } else {
+                [self setTitleColor:self.labelColor forState:self.state];
             }
-
-        }];
-    } else {
-        if (highlighted == super.highlighted) return;
-        
-        CGFloat newAlpha = highlighted ? .2 : 1;
-        CGColorRef newColor = [self.tintColor colorWithAlphaComponent:newAlpha].CGColor;
-        
-        CABasicAnimation *alphaChange = [CABasicAnimation animationWithKeyPath:@"borderColor"];
-        alphaChange.fromValue = (id)self.layer.borderColor;
-        alphaChange.toValue = (__bridge id)newColor;
-        
-        CAAnimationGroup *group = [CAAnimationGroup animation];
-        group.duration   = 0.025;
-        group.animations = @[alphaChange];
-        
-        [self.layer addAnimation:group forKey:@"selectionAnimation"];
-        self.layer.borderColor = newColor;
-        
-        super.highlighted = highlighted;
-        [self setNeedsDisplay];
-    }
+        }
+    }];
 }
 
 #pragma mark Properties
 
-- (void)setTintColor:(UIColor *)tintColor {
-    self.layer.borderColor = tintColor.CGColor;
-    [super setTintColor:tintColor];
+- (void)tintColorDidChange {
+    self.currentColor = self.tintColor;
 }
 
-- (void)setBorderColor:(UIColor *)borderColor {
-    self.layer.borderColor = borderColor.CGColor;
+- (void)setLabelColor:(UIColor *)labelColor {
+    _labelColor = labelColor;
+    self.selectedLabelColor = [labelColor colorWithAlphaComponent:0.5];
+    
+    if (self.highlighted && self.appearanceStyle == TTOnboardButtonStyleFilled) {
+        labelColor = [labelColor colorWithAlphaComponent:0.5];
+    }
+    
+    [self setTitleColor:_labelColor forState:UIControlStateNormal];
+    [self setTitleColor:_selectedLabelColor forState:UIControlStateHighlighted];
 }
 
-- (UIColor *)borderColor {
-    return [UIColor colorWithCGColor:self.layer.borderColor];
+- (UIColor *)currentColor {
+    switch (self.appearanceStyle) {
+        case TTOnboardButtonStyleBordered:
+            return [UIColor colorWithCGColor:self.layer.borderColor];
+        case TTOnboardButtonStyleFilled:
+            return self.backgroundColor;
+    }
+}
+
+- (void)setCurrentColor:(UIColor *)color {
+    switch (self.appearanceStyle) {
+        case TTOnboardButtonStyleBordered:
+            if (self.highlighted) {
+                self.backgroundColor = color;
+                self.layer.borderColor = color.CGColor;
+            } else {
+                self.backgroundColor   = UIColor.clearColor;
+                self.layer.borderColor = color.CGColor;
+            }
+            break;
+        case TTOnboardButtonStyleFilled:
+            self.backgroundColor = color;
+            break;
+    }
+}
+
+- (UIColor *)highlightColor {
+    switch (self.appearanceStyle) {
+        case TTOnboardButtonStyleBordered:
+            return self.tintColor;
+        case TTOnboardButtonStyleFilled:
+            return [self.tintColor colorWithAlphaComponent:0.5];
+    }
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
@@ -127,15 +176,8 @@
     return self.layer.cornerRadius;
 }
 
-- (void)roundCorners {
-    self.cornerRadius = CGRectGetHeight(self.frame)/2.f;
-}
-
-- (void)setSelectedTitleColor:(UIColor *)selectedTitleColor {
-    if (self.fillsUponSelection)
-        [self setTitleColor:selectedTitleColor forState:UIControlStateSelected];
-    else
-        [self setTitleColor:selectedTitleColor forState:UIControlStateHighlighted];
+- (UIColor *)borderColor {
+    return self.layer.borderColor ? [UIColor colorWithCGColor:self.layer.borderColor] : nil;
 }
 
 @end

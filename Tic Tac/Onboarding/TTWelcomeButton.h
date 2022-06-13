@@ -10,18 +10,16 @@
 #import "TTBorderButton.h"
 
 
-@interface TTWelcomeButton : TTBorderButton
+@interface TTWelcomeButton : TTOnboardButton
 
 + (instancetype)buttonWithTitle:(NSString *)title subtitle:(NSString *)subtitle;
 
-// Do not set the text of this label directly. Use the \c subtitle property.
+/// Do not set the text of this label directly. Use the \c subtitle property.
 @property (nonatomic, readonly) UILabel *subtitleLabel;
 @property (nonatomic, copy) NSString *subtitle;
+/// Defaults to 50% of the subtitle's color, which is 50% of the \c labelColor.
+/// Setting the label color will change this value, so set it after if you want to customize it.
 @property (nonatomic) UIColor *selectedSubtitleColor;
 @property (nonatomic) CGSize dimensions;
-
-/** Sets the title color and automatically sets
-    the subtitle color based on it. */
-- (void)setTitleColorMagic:(UIColor *)color;
 
 @end

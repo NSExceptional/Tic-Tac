@@ -47,8 +47,8 @@ static NSUInteger const kVisitedPostsSize = 10000;
         [self cleanCommentCaches];
         [self cleanYakCache];
         
-        [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(saveVisitedPosts) userInfo:nil repeats:YES];
-        [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(saveYakCache) userInfo:nil repeats:YES];
+//        [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(saveVisitedPosts) userInfo:nil repeats:YES];
+//        [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(saveYakCache) userInfo:nil repeats:YES];
     }
 }
 

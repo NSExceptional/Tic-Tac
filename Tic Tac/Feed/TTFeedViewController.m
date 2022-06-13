@@ -32,9 +32,10 @@
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     _dataSource = [TTFeedArray new];
     self.dataSource.removedObjectsPool = ^NSArray* { return [TTCache yakCache].array; };
-    //    self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYYak *yak, NSDictionary *bindings) {
-    //        return YYContainsPolitics(yak.title.lowercaseString);
-    //    }];
+        self.dataSource.filter = [NSPredicate predicateWithBlock:^BOOL(YYYak *yak, NSDictionary *bindings) {
+            return YES;
+//            return YYContainsPolitics(yak.title.lowercaseString);
+        }];
     
     // Compose, register for update title notification, update title
     id comp = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composePost)];

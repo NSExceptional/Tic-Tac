@@ -13,19 +13,20 @@
 
 /// #7242E7
 + (instancetype)themeColor {
-    return [UIColor colorWithRed:0.448 green:0.261 blue:0.909 alpha:1.000];
+    return UIColor.systemPurpleColor;
+//    return [UIColor colorWithRed:0.448 green:0.261 blue:0.909 alpha:1.000];
 }
 
 + (UIColor *)welcomeHairlineColor {
-    return [UIColor colorWithWhite:0.777 alpha:1.000];
+    return UIColor.systemGray3Color;
 }
 
 + (UIColor *)welcomeButtonSubtitleTextColor {
-    return [UIColor colorWithWhite:0.359 alpha:1.000];
+    return UIColor.tertiaryLabelColor;
 }
 
 + (UIColor *)welcomeButtonSubtitleSelectedTextColor {
-    return [UIColor colorWithWhite:1.000 alpha:0.500];
+    return UIColor.tertiaryLabelColor;
 }
 
 + (UIColor *)upvoteColor {
@@ -37,7 +38,7 @@
 }
 
 + (UIColor *)noVoteColor {
-    return [UIColor colorWithWhite:0.000 alpha:0.500];
+    return UIColor.secondaryLabelColor;
 }
 
 + (UIColor *)replyColor {

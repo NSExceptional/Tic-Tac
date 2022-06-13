@@ -27,17 +27,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.modalPresentationStyle = UIModalPresentationFullScreen;
+    
     self.viewControllers = @[TTFeedViewController.inNavigationController,
                              [TTNotificationsViewController inNavigationController],
                              [UIViewController inNavigationController],
                              [TTProfileViewController inNavigationController]];
     
-    NSArray *icons = @[@"tab_feed", @"tab_notifications", @"tab_chat", @"tab_profile", @"tab_settings"];
+    NSArray *icons = @[@"newspaper.fill", @"app.badge.fill", @"message.fill", @"person.crop.circle", @"gear"];
     NSArray *titles = @[@"Feed", @"Notifications", @"Chat", @"Profile", @"Settings"];
     
     NSInteger i = 0;
     for (UITabBarItem *item in self.tabBar.items) {
-        item.image = [UIImage imageNamed:icons[i]];
+        item.image = [UIImage systemImageNamed:icons[i]];
         item.title = titles[i++];
         //        item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
         //        item.titlePositionAdjustment = UIOffsetMake(0, 12);
@@ -56,15 +58,15 @@
 - (void)notifyUserIsReady {
     self.ready = YES;
  
-    [YYClient.sharedClient updateUser:^(NSError *error) {
-        if (!error) {
-            YYClient *client = YYClient.sharedClient;
-            if (client.currentUser.handle) {
-                [NSUserDefaults setHandle:client.currentUser.handle forUserIdentifier:client.userIdentifier];
-                [self.profile.tableView reloadData];
-            }
-        }
-    }];
+//    [YYClient.sharedClient updateUser:^(NSError *error) {
+//        if (!error) {
+//            YYClient *client = YYClient.sharedClient;
+//            if (client.currentUser.handle) {
+////                [NSUserDefaults setHandle:client.currentUser.handle forUserIdentifier:client.userIdentifier];
+//                [self.profile.tableView reloadData];
+//            }
+//        }
+//    }];
     
     [self.feed refresh];
     [self.notifications refresh];

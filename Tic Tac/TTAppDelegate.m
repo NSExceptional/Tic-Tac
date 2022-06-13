@@ -16,6 +16,7 @@
 
 #define kYYLat 31.534173
 #define kYYLong -97.123863
+#define kYYAuthToken @"eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlYmYxMDBlYWRkYTMzMmVjOGZlYTU3ZjliNWJjM2E2YWIyOWY1NTUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20veWlreWFrLWIwZDZiIiwiYXVkIjoieWlreWFrLWIwZDZiIiwiYXV0aF90aW1lIjoxNjUxMTI1MDMyLCJ1c2VyX2lkIjoiSU5rcnF0Q1I1OGd3d3ZtYjluemhkM0hyYnNvMSIsInN1YiI6IklOa3JxdENSNThnd3d2bWI5bnpoZDNIcmJzbzEiLCJpYXQiOjE2NTI1MDkyMTEsImV4cCI6MTY1MjUxMjgxMSwicGhvbmVfbnVtYmVyIjoiKzEyODE5NjE5NjM1IiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJwaG9uZSI6WyIrMTI4MTk2MTk2MzUiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwaG9uZSJ9fQ.ok8yxcHtIRyaw1kPiDT3hA0uXghJ8-Y01K3pCYwEyAAmZOhEUqiG9tXl4D4ImAQrfxGlfG0u0efwhPV6RH1i6B-OycRfpTYhC7A8NjJBmftFuDd_58Gkx-BNA8ahA0dYpfDVB1XK51uWGsvcSwQ-WOLViwXG99nICoGVBcR_w0f4nbjtKuU-mLcVaGqhcBO7U28WyX7j_EYrxBzw4vfR0xVdnuOsqXvQpoekzqg98c4yCYRfU9j_qag3kAbYgGhxFdmL6l5cLe9k8nJ9mv7FN6ShHcukPbN3LxCr91YORUJRWwNlxVeW9rrQBiCV3POS58JtlVVyjCEU1wzIytxYUg"
 
 @interface TTAppDelegate ()
 @end
@@ -51,12 +52,15 @@
     [FIRApp configure];
     
     // Login / get current user
-    NSString *userIdentifier = NSUserDefaults.currentUserIdentifier;
-    if (userIdentifier) {
-        YYClient.sharedClient.userIdentifier = userIdentifier;
+//    NSString *userIdentifier = NSUserDefaults.currentUserIdentifier;
+    
+    if (UIPasteboard.generalPasteboard.string.length > 700) {
+//        YYClient.sharedClient.userIdentifier = userIdentifier;
+//        YYClient.sharedClient.authToken = kYYAuthToken;
         YYClient.sharedClient.location = [[CLLocation alloc] initWithLatitude:kYYLat longitude:kYYLong];
+        YYClient.sharedClient.authToken = UIPasteboard.generalPasteboard.string;
         
-        self.window.rootViewController = [TTTabBarController new];
+        self.window.rootViewController = self.tabBarController;
         [self.tabBarController notifyUserIsReady];
     } else {
         self.window.rootViewController = [TTWelcomeViewController new];
@@ -124,18 +128,18 @@
 - (void)customizeAppearance {
     self.window.tintColor = UIColor.themeColor;
 //    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
-    UINavigationBar.appearance.barTintColor = UIColor.themeColor;
-    UINavigationBar.appearance.tintColor = UIColor.whiteColor;
-    UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
+//    UINavigationBar.appearance.barTintColor = UIColor.themeColor;
+//    UINavigationBar.appearance.tintColor = UIColor.whiteColor;
+//    UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
 }
 
 - (TTTabBarController *)tabBarController {
-    if ([NSUserDefaults currentUserIdentifier]) {
-        return (id)self.window.rootViewController;
+    static TTTabBarController *tabBarController = nil;
+    if (!tabBarController) {
+        tabBarController = [TTTabBarController new];
     }
     
-    // New vc if no registered user
-    return [TTTabBarController new];
+    return tabBarController;
 }
 
 - (void)setupNewUser:(YYVoidBlock)completion {

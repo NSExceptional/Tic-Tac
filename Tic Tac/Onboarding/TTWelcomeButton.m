@@ -9,14 +9,14 @@
 #import "TTWelcomeButton.h"
 
 @interface TTWelcomeButton ()
-@property (nonatomic) UIColor *previousSubtitleColor;
+@property (nonatomic) UIColor *subtitleColor;
 @end
 
 
 @implementation TTWelcomeButton
 
 + (instancetype)buttonWithTitle:(NSString *)title subtitle:(NSString *)subtitle {
-    TTWelcomeButton *button = [[self alloc] initWithFrame:CGRectZero];
+    TTWelcomeButton *button = [self buttonWithStyle:TTOnboardButtonStyleFilled];
     [button setTitle:title forState:UIControlStateNormal];
     button.subtitle = subtitle;
     return button;
@@ -27,7 +27,7 @@
     if (self) {
         _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subtitleLabel.font = [UIFont systemFontOfSize:11];
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        self.titleLabel.font = [UIFont systemFontOfSize:17 weight:UIFontWeightSemibold];
         [self addSubview:_subtitleLabel];
     }
     
@@ -53,37 +53,47 @@
     [self layoutIfNeeded];
 }
 
+#pragma mark Overrides
+
 - (void)setHighlighted:(BOOL)highlighted {
     if (self.highlighted == highlighted) return;
     super.highlighted = highlighted;
     
     // Swap subtitle color
-    [UIView animateWithDuration:.2 animations:^{
-        if (self.fillsUponSelection && _selectedSubtitleColor) {
+    [UIView animateWithDuration:self.selectionFadeDuration animations:^{
+        if (self.selectedSubtitleColor) {
             if (highlighted) {
-                _previousSubtitleColor   = _subtitleLabel.textColor;
-                _subtitleLabel.textColor = _selectedSubtitleColor;
+                self.subtitleLabel.textColor = self.selectedSubtitleColor;
             } else {
-                _subtitleLabel.textColor = _previousSubtitleColor;
-                _previousSubtitleColor   = nil;
+                self.subtitleLabel.textColor = self.subtitleColor;
             }
         }
     }];
 }
 
+- (void)setLabelColor:(UIColor *)labelColor {
+    super.labelColor = labelColor;
+    
+    self.subtitleColor = [labelColor colorWithAlphaComponent:0.5];
+    self.selectedSubtitleColor = [self.subtitleColor colorWithAlphaComponent:0.5];
+    
+    if (self.highlighted) {
+        self.subtitleLabel.textColor = self.selectedSubtitleColor;
+    } else {
+        self.subtitleLabel.textColor = self.subtitleColor;
+    }
+}
+
 - (CGSize)intrinsicContentSize {
-    if (_dimensions.width > 0 && _dimensions.height > 0)
+    if (_dimensions.width > 0 && _dimensions.height > 0) {
         return _dimensions;
+    }
+    
     return [super intrinsicContentSize];
 }
 
 - (void)sizeToFit {
     [self setFrameSize:self.intrinsicContentSize];
-}
-
-- (void)setTitleColorMagic:(UIColor *)color {
-    [self setTitleColor:color forState:UIControlStateNormal];
-    _subtitleLabel.textColor = [self darkerColorFrom:color];
 }
 
 #pragma mark Misc

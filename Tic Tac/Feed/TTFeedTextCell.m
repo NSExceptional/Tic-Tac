@@ -48,7 +48,7 @@
     
     // Label fonts and colors
     self.titleLabel.font       = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.titleLabel.textColor  = UIColor.blackColor;
+    self.titleLabel.textColor  = UIColor.labelColor;
     self.authorLabel.textColor = UIColor.themeColor;
     self.titleLabel.numberOfLines = 0;
 }
@@ -116,9 +116,9 @@
     _visited = visited;
     
     if (self.blocked) {
-        self.titleLabel.textColor = visited ? [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.500] : UIColor.redColor;
+        self.titleLabel.textColor = visited ? UIColor.secondaryLabelColor : UIColor.systemRedColor;
     } else {
-        self.titleLabel.textColor = visited ? UIColor.noVoteColor : UIColor.blackColor;
+        self.titleLabel.textColor = visited ? UIColor.noVoteColor : UIColor.labelColor;
     }
 }
 
@@ -138,9 +138,9 @@
 - (void)setBlocked:(BOOL)blocked {
     _blocked = blocked;
     if (blocked) {
-        self.titleLabel.textColor = UIColor.redColor;
+        self.titleLabel.textColor = UIColor.systemRedColor;
     } else {
-        self.titleLabel.textColor = UIColor.blackColor;
+        self.titleLabel.textColor = UIColor.labelColor;
     }
 }
 

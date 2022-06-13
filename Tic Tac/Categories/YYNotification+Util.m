@@ -11,23 +11,12 @@
 
 @implementation YYNotification (Util)
 
-- (BOOL)isPostReply {
-    return [self.subject isEqualToString:@"New reply"];
-}
-
 - (NSString *)notificationHeadline {
-    switch (self.reason) {
-        case YYNotificationReasonUnspecified:
-        case YYNotificationReasonHandleRemoved:
-        case YYNotificationReasonVote:
-            return self.subject;
-        case YYNotificationReasonComment:
-            return self.isPostReply ? @"Post reply" : @"Comment reply";
-    }
+    return self.subject;
 }
 
 - (BOOL)navigatesToYak {
-    return self.reason == YYNotificationReasonComment || self.reason == YYNotificationReasonVote;
+    return self.reason == YYNotificationReasonYourYak || self.reason == YYNotificationReasonUpvotes;
 }
 
 @end

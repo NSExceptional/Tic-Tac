@@ -44,15 +44,10 @@
     
     // Generate a new user profile
     self.welcomeView.useNewUserButtonAction = ^{
-        self.window.rootViewController = self.tabBarController;
         // MUST SET CURRENT USER ID BEFORE CALLING BLOCK
         // TODO
         [appdelegate setupNewUser:^{
-            // Present, set window root, notify
-            [self presentViewController:self.tabBarController animated:YES completion:^{
-                UIApplication.sharedApplication.delegate.window.rootViewController = appdelegate.tabBarController;
-                [appdelegate.tabBarController notifyUserIsReady];
-            }];
+            [self presentTabBarController];
         }];
     };
     
@@ -60,7 +55,7 @@
     self.welcomeView.signInButtonAction = ^{
         // Temporary until I feel like designing an entire screen for this
         if (YYClient.sharedClient.location) {
-            [self promptForPhoneNumber];
+            [self promptForSignInMethod];
         } else {
             [self promptForLocation];
         }
@@ -85,10 +80,47 @@
         CLLocationDegrees lat = textFieldStrings[0].floatValue;
         CLLocationDegrees lng = textFieldStrings[1].floatValue;
         YYClient.sharedClient.location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
-        [self promptForPhoneNumber];
+        [self promptForSignInMethod];
     }];
     
     [getLocationPrompt showFromViewController:self];
+}
+
+- (void)promptForSignInMethod {
+    [TBAlert makeAlert:^(TBAlert *make) {
+        make.title(@"How Do You Want to Sign In?");
+        make.button(@"Phone Number").handler(^(NSArray<NSString *> *_) {
+            [self promptForPhoneNumber];
+        });
+        make.button(@"Auth Token").handler(^(NSArray<NSString *> *_) {
+            [self promptForAuthToken];
+        });
+        make.button(@"Cancel").cancelStyle();
+    } showFrom:self];
+}
+
+- (void)promptForAuthToken {
+    [TBAlert makeAlert:^(TBAlert *make) {
+        make.title(@"Sign In with Auth Token");
+        
+        make.message(@"Copy your auth token to the clipboard to sign in.\n\n");
+        if (UIPasteboard.generalPasteboard.string.length < 700) {
+            make.message(@"When you're ready, press 'Continue'");
+        } else {
+            make.message(@"It looks like you have it copied! If you're ready, press 'Continue'");
+        }
+        
+        make.button(@"Cancel").cancelStyle();
+        make.button(@"Continue").handler(^(NSArray<NSString *> *_) {
+            NSString *token = UIPasteboard.generalPasteboard.string;
+            if (token.length < 700) {
+                [self promptForAuthToken];
+            } else {
+                YYClient.sharedClient.authToken = UIPasteboard.generalPasteboard.string;
+                [self didSignIn];
+            }
+        });
+    } showFrom:self];
 }
 
 - (void)promptForPhoneNumber {
@@ -159,17 +191,19 @@
 }
 
 - (void)didSignIn {
-    TTTabBarController *tabBarController = self.tabBarController;
-    
     if (self.presentingViewController) {
         [self.tabBarController notifyUserIsReady];
         [self.navigationController ?: self dismissAnimated];
     } else {
-        [self presentViewController:tabBarController animated:YES completion:^{
-            UIApplication.sharedApplication.delegate.window.rootViewController = tabBarController;
-            [tabBarController notifyUserIsReady];
-        }];
+        [self presentTabBarController];
     }
+}
+
+- (void)presentTabBarController {
+    TTAppDelegate *appdelegate = (id)UIApplication.sharedApplication.delegate;
+    
+    appdelegate.window.rootViewController = appdelegate.tabBarController;
+    [appdelegate.tabBarController notifyUserIsReady];
 }
 
 - (void)notifyOfIncorrectPhoneFormat {

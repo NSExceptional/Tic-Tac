@@ -11,9 +11,7 @@
 
 @interface YYNotification (Util)
 
-@property (nonatomic, readonly) BOOL isPostReply;
 @property (nonatomic, readonly) NSString *notificationHeadline;
-
 @property (nonatomic, readonly) BOOL navigatesToYak;
 
 @end
