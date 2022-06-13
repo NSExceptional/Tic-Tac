@@ -43,7 +43,6 @@
 		B4C204FB1CD9BE7500564A83 /* NSString+SplitUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C204FA1CD9BE7500564A83 /* NSString+SplitUp.m */; };
 		B4E73C481CC6A7D500670CC6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C471CC6A7D500670CC6 /* main.m */; };
 		B4E73C4B1CC6A7D500670CC6 /* TTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C4A1CC6A7D500670CC6 /* TTAppDelegate.m */; };
-		B4E73C4D1CC6A7D500670CC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4E73C4C1CC6A7D500670CC6 /* Assets.xcassets */; };
 		B4E73C581CC6A80100670CC6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E73C571CC6A80100670CC6 /* LaunchScreen.xib */; };
 		B4E73C601CC6A97600670CC6 /* TTTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C5F1CC6A97600670CC6 /* TTTabBarController.m */; };
 		B4E73C6B1CC6D8CA00670CC6 /* TTWelcomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C661CC6D8CA00670CC6 /* TTWelcomeButton.m */; };
@@ -51,6 +50,7 @@
 		B4E73C6D1CC6D8CA00670CC6 /* TTWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E73C6A1CC6D8CA00670CC6 /* TTWelcomeViewController.m */; };
 		B4E743801CC6D96500670CC6 /* TTBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E7437F1CC6D96500670CC6 /* TTBorderButton.m */; };
 		B4E743851CC6E41400670CC6 /* UIColor+TicTac.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E743841CC6E41400670CC6 /* UIColor+TicTac.m */; };
+		C34063BC2840AC71007B46D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34063BB2840AC71007B46D3 /* Assets.xcassets */; };
 		C35DACB5270525D000AA95E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C35DACB4270525D000AA95E6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -126,7 +126,6 @@
 		B4E73C471CC6A7D500670CC6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B4E73C491CC6A7D500670CC6 /* TTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAppDelegate.h; sourceTree = "<group>"; };
 		B4E73C4A1CC6A7D500670CC6 /* TTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAppDelegate.m; sourceTree = "<group>"; };
-		B4E73C4C1CC6A7D500670CC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4E73C511CC6A7D500670CC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4E73C571CC6A80100670CC6 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		B4E73C5E1CC6A97600670CC6 /* TTTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTabBarController.h; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 		B4E743811CC6E0C700670CC6 /* Tic-Tac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tic-Tac-Prefix.pch"; sourceTree = "<group>"; };
 		B4E743831CC6E41400670CC6 /* UIColor+TicTac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TicTac.h"; sourceTree = "<group>"; };
 		B4E743841CC6E41400670CC6 /* UIColor+TicTac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TicTac.m"; sourceTree = "<group>"; };
+		C34063BB2840AC71007B46D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C35DACB4270525D000AA95E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C35DAD1C2705857100AA95E6 /* Tic Tac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tic Tac.entitlements"; sourceTree = "<group>"; };
 		C94FB64A5EE099EEC1C6F993 /* Pods-Tic Tac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tic Tac/Pods-Tic Tac.release.xcconfig"; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 				B4E73C4A1CC6A7D500670CC6 /* TTAppDelegate.m */,
 				B4743ACB1D03AE3900B566E5 /* TTManager.h */,
 				B4743ACC1D03AE3900B566E5 /* TTManager.m */,
-				B4E73C4C1CC6A7D500670CC6 /* Assets.xcassets */,
+				C34063BB2840AC71007B46D3 /* Assets.xcassets */,
 				B4E743821CC6E3D200670CC6 /* Categories */,
 				B4E73C611CC6A98200670CC6 /* Core */,
 				B4E73C591CC6A8DB00670CC6 /* Onboarding */,
@@ -440,7 +440,7 @@
 			files = (
 				B4E73C581CC6A80100670CC6 /* LaunchScreen.xib in Resources */,
 				C35DACB5270525D000AA95E6 /* GoogleService-Info.plist in Resources */,
-				B4E73C4D1CC6A7D500670CC6 /* Assets.xcassets in Resources */,
+				C34063BC2840AC71007B46D3 /* Assets.xcassets in Resources */,
 				B44F16051CDA977A002DF423 /* Defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
