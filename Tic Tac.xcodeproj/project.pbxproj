@@ -20,6 +20,7 @@
 		C340642B28580FF9007B46D3 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340642928580FF9007B46D3 /* TableViewSection.swift */; };
 		C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340642E285863C0007B46D3 /* UIKit+Extensions.swift */; };
 		C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340643228587814007B46D3 /* Foundation+Extensions.swift */; };
+		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,9 @@
 		C340642928580FF9007B46D3 /* TableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		C340642E285863C0007B46D3 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
 		C340643228587814007B46D3 /* Foundation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Extensions.swift"; sourceTree = "<group>"; };
+		C34064482863973A007B46D3 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		C34064492863973B007B46D3 /* VoteControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteControl.h; sourceTree = "<group>"; };
+		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			children = (
 				C34063FF285807BD007B46D3 /* Assets.xcassets */,
 				C34063FD285807BD007B46D3 /* AppDelegate.swift */,
+				C34064482863973A007B46D3 /* Bridging-Header.h */,
 				C3406401285807BD007B46D3 /* LaunchScreen.storyboard */,
 				C3406404285807BD007B46D3 /* Info.plist */,
 			);
@@ -130,6 +135,8 @@
 		C340641C285808FF007B46D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C34064492863973B007B46D3 /* VoteControl.h */,
+				C340644A2863973B007B46D3 /* VoteControl.m */,
 				C340642328580F5F007B46D3 /* CarouselCell.swift */,
 				C340642428580F5F007B46D3 /* ScopeCarousel.swift */,
 			);
@@ -167,6 +174,7 @@
 				TargetAttributes = {
 					C34063F9285807BD007B46D3 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -216,6 +224,7 @@
 				C3406412285808C2007B46D3 /* HerdViewController.swift in Sources */,
 				C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */,
 				C3406416285808CF007B46D3 /* CommentsViewController.swift in Sources */,
+				C340644B2863973B007B46D3 /* VoteControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +363,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
@@ -364,6 +374,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nscake.Tic-Tac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tic Tac/Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -374,6 +386,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
@@ -384,6 +397,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nscake.Tic-Tac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tic Tac/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
