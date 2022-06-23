@@ -15,53 +15,56 @@ import UIKit
 @objcMembers
 class SingleRowSection: TableViewSection {
     
-    var pushOnSelection: UIViewController?
-    var selectionAction: ActionHandler?
+    var title: String? = nil
+    var filterText: String? = nil
+    var sectionIndex: Int = 0
+    var pushOnSelection: UIViewController? = nil
+    var selectionAction: ActionHandler? = nil
     /// Called to determine whether the single row should display itself or not.
-    var filterMatcher: ((_ filterText: String) -> Bool)?
+    var filterMatcher: ((_ filterText: String) -> Bool)? = nil
     private var reuseIdentifier: String
     private var cellConfiguration: ((UITableViewCell) -> Void)
-    private var lastTitle: String?
-    private var lastSubitle: String?
+    private var lastTitle: String? = nil
+    private var lastSubitle: String? = nil
 
     /// @param reuseIdentifier if nil, kDefaultCell is used.
 
     // MARK: - Public
 
-    init(sectionTitle: String?, reuseIdentifier: String?, cellConfiguration: @escaping (UITableViewCell) -> Void) {
-        self.reuseIdentifier = reuseIdentifier ?? Self.defaultReuseID
+    init(sectionTitle: String?, reuseIdentifier: String = "\(UITableViewCell.self)",
+         cellConfiguration: @escaping (UITableViewCell) -> Void) {
+        self.reuseIdentifier = reuseIdentifier
         self.cellConfiguration = cellConfiguration
-        super.init()
         self.title = sectionTitle
     }
 
     // MARK: - Overrides
 
-    override var numberOfRows: Int {
-        if let filter = self.filterMatcher, let text = filterText, !text.isEmpty {
+    var numberOfRows: Int {
+        if let filter = self.filterMatcher, let text = self.filterText, !text.isEmpty {
             return filter(text) ? 1 : 0
         }
 
         return 1
     }
 
-    override func canSelectRow(_ row: Int) -> Bool {
+    func canSelectRow(_ row: Int) -> Bool {
         return self.pushOnSelection != nil || self.selectionAction != nil
     }
 
-    override func didSelectRowAction(_ row: Int) -> ActionHandler? {
+    func didSelectRowAction(_ row: Int) -> ActionHandler? {
         return self.selectionAction
     }
 
-    override func viewControllerToPush(for row: Int) -> UIViewController? {
+    func viewControllerToPush(for row: Int) -> UIViewController? {
         return self.pushOnSelection
     }
 
-    override func reuseIdentifier(for row: Int) -> String {
+    func reuseIdentifier(for row: Int) -> String {
         return self.reuseIdentifier
     }
 
-    override func configureCell(_ cell: UITableViewCell, for row: Int) {
+    func configureCell(_ cell: UITableViewCell, for row: Int) {
         cell.textLabel?.text = nil
         cell.detailTextLabel?.text = nil
         cell.accessoryType = .none
@@ -71,11 +74,11 @@ class SingleRowSection: TableViewSection {
         self.lastSubitle = cell.detailTextLabel?.text
     }
 
-    override func title(for row: Int) -> String? {
+    func title(for row: Int) -> String? {
         return self.lastTitle
     }
 
-    override func subtitle(for row: Int) -> String? {
+    func subtitle(for row: Int) -> String? {
         return self.lastSubitle
     }
 }

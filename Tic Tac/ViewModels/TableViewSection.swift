@@ -9,95 +9,131 @@ import UIKit
 
 // MARK: TableViewSection
 
-/// An abstract base class for table view sections.
+/// A protocol for table view sections, with default implementations for many requirements.
 ///
-/// Many properties or methods here return nil or some logical equivalent by default.
-/// Even so, most of the methods with defaults are intended to be overriden by subclasses.
-/// Some methods are not implemented at all and MUST be implemented by a subclass.
-@objcMembers
-class TableViewSection: NSObject {
+/// Many properties or methods here return `nil` or some logical equivalent by default.
+/// Even so, most of the requirements with defaults are intended to be implemented by conformers.
+/// Some requirements are not implemented _at all_ and _**must**_ be implemented by a subclass.
+protocol TableViewSection: class {
     typealias ActionHandler = (UIViewController) -> Void
     
-    static var defaultReuseID = "TableViewSection.defaultReuseID"
-    
-    private weak var tableView: UITableView?
-    private var sectionIndex: Int = 0
+    var sectionIndex: Int { get set }
 
     // MARK: - Data
 
     /// A title to be displayed for the custom section.
-    /// Subclasses may override.
-    var title: String? = nil
+    var title: String? { get }
     
-    /// The number of rows in this section. Subclasses must override.
-    /// This should not change until \c filterText is changed or \c reloadData is called.
-    var numberOfRows: Int {
-        return 0
-    }
+    /// The number of rows in this section. Conformers must implement.
+    /// This should not change until `filterText` is changed or `reloadData` is called.
+    var numberOfRows: Int { get }
     
     /// A list of cells to register for reuse, using the class name as the identifier.
-    /// Subclasses \e may override this as necessary, but are not required to.
-    /// @return nil by default.
-    var reusableCellRegistry: [UITableViewCell.Type]? {
-        return nil
-    }
+    /// Conformers \e may override this as necessary, but are not required to.
+    /// - returns: `[UITableViewCell.self]` by default.
+    var reusableCellRegistry: [UITableViewCell.Type] { get }
     
     /// The section should filter itself based on the contents of this property
     /// as it is set. If it is set to nil or an empty string, it should not filter.
-    /// Subclasses should override or observe this property and react to changes.
+    /// Conformers must implement this property.
     ///
     /// It is common practice to use two arrays for the underlying model:
-    /// One to hold all rows, and one to hold unfiltered rows. When \c setFilterText:
-    /// is called, call \c super to store the new value, and re-filter your model accordingly.
-    var filterText: String?
+    /// One to hold all rows, and one to hold unfiltered rows. When `setFilterText:`
+    /// is called, call `super` to store the new value, and re-filter your model accordingly.
+    var filterText: String? { get set }
 
-    func configureCell(_ cell: UITableViewCell, for row: Int) { }
+    func configureCell(_ cell: UITableViewCell, for row: Int)
 
     /// Provides an avenue for the section to refresh data or change the number of rows.
     ///
     /// This is called before reloading the table view itself. If your section pulls data
     /// from an external data source, this is a good place to refresh that data entirely.
     /// If your section does not, then it might be simpler for you to just override
-    /// \c setFilterText: to call \c super and call \c reloadData.
-    func reloadData() { }
+    /// `setFilterText:` to call `super` and call `reloadData`.
+    func reloadData()
 
-    /// Like \c reloadData, but optionally reloads the table view section
+    /// Like `reloadData,` but optionally reloads the table view section
     /// associated with this section object, if any. Do not override.
     /// Do not call outside of the main thread.
-    final func reloadData(_ updateTable: Bool = false) {
-        self.reloadData()
-        if updateTable {
-            let index = NSIndexSet(index: self.sectionIndex)
-            self.tableView?.reloadSections(index as IndexSet, with: .none)
-        }
-    }
-
-    /// Provide a table view and section index to allow the section to efficiently reload
-    /// its own section of the table when something changes it. The table reference is
-    /// held weakly, and subclasses cannot access it or the index. Call this method again
-    /// if the section numbers have changed since you last called it.
-    func setTable(_ tableView: UITableView, section index: Int) {
-        self.tableView = tableView
-        self.sectionIndex = index
-    }
+    func reloadData(_ reloadTable: UITableView?)
 
     // MARK: - Row Selection
 
     /// Whether the given row should be selectable, such as if tapping the cell
     /// should take the user to a new screen or trigger an action.
-    /// Subclasses \e may override this as necessary, but are not required to.
-    /// @return \c NO by default
-    func canSelectRow(_ row: Int) -> Bool {
-        return false
-    }
+    /// Conformers \e may override this as necessary, but are not required to.
+    /// - returns: `NO` by default
+    func canSelectRow(_ row: Int) -> Bool
 
     /// An action "future" to be triggered when the row is selected, if the row
-    /// supports being selected as indicated by \c canSelectRow:. Subclasses
-    /// must implement this in accordance with how they implement \c canSelectRow:
-    /// if they do not implement \c viewControllerToPushfor:
-    /// @return This returns \c nil if no view controller is provided by
-    /// \c viewControllerToPushfor: — otherwise it pushes that view controller
-    /// onto \c host.navigationController
+    /// supports being selected as indicated by `canSelectRow:`. Conformers
+    /// must implement this in accordance with how they implement `canSelectRow:`
+    /// if they do not implement `viewControllerToPushfor:`
+    /// - returns: This returns `nil` if no view controller is provided by
+    /// `viewControllerToPushfor:` — otherwise it pushes that view controller
+    /// onto `host.navigationController`
+    func didSelectRowAction(_ row: Int) -> ActionHandler?
+
+    /// A view controller to display when the row is selected, if the row
+    /// supports being selected as indicated by `canSelectRow:`. Conformers
+    /// must implement this in accordance with how they implement `canSelectRow:`
+    /// if they do not implement `didSelectRowAction:`
+    /// - returns: `nil` by default
+    func viewControllerToPush(for row: Int) -> UIViewController?
+
+    // MARK: - Cell Configuration
+
+    /// Provide a reuse identifier for the given row. Conformers must implement.
+    ///
+    /// Custom reuse identifiers should be specified in `reusableCellRegistry`.
+    /// You may return any of the identifiers in `TableView.h`
+    /// without including them in the `reusableCellRegistry`.
+    /// - returns: `kDefaultCell` by default.
+    func reuseIdentifier(for row: Int) -> String
+
+    // MARK: - Context Menus
+
+    /// By default, this is the title of the row.
+    /// - returns: The title of the context menu, if any.
+    func menuTitle(for row: Int) -> String?
+
+    /// The context menu items, if any. Conformers may override.
+    /// By default, only inludes items for `copyMenuItemsfor:`.
+    @available(iOS 13.0, *)
+    func menuItems(for row: Int, sender: UIViewController) -> [UIMenuElement]
+
+    /// Conformers may override to return a list of copiable items.
+    ///
+    /// Every two elements in the list compose a key-value pair, where the key
+    /// should be a description of what will be copied, and the values should be
+    /// the strings to copy. Return an empty string as a value to show a disabled action.
+    func copyMenuItems(for row: Int) -> [(label: String, value: String)]
+
+    // MARK: - External Convenience
+
+    /// For use by whatever view controller uses your section. Not required.
+    /// - returns: An optional title.
+    func title(for row: Int) -> String?
+
+    /// For use by whatever view controller uses your section. Not required.
+    /// - returns: An optional subtitle.
+    func subtitle(for row: Int) -> String?
+}
+
+extension TableViewSection {
+    var title: String? { nil }
+    var reusableCellRegistry: [UITableViewCell.Type] { [UITableViewCell.self] }
+    
+    func reloadData() { }
+
+    func reloadData(_ reloadTable: UITableView? = nil) {
+        self.reloadData()
+        if let table = reloadTable {
+            let index = NSIndexSet(index: self.sectionIndex)
+            table.reloadSections(index as IndexSet, with: .none)
+        }
+    }
+
     func didSelectRowAction(_ row: Int) -> ActionHandler? {
         if let toPush = self.viewControllerToPush(for: row) {
             return { host in
@@ -108,63 +144,18 @@ class TableViewSection: NSObject {
         return nil
     }
 
-    /// A view controller to display when the row is selected, if the row
-    /// supports being selected as indicated by \c canSelectRow:. Subclasses
-    /// must implement this in accordance with how they implement \c canSelectRow:
-    /// if they do not implement \c didSelectRowAction:
-    /// @return \c nil by default
     func viewControllerToPush(for row: Int) -> UIViewController? {
         return nil
     }
 
-    /// Called when the accessory view's detail button is pressed.
-    /// @return \c nil by default.
-    func didPressInfoButtonAction(_ row: Int) -> ActionHandler? {
-        return nil
-    }
-
-    // MARK: - Cell Configuration
-
-    /// Provide a reuse identifier for the given row. Subclasses should override.
-    ///
-    /// Custom reuse identifiers should be specified in \c reusableCellRegistry.
-    /// You may return any of the identifiers in \c TableView.h
-    /// without including them in the \c reusableCellRegistry.
-    /// @return \c kDefaultCell by default.
     func reuseIdentifier(for row: Int) -> String {
-        return Self.defaultReuseID
+        return "\(UITableViewCell.self)"
     }
 
-    // MARK: - Context Menus
-
-    /// By default, this is the title of the row.
-    /// @return The title of the context menu, if any.
     func menuTitle(for row: Int) -> String? {
-        let title = self.title(for: row)
-        let subtitle = self.menuSubtitle(for: row)
-
-        if subtitle.count != 0 {
-            return """
-                \(title ?? "")
-
-                \(subtitle)
-                """
-        }
-
-        return title
+        return self.title(for: row)
     }
 
-    /// Protected, not intended for public use. \c menuTitlefor:
-    /// already includes the value returned from this method.
-    /// 
-    /// By default, this returns \c @"". Subclasses may override to
-    /// provide a detailed description of the target of the context menu.
-    func menuSubtitle(for row: Int) -> String {
-        return ""
-    }
-
-    /// The context menu items, if any. Subclasses may override.
-    /// By default, only inludes items for \c copyMenuItemsfor:.
     @available(iOS 13.0, *)
     func menuItems(for row: Int, sender: UIViewController) -> [UIMenuElement] {
         let copyItems = self.copyMenuItems(for: row)
@@ -186,26 +177,19 @@ class TableViewSection: NSObject {
         return []
     }
 
-    /// Subclasses may override to return a list of copiable items.
-    ///
-    /// Every two elements in the list compose a key-value pair, where the key
-    /// should be a description of what will be copied, and the values should be
-    /// the strings to copy. Return an empty string as a value to show a disabled action.
     func copyMenuItems(for row: Int) -> [(label: String, value: String)] {
         return []
     }
 
-    // MARK: - External Convenience
-
-    /// For use by whatever view controller uses your section. Not required.
-    /// @return An optional title.
     func title(for row: Int) -> String? {
         return nil
     }
 
-    /// For use by whatever view controller uses your section. Not required.
-    /// @return An optional subtitle.
     func subtitle(for row: Int) -> String? {
         return nil
     }
+}
+
+protocol DataSource: TableViewSection {
+    associatedtype Model
 }

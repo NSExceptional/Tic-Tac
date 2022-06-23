@@ -26,7 +26,7 @@ enum DebounceInterval: TimeInterval, Comparable, Equatable {
 @objc protocol SearchResultsUpdating: class {
     /// A method to handle search query update events.
     ///
-    /// \c searchBarDebounceInterval is used to reduce the frequency at which this
+    /// `searchBarDebounceInterval` is used to reduce the frequency at which this
     /// method is called. This method is also called when the search bar becomes
     /// the first responder, and when the selected search bar scope index changes.
     func updateSearchResults(_ newText: String?)
@@ -38,10 +38,10 @@ enum DebounceInterval: TimeInterval, Comparable, Equatable {
 class TTTableViewController: UITableViewController, UISearchResultsUpdating,
                              UISearchControllerDelegate, UISearchBarDelegate {
     
-    /// If your subclass conforms to \c SearchResultsUpdating
-    /// then this property is assigned to \c self automatically.
+    /// If your subclass conforms to `SearchResultsUpdating`
+    /// then this property is assigned to `self` automatically.
     ///
-    /// Setting \c filterDelegate will also set this property to that object.
+    /// Setting `filterDelegate` will also set this property to that object.
     weak var searchDelegate: SearchResultsUpdating? = nil
     
     /// Setting this to YES will initialize the carousel and the view.
@@ -195,7 +195,7 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
 
-    /// Subclasses may override to configure the controller before \c viewDidLoad:
+    /// Subclasses may override to configure the controller before `viewDidLoad:`
     override init(style: UITableView.Style = .plain) {
         self.style = style
         super.init(style: style)
