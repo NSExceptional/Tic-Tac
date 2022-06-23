@@ -12,5 +12,6 @@ class HerdViewController: FilteringTableViewController<YYYak> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.enableRefresh = true
     }
 }

@@ -177,6 +177,11 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
         return searchController?.searchBar.text
     }
     
+    var enableRefresh: Bool {
+        get { return self.refreshControl != nil }
+        set { self.refreshControl = .init(frame: .zero, primaryAction: self.refreshHandler) }
+    }
+    
     /// A totally optional delegate to forward search results updater calls to.
     /// If a delegate is set, updateSearchResults: is not called on this view controller.
     weak var searchResultsUpdater: SearchResultsUpdating?
@@ -375,5 +380,16 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
         }
 
         return nil // For plain/gropued style
+    }
+    
+    // MARK: Refresh
+    
+    /// Subclasses should override with refresh behavior
+    func refresh() {
+        
+    }
+    
+    private var refreshHandler: UIAction {
+        return .init { [weak self] _ in self?.refresh() }
     }
 }
