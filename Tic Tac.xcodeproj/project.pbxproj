@@ -21,6 +21,8 @@
 		C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340642E285863C0007B46D3 /* UIKit+Extensions.swift */; };
 		C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340643228587814007B46D3 /* Foundation+Extensions.swift */; };
 		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
+		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
+		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		C34064482863973A007B46D3 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		C34064492863973B007B46D3 /* VoteControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteControl.h; sourceTree = "<group>"; };
 		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
+		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
+		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,8 @@
 			children = (
 				C340642928580FF9007B46D3 /* TableViewSection.swift */,
 				C340642828580FF9007B46D3 /* SingleRowSection.swift */,
+				C3A7DF8128639E4800CB529F /* FeedDataSource.swift */,
+				C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -215,6 +221,7 @@
 			files = (
 				C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */,
 				C340642A28580FF9007B46D3 /* SingleRowSection.swift in Sources */,
+				C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */,
 				C340642128580B69007B46D3 /* TTTableViewController.swift in Sources */,
 				C340642028580B69007B46D3 /* FilteringTableViewController.swift in Sources */,
 				C340642B28580FF9007B46D3 /* TableViewSection.swift in Sources */,
@@ -224,6 +231,7 @@
 				C3406412285808C2007B46D3 /* HerdViewController.swift in Sources */,
 				C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */,
 				C3406416285808CF007B46D3 /* CommentsViewController.swift in Sources */,
+				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
 				C340644B2863973B007B46D3 /* VoteControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
