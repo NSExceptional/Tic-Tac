@@ -41,6 +41,10 @@ extension UIAction {
             self.attributes = .disabled
         }
     }
+    
+    convenience init(title: String, image: UIImage?, handler: @escaping UIActionHandler) {
+        self.init(title: title, image: image, attributes: [], handler: handler)
+    }
 }
 
 extension UIBarButtonItem {

@@ -10,6 +10,8 @@ import UIKit
 // MARK: - TableViewFiltering
 
 protocol TableViewFiltering: SearchResultsUpdating {
+    /// A string to display in leiu of table content. Only used when there are no sections or no error.
+    var emptyMessage: String? { get set }
     /// An array of visible, "filtered" sections. For example,
     /// if you have 3 sections in `allSections` and the user searches
     /// for something that matches rows in only one section, then
@@ -25,12 +27,16 @@ protocol TableViewFiltering: SearchResultsUpdating {
     /// This computed property should filter `allSections` for assignment to `sections`
     var nonemptySections: [TableViewSection] { get }
     /// This should be able to re-initialize `allSections`
-    func makeSections() -> [TableViewSection]
+    func makeSections() -> Result<[TableViewSection], Error>
 }
 
 // MARK: - FilteringTableViewController
+
 /// A table view which implements `UITableView*` methods using arrays of
 /// `TableViewSection` objects provied by a special delegate.
+///
+/// Automatically populates `tableView.backgroundView` with a label displaying
+/// a message in the form of an error, or the content of `emptyMessage`.
 @objcMembers
 class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering {
     typealias DataSourceType = Result<[T], Error>
@@ -47,10 +53,16 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
     /// Setting this property will also set `searchDelegate` to that object.
     weak var filterDelegate: TableViewFiltering? = nil {
         didSet {
-            self.filterDelegate?.allSections = self.filterDelegate!.makeSections()
+            switch self.filterDelegate!.makeSections() {
+                case .success(let sections):
+                    self.filterDelegate?.allSections = sections
+                case .failure(let error):
+                    self.errorMessage = error.localizedDescription
+            }
 
             if self.isViewLoaded {
                 self.registerCellsForReuse()
+                self.tableView.reloadData()
             }
         }
     }
@@ -67,8 +79,18 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
             for (idx, section) in self.sections.enumerated() {
                 section.sectionIndex = idx
             }
+            
+            // Update and unhide the background label
+            self.tableView.backgroundView?.isHidden = !sections.isEmpty
+            if self.sections.isEmpty {
+                self.backgroundLabel.text = self.errorMessage ?? self.emptyMessage
+            }
         }
     }
+    
+    var errorMessage: String? = nil
+    var emptyMessage: String? = nil
+    var backgroundLabel: UILabel { self.tableView.backgroundView as! UILabel }
 
     var allSections: [TableViewSection] = [] {
         didSet {
@@ -89,6 +111,8 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
 
     override func loadView() {
         super.loadView()
+        
+        self.tableView.backgroundView = UILabel()
 
         if self.filterDelegate == nil {
             self.filterDelegate = self
@@ -157,8 +181,8 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
 
     /// If using `self` as the `filterDelegate,` as is the default,
     /// subclasses should override to provide the sections for the table view.
-    func makeSections() -> [TableViewSection] {
-        return []
+    func makeSections() -> Result<[TableViewSection], Error> {
+        return .success([])
     }
 
     // MARK: - UITableViewDataSource
