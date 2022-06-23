@@ -25,6 +25,7 @@
 		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
 		C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DF882864B91A00CB529F /* TBAlertController */; };
 		C3A7DFA72864F00F00CB529F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DFA62864F00F00CB529F /* SnapKit */; };
+		C3A7DFAB2864F06F00CB529F /* YakKit+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */; };
 		E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
 		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
+		C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "YakKit+Swift.swift"; sourceTree = "<group>"; };
 		C99871A136D245B02CF1ED02 /* Pods-Tic Tac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.debug.xcconfig"; path = "Target Support Files/Pods-Tic Tac/Pods-Tic Tac.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 		C340640F28580853007B46D3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */,
 				C340642E285863C0007B46D3 /* UIKit+Extensions.swift */,
 				C340643228587814007B46D3 /* Foundation+Extensions.swift */,
 			);
@@ -299,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3A7DFAB2864F06F00CB529F /* YakKit+Swift.swift in Sources */,
 				C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */,
 				C340642A28580FF9007B46D3 /* SingleRowSection.swift in Sources */,
 				C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */,
