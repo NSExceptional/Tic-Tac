@@ -23,7 +23,8 @@
 		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
 		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
-		C3A7DF892864B91A00CB529F /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DF882864B91A00CB529F /* SwiftPackageProductDependency */; };
+		C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DF882864B91A00CB529F /* TBAlertController */; };
+		C3A7DFA72864F00F00CB529F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DFA62864F00F00CB529F /* SnapKit */; };
 		E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3A7DF892864B91A00CB529F /* BuildFile in Frameworks */,
+				C3A7DFA72864F00F00CB529F /* SnapKit in Frameworks */,
+				C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */,
 				E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,7 +74,6 @@
 				C99871A136D245B02CF1ED02 /* Pods-Tic Tac.debug.xcconfig */,
 				924D18F1AD2F6A1623979697 /* Pods-Tic Tac.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -195,7 +196,8 @@
 			);
 			name = "Tic Tac";
 			packageProductDependencies = (
-				C3A7DF882864B91A00CB529F /* SwiftPackageProductDependency */,
+				C3A7DF882864B91A00CB529F /* TBAlertController */,
+				C3A7DFA62864F00F00CB529F /* SnapKit */,
 			);
 			productName = "Tic Tac";
 			productReference = C34063FA285807BD007B46D3 /* Tic Tac.app */;
@@ -226,7 +228,8 @@
 			);
 			mainGroup = C34063F1285807BD007B46D3;
 			packageReferences = (
-				C3A7DF872864B91A00CB529F /* RemoteSwiftPackageReference */,
+				C3A7DF872864B91A00CB529F /* XCRemoteSwiftPackageReference "TBAlertController" */,
+				C3A7DFA52864F00F00CB529F /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = C34063FB285807BD007B46D3 /* Products */;
 			projectDirPath = "";
@@ -514,7 +517,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C3A7DF872864B91A00CB529F /* RemoteSwiftPackageReference */ = {
+		C3A7DF872864B91A00CB529F /* XCRemoteSwiftPackageReference "TBAlertController" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/NSExceptional/TBAlertController.git";
 			requirement = {
@@ -522,13 +525,26 @@
 				kind = branch;
 			};
 		};
+		C3A7DFA52864F00F00CB529F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C3A7DF882864B91A00CB529F /* SwiftPackageProductDependency */ = {
+		C3A7DF882864B91A00CB529F /* TBAlertController */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C3A7DF872864B91A00CB529F /* RemoteSwiftPackageReference */;
+			package = C3A7DF872864B91A00CB529F /* XCRemoteSwiftPackageReference "TBAlertController" */;
 			productName = TBAlertController;
+		};
+		C3A7DFA62864F00F00CB529F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3A7DFA52864F00F00CB529F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
