@@ -6,9 +6,9 @@
 //
 
 import UIKit
+import YakKit
 
-class HerdViewController: UITableViewController {
-
+class HerdViewController: FilteringTableViewController<YYYak> {
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import YakKit
 
-class FeedDataSource: TableViewSection {
-    typealias Model = Any
+class FeedDataSource: DataSource {
+    typealias Model = YYYak
     
     let rows: [Model]
 
@@ -18,7 +19,7 @@ class FeedDataSource: TableViewSection {
     var sectionIndex: Int = 0
     var filterText: String? = nil
     
-    internal init(rows: [Model]) {
+    init(rows: [Model] = []) {
         self.rows = rows
     }
     

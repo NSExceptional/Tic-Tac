@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import YakKit
 
-class CommentsViewController: TTTableViewController {
+class CommentsViewController: FilteringTableViewController<YYComment> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -32,7 +32,9 @@ protocol TableViewFiltering: SearchResultsUpdating {
 /// A table view which implements `UITableView*` methods using arrays of
 /// `TableViewSection` objects provied by a special delegate.
 @objcMembers
-class FilteringTableViewController: TTTableViewController, TableViewFiltering {
+class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering {
+    typealias DataSourceType = Result<[T], Error>
+    
     /// Stores the current search query.
     var filterText: String? = nil
     

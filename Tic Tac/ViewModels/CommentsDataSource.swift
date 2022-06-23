@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import YakKit
 
-class CommentsDataSource: TableViewSection {
-    typealias Model = Any
+class CommentsDataSource: DataSource {
+    typealias Model = YYComment
     
     let rows: [Model]
 
@@ -18,7 +19,7 @@ class CommentsDataSource: TableViewSection {
     var sectionIndex: Int = 0
     var filterText: String? = nil
     
-    internal init(rows: [Model]) {
+    init(rows: [Model] = []) {
         self.rows = rows
     }
     
