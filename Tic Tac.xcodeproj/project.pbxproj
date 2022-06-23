@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,9 +23,13 @@
 		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
 		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
+		C3A7DF892864B91A00CB529F /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DF882864B91A00CB529F /* SwiftPackageProductDependency */; };
+		E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		924D18F1AD2F6A1623979697 /* Pods-Tic Tac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.release.xcconfig"; path = "Target Support Files/Pods-Tic Tac/Pods-Tic Tac.release.xcconfig"; sourceTree = "<group>"; };
+		B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tic_Tac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34063FA285807BD007B46D3 /* Tic Tac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34063FD285807BD007B46D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34063FF285807BD007B46D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,6 +50,7 @@
 		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
 		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
+		C99871A136D245B02CF1ED02 /* Pods-Tic Tac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.debug.xcconfig"; path = "Target Support Files/Pods-Tic Tac/Pods-Tic Tac.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,17 +58,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3A7DF892864B91A00CB529F /* BuildFile in Frameworks */,
+				E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		64763D63E215EC7B42D46E4C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C99871A136D245B02CF1ED02 /* Pods-Tic Tac.debug.xcconfig */,
+				924D18F1AD2F6A1623979697 /* Pods-Tic Tac.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6CCBCCC5946F28D1795D5E64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C34063F1285807BD007B46D3 = {
 			isa = PBXGroup;
 			children = (
 				C34063FC285807BD007B46D3 /* Tic Tac */,
 				C34063FB285807BD007B46D3 /* Products */,
+				64763D63E215EC7B42D46E4C /* Pods */,
+				6CCBCCC5946F28D1795D5E64 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,15 +183,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3406407285807BD007B46D3 /* Build configuration list for PBXNativeTarget "Tic Tac" */;
 			buildPhases = (
+				69CDDAFA471AECB5AC9C5FBA /* [CP] Check Pods Manifest.lock */,
 				C34063F6285807BD007B46D3 /* Sources */,
 				C34063F7285807BD007B46D3 /* Frameworks */,
 				C34063F8285807BD007B46D3 /* Resources */,
+				B66CCBC24E44F0E7D8D8981B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Tic Tac";
+			packageProductDependencies = (
+				C3A7DF882864B91A00CB529F /* SwiftPackageProductDependency */,
+			);
 			productName = "Tic Tac";
 			productReference = C34063FA285807BD007B46D3 /* Tic Tac.app */;
 			productType = "com.apple.product-type.application";
@@ -193,6 +225,9 @@
 				Base,
 			);
 			mainGroup = C34063F1285807BD007B46D3;
+			packageReferences = (
+				C3A7DF872864B91A00CB529F /* RemoteSwiftPackageReference */,
+			);
 			productRefGroup = C34063FB285807BD007B46D3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -213,6 +248,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		69CDDAFA471AECB5AC9C5FBA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tic Tac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B66CCBC24E44F0E7D8D8981B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tic Tac/Pods-Tic Tac-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C34063F6285807BD007B46D3 /* Sources */ = {
@@ -368,6 +445,7 @@
 		};
 		C3406408285807BD007B46D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C99871A136D245B02CF1ED02 /* Pods-Tic Tac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -391,6 +469,7 @@
 		};
 		C3406409285807BD007B46D3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 924D18F1AD2F6A1623979697 /* Pods-Tic Tac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -433,6 +512,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C3A7DF872864B91A00CB529F /* RemoteSwiftPackageReference */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NSExceptional/TBAlertController.git";
+			requirement = {
+				branch = swift;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C3A7DF882864B91A00CB529F /* SwiftPackageProductDependency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3A7DF872864B91A00CB529F /* RemoteSwiftPackageReference */;
+			productName = TBAlertController;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C34063F2285807BD007B46D3 /* Project object */;
 }
