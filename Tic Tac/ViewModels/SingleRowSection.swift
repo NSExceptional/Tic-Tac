@@ -73,6 +73,12 @@ class SingleRowSection: TableViewSection {
         self.lastTitle = cell.textLabel?.text
         self.lastSubitle = cell.detailTextLabel?.text
     }
+    
+    func cell(_ table: UITableView, for ip: IndexPath) -> UITableViewCell {
+        let cell = table.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: ip)
+        self.configureCell(cell, for: ip.row)
+        return cell
+    }
 
     func title(for row: Int) -> String? {
         return self.lastTitle

@@ -8,6 +8,10 @@ target 'Tic Tac' do
     # pod 'YakKit', :git => 'https://github.com/ThePantsThief/YakKit.git'
 end
 
+target 'TicTacTests' do
+    pod 'YakKit', :path => '../YakKit'
+end
+
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|

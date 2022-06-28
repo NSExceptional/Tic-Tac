@@ -15,6 +15,7 @@ import UIKit
 /// Even so, most of the requirements with defaults are intended to be implemented by conformers.
 /// Some requirements are not implemented _at all_ and _**must**_ be implemented by a subclass.
 protocol TableViewSection: class {
+//    associatedtype Cell: UITableViewCell
     typealias ActionHandler = (UIViewController) -> Void
     
     var sectionIndex: Int { get set }
@@ -42,7 +43,8 @@ protocol TableViewSection: class {
     /// is called, call `super` to store the new value, and re-filter your model accordingly.
     var filterText: String? { get set }
 
-    func configureCell(_ cell: UITableViewCell, for row: Int)
+//    func configureCell(_ cell: Cell, for row: Int)
+    func cell(_ table: UITableView, for row: IndexPath) -> UITableViewCell
 
     /// Provides an avenue for the section to refresh data or change the number of rows.
     ///
@@ -133,6 +135,10 @@ extension TableViewSection {
             table.reloadSections(index as IndexSet, with: .none)
         }
     }
+    
+    func canSelectRow(_ row: Int) -> Bool {
+        return false
+    }
 
     func didSelectRowAction(_ row: Int) -> ActionHandler? {
         if let toPush = self.viewControllerToPush(for: row) {
@@ -192,4 +198,5 @@ extension TableViewSection {
 
 protocol DataSource: TableViewSection {
     associatedtype Model
+    
 }

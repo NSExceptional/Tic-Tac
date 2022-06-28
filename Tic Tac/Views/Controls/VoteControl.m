@@ -19,28 +19,43 @@
 @interface _VoteControl : UIStepper
 @property (nonatomic, readonly) UIButton *plusButton;
 @property (nonatomic, readonly) UIButton *minusButton;
-@property (nonatomic) VoteStatus status;
-@property (nonatomic) NSInteger initialScore;
-@property (nonatomic) VoteStatus lastVoteButtonPress;
+@property (nonatomic) YYVoteStatus status;
+/// Initial score, independent of vote status
+@property (nonatomic, readonly) NSInteger initialScore;
+@property (nonatomic) YYVoteStatus lastVoteButtonPress;
 @end
+
+NSInteger YYScoreWithoutVote(YYVoteStatus vote, NSInteger score) {
+    switch (vote) {
+        case YYVoteStatusNone:
+            break;
+        case YYVoteStatusUpvoted: {
+            score -= 1;
+            break;
+        }
+        case YYVoteStatusDownvoted: {
+            score += 1;
+            break;
+        }
+    }
+    
+    return score;
+}
 
 @implementation _VoteControl
 
-+ (instancetype)withInitialScoreIgnoringVote:(NSInteger)score {
-    return [[self alloc] initWithInitialScoreIgnoringVote:score];
-}
-
-- (instancetype)initWithInitialScoreIgnoringVote:(NSInteger)score {
-    self = [self init];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
-        _initialScore = score;
+        _initialScore = 0;
+        _status = YYVoteStatusNone;
         
         self.wraps = YES;
         self.continuous = NO;
-        self.minimumValue = score - 1;
-        self.maximumValue = score + 1;
+        self.minimumValue = -1;
+        self.maximumValue =  1;
         self.stepValue = 1;
-        self.value = score;
+        self.value = 0;
         
         self.tintColor = UIColor.whiteColor;
         [self setDecrementImage:[UIImage systemImageNamed:@"arrow.left"] forState:UIControlStateNormal];
@@ -59,30 +74,19 @@
     return self;
 }
 
-- (VoteStatus)status {
-    VoteStatus stat = (NSInteger)self.value - self.initialScore;
-    return MAX(VoteStatusDownvoted, MIN(VoteStatusUpvoted, stat));
-}
+- (void)setVote:(YYVoteStatus)status score:(NSInteger)score {
+    _status = status;
 
-- (void)setStatus:(VoteStatus)status {
-    VoteStatus currentStatus = self.status;
-    
-    if (currentStatus == status) {
-        return;
-    }
-    
-    NSInteger delta = -currentStatus + status;
-    self.value += delta;
-    [self refreshStatusIndicators];
-}
-
-- (void)setInitialScore:(NSInteger)initialScore {
-    // Status is dependent on initialScore; compute status first
-    VoteStatus status = self.status;
     // Update score
-    _initialScore = initialScore;
-    // Update value to reflect new score and original vote status
-    self.value = initialScore + (NSInteger)status;
+    _initialScore = YYScoreWithoutVote(status, score);
+    
+    // Update value
+    self.minimumValue = _initialScore - 1;
+    self.maximumValue = _initialScore + 1;
+    self.value = score;
+    
+    // Update status indicators
+    [self refreshStatusIndicators];
 }
 
 - (UIButton *)plusButton {
@@ -94,22 +98,32 @@
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    YYVoteStatus previous = self.status;
+    
     if (self.plusButton.highlighted) {
-        self.lastVoteButtonPress = VoteStatusUpvoted;
+        self.lastVoteButtonPress = YYVoteStatusUpvoted;
     } else if (self.minusButton.highlighted) {
-        self.lastVoteButtonPress = VoteStatusDownvoted;
+        self.lastVoteButtonPress = YYVoteStatusDownvoted;
     } else {
-        self.lastVoteButtonPress = VoteStatusNone;
+        self.lastVoteButtonPress = YYVoteStatusNone;
     }
+    
+    if (self.status == self.lastVoteButtonPress) {
+        self.status = YYVoteStatusNone;
+    } else {
+        self.status = self.lastVoteButtonPress;
+    }
+    
+    // Initial score not affected
+    NSInteger delta = -previous + self.status;
+    self.value += delta;
+    [self refreshStatusIndicators];
     
     [super endTrackingWithTouch:touch withEvent:event];
 }
 
 - (void)visualElementDidSetValue:(UIStepperHorizontalVisualElement *)sender {    
-    if (self.lastVoteButtonPress == self.status) {
-        sender.value = self.initialScore;
-    }
-    
+    sender.value = self.value;
     [super visualElementDidSetValue:sender];
 }
 
@@ -118,14 +132,14 @@
     self.minusButton.tintColor = UIColor.whiteColor;
     
     switch (self.status) {
-        case VoteStatusNone:
+        case YYVoteStatusNone:
             self.stepValue = 1;
             break;
-        case VoteStatusUpvoted:
+        case YYVoteStatusUpvoted:
             self.stepValue = 2;
             self.plusButton.tintColor = UIColor.systemOrangeColor;
             break;
-        case VoteStatusDownvoted:
+        case YYVoteStatusDownvoted:
             self.stepValue = 2;
             self.minusButton.tintColor = UIColor.systemIndigoColor;
             break;
@@ -137,37 +151,20 @@
 @interface VoteControl ()
 @property (nonatomic, readonly) UILabel *counter;
 @property (nonatomic, readonly) _VoteControl *control;
+@property (nonatomic, readonly) NSLayoutConstraint *heightConstraint;
 @end
 
 @implementation VoteControl
 
-+ (instancetype)withInitialScore:(NSInteger)score initialStatus:(VoteStatus)status {
-    return [[self alloc] initWithInitialScore:score initialStatus:status];
-}
-
-- (instancetype)initWithInitialScore:(NSInteger)score initialStatus:(VoteStatus)status {
-    self = [self init];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
-        // Get true initail score by adjusting for our vote status
-        switch (status) {
-            case VoteStatusNone:
-                break;
-            case VoteStatusUpvoted: {
-                score -= 1;
-                break;
-            }
-            case VoteStatusDownvoted: {
-                score += 1;
-                break;
-            }
-        }
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         
         _counter = [UILabel new];
-        _control = [_VoteControl withInitialScoreIgnoringVote:score];
-        _control.status = status;
+        _control = [_VoteControl new];
         
         [self refreshCounter];
-        self.status = status;
         
         [self addSubview:_counter];
         [self addSubview:_control];
@@ -176,34 +173,40 @@
         _counter.translatesAutoresizingMaskIntoConstraints = NO;
         
         const CGFloat kTransformOffset = 30;
+        _heightConstraint = [self.heightAnchor constraintEqualToConstant:_control.frame.size.height];
         [NSLayoutConstraint activateConstraints:@[
+            [_counter.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
             [_counter.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-//            [_counter.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
             [_counter.trailingAnchor constraintEqualToAnchor:_control.leadingAnchor constant:kTransformOffset - 15],
             
             [_control.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
             [_control.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:kTransformOffset],
-            [self.heightAnchor constraintEqualToAnchor:_control.widthAnchor],
-            [self.widthAnchor constraintEqualToConstant:72],
+            self.heightConstraint,
+//            [self.heightAnchor constraintEqualToAnchor:_control.widthAnchor],
+//            [self.widthAnchor constraintEqualToConstant:72],
         ]];
         
+        [self setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+        
         [self.control addTarget:self action:@selector(refreshCounter) forControlEvents:UIControlEventValueChanged];
+        
+        [self sizeToFit];
     }
     
     return self;
+}
+
+- (void)setVote:(YYVoteStatus)status score:(NSInteger)score {
+    [self.control setVote:status score:score];
+    [self refreshCounter:NO];
 }
 
 - (NSInteger)score {
     return self.control.value;
 }
 
-- (VoteStatus)status {
+- (YYVoteStatus)status {
     return self.control.status;
-}
-
-- (void)setStatus:(VoteStatus)status {
-    self.control.status = status;
-    [self refreshCounter:NO];
 }
 
 - (void)refreshCounter {
@@ -214,8 +217,44 @@
     self.counter.text = @(self.score).stringValue;
 
     if (sendEvents && self.onVoteStatusChange) {
-        self.onVoteStatusChange(self.status);
+        self.onVoteStatusChange(self.status, self.score);
     }
+}
+
+- (CGVector)stepperScale {
+    return CGVectorMake(self.control.transform.d, self.control.transform.a);
+}
+
+- (void)setStepperScale:(CGVector)v {
+    self.control.transform = CGAffineTransformScale(self.control.transform, v.dy, v.dx);
+    self.heightConstraint.constant = self.control.frame.size.height;
+    [self setNeedsUpdateConstraints];
+}
+
+@end
+
+@implementation VoteControl (Private)
+
+- (UIButton *)upvoteButton {
+    return self.control.plusButton;
+}
+
+- (UIButton *)downvoteButton {
+    return self.control.minusButton;
+}
+
+- (void)simulateVote:(YYVoteStatus)vote {
+    switch (vote) {
+        case YYVoteStatusUpvoted:
+            self.upvoteButton.highlighted = YES;
+            break;
+        case YYVoteStatusDownvoted:
+            self.downvoteButton.highlighted = YES;
+            break;
+        default: return;
+    }
+    
+    [self.control endTrackingWithTouch:nil withEvent:nil];
 }
 
 @end

@@ -7,6 +7,28 @@
 
 import UIKit
 
+extension CGRect {
+    static func square(_ size: CGFloat) -> Self {
+        return .init(origin: .zero, size: .square(size))
+    }
+}
+
+extension CGSize {
+    static func square(_ size: CGFloat) -> Self {
+        return .init(width: size, height: size)
+    }
+}
+
+extension UIEdgeInsets {
+    init(all inset: CGFloat) {
+        self.init(top: inset, left: inset, bottom: inset, right: inset)
+    }
+    
+    init(vertical v: CGFloat, horizontal h: CGFloat) {
+        self.init(top: v, left: h, bottom: v, right: h)
+    }
+}
+
 extension UIMenu {
     static func inline(_ title: String = "", image: UIImage? = nil,
                        options: Options = [.displayInline], items: [UIMenuElement]) -> UIMenu {
@@ -69,8 +91,9 @@ extension UITableView {
     }
     
     func dequeueCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
+        let identifier = NSStringFromClass(T.self)
         return self.dequeueReusableCell(
-            withIdentifier: NSStringFromClass(T.self),
+            withIdentifier: identifier,
             for: indexPath
         ) as! T
     }
@@ -115,5 +138,43 @@ extension UICollectionView {
             withReuseIdentifier: NSStringFromClass(T.self),
             for: indexPath
         ) as! T
+    }
+}
+
+extension UIColor {
+    convenience init(hex string: String) {
+        let string = string.trimmingCharacters(in: .whitespacesAndNewlines)
+        let scanner = Scanner(string: string)
+        
+        _ = scanner.scanString("#")
+        
+        var color: UInt64 = 0
+        scanner.scanHexInt64(&color)
+
+        let mask = 0x000000FF
+        let rb = Int(color >> 16) & mask
+        let gb = Int(color >> 8) & mask
+        let bb = Int(color) & mask
+
+        let r = CGFloat(rb) / 255.0
+        let g = CGFloat(gb) / 255.0
+        let b = CGFloat(bb) / 255.0
+
+        self.init(red: r, green: g, blue: b, alpha: 1)
+    }
+}
+
+extension UILabel {
+    func multiline() -> UILabel {
+        self.numberOfLines = 0
+        self.lineBreakMode = .byWordWrapping
+        self.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+//        self.setContentHuggingPriority(.required, for: .vertical)
+        return self
+    }
+    
+    convenience init(textStyle style: UIFont.TextStyle) {
+        self.init()
+        self.font = .preferredFont(forTextStyle: style)
     }
 }

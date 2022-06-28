@@ -228,10 +228,11 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
         super.viewDidLoad()
 
         self.tableView?.keyboardDismissMode = .onDrag
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = UITableView.automaticDimension
 
         // Toolbar
-        self.navigationController?.isToolbarHidden = (toolbarItems?.count ?? 0) > 0
-        self.navigationController?.hidesBarsOnSwipe = true
+        self.navigationController?.isToolbarHidden = self.toolbarItems?.isEmpty ?? true
 
         // On iOS 13+, the root view controller shows it's search bar no matter what.
         // Turning this off avoids some weird flash the navigation bar does when we

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B6E77772A798E671B20EF1D /* Pods_TicTacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3983D261FD623521EF670D68 /* Pods_TicTacTests.framework */; };
+		C304156928666B8B00BC858C /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304156828666B8B00BC858C /* BaseCell.swift */; };
+		C304156D28666D9900BC858C /* UserEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304156C28666D9900BC858C /* UserEmojiView.swift */; };
+		C30415712866838600BC858C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30415702866838600BC858C /* Strings.swift */; };
+		C30417EE286683BE00BC858C /* DateFormatter+Formats.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */; };
 		C34063FE285807BD007B46D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34063FD285807BD007B46D3 /* AppDelegate.swift */; };
 		C3406400285807BD007B46D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34063FF285807BD007B46D3 /* Assets.xcassets */; };
 		C3406403285807BD007B46D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3406401285807BD007B46D3 /* LaunchScreen.storyboard */; };
@@ -26,12 +31,43 @@
 		C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DF882864B91A00CB529F /* TBAlertController */; };
 		C3A7DFA72864F00F00CB529F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DFA62864F00F00CB529F /* SnapKit */; };
 		C3A7DFAB2864F06F00CB529F /* YakKit+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */; };
+		C3A7DFAE2864F1DE00CB529F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFAD2864F1DE00CB529F /* TabBarController.swift */; };
+		C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */; };
+		C3A7DFB52864F75900CB529F /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB42864F75900CB529F /* Promise.swift */; };
+		C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFBB2864FF7900CB529F /* LocationManager.swift */; };
+		C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E050BF286664BE00DC26F0 /* LoginController.swift */; };
+		C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F43C8A286A9A3B001F6D64 /* Hooks.m */; };
+		C3F6EAEB28681D800066B9FD /* Reflex in Frameworks */ = {isa = PBXBuildFile; productRef = C3F6EAEA28681D800066B9FD /* Reflex */; };
+		C3F6EAF4286951240066B9FD /* TicTacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F6EAF3286951240066B9FD /* TicTacTests.swift */; };
+		C3F6EB19286967CA0066B9FD /* CommentsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F6EB18286967CA0066B9FD /* CommentsHeaderView.swift */; };
+		C3F6EB1D286967FC0066B9FD /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F6EB1C286967FB0066B9FD /* AutoLayout.swift */; };
+		C3F6EB232869840D0066B9FD /* YakCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F6EB222869840C0066B9FD /* YakCell.swift */; };
+		C3F6EB27286984240066B9FD /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F6EB26286984240066B9FD /* CommentCell.swift */; };
+		C3F6EB2B286984300066B9FD /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F6EB2A286984300066B9FD /* NotificationCell.swift */; };
+		C3F6EB3C28699CB20066B9FD /* VotableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F6EB3B28699CB20066B9FD /* VotableDataSource.swift */; };
+		C3F6EB43286A69FF0066B9FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3F6EB41286A69FF0066B9FD /* GoogleService-Info.plist */; };
 		E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C3F6EAF6286951240066B9FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C34063F2285807BD007B46D3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C34063F9285807BD007B46D3;
+			remoteInfo = "Tic Tac";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		3983D261FD623521EF670D68 /* Pods_TicTacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicTacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		924D18F1AD2F6A1623979697 /* Pods-Tic Tac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.release.xcconfig"; path = "Target Support Files/Pods-Tic Tac/Pods-Tic Tac.release.xcconfig"; sourceTree = "<group>"; };
+		9E7E4A9713E499577AA2C515 /* Pods-TicTacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicTacTests.release.xcconfig"; path = "Target Support Files/Pods-TicTacTests/Pods-TicTacTests.release.xcconfig"; sourceTree = "<group>"; };
 		B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tic_Tac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C304156828666B8B00BC858C /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		C304156C28666D9900BC858C /* UserEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmojiView.swift; sourceTree = "<group>"; };
+		C30415702866838600BC858C /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Formats.swift"; sourceTree = "<group>"; };
 		C34063FA285807BD007B46D3 /* Tic Tac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34063FD285807BD007B46D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34063FF285807BD007B46D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,7 +89,25 @@
 		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
 		C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "YakKit+Swift.swift"; sourceTree = "<group>"; };
+		C3A7DFAD2864F1DE00CB529F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YYClient+AuthManagement.swift"; sourceTree = "<group>"; };
+		C3A7DFB42864F75900CB529F /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		C3A7DFBB2864FF7900CB529F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C3E050BF286664BE00DC26F0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C3F43C8A286A9A3B001F6D64 /* Hooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hooks.m; sourceTree = "<group>"; };
+		C3F6EAF1286951240066B9FD /* TicTacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3F6EAF3286951240066B9FD /* TicTacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacTests.swift; sourceTree = "<group>"; };
+		C3F6EAF5286951240066B9FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3F6EB18286967CA0066B9FD /* CommentsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsHeaderView.swift; sourceTree = "<group>"; };
+		C3F6EB1C286967FB0066B9FD /* AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
+		C3F6EB222869840C0066B9FD /* YakCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YakCell.swift; sourceTree = "<group>"; };
+		C3F6EB26286984240066B9FD /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		C3F6EB2A286984300066B9FD /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		C3F6EB3B28699CB20066B9FD /* VotableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotableDataSource.swift; sourceTree = "<group>"; };
+		C3F6EB41286A69FF0066B9FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C3F6EB42286A69FF0066B9FD /* Tic Tac.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "Tic Tac.entitlements"; sourceTree = "<group>"; };
 		C99871A136D245B02CF1ED02 /* Pods-Tic Tac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.debug.xcconfig"; path = "Target Support Files/Pods-Tic Tac/Pods-Tic Tac.debug.xcconfig"; sourceTree = "<group>"; };
+		DC3FDB2D71C2794E1C2FE0B2 /* Pods-TicTacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicTacTests.debug.xcconfig"; path = "Target Support Files/Pods-TicTacTests/Pods-TicTacTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +115,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3F6EAEB28681D800066B9FD /* Reflex in Frameworks */,
 				C3A7DFA72864F00F00CB529F /* SnapKit in Frameworks */,
 				C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */,
 				E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3F6EAEE286951240066B9FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B6E77772A798E671B20EF1D /* Pods_TicTacTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +138,8 @@
 			children = (
 				C99871A136D245B02CF1ED02 /* Pods-Tic Tac.debug.xcconfig */,
 				924D18F1AD2F6A1623979697 /* Pods-Tic Tac.release.xcconfig */,
+				DC3FDB2D71C2794E1C2FE0B2 /* Pods-TicTacTests.debug.xcconfig */,
+				9E7E4A9713E499577AA2C515 /* Pods-TicTacTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -83,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */,
+				3983D261FD623521EF670D68 /* Pods_TicTacTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -91,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				C34063FC285807BD007B46D3 /* Tic Tac */,
+				C3F6EAF2286951240066B9FD /* TicTacTests */,
 				C34063FB285807BD007B46D3 /* Products */,
 				64763D63E215EC7B42D46E4C /* Pods */,
 				6CCBCCC5946F28D1795D5E64 /* Frameworks */,
@@ -101,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				C34063FA285807BD007B46D3 /* Tic Tac.app */,
+				C3F6EAF1286951240066B9FD /* TicTacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +191,9 @@
 			children = (
 				C34063FF285807BD007B46D3 /* Assets.xcassets */,
 				C34063FD285807BD007B46D3 /* AppDelegate.swift */,
+				C3F43C8A286A9A3B001F6D64 /* Hooks.m */,
+				C3F6EB42286A69FF0066B9FD /* Tic Tac.entitlements */,
+				C3F6EB41286A69FF0066B9FD /* GoogleService-Info.plist */,
 				C34064482863973A007B46D3 /* Bridging-Header.h */,
 				C3406401285807BD007B46D3 /* LaunchScreen.storyboard */,
 				C3406404285807BD007B46D3 /* Info.plist */,
@@ -133,6 +204,7 @@
 		C340640E28580845007B46D3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C3A7DFAD2864F1DE00CB529F /* TabBarController.swift */,
 				C340641F28580B69007B46D3 /* TTTableViewController.swift */,
 				C340641E28580B69007B46D3 /* FilteringTableViewController.swift */,
 				C3406411285808C2007B46D3 /* HerdViewController.swift */,
@@ -147,6 +219,7 @@
 				C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */,
 				C340642E285863C0007B46D3 /* UIKit+Extensions.swift */,
 				C340643228587814007B46D3 /* Foundation+Extensions.swift */,
+				C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -154,6 +227,11 @@
 		C34064102858085A007B46D3 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */,
+				C3A7DFB42864F75900CB529F /* Promise.swift */,
+				C30415702866838600BC858C /* Strings.swift */,
+				C3A7DFBB2864FF7900CB529F /* LocationManager.swift */,
+				C3E050BF286664BE00DC26F0 /* LoginController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -163,6 +241,7 @@
 			children = (
 				C340642928580FF9007B46D3 /* TableViewSection.swift */,
 				C340642828580FF9007B46D3 /* SingleRowSection.swift */,
+				C3F6EB3B28699CB20066B9FD /* VotableDataSource.swift */,
 				C3A7DF8128639E4800CB529F /* FeedDataSource.swift */,
 				C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */,
 			);
@@ -172,12 +251,44 @@
 		C340641C285808FF007B46D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C34064492863973B007B46D3 /* VoteControl.h */,
-				C340644A2863973B007B46D3 /* VoteControl.m */,
-				C340642328580F5F007B46D3 /* CarouselCell.swift */,
-				C340642428580F5F007B46D3 /* ScopeCarousel.swift */,
+				C3F6EB1C286967FB0066B9FD /* AutoLayout.swift */,
+				C3F6EB18286967CA0066B9FD /* CommentsHeaderView.swift */,
+				C304156C28666D9900BC858C /* UserEmojiView.swift */,
+				C3F6EB2F286984920066B9FD /* Controls */,
+				C3F6EB322869849B0066B9FD /* Table Cells */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C3F6EAF2286951240066B9FD /* TicTacTests */ = {
+			isa = PBXGroup;
+			children = (
+				C3F6EAF3286951240066B9FD /* TicTacTests.swift */,
+				C3F6EAF5286951240066B9FD /* Info.plist */,
+			);
+			path = TicTacTests;
+			sourceTree = "<group>";
+		};
+		C3F6EB2F286984920066B9FD /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				C340642328580F5F007B46D3 /* CarouselCell.swift */,
+				C340642428580F5F007B46D3 /* ScopeCarousel.swift */,
+				C34064492863973B007B46D3 /* VoteControl.h */,
+				C340644A2863973B007B46D3 /* VoteControl.m */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		C3F6EB322869849B0066B9FD /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C304156828666B8B00BC858C /* BaseCell.swift */,
+				C3F6EB222869840C0066B9FD /* YakCell.swift */,
+				C3F6EB26286984240066B9FD /* CommentCell.swift */,
+				C3F6EB2A286984300066B9FD /* NotificationCell.swift */,
+			);
+			path = "Table Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,10 +312,31 @@
 			packageProductDependencies = (
 				C3A7DF882864B91A00CB529F /* TBAlertController */,
 				C3A7DFA62864F00F00CB529F /* SnapKit */,
+				C3F6EAEA28681D800066B9FD /* Reflex */,
 			);
 			productName = "Tic Tac";
 			productReference = C34063FA285807BD007B46D3 /* Tic Tac.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C3F6EAF0286951240066B9FD /* TicTacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3F6EAF8286951240066B9FD /* Build configuration list for PBXNativeTarget "TicTacTests" */;
+			buildPhases = (
+				21132A3B5AAC08E46B83766E /* [CP] Check Pods Manifest.lock */,
+				C3F6EAED286951240066B9FD /* Sources */,
+				C3F6EAEE286951240066B9FD /* Frameworks */,
+				C3F6EAEF286951240066B9FD /* Resources */,
+				535DAF5E167FDBE4F41B3361 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3F6EAF7286951240066B9FD /* PBXTargetDependency */,
+			);
+			name = TicTacTests;
+			productName = TicTacTests;
+			productReference = C3F6EAF1286951240066B9FD /* TicTacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -218,6 +350,10 @@
 					C34063F9285807BD007B46D3 = {
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1240;
+					};
+					C3F6EAF0286951240066B9FD = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = C34063F9285807BD007B46D3;
 					};
 				};
 			};
@@ -233,12 +369,14 @@
 			packageReferences = (
 				C3A7DF872864B91A00CB529F /* XCRemoteSwiftPackageReference "TBAlertController" */,
 				C3A7DFA52864F00F00CB529F /* XCRemoteSwiftPackageReference "SnapKit" */,
+				C3F6EAE928681D800066B9FD /* XCRemoteSwiftPackageReference "Reflex" */,
 			);
 			productRefGroup = C34063FB285807BD007B46D3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				C34063F9285807BD007B46D3 /* Tic Tac */,
+				C3F6EAF0286951240066B9FD /* TicTacTests */,
 			);
 		};
 /* End PBXProject section */
@@ -250,12 +388,59 @@
 			files = (
 				C3406400285807BD007B46D3 /* Assets.xcassets in Resources */,
 				C3406403285807BD007B46D3 /* LaunchScreen.storyboard in Resources */,
+				C3F6EB43286A69FF0066B9FD /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3F6EAEF286951240066B9FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		21132A3B5AAC08E46B83766E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TicTacTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		535DAF5E167FDBE4F41B3361 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TicTacTests/Pods-TicTacTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TicTacTests/Pods-TicTacTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TicTacTests/Pods-TicTacTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		69CDDAFA471AECB5AC9C5FBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,25 +487,57 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3F6EB1D286967FC0066B9FD /* AutoLayout.swift in Sources */,
+				C3F6EB232869840D0066B9FD /* YakCell.swift in Sources */,
 				C3A7DFAB2864F06F00CB529F /* YakKit+Swift.swift in Sources */,
+				C3A7DFAE2864F1DE00CB529F /* TabBarController.swift in Sources */,
 				C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */,
 				C340642A28580FF9007B46D3 /* SingleRowSection.swift in Sources */,
+				C304156928666B8B00BC858C /* BaseCell.swift in Sources */,
 				C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */,
+				C3A7DFB52864F75900CB529F /* Promise.swift in Sources */,
 				C340642128580B69007B46D3 /* TTTableViewController.swift in Sources */,
 				C340642028580B69007B46D3 /* FilteringTableViewController.swift in Sources */,
 				C340642B28580FF9007B46D3 /* TableViewSection.swift in Sources */,
+				C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */,
 				C34063FE285807BD007B46D3 /* AppDelegate.swift in Sources */,
 				C340642528580F5F007B46D3 /* CarouselCell.swift in Sources */,
+				C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */,
 				C340642628580F5F007B46D3 /* ScopeCarousel.swift in Sources */,
 				C3406412285808C2007B46D3 /* HerdViewController.swift in Sources */,
 				C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */,
+				C3F6EB3C28699CB20066B9FD /* VotableDataSource.swift in Sources */,
+				C304156D28666D9900BC858C /* UserEmojiView.swift in Sources */,
 				C3406416285808CF007B46D3 /* CommentsViewController.swift in Sources */,
+				C3F6EB19286967CA0066B9FD /* CommentsHeaderView.swift in Sources */,
+				C3F6EB2B286984300066B9FD /* NotificationCell.swift in Sources */,
+				C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
+				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,
 				C340644B2863973B007B46D3 /* VoteControl.m in Sources */,
+				C30415712866838600BC858C /* Strings.swift in Sources */,
+				C30417EE286683BE00BC858C /* DateFormatter+Formats.swift in Sources */,
+				C3F6EB27286984240066B9FD /* CommentCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3F6EAED286951240066B9FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3F6EAF4286951240066B9FD /* TicTacTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C3F6EAF7286951240066B9FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C34063F9285807BD007B46D3 /* Tic Tac */;
+			targetProxy = C3F6EAF6286951240066B9FD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C3406401285807BD007B46D3 /* LaunchScreen.storyboard */ = {
@@ -457,6 +674,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Tic Tac/Tic Tac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
@@ -465,7 +683,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nscake.Tic-Tac";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nscake.tictac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tic Tac/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -481,6 +699,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Tic Tac/Tic Tac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
 				INFOPLIST_FILE = "Tic Tac/Info.plist";
@@ -489,11 +708,55 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nscake.Tic-Tac";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nscake.tictac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tic Tac/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C3F6EAF9286951240066B9FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3FDB2D71C2794E1C2FE0B2 /* Pods-TicTacTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S6N2F22V2Z;
+				INFOPLIST_FILE = TicTacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nscake.TicTacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tic Tac/Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tic Tac.app/Tic Tac";
+			};
+			name = Debug;
+		};
+		C3F6EAFA286951240066B9FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E7E4A9713E499577AA2C515 /* Pods-TicTacTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S6N2F22V2Z;
+				INFOPLIST_FILE = TicTacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nscake.TicTacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tic Tac/Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tic Tac.app/Tic Tac";
 			};
 			name = Release;
 		};
@@ -518,6 +781,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		C3F6EAF8286951240066B9FD /* Build configuration list for PBXNativeTarget "TicTacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3F6EAF9286951240066B9FD /* Debug */,
+				C3F6EAFA286951240066B9FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -537,6 +809,14 @@
 				minimumVersion = 5.6.0;
 			};
 		};
+		C3F6EAE928681D800066B9FD /* XCRemoteSwiftPackageReference "Reflex" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/FLEXTool/Reflex";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -549,6 +829,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C3A7DFA52864F00F00CB529F /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		C3F6EAEA28681D800066B9FD /* Reflex */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3F6EAE928681D800066B9FD /* XCRemoteSwiftPackageReference "Reflex" */;
+			productName = Reflex;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -38,8 +38,8 @@ protocol TableViewFiltering: SearchResultsUpdating {
 /// Automatically populates `tableView.backgroundView` with a label displaying
 /// a message in the form of an error, or the content of `emptyMessage`.
 @objcMembers
-class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering {
-    typealias DataSourceType = Result<[T], Error>
+class FilteringTableViewController<T, E: Error>: TTTableViewController, TableViewFiltering {
+    typealias DataSourceType = Result<[T], E>
     
     /// Stores the current search query.
     var filterText: String? = nil
@@ -58,11 +58,15 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
                     self.filterDelegate?.allSections = sections
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription
+                    self.filterDelegate?.allSections = []
             }
 
             if self.isViewLoaded {
                 self.registerCellsForReuse()
                 self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -90,7 +94,15 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
     
     var errorMessage: String? = nil
     var emptyMessage: String? = nil
-    var backgroundLabel: UILabel { self.tableView.backgroundView as! UILabel }
+    lazy var backgroundLabel: UILabel = {
+        let l = UILabel()
+        l.numberOfLines = 0
+        l.textAlignment = .center
+        l.textColor = .secondaryLabel
+        l.font = .preferredFont(forTextStyle: .headline)
+        l.font = l.font.withSize(24)
+        return l
+    }()
 
     var allSections: [TableViewSection] = [] {
         didSet {
@@ -112,7 +124,8 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
     override func loadView() {
         super.loadView()
         
-        self.tableView.backgroundView = UILabel()
+        self.tableView.backgroundView = self.backgroundLabel
+        self.tableView.tableFooterView = .init()
 
         if self.filterDelegate == nil {
             self.filterDelegate = self
@@ -126,6 +139,12 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
             self.tableView?.registerCells(section.reusableCellRegistry)
         }
     }
+    
+    func reloadData() {
+        // Force reload all data by re-setting the delegate
+        let delegate = self.filterDelegate
+        self.filterDelegate = delegate
+    }
 
     /// Recalculates the non-empty sections and reloads the table view.
     ///
@@ -135,7 +154,7 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
     /// the table view, since the table view is reloaded last.
     ///
     /// Called at the end of this class's implementation of `updateSearchResults:`
-    func reloadData() {
+    func reloadNonemptySections() {
         self.reloadData(self.nonemptySections)
     }
 
@@ -200,11 +219,11 @@ class FilteringTableViewController<T>: TTTableViewController, TableViewFiltering
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reuse = self.filterDelegate?.sections[indexPath.section].reuseIdentifier(for: indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuse ?? "", for: indexPath)
-        self.filterDelegate?.sections[indexPath.section].configureCell(cell, for: indexPath.row)
+//        let reuse = self.filterDelegate?.sections[indexPath.section].reuseIdentifier(for: indexPath.row)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: reuse ?? "", for: indexPath)
+        return self.filterDelegate!.sections[indexPath.section].cell(tableView, for: indexPath)
         
-        return cell
+//        return cell
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
