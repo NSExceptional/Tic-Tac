@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VotableDataSource<T: YYVotable, C: YakCell>: DataSource {
+class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     typealias Model = T
     typealias Cell = C
     
@@ -25,7 +25,7 @@ class VotableDataSource<T: YYVotable, C: YakCell>: DataSource {
     }
     
     func cell(_ table: UITableView, for ip: IndexPath) -> UITableViewCell {
-        return Cell.dequeue(table, ip).configure(with: self.rows[ip.row])
+        return Cell.dequeue(table, ip).configure(with: self.rows[ip.row] as! Cell.Model, client: .current)
     }
     
     func canSelectRow(_ row: Int) -> Bool {
@@ -34,5 +34,11 @@ class VotableDataSource<T: YYVotable, C: YakCell>: DataSource {
     
     func viewControllerToPush(for row: Int) -> UIViewController? {
         return nil
+    }
+}
+
+class VotableDataSource<V: YYVotable, C: YakCell>: ModelDataSource<V, C> {
+    override func cell(_ table: UITableView, for ip: IndexPath) -> UITableViewCell {
+        return Cell.dequeue(table, ip).configure(with: self.rows[ip.row])
     }
 }
