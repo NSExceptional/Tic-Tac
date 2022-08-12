@@ -12,7 +12,7 @@ import YakKit
 @objcMembers
 class TabBarController: UITabBarController {
     private lazy var feed: HerdViewController = .init()
-//    private lazy var notifications: TTNotificationsViewController = .init()
+    private lazy var notifications: NotificationsViewController = .init()
 //    private lazy var profile: TTProfileViewController = .init()
 //    private lazy var settings: TTSettingsViewController = .init()
     
@@ -24,8 +24,7 @@ class TabBarController: UITabBarController {
         self.modalPresentationStyle = .fullScreen
 
         self.viewControllers = [
-            self.feed,
-//            TTNotificationsViewController.inNavigation(),
+            self.feed, self.notifications
 //            UIViewController.inNavigation(),
 //            TTProfileViewController.inNavigation()
         ].map { UINavigationController(rootViewController: $0) }
@@ -49,6 +48,7 @@ class TabBarController: UITabBarController {
         
         LoginController(host: self, client: .current).requireLogin {
             self.feed.refresh()
+            self.notifications.refresh()
         }
     }
 }
