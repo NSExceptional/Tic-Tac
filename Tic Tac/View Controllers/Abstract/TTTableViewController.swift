@@ -300,7 +300,7 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
 
     // MARK: - Private
 
-    func debounce(_ block: @escaping () -> Void) {
+    private func debounce(_ block: @escaping () -> Void) {
         self.debounceTimer?.invalidate()
 
         let interval = self.searchBarDebounceInterval.rawValue
@@ -309,7 +309,7 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
         }
     }
 
-    func layoutTableHeaderIfNeeded() {
+    private func layoutTableHeaderIfNeeded() {
         if self.showsCarousel, let carousel = self.carousel {
             carousel.frame.size.height = carousel.intrinsicContentSize.height
         }
@@ -317,33 +317,33 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
         self.tableView?.tableHeaderView = self.tableView?.tableHeaderView
     }
 
-    func add(_ carousel: ScopeCarousel) {
+    private func add(_ carousel: ScopeCarousel) {
         self.tableView?.tableHeaderView = carousel
         self.layoutTableHeaderIfNeeded()
     }
 
-    func remove(_ carousel: ScopeCarousel) {
+    private func remove(_ carousel: ScopeCarousel) {
         carousel.removeFromSuperview()
         self.tableView?.tableHeaderView = nil
     }
 
-    func addSearch(_ controller: UISearchController) {
+    private func addSearch(_ controller: UISearchController) {
         self.navigationItem.searchController = controller
     }
 
-    func removeSearch(_ controller: UISearchController) {
+    private func removeSearch(_ controller: UISearchController) {
         self.navigationItem.searchController = nil
     }
 
     private static var dummyTextField = UITextField()
     
-    func makeKeyboardAppearNow() {
+    private func makeKeyboardAppearNow() {
         Self.dummyTextField.inputAccessoryView = self.searchController?.searchBar.inputAccessoryView
         UIApplication.keyWindow.addSubview(Self.dummyTextField)
         Self.dummyTextField.becomeFirstResponder()
     }
 
-    func removeDummyTextField() {
+    private func removeDummyTextField() {
         if Self.dummyTextField.superview != nil {
             Self.dummyTextField.removeFromSuperview()
         }
