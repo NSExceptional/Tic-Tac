@@ -10,17 +10,19 @@ import YakKit
 
 class HerdViewController: FilteringTableViewController<YYYak, HerdViewController.FeedError> {
     enum FeedError: LocalizedError {
-        case noYaks, notLoggedIn
+        case noYaks, loading, notLoggedIn
         case network(Error)
         
         var errorDescription: String? {
             switch self {
                 case .noYaks:
                     return "No Yaks"
+                case .loading:
+                    return "Loading…"
                 case .notLoggedIn:
                     return "Sign In to See Yaks"
                 case .network(let error):
-                return error.localizedDescription
+                    return error.localizedDescription
             }
         }
     }
@@ -29,7 +31,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         case new, hot, top
     }
     
-    private var data: DataSourceType = .failure(FeedError.noYaks) {
+    private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
     }
     private var sort: FeedSort = .new {
@@ -40,6 +42,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         super.viewDidLoad()
         
         self.enableRefresh = true
+        self.emptyMessage = "No Yaks"
         self.tableView.separatorInset = .zero
         
         let setSort: UIActionHandler = { [weak self] (_ action: UIAction) in
