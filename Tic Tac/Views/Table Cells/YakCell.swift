@@ -70,6 +70,11 @@ class YakView: AutoLayoutView {
     
     @discardableResult
     func configure(with votable: YYVotable?, client: YYClient = .current) -> YakView {
+        // Clear all data if no votable given
+        guard let votable = votable else {
+            return self.configureEmpty()
+        }
+        
         self.emoji.set(emoji: votable.emoji, colors: votable.gradient)
         self.title.text = votable.text
         self.metadata.text = votable.metadataString(client)
@@ -95,6 +100,19 @@ class YakView: AutoLayoutView {
     @discardableResult
     func handleVoteError(_ handler: @escaping (Error) -> Void) -> YakView {
         self.voteErrorHandler = handler
+        return self
+    }
+    
+    private func configureEmpty() -> YakView {
+        self.emoji.set(emoji: "⛔️", uicolor: .black)
+        self.title.text = "[No title]"
+        self.metadata.text = "[No information]"
+        self.emoji.alpha = 1
+        
+        self.voteCounter.isEnabled = false
+        self.voteCounter.setVote(.none, score: 0)
+        self.voteCounter.onVoteStatusChange = { _, _ in }
+        
         return self
     }
 }
