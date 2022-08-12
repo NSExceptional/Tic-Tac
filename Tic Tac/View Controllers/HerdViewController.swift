@@ -62,18 +62,18 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
             .mapError { $0 as Error }
     }
     
-    override func refresh() {
-        self.refreshControl?.beginRefreshing()
+    override func refresh(_ sender: UIRefreshControl? = nil) {
+        sender?.beginRefreshing()
         
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
-            self.refreshControl?.endRefreshing()
+            sender?.endRefreshing()
             return self.data = .failure(FeedError.notLoggedIn)
         }
         
         YYClient.current.getLocalYaks { result in
             self.data = result.mapError { .network($0) }
-            self.refreshControl?.endRefreshing()
+            sender?.endRefreshing()
             
             if result.failed {
                 LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in

@@ -386,11 +386,11 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
     // MARK: Refresh
     
     /// Subclasses should override with refresh behavior
-    func refresh() {
+    func refresh(_ sender: UIRefreshControl? = nil) {
         
     }
     
     private var refreshHandler: UIAction {
-        return .init { [weak self] _ in self?.refresh() }
+        return .init { [weak self] _ in self?.refresh(self?.refreshControl) }
     }
 }

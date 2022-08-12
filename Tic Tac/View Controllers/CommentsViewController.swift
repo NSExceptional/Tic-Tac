@@ -67,18 +67,24 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
             .mapError { $0 as Error }
     }
     
-    override func refresh() {
-        self.refreshControl?.beginRefreshing()
+    override func refresh(_ sender: UIRefreshControl? = nil) {
+        guard !(self.refreshControl?.isRefreshing ?? false), let yak = self.yak else {
+            return
+        }
+        
+        sender?.beginRefreshing()
         
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
-            self.refreshControl?.endRefreshing()
-            return self.data = .failure(CommentsError.notLoggedIn)
+            sender?.endRefreshing()
+            return self.data = .failure(.notLoggedIn)
         }
         
-        YYClient.current.getComments(for: self.yak) { result in
+        YYClient.current.getComments(for: yak) { result in
             self.data = result.mapError { .network($0) }
-            self.refreshControl?.endRefreshing()
+            sender?.endRefreshing()
+        }
+    }
         }
     }
 }
