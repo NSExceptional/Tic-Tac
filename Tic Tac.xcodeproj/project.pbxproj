@@ -210,9 +210,8 @@
 		C340640E28580845007B46D3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C365C50128A5E3A3001E329A /* Abstract */,
 				C3A7DFAD2864F1DE00CB529F /* TabBarController.swift */,
-				C340641F28580B69007B46D3 /* TTTableViewController.swift */,
-				C340641E28580B69007B46D3 /* FilteringTableViewController.swift */,
 				C3406411285808C2007B46D3 /* HerdViewController.swift */,
 				C3406415285808CF007B46D3 /* CommentsViewController.swift */,
 				C300803028A4451300106BAB /* NotificationsViewController.swift */,
@@ -266,6 +265,15 @@
 				C3F6EB322869849B0066B9FD /* Table Cells */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C365C50128A5E3A3001E329A /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+				C340641F28580B69007B46D3 /* TTTableViewController.swift */,
+				C340641E28580B69007B46D3 /* FilteringTableViewController.swift */,
+			);
+			path = Abstract;
 			sourceTree = "<group>";
 		};
 		C3F6EAF2286951240066B9FD /* TicTacTests */ = {
