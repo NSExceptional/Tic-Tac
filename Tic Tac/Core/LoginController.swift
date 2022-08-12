@@ -7,6 +7,7 @@
 
 import UIKit
 import TBAlertController
+import FirebaseAuth
 import YakKit
 
 struct LoginController {
@@ -27,10 +28,12 @@ struct LoginController {
         // Require location first
         LocationManager.requireLocation { granted in
             if granted {
-                if self.client.isLoggedIn || self.tryLocateAuthToken() {
-                    self.didSignIn()
-                } else {
-                    self.presentLoginForm()
+                self.tryLocateAuthToken { success in
+                    if success {
+                        self.didSignIn()
+                    } else {
+                        self.presentLoginForm()
+                    }
                 }
             } else {
                 // Recursively require location until granted
@@ -41,14 +44,19 @@ struct LoginController {
         }
     }
     
-    @discardableResult
-    private func tryLocateAuthToken() -> Bool {
-        if let token = Defaults.standard.authToken {
-            self.client.authToken = token
-            return true
+    private func tryLocateAuthToken(completion: @escaping (Bool) -> Void) {
+        if self.client.isLoggedIn {
+            completion(true)
         }
         
-        return false
+        Auth.auth().currentUser?.getIDToken { (token, error) in
+            if let token = token {
+                self.client.authToken = token
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
     }
     
     private func presentLoginForm() {
@@ -108,6 +116,10 @@ struct LoginController {
                     let loading = TBAlertController(title: "One Moment…", message: nil)
                     loading.show(from: self.host)
 
+                    DispatchQueue.main.async {
+                        self.sendFakeNotificationPayload()
+                    }
+                    
                     self.client.startSignIn(withPhone: phone) { vid, error in
                         loading.dismiss(animated: true) {
                             if let error = error {
@@ -187,5 +199,19 @@ struct LoginController {
 //        feed?.refresh()
 //        notifications?.refresh()
 //        profile?.tableView.reloadData()
+    }
+}
+
+private extension LoginController {
+    func sendFakeNotificationPayload() {
+        let payload: [AnyHashable: Any] = [
+            "aps": ["content-available": 1],
+            "com.google.firebase.auth": "{\"receipt\":\"AEFDNu_MuCzswAmn4y4401MHA5V55dLqw5uzU3R4EbMBaJnXQwZPEprOVofXvZRyrcGNFYXgRw6-yo-2HWmnhhqkgZ16Ljpz-Vj_t-1fBWi5jbiOYmUv2rTn\",\"secret\":\"ueMdbZs6YyWy5Wv7\"}",
+            "gcm.message_id": 1660109226066618,
+            "google.c.fid": "eEF20awPxvk",
+            "google.c.sender.id": 884155835908,
+        ]
+        
+        UIApplication.shared.appDelegate.application(.shared, didReceiveRemoteNotification: payload) { _ in }
     }
 }
