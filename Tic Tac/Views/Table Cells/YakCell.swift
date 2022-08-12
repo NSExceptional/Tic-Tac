@@ -8,7 +8,9 @@
 import UIKit
 import YakKit
 
-class YakCell: AutoLayoutCell {
+class YakCell: AutoLayoutCell, ConfigurableCell {
+    typealias Model = YYVotable
+    
     let yakView: YakView = .init()
     override var views: [UIView] { [yakView] }
     
@@ -19,7 +21,7 @@ class YakCell: AutoLayoutCell {
     }
     
     @discardableResult
-    func configure(with votable: YYVotable, client: YYClient = .current) -> YakCell {
+    func configure(with votable: YYVotable, client: YYClient = .current) -> Self {
         self.yakView.configure(with: votable, client: client)
         return self
     }

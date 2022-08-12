@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B6E77772A798E671B20EF1D /* Pods_TicTacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3983D261FD623521EF670D68 /* Pods_TicTacTests.framework */; };
+		C300803928A4471B00106BAB /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C300803828A4471B00106BAB /* ConfigurableCell.swift */; };
 		C304156928666B8B00BC858C /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304156828666B8B00BC858C /* BaseCell.swift */; };
 		C304156D28666D9900BC858C /* UserEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304156C28666D9900BC858C /* UserEmojiView.swift */; };
 		C30415712866838600BC858C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30415702866838600BC858C /* Strings.swift */; };
@@ -64,6 +65,7 @@
 		924D18F1AD2F6A1623979697 /* Pods-Tic Tac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tic Tac.release.xcconfig"; path = "Target Support Files/Pods-Tic Tac/Pods-Tic Tac.release.xcconfig"; sourceTree = "<group>"; };
 		9E7E4A9713E499577AA2C515 /* Pods-TicTacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicTacTests.release.xcconfig"; path = "Target Support Files/Pods-TicTacTests/Pods-TicTacTests.release.xcconfig"; sourceTree = "<group>"; };
 		B0E8DF5079542ADA4647FB3F /* Pods_Tic_Tac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tic_Tac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C300803828A4471B00106BAB /* ConfigurableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		C304156828666B8B00BC858C /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		C304156C28666D9900BC858C /* UserEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmojiView.swift; sourceTree = "<group>"; };
 		C30415702866838600BC858C /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 		C3F6EB322869849B0066B9FD /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
+				C300803828A4471B00106BAB /* ConfigurableCell.swift */,
 				C304156828666B8B00BC858C /* BaseCell.swift */,
 				C3F6EB222869840C0066B9FD /* YakCell.swift */,
 				C3F6EB26286984240066B9FD /* CommentCell.swift */,
@@ -511,6 +514,7 @@
 				C3406416285808CF007B46D3 /* CommentsViewController.swift in Sources */,
 				C3F6EB19286967CA0066B9FD /* CommentsHeaderView.swift in Sources */,
 				C3F6EB2B286984300066B9FD /* NotificationCell.swift in Sources */,
+				C300803928A4471B00106BAB /* ConfigurableCell.swift in Sources */,
 				C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
 				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,

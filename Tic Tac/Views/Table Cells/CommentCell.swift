@@ -9,6 +9,8 @@ import UIKit
 import YakKit
 
 class CommentCell: YakCell {
+    typealias Model = YYComment
+    
     override func setup() {
         super.setup()
         self.backgroundColor = .secondarySystemBackground
