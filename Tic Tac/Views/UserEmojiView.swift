@@ -10,7 +10,7 @@ import SnapKit
 
 class UserEmojiView: AutoLayoutView {
     static func small() -> UserEmojiView {
-        return .init(frame: .square(18))
+        return .init(frame: .square(25))
     }
     
     static func medium() -> UserEmojiView {
@@ -18,12 +18,17 @@ class UserEmojiView: AutoLayoutView {
     }
     
     static func large() -> UserEmojiView {
-        return .init(frame: .square(48))
+        return .init(frame: .square(50))
     }
     
     func set(emoji: String?, colors: (String, String)) {
         self.label.text = emoji ?? "?"
         self.gradient.colors = [colors.0, colors.1].map { UIColor(hex: $0).cgColor }
+    }
+    
+    func set(emoji: String?, uicolor: UIColor) {
+        self.label.text = emoji ?? "?"
+        self.gradient.colors = [uicolor, uicolor].map { $0.cgColor }
     }
     
     private var label = UILabel()
