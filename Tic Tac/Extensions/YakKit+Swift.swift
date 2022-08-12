@@ -133,7 +133,7 @@ extension YYVotable {
                 let yak = self as! YYYak
                 return shared + [
                     .count(yak.replyCount, "comment"), .dot,
-                    .text(yak.anonymous ? "􀋰" : nil), .dot,
+                    .text(yak.anonymous ? "🔍" : nil), .dot,
                 ]
             default:
                 return shared
