@@ -20,6 +20,17 @@ extension YYClient {
         }
     }
     
+    private func convertToResult<T>(_ thing: Any?, _ error: Error?) -> Result<T, Error> {
+        switch (thing, error) {
+            case (.some(let thing), nil):
+                return .success(thing as! T)
+            case (nil, .some(let error)):
+                return .failure(error)
+            default:
+                fatalError()
+        }
+    }
+    
     func getLocalYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
         self.getLocalYaks_tuple { (a, e) in
             completion(self.convertToResult(a, e))
@@ -35,6 +46,24 @@ extension YYClient {
     func getLocalTopYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
         self.getLocalTopYaks_tuple { (a, e) in
             completion(self.convertToResult(a, e))
+        }
+    }
+    
+    func getYak(from notification: YYNotification, completion: @escaping (Result<YYYak, Error>) -> Void) {
+        self.objc_getYak(from: notification) { (thing, error) in
+            completion(self.convertToResult(thing, error))
+        }
+    }
+}
+
+extension YYClient {
+    func getNotifications(after notif: YYNotification? = nil, completion: @escaping (Result<[YYNotification], Error>) -> Void) {
+        self.objc_getNotifications(after: notif) { (notifs, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(notifs as! [YYNotification]))
+            }
         }
     }
 }
