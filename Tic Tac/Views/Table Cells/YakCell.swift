@@ -34,8 +34,8 @@ class YakCell: AutoLayoutCell, ConfigurableCell {
 }
 
 class YakView: AutoLayoutView {
-    let title = UILabel(textStyle: .headline).multiline()
-    let metadata = UILabel(textStyle: .footnote)
+    let title = UILabel(textStyle: .body).multiline()
+    let metadata = UILabel(textStyle: .footnote).color(.secondaryLabel)
     let emoji = UserEmojiView.small()
     let voteCounter = VoteControl()
     
@@ -47,17 +47,18 @@ class YakView: AutoLayoutView {
         let space: CGFloat = 8
         let edges = UIEdgeInsets(vertical: 8, horizontal: 15)
         
+        title.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(edges.bottom + 5)
+            make.leading.equalToSuperview().inset(edges)
+            make.bottom.equalTo(emoji.snp.top).offset(-space)
+        }
         emoji.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(edges)
+            make.leading.equalToSuperview().inset(edges)
+            make.bottom.lessThanOrEqualToSuperview().inset(edges)
         }
         metadata.snp.makeConstraints { make in
             make.centerY.equalTo(emoji)
             make.leading.equalTo(emoji.snp.trailing).offset(space)
-        }
-        title.snp.makeConstraints { make in
-            make.top.equalTo(emoji.snp.bottom).offset(space)
-            make.leading.equalToSuperview().inset(edges)
-            make.bottom.lessThanOrEqualToSuperview().inset(edges.bottom + 5)
         }
         voteCounter.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(edges)
@@ -68,11 +69,14 @@ class YakView: AutoLayoutView {
     }
     
     @discardableResult
-    func configure(with votable: YYVotable, client: YYClient = .current) -> YakView {
+    func configure(with votable: YYVotable?, client: YYClient = .current) -> YakView {
         self.emoji.set(emoji: votable.emoji, colors: votable.gradient)
         self.title.text = votable.text
         self.metadata.text = votable.metadataString(client)
         
+        self.emoji.alpha = votable.anonymous ? 0.8 : 1
+        
+        self.voteCounter.isEnabled = true
         self.voteCounter.setVote(votable.voteStatus, score: votable.score)
         self.voteCounter.onVoteStatusChange = { status, score in
             client.adjustVote(on: votable, set: status, score) { (votable, error) in

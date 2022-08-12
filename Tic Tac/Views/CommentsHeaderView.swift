@@ -24,6 +24,8 @@ class CommentsHeaderView: AutoLayoutView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.commentButton.setTitle("Add Comment", for: .normal)
         
+        self.yakView.title.font = .preferredFont(forTextStyle: .headline)
+        
 //        self.backgroundColor = .secondarySystemBackground
     }
     

@@ -173,6 +173,11 @@ extension UILabel {
         return self
     }
     
+    func color(_ textColor: UIColor) -> UILabel {
+        self.textColor = textColor
+        return self
+    }
+    
     convenience init(textStyle style: UIFont.TextStyle) {
         self.init()
         self.font = .preferredFont(forTextStyle: style)
