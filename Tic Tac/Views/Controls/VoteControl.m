@@ -174,6 +174,8 @@ NSInteger YYScoreWithoutVote(YYVoteStatus vote, NSInteger score) {
         
         const CGFloat kTransformOffset = 30;
         _heightConstraint = [self.heightAnchor constraintEqualToConstant:_control.frame.size.height];
+        _heightConstraint.priority = UILayoutPriorityDefaultHigh; // stfu UIView-Encapsulated-Layout-Height
+        
         [NSLayoutConstraint activateConstraints:@[
             [_counter.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
             [_counter.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
@@ -229,6 +231,14 @@ NSInteger YYScoreWithoutVote(YYVoteStatus vote, NSInteger score) {
     self.control.transform = CGAffineTransformScale(self.control.transform, v.dy, v.dx);
     self.heightConstraint.constant = self.control.frame.size.height;
     [self setNeedsUpdateConstraints];
+}
+
+- (BOOL)isEnabled {
+    return self.control.isEnabled;
+}
+
+- (void)setEnabled:(BOOL)enabled {
+    self.control.enabled = enabled;
 }
 
 @end

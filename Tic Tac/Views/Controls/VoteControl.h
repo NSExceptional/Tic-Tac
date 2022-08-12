@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Use this to resize the stepper control
 @property (nonatomic) CGVector stepperScale;
 
+@property (nonatomic, getter=isEnabled) BOOL enabled;
+
 @end
 
 @interface VoteControl (Private)
