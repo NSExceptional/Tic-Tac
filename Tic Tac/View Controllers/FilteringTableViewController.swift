@@ -53,12 +53,19 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
     /// Setting this property will also set `searchDelegate` to that object.
     weak var filterDelegate: TableViewFiltering? = nil {
         didSet {
-            switch self.filterDelegate!.makeSections() {
+            // Case: view not yet loaded, no delegate yet; do nothing.
+            // When the view loads, this will be called again.
+            guard let delegate = self.filterDelegate else {
+                return
+            }
+            
+            switch delegate.makeSections() {
                 case .success(let sections):
-                    self.filterDelegate?.allSections = sections
+                    self.errorMessage = nil
+                    delegate.allSections = sections
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription
-                    self.filterDelegate?.allSections = []
+                    delegate.allSections = []
             }
 
             if self.isViewLoaded {
@@ -128,6 +135,7 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
         self.tableView.tableFooterView = .init()
 
         if self.filterDelegate == nil {
+            // This will trigger the initial call to reloadData once the view loads
             self.filterDelegate = self
         } else {
             self.registerCellsForReuse()
