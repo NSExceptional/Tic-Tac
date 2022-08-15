@@ -8,6 +8,11 @@
 
 import Foundation
 
+infix operator ~~ : AdditionPrecedence
+func ~~(string: String, startOffset: Int) -> String.Index {
+    return string.index(string.startIndex, offsetBy: startOffset)
+}
+
 typealias StringPart = StringBuilder.Component
 
 /// Simple plural/singular localization
@@ -196,5 +201,65 @@ fileprivate extension StringBuilder.Node {
         }
         
         return values
+    }
+}
+
+extension String {
+    var length: Int {
+        return self.lengthOfBytes(using: .utf8)
+    }
+    
+    subscript(range: Range<Index>) -> String {
+        get { return String(self[range]) }
+        set { self.replaceSubrange(range, with: newValue) }
+    }
+    
+    func getIndex(_ v: Int) -> Index {
+        return self.index(startIndex, offsetBy: v)
+    }
+    
+    func indexRange(_ r: CountableRange<Int>) -> Range<Index> {
+        let start = getIndex(r.lowerBound)
+        let end = index(start, offsetBy:  r.count)
+        return start..<end
+    }
+    
+    func indexRange(_ r: PartialRangeFrom<Int>) -> PartialRangeFrom<Index> {
+        let start = getIndex(r.lowerBound)
+        return start...
+    }
+    
+    func indexRange(_ r: PartialRangeThrough<Int>) -> PartialRangeThrough<Index> {
+        let end = index(self.startIndex, offsetBy:  r.upperBound)
+        return ...end
+    }
+    
+    func indexRange(_ r: PartialRangeUpTo<Int>) -> PartialRangeUpTo<Index> {
+        let end = index(self.startIndex, offsetBy:  r.upperBound)
+        return ..<end
+    }
+    
+    subscript(index: Int) -> Character {
+        get { return self[getIndex(index)] }
+    }
+    
+    subscript(range: CountableRange<Int>) -> String {
+        get { return self[indexRange(range)] }
+    }
+    
+    subscript(range: PartialRangeFrom<Int>) -> String {
+        get { return String(self[indexRange(range)]) }
+    }
+    
+    subscript(range: PartialRangeThrough<Int>) -> String {
+        get { return String(self[indexRange(range)]) }
+    }
+    
+    subscript(range: PartialRangeUpTo<Int>) -> String {
+        get { return String(self[indexRange(range)]) }
+    }
+    
+    subscript(range: NSRange) -> String {
+        get { return self[CountableRange<Int>(range)!] }
     }
 }
