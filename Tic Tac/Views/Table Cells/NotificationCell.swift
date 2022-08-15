@@ -15,29 +15,36 @@ class NotificationCell: AutoLayoutCell, ConfigurableCell {
         .subtitle
     }
     
-//    override var views: [UIView] { [textLabel!, detailTextLabel!] }
+    private let header = UILabel(textStyle: .headline)
+    private let subheader = UILabel(textStyle: .body).multiline()
+    private let footer = UILabel(font: .monospace(.footnote)).color(.secondaryLabel)
+    
+    private lazy var stack = UIStackView(arrangedSubviews: [header, subheader, footer])
+        .alignment(.leading).axis(.vertical).distribution(.fill).spacing(5)
+    
+    override var views: [UIView] { [stack] }
     
     override func setup() {
         super.setup()
         self.accessoryType = .disclosureIndicator
-        
-        self.textLabel?.font = .preferredFont(forTextStyle: .headline)
-        self.detailTextLabel?.font = .preferredFont(forTextStyle: .body)
     }
     
-//    override func makeConstraints() {
-//        let edges = UIEdgeInsets(vertical: 8, horizontal: 15)
-//
-//        title.snp.makeConstraints { make in
-//            make.edges.equalToSuperview().inset(edges)
-//        }
-//    }
+    override func makeConstraints() {
+        let edges = UIEdgeInsets(vertical: 8, horizontal: 16)
+
+        stack.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(edges)
+        }
+    }
     
     func configure(with notif: YYNotification, client: YYClient) -> Self {
-        self.textLabel?.text = notif.subject
-        self.detailTextLabel?.text = notif.content
+        self.header.text = notif.subject
+        self.subheader.text = notif.content
+        self.footer.text = notif.thingIdentifier?[6...]
         
-        self.textLabel?.textColor = notif.unread ? self.tintColor : .label
+        self.subheader.isHidden = notif.content == nil
+        
+        self.header.textColor = notif.unread ? self.tintColor : .label
         return self
     }
 }
