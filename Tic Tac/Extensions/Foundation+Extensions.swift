@@ -8,6 +8,12 @@
 import Foundation
 import CoreLocation
 
+extension String {
+    static func / (lhs: String, rhs: String) -> String {
+        return (lhs as NSString).appendingPathComponent(rhs)
+    }
+}
+
 extension NSException {
     static func raise(name: NSExceptionName, message: String) -> Never {
         self.raise(name, format: message, arguments: getVaList([]))
@@ -46,6 +52,28 @@ extension Result {
     
     var succeeded: Bool {
         return !self.failed
+    }
+}
+
+extension FileManager {
+    @objc class var documentsDirectory: String {
+        return self.directory(for: .documentDirectory)
+    }
+    
+    @objc class var libraryDirectory: String {
+        return self.directory(for: .documentDirectory)
+    }
+    
+    @objc func directoryExists(atPath folder: String) -> Bool {
+        var isDir: ObjCBool = false
+        let exists = self.fileExists(atPath: folder, isDirectory: &isDir)
+        return exists && isDir.boolValue
+    }
+    
+    @objc private class func directory(for path: SearchPathDirectory) -> String {
+        return NSSearchPathForDirectoriesInDomains(
+            path, .userDomainMask, true
+        )[0]
     }
 }
 
