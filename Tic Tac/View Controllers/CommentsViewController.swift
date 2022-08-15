@@ -151,5 +151,15 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
             make.message(error.localizedDescription)
             make.button("Dismiss")
         }, showFrom: nav)
+}
+
+extension CommentsViewController {
+    var comments: [YYComment] {
+        switch self.data {
+            case .success(let things):
+                return things
+            default:
+                return []
+        }
     }
 }

@@ -65,3 +65,14 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         }
     }
 }
+
+extension NotificationsViewController {
+    var notifications: [YYNotification] {
+        switch self.data {
+            case .success(let things):
+                return things
+            default:
+                return []
+        }
+    }
+}

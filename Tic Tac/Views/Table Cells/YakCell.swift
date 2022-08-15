@@ -70,6 +70,10 @@ class YakView: AutoLayoutView {
     
     @discardableResult
     func configure(with votable: YYVotable?, client: YYClient = .current) -> YakView {
+        #if DEBUG
+        self.model = votable
+        #endif
+        
         // Clear all data if no votable given
         guard let votable = votable else {
             return self.configureEmpty()
@@ -115,5 +119,9 @@ class YakView: AutoLayoutView {
         
         return self
     }
+    
+    #if DEBUG
+    private var model: YYVotable? = nil
+    #endif
 }
 

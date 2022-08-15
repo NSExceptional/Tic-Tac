@@ -86,3 +86,14 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         }
     }
 }
+
+extension HerdViewController {
+    var posts: [YYYak] {
+        switch self.data {
+            case .success(let things):
+                return things
+            default:
+                return []
+        }
+    }
+}
