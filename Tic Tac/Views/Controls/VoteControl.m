@@ -189,6 +189,8 @@ NSInteger YYScoreWithoutVote(YYVoteStatus vote, NSInteger score) {
         ]];
         
         [self setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+        [self setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+        [self.counter setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
         
         [self.control addTarget:self action:@selector(refreshCounter) forControlEvents:UIControlEventValueChanged];
         
