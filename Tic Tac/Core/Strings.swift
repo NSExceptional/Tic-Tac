@@ -43,7 +43,20 @@ struct StringBuilder {
         case text(String?)
         case count(Int, String)
         case date(Date?, DateFormatter.Format)
-        case comma, dot, bar
+        case separator(Separator)
+        
+        /// Newline separator
+        static let nwln: Component = .separator(.newline)
+        static let comma: Component = .separator(.comma)
+        static let dot: Component = .separator(.dot)
+        static let bar: Component = .separator(.bar)
+        
+        enum Separator: String {
+            case comma = ", "
+            case dot = " • "
+            case bar = " | "
+            case newline = "\n"
+        }
     }
     
     fileprivate class Node {
@@ -114,7 +127,7 @@ struct StringBuilder {
 fileprivate extension StringBuilder.Component {
     var isSeparator: Bool {
         switch self {
-            case .comma, .dot, .bar:
+            case .separator(_):
                 return true
             default:
                 return false
@@ -135,12 +148,8 @@ fileprivate extension StringBuilder.Component {
                 }
                 return "undated"
                 
-            case .comma:
-                return ", "
-            case .dot:
-                return " • "
-            case .bar:
-                return " | "
+            case .separator(let s):
+                return s.rawValue
         }
     }
     
@@ -154,7 +163,7 @@ fileprivate extension StringBuilder.Component {
                 return false
             case .date(let d, _):
                 return d == nil
-            case .comma, .dot, .bar:
+            case .separator(_):
                 return false
         }
     }
