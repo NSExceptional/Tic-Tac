@@ -145,12 +145,8 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         }
         
         nav.popViewController(animated: true)
-        
-        TBAlert.make({ make in
-            make.title("Error Loading Yak")
-            make.message(error.localizedDescription)
-            make.button("Dismiss")
-        }, showFrom: nav)
+        nav.presentError(error, title: "Error Loading Yak")
+    }
 }
 
 extension CommentsViewController {

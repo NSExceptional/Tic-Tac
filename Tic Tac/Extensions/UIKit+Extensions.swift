@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TBAlertController
 
 extension CGRect {
     static func square(_ size: CGFloat) -> Self {
@@ -64,7 +65,7 @@ extension UIAction {
         }
     }
     
-    convenience init(title: String, image: UIImage?, handler: @escaping UIActionHandler) {
+    convenience init(title: String = "", image: UIImage?, handler: @escaping UIActionHandler) {
         self.init(title: title, image: image, attributes: [], handler: handler)
     }
 }
@@ -181,5 +182,74 @@ extension UILabel {
     convenience init(textStyle style: UIFont.TextStyle) {
         self.init()
         self.font = .preferredFont(forTextStyle: style)
+    }
+    
+    convenience init(font: UIFont) {
+        self.init()
+        self.font = font
+    }
+}
+
+extension UIStackView {
+    func alignment(_ align: Alignment) -> UIStackView {
+        self.alignment = align
+        return self
+    }
+    
+    func axis(_ axis: NSLayoutConstraint.Axis) -> UIStackView {
+        self.axis = axis
+        return self
+    }
+    
+    func distribution(_ dist: Distribution) -> UIStackView {
+        self.distribution = dist
+        return self
+    }
+    
+    func spacing(_ spacing: CGFloat) -> UIStackView {
+        self.spacing = spacing
+        return self
+    }
+}
+
+extension UIViewController {
+    func presentError(_ error: Error, title: String) {
+        TBAlert.make({ make in
+            make.title(title)
+            make.message(error.localizedDescription)
+            make.button("Dismiss")
+        }, showFrom: self)
+    }
+}
+
+extension UIFont {
+    @objc private class var defaultSizes: [TextStyle: CGFloat] { __defaultSizes }
+    private static var __defaultSizes: [TextStyle: CGFloat] = [
+        .largeTitle: UIFont.preferredFont(forTextStyle: .largeTitle).pointSize,
+        .title1: UIFont.preferredFont(forTextStyle: .title1).pointSize,
+        .title2: UIFont.preferredFont(forTextStyle: .title2).pointSize,
+        .title3: UIFont.preferredFont(forTextStyle: .title3).pointSize,
+        .headline: UIFont.preferredFont(forTextStyle: .headline).pointSize,
+        .subheadline: UIFont.preferredFont(forTextStyle: .subheadline).pointSize,
+        .body: UIFont.preferredFont(forTextStyle: .body).pointSize,
+        .callout: UIFont.preferredFont(forTextStyle: .callout).pointSize,
+        .footnote: UIFont.preferredFont(forTextStyle: .footnote).pointSize,
+        .caption1: UIFont.preferredFont(forTextStyle: .caption1).pointSize,
+        .caption2: UIFont.preferredFont(forTextStyle: .caption2).pointSize,
+    ]
+    
+    @objc private class var defaultSize: CGFloat { UIFont.defaultSizes[.body]! }
+    
+    class func monospace(_ style: UIFont.TextStyle? = nil, weight: UIFont.Weight = .regular) -> UIFont {
+        if let style = style {
+            return .monospacedSystemFont(ofSize: UIFont.defaultSizes[style]!, weight: weight)
+        }
+        
+        return .monospacedSystemFont(ofSize: UIFont.defaultSize, weight: weight)
+    }
+    
+    func styled(as style: UIFont.TextStyle) -> UIFont {
+        let metrics = UIFontMetrics(forTextStyle: style)
+        return metrics.scaledFont(for: self)
     }
 }
