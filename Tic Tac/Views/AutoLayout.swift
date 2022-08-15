@@ -11,11 +11,14 @@ class AutoLayoutView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) { fatalError() }
     
+    init() {
+        super.init(frame: .zero)
+        self.initSubviews()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.views.forEach(self.addSubview(_:))
-        self.views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        self.setup(frame)
+        self.initSubviews()
     }
     
     override class var requiresConstraintBasedLayout: Bool { true }
@@ -27,6 +30,17 @@ class AutoLayoutView: UIView {
     override func layoutSubviews() {
         self.makeConstraints()
         super.layoutSubviews()
+    }
+    
+    @objc func reset() {
+        self.subviews.forEach { $0.removeFromSuperview() }
+        self.initSubviews()
+    }
+    
+    private func initSubviews() {
+        self.views.forEach(self.addSubview(_:))
+        self.views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        self.setup(frame)
     }
 }
 
