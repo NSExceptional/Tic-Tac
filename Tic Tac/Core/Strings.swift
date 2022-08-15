@@ -124,6 +124,14 @@ struct StringBuilder {
     }
 }
 
+extension StringBuilder: ExpressibleByArrayLiteral {
+    typealias ArrayLiteralElement = StringBuilder.Component
+    
+    init(arrayLiteral elements: Component...) {
+        self.init(components: elements)
+    }
+}
+
 fileprivate extension StringBuilder.Component {
     var isSeparator: Bool {
         switch self {
