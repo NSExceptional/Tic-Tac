@@ -38,8 +38,8 @@ class TTAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCente
         FirebaseApp.configure()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
         
-//        FLEXManager.shared.showExplorer()
-//        self.setupFLEX()
+        FLEXManager.shared.showExplorer()
+        self.setupFLEX()
         
         DispatchQueue.main.async {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
