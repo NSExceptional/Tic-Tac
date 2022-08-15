@@ -3,3 +3,4 @@
 //
 
 #import "VoteControl.h"
+#import "Firebase-Private.h"

@@ -25,4 +25,6 @@ extension YYClient {
     var isLoggedIn: Bool {
         self.authToken != nil
     }
+    
+//    var allUsers: [YYUser]
 }

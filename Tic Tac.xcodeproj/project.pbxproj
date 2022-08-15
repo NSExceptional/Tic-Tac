@@ -29,6 +29,7 @@
 		C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340642E285863C0007B46D3 /* UIKit+Extensions.swift */; };
 		C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340643228587814007B46D3 /* Foundation+Extensions.swift */; };
 		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
+		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
 		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
 		C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DF882864B91A00CB529F /* TBAlertController */; };
@@ -92,6 +93,10 @@
 		C34064482863973A007B46D3 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		C34064492863973B007B46D3 /* VoteControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteControl.h; sourceTree = "<group>"; };
 		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
+		C365C51A28A62438001E329A /* FIRAuthStoredUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRAuthStoredUserManager.h; sourceTree = "<group>"; };
+		C365C51D28A628CA001E329A /* Firebase-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebase-Private.h"; sourceTree = "<group>"; };
+		C365C52028A6E646001E329A /* FIRAuthKeychainServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FIRAuthKeychainServices.h; sourceTree = "<group>"; };
+		C365C52328A6F253001E329A /* UserAccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountStore.swift; sourceTree = "<group>"; };
 		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
 		C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "YakKit+Swift.swift"; sourceTree = "<group>"; };
@@ -201,6 +206,9 @@
 				C3F6EB42286A69FF0066B9FD /* Tic Tac.entitlements */,
 				C3F6EB41286A69FF0066B9FD /* GoogleService-Info.plist */,
 				C34064482863973A007B46D3 /* Bridging-Header.h */,
+				C365C51D28A628CA001E329A /* Firebase-Private.h */,
+				C365C52028A6E646001E329A /* FIRAuthKeychainServices.h */,
+				C365C51A28A62438001E329A /* FIRAuthStoredUserManager.h */,
 				C3406401285807BD007B46D3 /* LaunchScreen.storyboard */,
 				C3406404285807BD007B46D3 /* Info.plist */,
 			);
@@ -238,6 +246,7 @@
 				C30415702866838600BC858C /* Strings.swift */,
 				C3A7DFBB2864FF7900CB529F /* LocationManager.swift */,
 				C3E050BF286664BE00DC26F0 /* LoginController.swift */,
+				C365C52328A6F253001E329A /* UserAccountStore.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -525,6 +534,7 @@
 				C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */,
 				C3F6EB3C28699CB20066B9FD /* VotableDataSource.swift in Sources */,
 				C304156D28666D9900BC858C /* UserEmojiView.swift in Sources */,
+				C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */,
 				C3406416285808CF007B46D3 /* CommentsViewController.swift in Sources */,
 				C3F6EB19286967CA0066B9FD /* CommentsHeaderView.swift in Sources */,
 				C3F6EB2B286984300066B9FD /* NotificationCell.swift in Sources */,
