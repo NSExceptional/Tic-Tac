@@ -49,9 +49,8 @@ struct LoginController {
             completion(true)
         }
         
-        Auth.auth().currentUser?.getIDToken { (token, error) in
-            if let token = token {
-                self.client.authToken = token
+        self.client.loadCurrentUser { error in
+            if error == nil {
                 completion(true)
             } else {
                 completion(false)
