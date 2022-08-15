@@ -37,6 +37,23 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         self.enableRefresh = true
         self.emptyMessage = "No Notifications"
         self.tableView.separatorInset = .zero
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Clear Unread",
+            image: UIImage(systemName: "bell.badge.fill"),
+            primaryAction: .init { _ in
+                self.refreshControl?.beginRefreshing()
+                YYClient.current.clearUnreadNotifications { error in
+                    if let error = error {
+                        self.presentError(error, title: "Error Clearing Unread Notifications")
+                        self.refreshControl?.endRefreshing()
+                    }
+                    else {
+                        self.refresh(self.refreshControl)
+                    }
+                }
+            }
+        )
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
