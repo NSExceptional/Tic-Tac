@@ -164,6 +164,8 @@ struct LoginController {
     }
     
     private func didSignIn() {
+        assert(Self.onLogin != nil)
+        
         self.client.updateUser { error in
             if let error = error {
                 self.signInFailed(error)
