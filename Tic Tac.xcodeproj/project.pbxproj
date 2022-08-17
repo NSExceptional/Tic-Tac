@@ -29,7 +29,9 @@
 		C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340642E285863C0007B46D3 /* UIKit+Extensions.swift */; };
 		C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340643228587814007B46D3 /* Foundation+Extensions.swift */; };
 		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
+		C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C51628A61E3E001E329A /* ProfilesViewController.swift */; };
 		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
+		C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A75B2328AA0562007CD052 /* MapViewController.swift */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
 		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
 		C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */ = {isa = PBXBuildFile; productRef = C3A7DF882864B91A00CB529F /* TBAlertController */; };
@@ -39,6 +41,7 @@
 		C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */; };
 		C3A7DFB52864F75900CB529F /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB42864F75900CB529F /* Promise.swift */; };
 		C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFBB2864FF7900CB529F /* LocationManager.swift */; };
+		C3CD695B28AD6BF20080EDCA /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */; };
 		C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E050BF286664BE00DC26F0 /* LoginController.swift */; };
 		C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F43C8A286A9A3B001F6D64 /* Hooks.m */; };
 		C3F6EAEB28681D800066B9FD /* Reflex in Frameworks */ = {isa = PBXBuildFile; productRef = C3F6EAEA28681D800066B9FD /* Reflex */; };
@@ -93,10 +96,12 @@
 		C34064482863973A007B46D3 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		C34064492863973B007B46D3 /* VoteControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteControl.h; sourceTree = "<group>"; };
 		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
+		C365C51628A61E3E001E329A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		C365C51A28A62438001E329A /* FIRAuthStoredUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRAuthStoredUserManager.h; sourceTree = "<group>"; };
 		C365C51D28A628CA001E329A /* Firebase-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebase-Private.h"; sourceTree = "<group>"; };
 		C365C52028A6E646001E329A /* FIRAuthKeychainServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FIRAuthKeychainServices.h; sourceTree = "<group>"; };
 		C365C52328A6F253001E329A /* UserAccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountStore.swift; sourceTree = "<group>"; };
+		C3A75B2328AA0562007CD052 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
 		C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "YakKit+Swift.swift"; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 		C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YYClient+AuthManagement.swift"; sourceTree = "<group>"; };
 		C3A7DFB42864F75900CB529F /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		C3A7DFBB2864FF7900CB529F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		C3E050BF286664BE00DC26F0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3F43C8A286A9A3B001F6D64 /* Hooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hooks.m; sourceTree = "<group>"; };
 		C3F6EAF1286951240066B9FD /* TicTacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,6 +229,9 @@
 				C3406411285808C2007B46D3 /* HerdViewController.swift */,
 				C3406415285808CF007B46D3 /* CommentsViewController.swift */,
 				C300803028A4451300106BAB /* NotificationsViewController.swift */,
+				C365C51628A61E3E001E329A /* ProfilesViewController.swift */,
+				C3A75B2328AA0562007CD052 /* MapViewController.swift */,
+				C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -530,6 +539,7 @@
 				C340642528580F5F007B46D3 /* CarouselCell.swift in Sources */,
 				C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */,
 				C340642628580F5F007B46D3 /* ScopeCarousel.swift in Sources */,
+				C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */,
 				C3406412285808C2007B46D3 /* HerdViewController.swift in Sources */,
 				C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */,
 				C3F6EB3C28699CB20066B9FD /* VotableDataSource.swift in Sources */,
@@ -537,8 +547,10 @@
 				C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */,
 				C3406416285808CF007B46D3 /* CommentsViewController.swift in Sources */,
 				C3F6EB19286967CA0066B9FD /* CommentsHeaderView.swift in Sources */,
+				C3CD695B28AD6BF20080EDCA /* ComposeViewController.swift in Sources */,
 				C3F6EB2B286984300066B9FD /* NotificationCell.swift in Sources */,
 				C300803928A4471B00106BAB /* ConfigurableCell.swift in Sources */,
+				C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */,
 				C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
 				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,
