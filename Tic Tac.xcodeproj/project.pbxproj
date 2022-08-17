@@ -42,6 +42,7 @@
 		C3A7DFB52864F75900CB529F /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB42864F75900CB529F /* Promise.swift */; };
 		C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFBB2864FF7900CB529F /* LocationManager.swift */; };
 		C3CD695B28AD6BF20080EDCA /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */; };
+		C3CD696128AD94090080EDCA /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD696028AD94090080EDCA /* Previews.swift */; };
 		C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E050BF286664BE00DC26F0 /* LoginController.swift */; };
 		C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F43C8A286A9A3B001F6D64 /* Hooks.m */; };
 		C3F6EAEB28681D800066B9FD /* Reflex in Frameworks */ = {isa = PBXBuildFile; productRef = C3F6EAEA28681D800066B9FD /* Reflex */; };
@@ -110,6 +111,7 @@
 		C3A7DFB42864F75900CB529F /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		C3A7DFBB2864FF7900CB529F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
+		C3CD696028AD94090080EDCA /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		C3E050BF286664BE00DC26F0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3F43C8A286A9A3B001F6D64 /* Hooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hooks.m; sourceTree = "<group>"; };
 		C3F6EAF1286951240066B9FD /* TicTacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +195,7 @@
 		C34063FC285807BD007B46D3 /* Tic Tac */ = {
 			isa = PBXGroup;
 			children = (
+				C3CD696028AD94090080EDCA /* Previews.swift */,
 				C34064102858085A007B46D3 /* Core */,
 				C340640E28580845007B46D3 /* View Controllers */,
 				C340641B285808ED007B46D3 /* ViewModels */,
@@ -553,6 +556,7 @@
 				C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */,
 				C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
+				C3CD696128AD94090080EDCA /* Previews.swift in Sources */,
 				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,
 				C300803528A445AC00106BAB /* NotifDataSource.swift in Sources */,
 				C340644B2863973B007B46D3 /* VoteControl.m in Sources */,
