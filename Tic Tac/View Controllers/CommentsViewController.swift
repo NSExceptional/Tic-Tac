@@ -32,7 +32,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         didSet { self.reloadData() }
     }
     
-    private lazy var header: CommentsHeaderView = .init(frame: UIScreen.main.bounds)
+    private lazy var header: CommentsHeaderView = .init()
     private var yak: YYYak? {
         didSet {
             if self.isViewLoaded {
@@ -134,6 +134,12 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         YYClient.current.getComments(for: yak) { result in
             self.data = result.mapError { .network($0) }
             sender?.endRefreshing()
+            
+            if result.failed {
+                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
+                    self?.refresh()
+                }
+            }
         }
     }
     
