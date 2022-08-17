@@ -248,6 +248,10 @@ extension UIFont {
         return .monospacedSystemFont(ofSize: UIFont.defaultSize, weight: weight)
     }
     
+    static let headline: UIFont = .preferredFont(forTextStyle: .headline)
+    static let footnote: UIFont = .preferredFont(forTextStyle: .footnote)
+    static let isOP: UIFont = UIFont.systemFont(ofSize: UIFont.footnote.pointSize, weight: .medium)
+    
     func styled(as style: UIFont.TextStyle) -> UIFont {
         let metrics = UIFontMetrics(forTextStyle: style)
         return metrics.scaledFont(for: self)
