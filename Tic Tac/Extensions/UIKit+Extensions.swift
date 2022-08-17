@@ -28,6 +28,14 @@ extension UIEdgeInsets {
     init(vertical v: CGFloat, horizontal h: CGFloat) {
         self.init(top: v, left: h, bottom: v, right: h)
     }
+    
+    func vertical(_ v: CGFloat) -> UIEdgeInsets {
+        return .init(top: v, left: self.left, bottom: v, right: self.right)
+    }
+    
+    func horizontal(_ h: CGFloat) -> UIEdgeInsets {
+        return .init(top: self.top, left: h, bottom: self.bottom, right: h)
+    }
 }
 
 extension UIMenu {
