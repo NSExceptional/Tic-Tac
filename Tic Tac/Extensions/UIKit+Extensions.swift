@@ -308,3 +308,28 @@ extension UIFont {
         return metrics.scaledFont(for: self)
     }
 }
+
+extension UIContextualAction {
+    convenience init(handler: @escaping UIContextualAction.Handler) {
+        self.init(style: .normal, title: nil, handler: handler)
+    }
+    
+    func title(_ title: String) -> UIContextualAction {
+        self.title = title
+        return self
+    }
+    
+    func image(_ image: UIImage) -> UIContextualAction {
+        self.image = image
+        return self
+    }
+    
+    func symbol(_ symbol: String) -> UIContextualAction {
+        return self.image(UIImage(systemName: symbol)!)
+    }
+    
+    func color(_ color: UIColor) -> UIContextualAction {
+        self.backgroundColor = color
+        return self
+    }
+}

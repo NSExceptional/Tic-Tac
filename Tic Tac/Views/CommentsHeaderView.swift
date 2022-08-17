@@ -10,13 +10,17 @@ import YakKit
 import SnapKit
 
 class CommentsHeaderView: AutoLayoutView {
-    let yakView = YakView()
-    let commentButton: UIButton = .init(type: .system)
+    lazy private(set) var yakView = YakView(showVoteControl: true)
+    private lazy var commentButton = UIButton(type: .system)
     
     private var buttonAction: UIAction? = nil
     private var heightConstraint: SnapKit.Constraint?
     
     override var views: [UIView] { [yakView, commentButton] }
+    
+    override init() {
+        super.init(frame: UIScreen.main.bounds)
+    }
     
     override func setup(_ frame: CGRect) {
         super.setup(frame)

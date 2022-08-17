@@ -278,4 +278,20 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
 
         return nil
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let section = self.filterDelegate?.sections[indexPath.section] else { return nil }
+        return UISwipeActionsConfiguration(actions: section.leadingSwipeActions(for: indexPath.row))
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let section = self.filterDelegate?.sections[indexPath.section] else { return nil }
+        return UISwipeActionsConfiguration(actions: section.trailingSwipeActions(for: indexPath.row))
+    }
 }

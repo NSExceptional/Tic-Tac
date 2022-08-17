@@ -87,4 +87,12 @@ class SingleRowSection: TableViewSection {
     func subtitle(for row: Int) -> String? {
         return self.lastSubitle
     }
+    
+    func leadingSwipeActions(for row: Int) -> [UIContextualAction] {
+        return []
+    }
+    
+    func trailingSwipeActions(for row: Int) -> [UIContextualAction] {
+        return []
+    }
 }

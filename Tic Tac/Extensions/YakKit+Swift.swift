@@ -143,6 +143,27 @@ extension YYVotable {
         return Self.ageFormatter.string(from: -self.created.timeIntervalSinceNow)!
     }
     
+    var voteColor: UIColor? {
+        switch self.voteStatus {
+            case .downvoted:
+                return .systemIndigo
+            case .upvoted:
+                return .systemOrange
+            default:
+                return nil
+        }
+    }
+    
+    var activityColor: UIColor? {
+        guard let yak = self as? YYYak, yak.replyCount > 1 else {
+            return nil
+        }
+        
+        let percentHot = CGFloat(yak.replyCount) / 12
+        let startingYellow = UIColor.systemYellow.withAlphaComponent(0.5)
+        return UIColor(interpolate: percentHot, from: startingYellow, to: .systemRed)
+    }
+    
     func distance(from location: CLLocation?) -> String? {
         guard let location = location else { return nil }
         let meters = self.location.distance(from: location)
@@ -151,8 +172,9 @@ extension YYVotable {
         return Self.measurementFormatter.string(from: miles)
     }
     
-    private func metadataComponents(_ client: YYClient) -> [StringBuilder.Component] {
+    private func metadataComponents(_ client: YYClient, _ includeScore: Bool) -> [StringBuilder.Component] {
         let shared: [StringBuilder.Component] = [
+            .count(self.score, "point", exclude: !includeScore), .dot,
             .text(self.age), .dot,
             .text(self.distance(from: client.location)), .dot,
         ]
@@ -169,7 +191,83 @@ extension YYVotable {
         }
     }
     
-    func metadataString(_ client: YYClient) -> String {
-        return StringBuilder(components: self.metadataComponents(client)).string
+    private func fancyMetadataComponents(_ client: YYClient, _ includeScore: Bool) -> [StringBuilder.Component] {
+        let isOP = (self as? YYComment)?.isOP ?? false
+        let voteColor = self.voteColor
+        let commentsColor = self.activityColor
+        let voteIcon = self.score >= 0 ? "arrow.up" : "arrow.down"
+        let shared: [StringBuilder.Component] = [
+            // Score
+            .symbol(voteIcon, voteColor, exclude: !includeScore),
+            .colored(.leadingSpace(.count(self.score)), voteColor, exclude: !includeScore),
+            
+            // OP indicator
+            .attrText("OP", [
+                .font: UIFont.isOP, .foregroundColor: UIColor.systemPink, .strokeWidth: -2
+            ], exclude: !isOP),
+            // Age
+            .symbol("clock"), .leadingSpace(.text(self.age)),
+            // Distance
+            .symbol("map"), .leadingSpace(.text(self.distance(from: client.location))),
+        ]
+        
+        switch self {
+            case is YYYak:
+                let yak = self as! YYYak
+                return shared + [
+                    .symbol("message", commentsColor),
+                    .colored(.leadingSpace(.count(yak.replyCount)), commentsColor),
+                    .symbol(yak.anonymous ? "eye.slash" : nil),
+                ]
+            default:
+                return shared
+        }
+    }
+    
+    /// Looks like: 2h • 5 mi
+    func metadataString(_ client: YYClient, includeScore: Bool = true) -> String {
+        return StringBuilder(components: self.metadataComponents(client, includeScore)).string
+    }
+    
+    /// Uses SF Symbols instead of words and separators
+    func metadataAttributedString(_ client: YYClient, includeScore: Bool = true) -> NSAttributedString {
+        var builder = StringBuilder(components: self.fancyMetadataComponents(client, includeScore))
+        // Space out the components more
+        builder.spaceWidth = 3
+        return builder.attributedString
+    }
+}
+
+extension YYVotable {
+    func scoreAdjusted(for newStatus: YYVoteStatus) -> Int {
+        guard self.voteStatus != newStatus else {
+            return self.score
+        }
+        
+        switch self.voteStatus {
+            case .upvoted:
+                switch newStatus {
+                    case .downvoted:
+                        return self.score - 2
+                    default:
+                        return self.score - 1
+                }
+            case .downvoted:
+                switch newStatus {
+                    case .upvoted:
+                        return self.score + 2
+                    default:
+                        return self.score + 1
+                }
+            default:
+                switch newStatus {
+                    case .upvoted:
+                        return self.score + 1
+                    case .downvoted:
+                        return self.score - 1
+                    default:
+                        fatalError("Unreachable")
+                }
+        }
     }
 }

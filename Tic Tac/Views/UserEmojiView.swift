@@ -45,6 +45,12 @@ class UserEmojiView: AutoLayoutView {
         self.setContentCompressionResistancePriority(.required, for: .vertical)
         self.setContentCompressionResistancePriority(.required, for: .horizontal)
         
+        self.setContentHuggingPriority(.required, for: .vertical)
+        self.setContentHuggingPriority(.required, for: .horizontal)
+        
+        self.label.setContentHuggingPriority(.required, for: .vertical)
+        self.label.setContentHuggingPriority(.required, for: .horizontal)
+        
         self.label.text = "?"
         self.label.textAlignment = .center
         self.label.font = self.label.font.withSize(self.frame.width * 0.6)

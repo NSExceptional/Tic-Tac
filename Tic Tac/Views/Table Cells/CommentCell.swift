@@ -16,6 +16,6 @@ class CommentCell: YakCell {
         self.backgroundColor = .secondarySystemBackground
         self.yakView.title.font = .preferredFont(forTextStyle: .body)
         
-        self.yakView.voteCounter.stepperScale = .init(dx: 0.75, dy: 0.75)
+        self.yakView.voteCounter?.stepperScale = .init(dx: 0.75, dy: 0.75)
     }
 }

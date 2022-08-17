@@ -43,7 +43,6 @@ protocol TableViewSection: class {
     /// is called, call `super` to store the new value, and re-filter your model accordingly.
     var filterText: String? { get set }
 
-//    func configureCell(_ cell: Cell, for row: Int)
     func cell(_ table: UITableView, for row: IndexPath) -> UITableViewCell
 
     /// Provides an avenue for the section to refresh data or change the number of rows.
@@ -110,6 +109,11 @@ protocol TableViewSection: class {
     /// should be a description of what will be copied, and the values should be
     /// the strings to copy. Return an empty string as a value to show a disabled action.
     func copyMenuItems(for row: Int) -> [(label: String, value: String)]
+    
+    // MARK: - Swipe Actions
+    
+    func leadingSwipeActions(for row: Int) -> [UIContextualAction]
+    func trailingSwipeActions(for row: Int) -> [UIContextualAction]
 
     // MARK: - External Convenience
 
@@ -198,5 +202,4 @@ extension TableViewSection {
 
 protocol DataSource: TableViewSection {
     associatedtype Model
-    
 }
