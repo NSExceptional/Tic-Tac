@@ -143,6 +143,18 @@ extension UICollectionView {
 }
 
 extension UIColor {
+    private typealias RGBA = (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat)
+    
+    private var rgb: RGBA {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        return (r, g, b, a)
+    }
+    
     convenience init(hex string: String) {
         let string = string.trimmingCharacters(in: .whitespacesAndNewlines)
         let scanner = Scanner(string: string)
@@ -162,6 +174,37 @@ extension UIColor {
         let b = CGFloat(bb) / 255.0
 
         self.init(red: r, green: g, blue: b, alpha: 1)
+    }
+    
+    static var mintColor: UIColor {
+        #if compiler(>=5.5)
+        if #available(iOS 15, *) {
+            return .systemMintColor
+        }
+        #endif
+        
+        return .init(red: 0, green: 150, blue: 142, alpha: 1)
+//        return .init { traits -> UIColor in
+//            switch traits.userInterfaceStyle {
+//                case .dark:
+//                    return .init(red: 102, green: 212, blue: 107, alpha: 1)
+//                default:
+//            }
+//        }
+    }
+    
+    convenience init(interpolate percent: CGFloat, from start: UIColor, to end: UIColor) {
+        let r = start.rgb
+        let l = end.rgb
+
+        let color: RGBA = (
+            (l.r - r.r) * percent + r.r,
+            (l.g - r.g) * percent + r.g,
+            (l.b - r.b) * percent + r.b,
+            (l.a - r.a) * percent + r.a
+        )
+        
+        self.init(red: color.r, green: color.g , blue: color.b, alpha: color.a)
     }
 }
 
