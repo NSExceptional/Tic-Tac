@@ -202,4 +202,6 @@ extension TableViewSection {
 
 protocol DataSource: TableViewSection {
     associatedtype Model
+    
+    init(rows: [Model])
 }

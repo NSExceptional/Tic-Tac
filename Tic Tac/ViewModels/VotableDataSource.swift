@@ -20,7 +20,7 @@ class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     var sectionIndex: Int = 0
     var filterText: String? = nil
     
-    init(rows: [Model] = []) {
+    required init(rows: [Model] = []) {
         self.rows = rows
     }
     
