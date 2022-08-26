@@ -29,6 +29,7 @@
 		C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340642E285863C0007B46D3 /* UIKit+Extensions.swift */; };
 		C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340643228587814007B46D3 /* Foundation+Extensions.swift */; };
 		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
+		C347664528AE053300235EC5 /* MyDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347664428AE053300235EC5 /* MyDataViewController.swift */; };
 		C347664A28B4B4E700235EC5 /* UserTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347664928B4B4E700235EC5 /* UserTags.swift */; };
 		C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C51628A61E3E001E329A /* ProfilesViewController.swift */; };
 		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
@@ -98,6 +99,7 @@
 		C34064482863973A007B46D3 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		C34064492863973B007B46D3 /* VoteControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteControl.h; sourceTree = "<group>"; };
 		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
+		C347664428AE053300235EC5 /* MyDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDataViewController.swift; sourceTree = "<group>"; };
 		C347664928B4B4E700235EC5 /* UserTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTags.swift; sourceTree = "<group>"; };
 		C365C51628A61E3E001E329A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		C365C51A28A62438001E329A /* FIRAuthStoredUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRAuthStoredUserManager.h; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				C365C51628A61E3E001E329A /* ProfilesViewController.swift */,
 				C3A75B2328AA0562007CD052 /* MapViewController.swift */,
 				C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */,
+				C347664428AE053300235EC5 /* MyDataViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				C3F6EB232869840D0066B9FD /* YakCell.swift in Sources */,
 				C3A7DFAB2864F06F00CB529F /* YakKit+Swift.swift in Sources */,
 				C3A7DFAE2864F1DE00CB529F /* TabBarController.swift in Sources */,
+				C347664528AE053300235EC5 /* MyDataViewController.swift in Sources */,
 				C340643328587814007B46D3 /* Foundation+Extensions.swift in Sources */,
 				C340642A28580FF9007B46D3 /* SingleRowSection.swift in Sources */,
 				C304156928666B8B00BC858C /* BaseCell.swift in Sources */,

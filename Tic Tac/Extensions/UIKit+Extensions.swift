@@ -80,6 +80,22 @@ extension UIAction {
 
 extension UIBarButtonItem {
     static var fixedSpace: UIBarButtonItem { .fixedSpace(60) }
+    
+    @available(iOS 14.0, *)
+    class func button(symbol: String, action: @escaping () -> Void) -> UIBarButtonItem {
+        let image = UIImage(systemName: symbol)
+        let handler = { (_: UIAction) in action() }
+        return UIBarButtonItem(title: nil, image: image, primaryAction: .init(handler: handler))
+    }
+    
+    @available(iOS 14.0, *)
+    class func button(text: String, action: @escaping () -> Void) -> UIBarButtonItem {
+        let handler = { (_: UIAction) in action() }
+        let item = UIBarButtonItem(title: text, style: .done, target: nil, action: nil)
+        item.primaryAction = .init(handler: handler)
+        item.title = text
+        return item
+    }
 }
 
 extension UIApplication {
@@ -261,6 +277,16 @@ extension UIStackView {
         self.spacing = spacing
         return self
     }
+    
+    func hugging(_ priority: UILayoutPriority, axis: NSLayoutConstraint.Axis) -> UIStackView {
+        self.setContentHuggingPriority(priority, for: axis)
+        return self
+    }
+    
+    func expansion(_ priority: UILayoutPriority, axis: NSLayoutConstraint.Axis) -> UIStackView {
+        self.setContentCompressionResistancePriority(priority, for: axis)
+        return self
+    }
 }
 
 extension UIViewController {
@@ -270,6 +296,10 @@ extension UIViewController {
             make.message(error.localizedDescription)
             make.button("Dismiss")
         }, showFrom: self)
+    }
+    
+    func dismissSelf() {
+        self.presentingViewController?.dismiss(animated: true)
     }
 }
 

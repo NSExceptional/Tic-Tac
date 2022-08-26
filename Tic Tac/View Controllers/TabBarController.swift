@@ -13,6 +13,14 @@ import YakKit
 class TabBarController: UITabBarController {
     private lazy var feed: HerdViewController = .init()
     private lazy var notifications: NotificationsViewController = .init()
+    
+    private lazy var posts: MyPostsViewController = .init(title: "My Yaks") { callback in
+        YYClient.current.getMyRecentYaks(completion: callback)
+    }
+    private lazy var comments: MyCommentsViewController = .init(title: "My Comments") { callback in
+        YYClient.current.getMyComments(completion: callback)
+    }
+    
 //    private lazy var profile: TTProfileViewController = .init()
 //    private lazy var settings: TTSettingsViewController = .init()
     
@@ -24,7 +32,8 @@ class TabBarController: UITabBarController {
         self.modalPresentationStyle = .fullScreen
 
         self.viewControllers = [
-            self.feed, self.notifications
+            self.feed, self.notifications,
+            self.posts, self.comments,
 //            UIViewController.inNavigation(),
 //            TTProfileViewController.inNavigation()
         ].map { UINavigationController(rootViewController: $0) }
@@ -32,6 +41,10 @@ class TabBarController: UITabBarController {
         let tabs: [(image: String, title: String)] = [
             ("newspaper.fill", "Herd"),
             ("app.badge.fill", "Notifications"),
+            
+            ("signpost.right.fill", "Posts"),
+            ("quote.bubble.fill", "Comments"),
+            
             ("message.fill", "Chat"),
             ("person.crop.circle", "Profile"),
             ("gear", "Settings"),
@@ -49,6 +62,8 @@ class TabBarController: UITabBarController {
         LoginController(host: self, client: .current).requireLogin {
             self.feed.refresh()
             self.notifications.refresh()
+            self.posts.refresh()
+            self.comments.refresh()
         }
     }
 }
