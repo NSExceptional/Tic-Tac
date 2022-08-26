@@ -16,6 +16,10 @@ extension UIApplication {
     var appDelegate: TTAppDelegate {
         return self.delegate as! TTAppDelegate
     }
+    
+    static var rootViewController: UIViewController {
+        return shared.appDelegate.window!.rootViewController!
+    }
 }
 
 @main @objc
