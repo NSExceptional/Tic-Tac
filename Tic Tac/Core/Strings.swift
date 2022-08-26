@@ -61,6 +61,7 @@ struct StringBuilder {
             case comma = ", "
             case dot = " • "
             case bar = " | "
+            case space = "  "
             case newline = "\n"
         }
     }
