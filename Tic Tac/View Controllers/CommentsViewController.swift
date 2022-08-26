@@ -32,7 +32,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         didSet { self.reloadData() }
     }
     
-    private lazy var header: CommentsHeaderView = .init()
+    private lazy var header: CommentsHeaderView = .addCommentHandler(self.addCommentPressed)
     private var yak: YYYak? {
         didSet {
             if self.isViewLoaded {
@@ -105,9 +105,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     /// Update header and reload comments
     private func yakChanged() {
         // Configure header with yak
-        self.header.configure(with: self.yak).buttonAction {
-            // TODO
-        }
+        self.header.configure(with: self.yak)
         
         // Reload data
         self.refresh()
@@ -119,7 +117,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     override func refresh(_ sender: UIRefreshControl? = nil) {
-        guard !(self.refreshControl?.isRefreshing ?? false), let yak = self.yak else {
+        guard let yak = self.yak else {
             return
         }
         
@@ -140,6 +138,33 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
                     self?.refresh()
                 }
             }
+        }
+    }
+    
+    private func addCommentPressed() {
+        guard let yak = self.yak else { return }
+        let composer = ComposeViewController(participants: []) { text, completion in
+            YYClient.current.post(comment: text, to: yak) { result in
+                switch result {
+                    case .success(let comment):
+                        self.appendComment(comment)
+                        completion(nil)
+                    case .failure(let error):
+                        completion(error)
+                }
+            }
+        }
+        
+        self.present(UINavigationController(rootViewController: composer), animated: true)
+    }
+    
+    private func appendComment(_ comment: YYComment) {
+        switch self.data {
+            case .success(var comments):
+                comments.append(comment)
+                self.data = .success(comments)
+            default:
+                break
         }
     }
     

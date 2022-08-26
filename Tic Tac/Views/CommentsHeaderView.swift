@@ -10,7 +10,7 @@ import YakKit
 import SnapKit
 
 class CommentsHeaderView: AutoLayoutView {
-    lazy private(set) var yakView = YakView(showVoteControl: true)
+    lazy private(set) var yakView = YakView(layout: .expanded)
     private lazy var commentButton = UIButton(type: .system)
     
     private var buttonAction: UIAction? = nil
@@ -20,6 +20,12 @@ class CommentsHeaderView: AutoLayoutView {
     
     override init() {
         super.init(frame: UIScreen.main.bounds)
+    }
+    
+    static func addCommentHandler(_ handler: @escaping () -> Void) -> CommentsHeaderView {
+        let header = CommentsHeaderView()
+        header.buttonAction(handler)
+        return header
     }
     
     override func setup(_ frame: CGRect) {
@@ -65,7 +71,7 @@ class CommentsHeaderView: AutoLayoutView {
         
         // I fucking hate that I have to fucking store this dumb fucking action
         // so I can remove it when it needs to change. FUCK
-        self.buttonAction = UIAction(handler: unsafeBitCast(handler, to: UIActionHandler.self))
+        self.buttonAction = UIAction { _ in handler() }
         self.commentButton.addAction(self.buttonAction!, for: .touchUpInside)
         
         return self
