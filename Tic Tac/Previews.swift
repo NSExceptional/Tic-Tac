@@ -21,7 +21,7 @@ struct TicTacPreviews: PreviewProvider {
     }
     
     static var previews: some SwiftUI.View {
-        UIKitPreview(self.target)
+        UIKitPreview(self.target).ignoresSafeArea()
     }
 }
 
@@ -35,11 +35,13 @@ struct UIKitPreview: View, UIViewRepresentable {
         self.size = UIScreen.main.bounds.size
         self.size?.height += 50
         self.view = controller.view
+        controller.overrideUserInterfaceStyle = .dark
     }
     
     init(_ view: UIView, size: CGSize? = nil) {
         self.size = size
         self.view = view
+        self.view.overrideUserInterfaceStyle = .dark
     }
     
     func makeUIView(context: Context) -> UIView {
