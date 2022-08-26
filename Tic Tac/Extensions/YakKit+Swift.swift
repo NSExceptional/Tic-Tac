@@ -31,6 +31,18 @@ extension YYClient {
         }
     }
     
+    func getMyRecentYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
+        self.objc_getMyRecentYaks { (a, e) in
+            completion(self.convertToResult(a, e))
+        }
+    }
+    
+    func getMyComments(completion: @escaping (Result<[YYComment], Error>) -> Void) {
+        self.objc_getMyRecentReplies { (a, e) in
+            completion(self.convertToResult(a, e))
+        }
+    }
+    
     func getLocalYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
         self.getLocalYaks_tuple { (a, e) in
             completion(self.convertToResult(a, e))
@@ -52,6 +64,12 @@ extension YYClient {
     func getYak(from notification: YYNotification, completion: @escaping (Result<YYYak, Error>) -> Void) {
         self.objc_getYak(from: notification) { (thing, error) in
             completion(self.convertToResult(thing, error))
+        }
+    }
+    
+    func post(comment: String, to yak: YYYak, completion: @escaping (Result<YYComment, Error>) -> Void) {
+        self.objc_postComment(comment, to: yak) { obj, error in
+            completion(self.convertToResult(obj, error))
         }
     }
 }
