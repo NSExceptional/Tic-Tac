@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import TBAlertController
 import YakKit
 
 class YakCell: AutoLayoutCell, ConfigurableCell {
     typealias Model = YYVotable
     
-    let yakView: YakView = .init(showVoteControl: false)
+    let yakView: YakView = .init(layout: .compact)
+    
     override var views: [UIView] { [yakView] }
     
     override func makeConstraints() {
@@ -23,6 +25,7 @@ class YakCell: AutoLayoutCell, ConfigurableCell {
     @discardableResult
     func configure(with votable: YYVotable, client: YYClient = .current) -> Self {
         self.yakView.configure(with: votable, client: client)
+        
         return self
     }
     
@@ -58,29 +61,62 @@ class YakCell: AutoLayoutCell, ConfigurableCell {
 }
 
 class YakView: AutoLayoutView {
+    enum Layout {
+        case compact
+        case expanded
+        
+        var showsVoteControl: Bool {
+            return self == .expanded
+        }
+        
+        var emojiUnderTitle: Bool {
+            return self == .expanded
+        }
+        
+        var scoreInMetadata: Bool {
+            return !self.showsVoteControl
+        }
+    }
+    
     let title = UILabel(textStyle: .body).multiline()
+    let subtitle = UILabel(textStyle: .footnote).multiline().color(.secondaryLabel)
     let metadata = UILabel(textStyle: .footnote).color(.secondaryLabel)
-    lazy var emoji: UserEmojiView = showsVoteControl ? .small() : .medium()
-    lazy var voteCounter: VoteControl? = showsVoteControl ? .init() : nil
+    lazy var emoji: UserEmojiView = layout.showsVoteControl ? .small() : .medium()
+    lazy var voteCounter: VoteControl? = self.layout.showsVoteControl ? .init() : nil
     
-    var votableID: String? = nil
+    private lazy var metadataRow = UIStackView(arrangedSubviews: [metadata])
+        .hugging(.required, axis: .horizontal).axis(.horizontal).distribution(.fill).spacing(8)
+    private lazy var labelStack = UIStackView(arrangedSubviews: [title, subtitle, metadataRow])
+        .hugging(.required, axis: .horizontal).axis(.vertical).distribution(.equalSpacing).spacing(6)
+    
     var voteErrorHandler: ((Error) -> Void)? = nil
-    
-    private var showsVoteControl: Bool
+    private var votableID: String? = nil
+    private var deleteVotable: (() -> Void)?
+    private let layout: YakView.Layout
     
     override var views: [UIView] {
         // Optionally include the vote counter based
-        var views = [title, metadata, emoji]
-        if showsVoteControl {
+        var views: [UIView] = [labelStack]
+        if self.layout.showsVoteControl {
             views.append(voteCounter!)
+        }
+        
+        // Put emoji where it belongs
+        if self.layout.emojiUnderTitle {
+            self.metadataRow.insertArrangedSubview(self.emoji, at: 0)
+        }
+        else {
+            views.append(self.emoji)
         }
         
         return views
     }
     
-    init(showVoteControl: Bool = false) {
-        self.showsVoteControl = showVoteControl
+    init(layout: YakView.Layout = .compact) {
+        self.layout = layout
+        
         super.init()
+        self.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(didLongPress)))
     }
     
     override func makeConstraints() {
@@ -91,25 +127,16 @@ class YakView: AutoLayoutView {
         // ┌────────────────────────────────────────────────┐
         // │                                                │
         // │   Post title here                       ^      │
-        // │                                      5  |      │
-        // │   (🧼) 2h 34m • 5 mi • 7 comments       v      │
-        // │                                                │
+        // │             | 8                      5  |      │
+        // │   (🧼)-+-2h 34m • 5 mi • 7 comments     v      │
+        // │        8                                       │
         // └────────────────────────────────────────────────┘
-        if self.showsVoteControl {
-            title.snp.makeConstraints { make in
+        if self.layout.showsVoteControl {
+            labelStack.snp.makeConstraints { make in
                 make.top.equalToSuperview().inset(edges.bottom + 5)
                 make.leading.equalToSuperview().inset(edges)
-                make.bottom.equalTo(emoji.snp.top).offset(-space)
-                make.trailing.equalTo(voteCounter!.snp.leading).offset(-space)
-            }
-            emoji.snp.makeConstraints { make in
-                make.leading.equalToSuperview().inset(edges)
                 make.bottom.lessThanOrEqualToSuperview().inset(edges)
-            }
-            metadata.snp.makeConstraints { make in
-                make.centerY.equalTo(emoji)
-                make.leading.equalTo(emoji.snp.trailing).offset(space)
-                make.trailing.equalTo(title)
+                make.trailing.equalTo(voteCounter!.snp.leading).offset(-space)
             }
             
             voteCounter?.snp.makeConstraints { make in
@@ -121,7 +148,7 @@ class YakView: AutoLayoutView {
         // ┌────────────────────────────────────────────────┐
         // │    __                                          │
         // │  ( 🧼 ) Post title here                        │
-        // │    ‾‾                                          │
+        // │    ‾‾       | 8                                │
         // │         ↑5 • 2h 34m • 5 mi • 7                 │
         // │                                                │
         // └────────────────────────────────────────────────┘
@@ -130,16 +157,9 @@ class YakView: AutoLayoutView {
                 make.top.leading.equalToSuperview().inset(edges.vertical(12))
                 make.bottom.lessThanOrEqualToSuperview().inset(edges)
             }
-            title.snp.makeConstraints { make in
-                make.top.equalToSuperview().inset(edges)
+            labelStack.snp.makeConstraints { make in
+                make.top.bottom.trailing.equalToSuperview().inset(edges)
                 make.leading.equalTo(emoji.snp.trailing).offset(edges.left)
-                make.bottom.equalTo(metadata.snp.top).offset(-space)
-                make.trailing.equalToSuperview().inset(edges)
-            }
-            metadata.snp.makeConstraints { make in
-                make.leading.equalTo(title)
-                make.bottom.lessThanOrEqualToSuperview().inset(edges)
-                make.trailing.equalTo(title)
             }
         }
     }
@@ -157,8 +177,11 @@ class YakView: AutoLayoutView {
             return self.configureEmpty()
         }
         
+        let userTag = UserTags.tag(for: votable.authorIdentifier)
+        
         self.emoji.set(emoji: votable.emoji, colors: votable.gradient)
         self.title.text = votable.text
+        self.setSubtitles(tag: userTag, location: votable.locationName)
         self.updateMetadataText(with: votable, client)
         
         self.emoji.alpha = votable.anonymous ? 0.8 : 1
@@ -175,14 +198,51 @@ class YakView: AutoLayoutView {
                 }
             }
         }
+        
+        if votable.isMine {
+            self.deleteVotable = {
+                switch votable {
+                    case is YYYak:
+                        client.delete(votable as! YYYak, completion: nil)
+                    case is YYComment:
+                        client.delete(votable as! YYComment, completion: nil)
+                    default:
+                        break
+                }
+            }
+        }
 
         return self
     }
     
+    @objc private func didLongPress(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .recognized else { return }
+        
+        if let deletion = self.deleteVotable {
+            TBAlert.make { make in
+                make.title("Delete Submission").message("Are you sure you want to delete this submission?")
+                make.button("Dismiss").cancelStyle()
+                make.button("Delete").destructiveStyle().handler { _ in
+                    deletion()
+                }
+            }.show(from: UIApplication.rootViewController)
+        }
+    }
+    
+    private func setSubtitles(tag: String?, location: String?) {
+        self.subtitle.attributedText = StringBuilder(components: [
+            .symbol("safari"), .leadingSpace(.text(location)),
+            .separator(.space),
+            .symbol("tag", self.tintColor, exclude: tag == nil),
+            .leadingSpace(.colored(.text(tag), self.tintColor, exclude: tag == nil)),
+        ]).attributedString
+        
+        self.subtitle.isHidden = tag == nil && location == nil
+    }
+    
     private func updateMetadataText(with votable: YYVotable, _ client: YYClient = .current) {
         self.metadata.attributedText = votable.metadataAttributedString(
-            // Only show the score if the vote control is hidden
-            client, includeScore: !self.showsVoteControl
+            client, includeScore: self.layout.scoreInMetadata
         )
     }
     
@@ -220,6 +280,8 @@ class YakView: AutoLayoutView {
         self.voteCounter?.isEnabled = false
         self.voteCounter?.setVote(.none, score: 0)
         self.voteCounter?.onVoteStatusChange = { _, _ in }
+        
+        self.setSubtitles(tag: nil, location: nil)
         
         return self
     }
