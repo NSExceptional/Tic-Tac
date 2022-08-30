@@ -38,6 +38,26 @@ extension UIEdgeInsets {
     }
 }
 
+extension UIImage {
+    static func symbol(_ name: String, size: SymbolScale = .default, color: UIColor? = nil) -> UIImage {
+        var icon: UIImage
+        
+        if size == .default {
+            icon = UIImage(systemName: name)!
+        }
+        else {
+            let config = SymbolConfiguration(scale: size)
+            icon = UIImage(systemName: name, withConfiguration: config)!
+        }
+        
+        if let color = color {
+            icon = icon.withTintColor(color)
+        }
+        
+        return icon
+    }
+}
+
 extension UIMenu {
     static func inline(_ title: String = "", image: UIImage? = nil,
                        options: Options = [.displayInline], items: [UIMenuElement]) -> UIMenu {
@@ -201,11 +221,11 @@ extension UIColor {
     }
     
     static var mintColor: UIColor {
-        #if compiler(>=5.5)
-        if #available(iOS 15, *) {
-            return .systemMintColor
-        }
-        #endif
+//        #if compiler(>=5.5)
+//        if #available(iOS 15, *) {
+//            return .systemMintColor
+//        }
+//        #endif
         
         return .init(red: 0, green: 150, blue: 142, alpha: 1)
 //        return .init { traits -> UIColor in
@@ -275,6 +295,11 @@ extension UIStackView {
     
     func spacing(_ spacing: CGFloat) -> UIStackView {
         self.spacing = spacing
+        return self
+    }
+    
+    func customSpacing(_ spacing: CGFloat, after view: UIView) -> UIStackView {
+        self.setCustomSpacing(spacing, after: view)
         return self
     }
     
