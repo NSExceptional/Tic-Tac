@@ -112,7 +112,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        return self.data.map { [CommentsDataSource(rows: $0)] }
+        return self.data.map { [CommentsDataSource(rows: $0.content)] }
             .mapError { $0 as Error }
     }
     
@@ -141,6 +141,39 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         }
     }
     
+    override func didNearlyScrollToEnd() {
+        self.addSpinnerToTableFooter()
+        
+        // Ensure logged in
+        guard YYClient.current.authToken != nil else {
+            self.removeSpinnerFromTableFooter()
+            return self.data = .failure(.notLoggedIn)
+        }
+        
+        guard let yak = self.yak, let lastComment = self.cursor else {
+            return self.removeSpinnerFromTableFooter()
+        }
+        
+        YYClient.current.getComments(for: yak, after: lastComment) { result in
+            self.removeSpinnerFromTableFooter()
+            
+            if case .failure(let error) = result {
+                self.errorMessage = error.localizedDescription
+            }
+            else {
+                // Append new data
+                self.data = result.map { (self.comments + $0.content, $0.cursor) }
+                    .mapError { .network($0) }
+            }
+            
+            if result.failed {
+                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
+                    self?.didNearlyScrollToEnd()
+                }
+            }
+        }
+    }
+    
     private func addCommentPressed() {
         guard let yak = self.yak else { return }
         let composer = ComposeViewController(participants: []) { text, completion in
@@ -160,9 +193,9 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     
     private func appendComment(_ comment: YYComment) {
         switch self.data {
-            case .success(var comments):
-                comments.append(comment)
-                self.data = .success(comments)
+            case .success(var page):
+                page.content.append(comment)
+                self.data = .success(page)
             default:
                 break
         }
@@ -183,10 +216,19 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
 extension CommentsViewController {
     var comments: [YYComment] {
         switch self.data {
-            case .success(let things):
-                return things
+            case .success(let page):
+                return page.content
             default:
                 return []
+        }
+    }
+    
+    var cursor: String? {
+        switch self.data {
+            case .success(let page):
+                return page.cursor
+            default:
+                return nil
         }
     }
 }

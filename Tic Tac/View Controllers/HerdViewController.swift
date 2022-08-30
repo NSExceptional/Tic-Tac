@@ -61,7 +61,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        return self.data.map { [FeedDataSource(rows: $0)] }
+        return self.data.map { [FeedDataSource(rows: $0.content)] }
             .mapError { $0 as Error }
     }
     
@@ -71,7 +71,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
             sender?.endRefreshing()
-            return self.data = .failure(FeedError.notLoggedIn)
+            return self.data = .failure(.notLoggedIn)
         }
         
         YYClient.current.getLocalYaks { result in
@@ -85,15 +85,57 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
             }
         }
     }
+    
+    override func didNearlyScrollToEnd() {
+        self.addSpinnerToTableFooter()
+        
+        // Ensure logged in
+        guard YYClient.current.authToken != nil else {
+            self.removeSpinnerFromTableFooter()
+            return self.data = .failure(.notLoggedIn)
+        }
+        
+        guard let lastYak = self.cursor else {
+            return self.removeSpinnerFromTableFooter()
+        }
+        
+        YYClient.current.getLocalYaks(after: lastYak) { result in
+            self.removeSpinnerFromTableFooter()
+            
+            if case .failure(let error) = result {
+                self.errorMessage = error.localizedDescription
+            }
+            else {
+                // Append new data
+                self.data = result.map { (self.posts + $0.content, $0.cursor) }
+                    .mapError { .network($0) }
+            }
+            
+            if result.failed {
+                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
+                    self?.didNearlyScrollToEnd()
+                }
+            }
+        }
+    }
 }
 
 extension HerdViewController {
     var posts: [YYYak] {
         switch self.data {
-            case .success(let things):
-                return things
+            case .success(let page):
+                return page.content
             default:
                 return []
+        }
+    }
+    
+    var cursor: String? {
+        switch self.data {
+            case .success(let page):
+                return page.cursor
+            default:
+                return nil
         }
     }
 }

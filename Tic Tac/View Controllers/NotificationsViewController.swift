@@ -57,7 +57,7 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        return self.data.map { [NotifDataSource(rows: $0)] }
+        return self.data.map { [NotifDataSource(rows: $0.content)] }
             .mapError { $0 as Error }
     }
     
@@ -81,15 +81,53 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
             }
         }
     }
+    
+    
+    override func didNearlyScrollToEnd() {
+        self.addSpinnerToTableFooter()
+        
+        // Ensure logged in
+        guard YYClient.current.authToken != nil else {
+            self.removeSpinnerFromTableFooter()
+            return self.data = .failure(.notLoggedIn)
+        }
+        
+        guard let lastNotif = self.cursor else {
+            return self.removeSpinnerFromTableFooter()
+        }
+        
+        YYClient.current.getNotifications(after: lastNotif) { result in
+            self.removeSpinnerFromTableFooter()
+            
+            // Append new posts
+            self.data = result.map { (self.notifications + $0.content, $0.cursor) }
+                .mapError { .network($0) }
+            
+            if result.failed {
+                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
+                    self?.didNearlyScrollToEnd()
+                }
+            }
+        }
+    }
 }
 
 extension NotificationsViewController {
     var notifications: [YYNotification] {
         switch self.data {
-            case .success(let things):
-                return things
+            case .success(let page):
+                return page.content
             default:
                 return []
+        }
+    }
+    
+    var cursor: String? {
+        switch self.data {
+            case .success(let page):
+                return page.cursor
+            default:
+                return nil
         }
     }
 }

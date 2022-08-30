@@ -39,7 +39,7 @@ protocol TableViewFiltering: SearchResultsUpdating {
 /// a message in the form of an error, or the content of `emptyMessage`.
 @objcMembers
 class FilteringTableViewController<T, E: Error>: TTTableViewController, TableViewFiltering {
-    typealias DataSourceType = Result<[T], E>
+    typealias DataSourceType = Result<Page<T>, E>
     
     /// Stores the current search query.
     var filterText: String? = nil
@@ -293,5 +293,27 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let section = self.filterDelegate?.sections[indexPath.section] else { return nil }
         return UISwipeActionsConfiguration(actions: section.trailingSwipeActions(for: indexPath.row))
+    }
+    
+    override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Trigger didNearlyScrollToEnd() when we reach the last ~4 rows
+        if indexPath.row > self.sections[indexPath.section].numberOfRows - 4 {
+            self.didNearlyScrollToEnd()
+        }
+    }
+    
+    // MARK: Pagination
+    
+    func addSpinnerToTableFooter() {
+        self.tableView.tableFooterView = SpinnerFooterView(frame: .square(80))
+    }
+    
+    func removeSpinnerFromTableFooter() {
+        self.tableView.tableFooterView = nil
+    }
+    
+    /// Subclases should override with pagination logic
+    func didNearlyScrollToEnd() {
+        
     }
 }

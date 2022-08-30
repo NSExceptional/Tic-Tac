@@ -14,7 +14,7 @@ class MyPostsViewController: MyDataViewController<YYYak, FeedDataSource, YakCell
 class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell>, Cell: YakCell>:
         FilteringTableViewController<T, MyDataViewController.MyDataError> {
     
-    typealias DataProviderCallback = (Result<[T], Error>) -> Void
+    typealias DataProviderCallback = (Result<Page<T>, Error>) -> Void
     typealias DataProvider = (@escaping DataProviderCallback) -> Void
     
     enum MyDataError: LocalizedError {
@@ -58,7 +58,7 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
     
     override func makeSections() -> Result<[TableViewSection], Error> {
         let context = MyDataSource.Configuration(origin: .userProfile)
-        return self.data.map { [MyDataSource(rows: $0, config: context)] }
+        return self.data.map { [MyDataSource(rows: $0.content, config: context)] }
             .mapError { $0 as Error }
     }
     

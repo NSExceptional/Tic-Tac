@@ -8,6 +8,7 @@
 import Foundation
 import YakKit
 
+typealias Page<T> = (content: [T], cursor: String?)
 typealias Callback<T> = (Result<T, Error>) -> Void
 
 extension YYClient {
@@ -33,43 +34,43 @@ extension YYClient {
         }
     }
     
-    func getMyRecentYaks(completion: @escaping Callback<[YYYak]>) {
-        self.objc_getMyRecentYaks { (a, e) in
-            completion(self.convertToResult(a, e))
+    func getMyRecentYaks(completion: @escaping Callback<Page<YYYak>>) {
+        self.objc_getMyRecentYaks { (a, c, e) in
+            completion(self.convertToResult((a, c), e))
         }
     }
     
-    func getMyComments(completion: @escaping Callback<[YYComment]>) {
-        self.objc_getMyRecentReplies { (a, e) in
-            completion(self.convertToResult(a, e))
+    func getMyComments(completion: @escaping Callback<Page<YYComment>>) {
+        self.objc_getMyRecentReplies { (a, c, e) in
+            completion(self.convertToResult((a, c), e))
         }
     }
     
-    func getLocalYaks(after yak: String? = nil, completion: @escaping Callback<[YYYak]>) {
-        self.objc_getLocalYaks(after: yak) { (a, e) in
-            completion(self.convertToResult(a, e))
+    func getLocalYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
+        self.objc_getLocalYaks(after: yak) { (a, c, e) in
+            completion(self.convertToResult((a, c), e))
         }
     }
     
-    func getLocalHotYaks(after yak: String? = nil, completion: @escaping Callback<[YYYak]>) {
-        self.objc_getLocalHotYaks(after: yak) { (a, e) in
-            completion(self.convertToResult(a, e))
+    func getLocalHotYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
+        self.objc_getLocalHotYaks(after: yak) { (a, c, e) in
+            completion(self.convertToResult((a, c), e))
         }
     }
     
-    func getLocalTopYaks(after yak: String? = nil, completion: @escaping Callback<[YYYak]>) {
-        self.objc_getLocalTopYaks(after: yak) { (a, e) in
-            completion(self.convertToResult(a, e))
+    func getLocalTopYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
+        self.objc_getLocalTopYaks(after: yak) { (a, c, e) in
+            completion(self.convertToResult((a, c), e))
         }
     }
     
-    func getYak(from notification: YYNotification, completion: @escaping (Result<YYYak, Error>) -> Void) {
+    func getYak(from notification: YYNotification, completion: @escaping Callback<YYYak>) {
         self.objc_getYak(from: notification) { (thing, error) in
             completion(self.convertToResult(thing, error))
         }
     }
     
-    func post(comment: String, to yak: YYYak, completion: @escaping (Result<YYComment, Error>) -> Void) {
+    func post(comment: String, to yak: YYYak, completion: @escaping Callback<YYComment>) {
         self.objc_postComment(comment, to: yak) { obj, error in
             completion(self.convertToResult(obj, error))
         }
@@ -77,25 +78,17 @@ extension YYClient {
 }
 
 extension YYClient {
-    func getNotifications(after notif: YYNotification? = nil, completion: @escaping Callback<[YYNotification]>) {
-        self.objc_getNotifications(after: notif) { (notifs, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                completion(.success(notifs as! [YYNotification]))
-            }
+    func getNotifications(after notif: String? = nil, completion: @escaping Callback<Page<YYNotification>>) {
+        self.objc_getNotifications(after: notif) { (notifs, cursor, error) in
+            completion(self.convertToResult((notifs, cursor), error))
         }
     }
 }
 
 extension YYClient {
-    func getComments(for yak: YYYak, completion: @escaping Callback<[YYComment]>) {
-        self.objc_getComments(for: yak) { (comments, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                completion(.success(comments as! [YYComment]))
-            }
+    func getComments(for yak: YYYak, after comment: String? = nil, completion: @escaping Callback<Page<YYComment>>) {
+        self.objc_getComments(for: yak, after: comment) { (comments, cursor, error) in
+            completion(self.convertToResult((comments, cursor), error))
         }
     }
 }
