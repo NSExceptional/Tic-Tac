@@ -14,7 +14,7 @@ import UIKit
 /// Many properties or methods here return `nil` or some logical equivalent by default.
 /// Even so, most of the requirements with defaults are intended to be implemented by conformers.
 /// Some requirements are not implemented _at all_ and _**must**_ be implemented by a subclass.
-protocol TableViewSection: class {
+protocol TableViewSection: AnyObject {
 //    associatedtype Cell: UITableViewCell
     typealias ActionHandler = (UIViewController) -> Void
     

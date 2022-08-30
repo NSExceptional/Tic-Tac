@@ -23,7 +23,7 @@ enum DebounceInterval: TimeInterval, Comparable, Equatable {
     }
 }
 
-@objc protocol SearchResultsUpdating: class {
+@objc protocol SearchResultsUpdating: AnyObject {
     /// A method to handle search query update events.
     ///
     /// `searchBarDebounceInterval` is used to reduce the frequency at which this
