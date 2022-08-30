@@ -31,6 +31,7 @@
 		C340644B2863973B007B46D3 /* VoteControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C340644A2863973B007B46D3 /* VoteControl.m */; };
 		C347664528AE053300235EC5 /* MyDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347664428AE053300235EC5 /* MyDataViewController.swift */; };
 		C347664A28B4B4E700235EC5 /* UserTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347664928B4B4E700235EC5 /* UserTags.swift */; };
+		C351060828BDE305007B0F22 /* SpinnerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C351060728BDE305007B0F22 /* SpinnerFooterView.swift */; };
 		C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C51628A61E3E001E329A /* ProfilesViewController.swift */; };
 		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
 		C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384AC6228BDA98B00401E0F /* PreviewData.swift */; };
@@ -102,6 +103,7 @@
 		C340644A2863973B007B46D3 /* VoteControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteControl.m; sourceTree = "<group>"; };
 		C347664428AE053300235EC5 /* MyDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDataViewController.swift; sourceTree = "<group>"; };
 		C347664928B4B4E700235EC5 /* UserTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTags.swift; sourceTree = "<group>"; };
+		C351060728BDE305007B0F22 /* SpinnerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerFooterView.swift; sourceTree = "<group>"; };
 		C365C51628A61E3E001E329A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		C365C51A28A62438001E329A /* FIRAuthStoredUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRAuthStoredUserManager.h; sourceTree = "<group>"; };
 		C365C51D28A628CA001E329A /* Firebase-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebase-Private.h"; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				C3F6EB1C286967FB0066B9FD /* AutoLayout.swift */,
 				C3F6EB18286967CA0066B9FD /* CommentsHeaderView.swift */,
 				C304156C28666D9900BC858C /* UserEmojiView.swift */,
+				C351060728BDE305007B0F22 /* SpinnerFooterView.swift */,
 				C3F6EB2F286984920066B9FD /* Controls */,
 				C3F6EB322869849B0066B9FD /* Table Cells */,
 			);
@@ -562,6 +565,7 @@
 				C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */,
 				C340642628580F5F007B46D3 /* ScopeCarousel.swift in Sources */,
 				C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */,
+				C351060828BDE305007B0F22 /* SpinnerFooterView.swift in Sources */,
 				C3406412285808C2007B46D3 /* HerdViewController.swift in Sources */,
 				C340642F285863C0007B46D3 /* UIKit+Extensions.swift in Sources */,
 				C3F6EB3C28699CB20066B9FD /* VotableDataSource.swift in Sources */,
