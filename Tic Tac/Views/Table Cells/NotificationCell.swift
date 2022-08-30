@@ -37,7 +37,7 @@ class NotificationCell: AutoLayoutCell, ConfigurableCell {
         }
     }
     
-    func configure(with notif: YYNotification, client: YYClient) -> Self {
+    func configure(with notif: YYNotification, context: CellContext, client: YYClient) -> Self {
         self.header.text = notif.subject
         self.subheader.text = notif.content
         self.footer.text = notif.thingIdentifier?[6...]

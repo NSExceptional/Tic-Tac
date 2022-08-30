@@ -202,6 +202,8 @@ extension TableViewSection {
 
 protocol DataSource: TableViewSection {
     associatedtype Model
+    associatedtype Context
     
     init(rows: [Model])
+    init(rows: [Model], config: Context)
 }

@@ -8,10 +8,12 @@
 import UIKit
 import YakKit
 
-typealias MyCommentsViewController = MyDataViewController<CommentsDataSource, YYComment>
-typealias MyPostsViewController = MyDataViewController<FeedDataSource, YYYak>
+class MyCommentsViewController: MyDataViewController<YYComment, CommentsDataSource, CommentCell> { }
+class MyPostsViewController: MyDataViewController<YYYak, FeedDataSource, YakCell> { }
 
-class MyDataViewController<MyDataSource: DataSource, T: YYVotable>: FilteringTableViewController<T, MyDataViewController.MyDataError> {
+class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell>, Cell: YakCell>:
+        FilteringTableViewController<T, MyDataViewController.MyDataError> {
+    
     typealias DataProviderCallback = (Result<[T], Error>) -> Void
     typealias DataProvider = (@escaping DataProviderCallback) -> Void
     
@@ -55,7 +57,8 @@ class MyDataViewController<MyDataSource: DataSource, T: YYVotable>: FilteringTab
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        return self.data.map { [MyDataSource(rows: $0 as! [MyDataSource.Model])] }
+        let context = MyDataSource.Configuration(origin: .userProfile)
+        return self.data.map { [MyDataSource(rows: $0, config: context)] }
             .mapError { $0 as Error }
     }
     

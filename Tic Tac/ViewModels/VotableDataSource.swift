@@ -10,8 +10,20 @@ import UIKit
 class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     typealias Model = T
     typealias Cell = C
+    typealias Context = Configuration
+    
+    class Configuration: CellContext {
+        /// How the content of this data source originated.
+        /// An inorganic origin may affect the apperance and behavior of cells.
+        let origin: CellDataOrigin
+        
+        init(origin: CellDataOrigin = .organic) {
+            self.origin = origin
+        }
+    }
     
     let rows: [Model]
+    let configuration: Configuration
 
     var title: String? { nil }
     var numberOfRows: Int { self.rows.count }
@@ -21,11 +33,18 @@ class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     var filterText: String? = nil
     
     required init(rows: [Model] = []) {
+        self.configuration = .init()
+        self.rows = rows
+    }
+    
+    required init(rows: [Model], config: Context) {
+        self.configuration = config
         self.rows = rows
     }
     
     func cell(_ table: UITableView, for ip: IndexPath) -> UITableViewCell {
-        return Cell.dequeue(table, ip).configure(with: self.rows[ip.row] as! Cell.Model, client: .current)
+        let data = self.rows[ip.row] as! Cell.Model
+        return Cell.dequeue(table, ip).configure(with: data, context: self.configuration, client: .current)
     }
     
     func canSelectRow(_ row: Int) -> Bool {
@@ -52,8 +71,9 @@ fileprivate extension YYVoteStatus {
 }
 
 class VotableDataSource<V: YYVotable, C: YakCell>: ModelDataSource<V, C> {
+    
     override func cell(_ table: UITableView, for ip: IndexPath) -> UITableViewCell {
-        return Cell.dequeue(table, ip).configure(with: self.rows[ip.row])
+        return Cell.dequeue(table, ip).configure(with: self.rows[ip.row], context: self.configuration)
     }
     
     private func swipeColor(for status: YYVoteStatus) -> UIColor {

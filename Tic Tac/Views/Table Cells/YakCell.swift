@@ -13,18 +13,24 @@ class YakCell: AutoLayoutCell, ConfigurableCell {
     typealias Model = YYVotable
     
     let yakView: YakView = .init(layout: .compact)
+    let chevron: UIImageView = .init(image: .symbol("chevron.right", size: .small, color: .tertiarySystemFill))
+    private lazy var stack = UIStackView(arrangedSubviews: [yakView, chevron])
+        .axis(.horizontal).spacing(10).distribution(.fill)
+        .customSpacing(YakView.Layout.edges.right, after: chevron)
     
-    override var views: [UIView] { [yakView] }
+    override var views: [UIView] { [stack] }
     
     override func makeConstraints() {
-        yakView.snp.makeConstraints { make in
+        self.stack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
     @discardableResult
-    func configure(with votable: YYVotable, client: YYClient = .current) -> Self {
+    func configure(with votable: YYVotable, context: CellContext, client: YYClient = .current) -> Self {
         self.yakView.configure(with: votable, client: client)
+        
+        self.chevron.isHidden = context.origin == .organic
         
         return self
     }
@@ -64,6 +70,9 @@ class YakView: AutoLayoutView {
     enum Layout {
         case compact
         case expanded
+        
+        static let spacing: CGFloat = 8
+        static let edges = UIEdgeInsets(vertical: 10, horizontal: 15)
         
         var showsVoteControl: Bool {
             return self == .expanded
@@ -120,8 +129,8 @@ class YakView: AutoLayoutView {
     }
     
     override func makeConstraints() {
-        let space: CGFloat = 8
-        let edges = UIEdgeInsets(vertical: 10, horizontal: 15)
+        let space = Layout.spacing
+        let edges = Layout.edges
         
         // Layout with vote counter:
         // ┌────────────────────────────────────────────────┐
