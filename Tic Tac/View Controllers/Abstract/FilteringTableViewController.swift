@@ -132,7 +132,7 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
         super.loadView()
         
         self.tableView.backgroundView = self.backgroundLabel
-        self.tableView.tableFooterView = .init()
+        self.tableView.tableFooterView = SpinnerFooterView(frame: .square(80))
 
         if self.filterDelegate == nil {
             // This will trigger the initial call to reloadData once the view loads
@@ -304,12 +304,16 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
     
     // MARK: Pagination
     
+    private var spinnerFooter: SpinnerFooterView {
+        return self.tableView.tableFooterView as! SpinnerFooterView
+    }
+    
     func addSpinnerToTableFooter() {
-        self.tableView.tableFooterView = SpinnerFooterView(frame: .square(80))
+        self.spinnerFooter.start()
     }
     
     func removeSpinnerFromTableFooter() {
-        self.tableView.tableFooterView = nil
+        self.spinnerFooter.stop()
     }
     
     /// Subclases should override with pagination logic

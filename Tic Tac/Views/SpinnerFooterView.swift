@@ -18,8 +18,6 @@ class SpinnerFooterView: AutoLayoutView {
     }
     
     override func setup(_ frame: CGRect) {
-        self.spinner.startAnimating()
-        
         self.setContentCompressionResistancePriority(.required, for: .vertical)
         self.setContentCompressionResistancePriority(.required, for: .horizontal)
         
@@ -40,6 +38,14 @@ class SpinnerFooterView: AutoLayoutView {
     
     override func sizeThatFits(_ targetSize: CGSize) -> CGSize {
         return .init(width: targetSize.width, height: _size.height)
+    }
+    
+    func start() {
+        self.spinner.startAnimating()
+    }
+    
+    func stop() {
+        self.spinner.stopAnimating()
     }
 }
 
