@@ -14,7 +14,6 @@ class CommentsHeaderView: AutoLayoutView {
     private lazy var commentButton = UIButton(type: .system)
     
     private var buttonAction: UIAction? = nil
-    private var heightConstraint: SnapKit.Constraint?
     
     override var views: [UIView] { [yakView, commentButton] }
     
@@ -35,8 +34,6 @@ class CommentsHeaderView: AutoLayoutView {
         self.commentButton.setTitle("Add Comment", for: .normal)
         
         self.yakView.title.font = .preferredFont(forTextStyle: .headline)
-        
-//        self.backgroundColor = .secondarySystemBackground
     }
     
     override func makeConstraints() {
