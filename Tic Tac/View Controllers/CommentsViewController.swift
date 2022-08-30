@@ -196,6 +196,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
             case .success(var page):
                 page.content.append(comment)
                 self.data = .success(page)
+                self.tableView.scroll(to: page.content.count-1)
             default:
                 break
         }

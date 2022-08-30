@@ -7,6 +7,7 @@
 
 import UIKit
 import YakKit
+import TBAlertController
 
 class ComposeViewController: UIViewController {
     typealias SubmissionHandler = (_ text: String, _ completionHandler: @escaping (Error?) -> Void) -> Void
@@ -85,7 +86,16 @@ class ComposeViewController: UIViewController {
         self.navigationController?.view.isUserInteractionEnabled = false
         
         if submit {
-            self.navigationController?.dismissSelf()
+            self.submissionHandler(self.textArea.text) { error in
+                guard let error = error else {
+                    return self.navigationController!.dismissSelf()
+                }
+                
+                TBAlert.make { make in
+                    make.title("Something Went Wrong").message(error.localizedDescription)
+                    make.button("Dismiss").cancelStyle()
+                }.show(from: self)
+            }
         }
         else {
             self.navigationController?.dismissSelf()

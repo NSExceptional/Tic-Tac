@@ -150,6 +150,11 @@ extension UITableView {
             for: indexPath
         ) as! T
     }
+    
+    func scroll(to row: Int, in section: Int = 0, at position: ScrollPosition = .middle, animated: Bool = true) {
+        let ip = IndexPath(row: row, section: section)
+        self.scrollToRow(at: ip, at: position, animated: animated)
+    }
 }
 
 extension UIView {
