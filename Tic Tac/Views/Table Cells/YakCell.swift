@@ -12,11 +12,30 @@ import YakKit
 class YakCell: AutoLayoutCell, ConfigurableCell {
     typealias Model = YYVotable
     
+    class ChevronView: AutoLayoutView {
+        let imageView: UIImageView = .init(image: .symbol("chevron.right", size: .small))
+        override var views: [UIView] { [imageView] }
+        
+        override func setup(_ frame: CGRect) {
+            imageView.tintColor = .secondaryLabel
+            
+            self.hugging(.required, axis: .horizontal)
+            self.hugging(.required, axis: .vertical)
+            self.expansion(.required, axis: .horizontal)
+            self.expansion(.required, axis: .vertical)
+        }
+        
+        override func makeConstraints() {
+            self.imageView.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(YakView.Layout.edges)
+            }
+        }
+    }
+    
     let yakView: YakView = .init(layout: .compact)
-    let chevron: UIImageView = .init(image: .symbol("chevron.right", size: .small, color: .tertiarySystemFill))
+    let chevron: ChevronView = .init()
     private lazy var stack = UIStackView(arrangedSubviews: [yakView, chevron])
-        .axis(.horizontal).spacing(10).distribution(.fill)
-        .customSpacing(YakView.Layout.edges.right, after: chevron)
+        .axis(.horizontal).alignment(.top).spacing(10).distribution(.equalSpacing)
     
     override var views: [UIView] { [stack] }
     
@@ -56,7 +75,7 @@ class YakView: AutoLayoutView {
         case expanded
         
         static let spacing: CGFloat = 8
-        static let edges = UIEdgeInsets(vertical: 10, horizontal: 15)
+        static let edges = UIEdgeInsets(vertical: 8, horizontal: 12)
         
         var showsVoteControl: Bool {
             return self == .expanded
@@ -147,7 +166,7 @@ class YakView: AutoLayoutView {
         // └────────────────────────────────────────────────┘
         else {
             emoji.snp.makeConstraints { make in
-                make.top.leading.equalToSuperview().inset(edges.vertical(12))
+                make.top.leading.equalToSuperview().inset(edges.vertical(offset: 2))
                 make.bottom.lessThanOrEqualToSuperview().inset(edges)
             }
             labelStack.snp.makeConstraints { make in
