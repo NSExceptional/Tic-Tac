@@ -8,6 +8,8 @@
 import Foundation
 import YakKit
 
+typealias Callback<T> = (Result<T, Error>) -> Void
+
 extension YYClient {
     private func convertToResult<T>(_ array: [Any]?, _ error: Error?) -> Result<[T], Error> {
         switch (array, error) {
@@ -31,32 +33,32 @@ extension YYClient {
         }
     }
     
-    func getMyRecentYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
+    func getMyRecentYaks(completion: @escaping Callback<[YYYak]>) {
         self.objc_getMyRecentYaks { (a, e) in
             completion(self.convertToResult(a, e))
         }
     }
     
-    func getMyComments(completion: @escaping (Result<[YYComment], Error>) -> Void) {
+    func getMyComments(completion: @escaping Callback<[YYComment]>) {
         self.objc_getMyRecentReplies { (a, e) in
             completion(self.convertToResult(a, e))
         }
     }
     
-    func getLocalYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
-        self.getLocalYaks_tuple { (a, e) in
+    func getLocalYaks(after yak: String? = nil, completion: @escaping Callback<[YYYak]>) {
+        self.objc_getLocalYaks(after: yak) { (a, e) in
             completion(self.convertToResult(a, e))
         }
     }
     
-    func getLocalHotYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
-        self.getLocalHotYaks_tuple { (a, e) in
+    func getLocalHotYaks(after yak: String? = nil, completion: @escaping Callback<[YYYak]>) {
+        self.objc_getLocalHotYaks(after: yak) { (a, e) in
             completion(self.convertToResult(a, e))
         }
     }
     
-    func getLocalTopYaks(completion: @escaping (Result<[YYYak], Error>) -> Void) {
-        self.getLocalTopYaks_tuple { (a, e) in
+    func getLocalTopYaks(after yak: String? = nil, completion: @escaping Callback<[YYYak]>) {
+        self.objc_getLocalTopYaks(after: yak) { (a, e) in
             completion(self.convertToResult(a, e))
         }
     }
@@ -75,7 +77,7 @@ extension YYClient {
 }
 
 extension YYClient {
-    func getNotifications(after notif: YYNotification? = nil, completion: @escaping (Result<[YYNotification], Error>) -> Void) {
+    func getNotifications(after notif: YYNotification? = nil, completion: @escaping Callback<[YYNotification]>) {
         self.objc_getNotifications(after: notif) { (notifs, error) in
             if let error = error {
                 completion(.failure(error))
@@ -87,7 +89,7 @@ extension YYClient {
 }
 
 extension YYClient {
-    func getComments(for yak: YYYak, completion: @escaping (Result<[YYComment], Error>) -> Void) {
+    func getComments(for yak: YYYak, completion: @escaping Callback<[YYComment]>) {
         self.objc_getComments(for: yak) { (comments, error) in
             if let error = error {
                 completion(.failure(error))
