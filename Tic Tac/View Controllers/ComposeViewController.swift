@@ -82,18 +82,28 @@ class ComposeViewController: UIViewController {
     }
     
     private func dismiss(submit: Bool = false) {
+        // Dismiss keyboard, disable interaction
         self.textArea.resignFirstResponder()
         self.navigationController?.view.isUserInteractionEnabled = false
         
         if submit {
+            self.title = "Submitting…"
+            
             self.submissionHandler(self.textArea.text) { error in
                 guard let error = error else {
                     return self.navigationController!.dismissSelf()
                 }
                 
+                // Reset title, re-enable interaction
+                self.title = self.mode.title
+                self.navigationController?.view.isUserInteractionEnabled = true
+                
                 TBAlert.make { make in
                     make.title("Something Went Wrong").message(error.localizedDescription)
-                    make.button("Dismiss").cancelStyle()
+                    make.button("Dismiss").cancelStyle().handler { _ in
+                        // Activate keyboard
+                        self.textArea.becomeFirstResponder()
+                    }
                 }.show(from: self)
             }
         }
