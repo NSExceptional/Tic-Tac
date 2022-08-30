@@ -6,6 +6,13 @@
 //
 
 import XCTest
+@testable import Tic_Tac
+
+class PreviewTests: XCTestCase {
+    func testPreviewDataDoesntCrash() {
+        _ = PreviewData.yak()
+    }
+}
 
 class TicTacTests: XCTestCase {
     let vote = VoteControl()

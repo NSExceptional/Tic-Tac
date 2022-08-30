@@ -10,18 +10,27 @@
 
 import UIKit
 import SwiftUI
+import YakKit
 
 @available(iOS 13.0, *)
 struct TicTacPreviews: PreviewProvider {
+    static let yak = PreviewData.yak()
+    static let context = PreviewData.context(origin: .userProfile)
     
-    static let target = TabBarController()
+    static var target = YakCell()
     
-    static var platform: PreviewPlatform? {
-        return SwiftUI.PreviewPlatform.iOS
+    static func configure() {
+        target.configure(with: yak, context: context)
+    }
+    
+    static var configuredTarget: UIView {
+        self.configure()
+        return self.target
     }
     
     static var previews: some SwiftUI.View {
-        UIKitPreview(self.target).ignoresSafeArea()
+        UIKitPreview(self.configuredTarget)
+//            .ignoresSafeArea()
     }
 }
 
@@ -42,6 +51,10 @@ struct UIKitPreview: View, UIViewRepresentable {
         self.size = size
         self.view = view
         self.view.overrideUserInterfaceStyle = .dark
+        
+        if view.backgroundColor == nil {
+            view.backgroundColor = .systemBackground
+        }
     }
     
     func makeUIView(context: Context) -> UIView {

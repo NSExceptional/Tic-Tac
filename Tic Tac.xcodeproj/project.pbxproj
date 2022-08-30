@@ -33,6 +33,7 @@
 		C347664A28B4B4E700235EC5 /* UserTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347664928B4B4E700235EC5 /* UserTags.swift */; };
 		C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C51628A61E3E001E329A /* ProfilesViewController.swift */; };
 		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
+		C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384AC6228BDA98B00401E0F /* PreviewData.swift */; };
 		C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A75B2328AA0562007CD052 /* MapViewController.swift */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
 		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
@@ -106,6 +107,7 @@
 		C365C51D28A628CA001E329A /* Firebase-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebase-Private.h"; sourceTree = "<group>"; };
 		C365C52028A6E646001E329A /* FIRAuthKeychainServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FIRAuthKeychainServices.h; sourceTree = "<group>"; };
 		C365C52328A6F253001E329A /* UserAccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountStore.swift; sourceTree = "<group>"; };
+		C384AC6228BDA98B00401E0F /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		C3A75B2328AA0562007CD052 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				C3CD696028AD94090080EDCA /* Previews.swift */,
+				C384AC6228BDA98B00401E0F /* PreviewData.swift */,
 				C34064102858085A007B46D3 /* Core */,
 				C347664828B4B4CF00235EC5 /* Persistence */,
 				C340640E28580845007B46D3 /* View Controllers */,
@@ -571,6 +574,7 @@
 				C300803928A4471B00106BAB /* ConfigurableCell.swift in Sources */,
 				C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */,
 				C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */,
+				C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
 				C3CD696128AD94090080EDCA /* Previews.swift in Sources */,
 				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,
@@ -786,6 +790,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
 				INFOPLIST_FILE = TicTacTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -808,6 +813,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
 				INFOPLIST_FILE = TicTacTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

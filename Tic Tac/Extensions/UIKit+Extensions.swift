@@ -36,6 +36,14 @@ extension UIEdgeInsets {
     func horizontal(_ h: CGFloat) -> UIEdgeInsets {
         return .init(top: self.top, left: h, bottom: self.bottom, right: h)
     }
+    
+    func vertical(offset: CGFloat) -> UIEdgeInsets {
+        return .init(top: self.top + offset, left: self.left, bottom: self.bottom + offset, right: self.right)
+    }
+    
+    func horizontal(offset: CGFloat) -> UIEdgeInsets {
+        return .init(top: self.top, left: self.left + offset, bottom: self.bottom, right: self.right + offset)
+    }
 }
 
 extension UIImage {
@@ -51,7 +59,7 @@ extension UIImage {
         }
         
         if let color = color {
-            icon = icon.withTintColor(color)
+            icon = icon.withTintColor(color, renderingMode: .alwaysTemplate)
         }
         
         return icon
@@ -170,6 +178,18 @@ extension UIView {
         } else {
             self.pinEdges(to: sv)
         }
+    }
+    
+    @discardableResult
+    func hugging(_ priority: UILayoutPriority, axis: NSLayoutConstraint.Axis) -> Self {
+        self.setContentHuggingPriority(priority, for: axis)
+        return self
+    }
+    
+    @discardableResult
+    func expansion(_ priority: UILayoutPriority, axis: NSLayoutConstraint.Axis) -> Self {
+        self.setContentCompressionResistancePriority(priority, for: axis)
+        return self
     }
 }
 
@@ -300,16 +320,6 @@ extension UIStackView {
     
     func customSpacing(_ spacing: CGFloat, after view: UIView) -> UIStackView {
         self.setCustomSpacing(spacing, after: view)
-        return self
-    }
-    
-    func hugging(_ priority: UILayoutPriority, axis: NSLayoutConstraint.Axis) -> UIStackView {
-        self.setContentHuggingPriority(priority, for: axis)
-        return self
-    }
-    
-    func expansion(_ priority: UILayoutPriority, axis: NSLayoutConstraint.Axis) -> UIStackView {
-        self.setContentCompressionResistancePriority(priority, for: axis)
         return self
     }
 }
