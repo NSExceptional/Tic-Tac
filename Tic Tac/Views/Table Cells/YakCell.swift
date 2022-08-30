@@ -42,22 +42,6 @@ class YakCell: AutoLayoutCell, ConfigurableCell {
         return self
     }
     
-//    func upvote(_ votable: YYVotable, client: YYClient = .current, callback: @escaping (Error?) -> Void) {
-//        guard votable.voteStatus != .upvoted else { return }
-//        self.yakView.adjustVote(on: votable, .upvoted, votable.score + 1, callback: callback)
-//    }
-//
-//    func downvote(_ votable: YYVotable, client: YYClient = .current, callback: @escaping (Error?) -> Void) {
-//        guard votable.voteStatus != .downvoted else { return }
-//        self.yakView.adjustVote(on: votable, .downvoted, votable.score + 1, callback: callback)
-//    }
-//
-//    func revokeVote(on votable: YYVotable, client: YYClient = .current, callback: @escaping (Error?) -> Void) {
-//        guard votable.voteStatus != .none else { return }
-//        let adjustment = votable.voteStatus == .upvoted ? -1 : 1
-//        self.yakView.adjustVote(on: votable, .none, votable.score + adjustment, callback: callback)
-//    }
-    
     func adjustVote(on votable: YYVotable, _ newStatus: YYVoteStatus,
                     client: YYClient = .current, callback: @escaping (Error?) -> Void) {
         guard votable.voteStatus != newStatus else { return }
