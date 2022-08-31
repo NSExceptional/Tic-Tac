@@ -170,9 +170,16 @@ struct LoginController {
             if let error = error {
                 self.signInFailed(error)
             } else {
-                self.client.location = LocationManager.location
-                Self.onLogin()
-                Self.onLogin = nil
+                // Update location
+                LocationManager.observeLocation { location in
+                    self.client.location = location
+                    
+                    // Login callback
+                    if let onLogin = Self.onLogin {
+                        onLogin()
+                        Self.onLogin = nil
+                    }
+                }
             }
         }
     }

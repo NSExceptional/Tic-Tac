@@ -28,7 +28,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     private static let shared: LocationManager = .init()
     
     private let permission: CLLocationManager = .init()
-    private var callback: ((_ status: Bool) -> Void)? = nil
+    private var authorizationCallback: ((_ status: Bool) -> Void)? = nil
+    private var locationUpdateCallback: ((_ latestLocation: CLLocation) -> Void)? = nil
     
     private var accessGranted: Bool {
         self.permission.authorizationStatus.granted
@@ -37,6 +38,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     private override init() {
         super.init()
         self.permission.delegate = self
+        self.permission.pausesLocationUpdatesAutomatically = true
+        self.permission.distanceFilter = 1000 // Only update every kilometer
+        self.permission.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
     
     static func requireLocation(callback: @escaping (_ status: Bool) -> Void) {
@@ -45,7 +49,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             callback(true)
         } else if shared.permission.authorizationStatus.undetermined {
             // User never prompted
-            shared.callback = callback
+            shared.authorizationCallback = callback
             shared.permission.requestWhenInUseAuthorization()
         } else {
             // User prompted and denied
@@ -54,11 +58,21 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        self.callback?(self.accessGranted)
+        self.authorizationCallback?(self.accessGranted)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
+        Self.shared.locationUpdateCallback?(location)
     }
     
     static var location: CLLocation {
         return shared.permission.location!
+    }
+    
+    static func observeLocation(callback: ((_ latestLocation: CLLocation) -> Void)?) {
+        shared.locationUpdateCallback = callback
+        shared.permission.startUpdatingLocation()
     }
 }
 
