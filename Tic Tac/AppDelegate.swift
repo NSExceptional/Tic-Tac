@@ -28,8 +28,8 @@ class TTAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCente
 
     var window: UIWindow?
     
-    var root: UIViewController {
-        return self.window!.rootViewController!
+    var root: TabBarController {
+        return self.window!.rootViewController as! TabBarController
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions options: LaunchOptions?) -> Bool {
@@ -108,6 +108,10 @@ class TTAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCente
                 .message("Body: \(response.notification.request.content.body)")
                 .button("Dismiss")
         }, style: .alert, showFrom: self.window!.rootViewController!)
+        
+//        self.root.focusTab(.notifications) { nav in
+//            nav.pushViewController(CommentsViewController(from: <#T##YYNotification#>), animated: <#T##Bool#>)
+//        }
     }
 }
 

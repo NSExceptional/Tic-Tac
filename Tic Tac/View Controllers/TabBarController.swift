@@ -11,6 +11,16 @@ import YakKit
 
 @objcMembers
 class TabBarController: UITabBarController {
+    
+    enum Tab: Int {
+        case herd = 0
+//        case chat = 1
+        case notifications = 1
+//        case profile = 3
+        
+        case myYaks = 2, myComments = 3
+    }
+    
     private lazy var feed: HerdViewController = .init()
     private lazy var notifications: NotificationsViewController = .init()
     
@@ -25,6 +35,10 @@ class TabBarController: UITabBarController {
 //    private lazy var settings: TTSettingsViewController = .init()
     
     private var ready: Bool = false
+    
+    fileprivate var currentNavigation: UINavigationController {
+        return self.selectedViewController as! UINavigationController
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,5 +79,13 @@ class TabBarController: UITabBarController {
             self.posts.refresh()
             self.comments.refresh()
         }
+    }
+}
+
+extension TabBarController {
+    func focusTab(_ tab: TabBarController.Tab, then doSomething: ((UINavigationController) -> Void)? = nil) {
+        self.selectedIndex = tab.rawValue
+        
+        doSomething?(self.currentNavigation)
     }
 }
