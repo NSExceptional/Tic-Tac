@@ -369,6 +369,14 @@ extension UIFont {
         return .monospacedSystemFont(ofSize: UIFont.defaultSize, weight: weight)
     }
     
+    class func italic(_ style: UIFont.TextStyle? = nil) -> UIFont {
+        if let style = style {
+            return .italicSystemFont(ofSize: UIFont.defaultSizes[style]!)
+        }
+        
+        return .italicSystemFont(ofSize: UIFont.defaultSize)
+    }
+    
     static let headline: UIFont = .preferredFont(forTextStyle: .headline)
     static let footnote: UIFont = .preferredFont(forTextStyle: .footnote)
     static let isOP: UIFont = UIFont.systemFont(ofSize: UIFont.footnote.pointSize, weight: .medium)

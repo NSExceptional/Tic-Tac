@@ -15,9 +15,13 @@ class NotificationCell: AutoLayoutCell, ConfigurableCell {
         .subtitle
     }
     
+    static let footerIDTAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.monospace(.footnote)
+    ]
+    
     private let header = UILabel(textStyle: .headline)
-    private let subheader = UILabel(textStyle: .body).multiline()
-    private let footer = UILabel(font: .monospace(.footnote)).color(.secondaryLabel)
+    private let subheader = UILabel(font: .italic(.body)).multiline()
+    private let footer = UILabel(textStyle: .footnote).color(.secondaryLabel)
     
     private lazy var stack = UIStackView(arrangedSubviews: [header, subheader, footer])
         .alignment(.leading).axis(.vertical).distribution(.fill).spacing(5)
