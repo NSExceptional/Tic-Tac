@@ -47,6 +47,7 @@
 		C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFBB2864FF7900CB529F /* LocationManager.swift */; };
 		C3CD695B28AD6BF20080EDCA /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */; };
 		C3CD696128AD94090080EDCA /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD696028AD94090080EDCA /* Previews.swift */; };
+		C3D6570628BF3180006B9530 /* NSNull+nil.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D6570528BF3180006B9530 /* NSNull+nil.m */; };
 		C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E050BF286664BE00DC26F0 /* LoginController.swift */; };
 		C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F43C8A286A9A3B001F6D64 /* Hooks.m */; };
 		C3F6EAEB28681D800066B9FD /* Reflex in Frameworks */ = {isa = PBXBuildFile; productRef = C3F6EAEA28681D800066B9FD /* Reflex */; };
@@ -120,6 +121,7 @@
 		C3A7DFBB2864FF7900CB529F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		C3CD696028AD94090080EDCA /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
+		C3D6570528BF3180006B9530 /* NSNull+nil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+nil.m"; sourceTree = "<group>"; };
 		C3E050BF286664BE00DC26F0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3F43C8A286A9A3B001F6D64 /* Hooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hooks.m; sourceTree = "<group>"; };
 		C3F6EAF1286951240066B9FD /* TicTacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +255,7 @@
 		C340640F28580853007B46D3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C3D6570528BF3180006B9530 /* NSNull+nil.m */,
 				C3A7DFAA2864F06F00CB529F /* YakKit+Swift.swift */,
 				C340642E285863C0007B46D3 /* UIKit+Extensions.swift */,
 				C340643228587814007B46D3 /* Foundation+Extensions.swift */,
@@ -582,6 +585,7 @@
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
 				C3CD696128AD94090080EDCA /* Previews.swift in Sources */,
 				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,
+				C3D6570628BF3180006B9530 /* NSNull+nil.m in Sources */,
 				C300803528A445AC00106BAB /* NotifDataSource.swift in Sources */,
 				C340644B2863973B007B46D3 /* VoteControl.m in Sources */,
 				C30415712866838600BC858C /* Strings.swift in Sources */,
