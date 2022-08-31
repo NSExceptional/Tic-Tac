@@ -23,6 +23,17 @@ extension YYClient {
         }
     }
     
+    private func convertToResult<T, E>(page: ([E]?, String?), _ error: Error?) -> Result<T, Error> {
+        switch (page.0, error) {
+            case (.some(_), nil):
+                return .success(page as! T)
+            case (nil, .some(let error)):
+                return .failure(error)
+            default:
+                fatalError()
+        }
+    }
+    
     private func convertToResult<T>(_ thing: Any?, _ error: Error?) -> Result<T, Error> {
         switch (thing, error) {
             case (.some(let thing), nil):
@@ -36,31 +47,31 @@ extension YYClient {
     
     func getMyRecentYaks(completion: @escaping Callback<Page<YYYak>>) {
         self.objc_getMyRecentYaks { (a, c, e) in
-            completion(self.convertToResult((a, c), e))
+            completion(self.convertToResult(page: (a, c), e))
         }
     }
     
     func getMyComments(completion: @escaping Callback<Page<YYComment>>) {
         self.objc_getMyRecentReplies { (a, c, e) in
-            completion(self.convertToResult((a, c), e))
+            completion(self.convertToResult(page: (a, c), e))
         }
     }
     
     func getLocalYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
         self.objc_getLocalYaks(after: yak) { (a, c, e) in
-            completion(self.convertToResult((a, c), e))
+            completion(self.convertToResult(page: (a, c), e))
         }
     }
     
     func getLocalHotYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
         self.objc_getLocalHotYaks(after: yak) { (a, c, e) in
-            completion(self.convertToResult((a, c), e))
+            completion(self.convertToResult(page: (a, c), e))
         }
     }
     
     func getLocalTopYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
         self.objc_getLocalTopYaks(after: yak) { (a, c, e) in
-            completion(self.convertToResult((a, c), e))
+            completion(self.convertToResult(page: (a, c), e))
         }
     }
     
@@ -80,7 +91,7 @@ extension YYClient {
 extension YYClient {
     func getNotifications(after notif: String? = nil, completion: @escaping Callback<Page<YYNotification>>) {
         self.objc_getNotifications(after: notif) { (notifs, cursor, error) in
-            completion(self.convertToResult((notifs, cursor), error))
+            completion(self.convertToResult(page: (notifs, cursor), error))
         }
     }
 }
@@ -88,7 +99,7 @@ extension YYClient {
 extension YYClient {
     func getComments(for yak: YYYak, after comment: String? = nil, completion: @escaping Callback<Page<YYComment>>) {
         self.objc_getComments(for: yak, after: comment) { (comments, cursor, error) in
-            completion(self.convertToResult((comments, cursor), error))
+            completion(self.convertToResult(page: (comments, cursor), error))
         }
     }
 }
