@@ -12,18 +12,20 @@ import SnapKit
 class CommentsHeaderView: AutoLayoutView {
     lazy private(set) var yakView = YakView(layout: .expanded)
     private lazy var commentButton = UIButton(type: .system)
+    private lazy var scrollDownButton = UIButton(type: .system)
     
-    private var buttonAction: UIAction? = nil
+    private var commentButtonAction: UIAction? = nil
+    private var scrollDownButtonAction: UIAction? = nil
     
-    override var views: [UIView] { [yakView, commentButton] }
+    override var views: [UIView] { [yakView, scrollDownButton, commentButton] }
     
     override init() {
         super.init(frame: UIScreen.main.bounds)
     }
     
-    static func addCommentHandler(_ handler: @escaping () -> Void) -> CommentsHeaderView {
+    static func withCommentHandler(_ handler: @escaping () -> Void) -> CommentsHeaderView {
         let header = CommentsHeaderView()
-        header.buttonAction(handler)
+        header.commentButtonAction(handler)
         return header
     }
     
@@ -32,6 +34,7 @@ class CommentsHeaderView: AutoLayoutView {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         self.commentButton.setTitle("Add Comment", for: .normal)
+        self.scrollDownButton.setTitle("Scroll to End", for: .normal)
         
         self.yakView.title.font = .preferredFont(forTextStyle: .headline)
     }
@@ -43,9 +46,15 @@ class CommentsHeaderView: AutoLayoutView {
         yakView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
+        scrollDownButton.snp.makeConstraints { make in
+            make.width.equalTo(commentButton)
+            make.top.equalTo(yakView.snp.bottom).offset(space)
+            make.trailing.equalTo(yakView.snp.centerX).offset(-20)
+            make.bottom.equalToSuperview().inset(edges)
+        }
         commentButton.snp.makeConstraints { make in
             make.top.equalTo(yakView.snp.bottom).offset(space)
-            make.centerX.equalTo(yakView)
+            make.leading.equalTo(yakView.snp.centerX).offset(20)
             make.bottom.equalToSuperview().inset(edges)
         }
         
@@ -61,15 +70,28 @@ class CommentsHeaderView: AutoLayoutView {
     }
     
     @discardableResult
-    func buttonAction(_ handler: @escaping () -> Void) -> CommentsHeaderView {
-        if self.buttonAction != nil {
-            self.commentButton.removeAction(self.buttonAction!, for: .touchUpInside)
+    func commentButtonAction(_ handler: @escaping () -> Void) -> CommentsHeaderView {
+        if self.commentButtonAction != nil {
+            self.commentButton.removeAction(self.commentButtonAction!, for: .touchUpInside)
         }
         
         // I fucking hate that I have to fucking store this dumb fucking action
         // so I can remove it when it needs to change. FUCK
-        self.buttonAction = UIAction { _ in handler() }
-        self.commentButton.addAction(self.buttonAction!, for: .touchUpInside)
+        self.commentButtonAction = UIAction { _ in handler() }
+        self.commentButton.addAction(self.commentButtonAction!, for: .touchUpInside)
+        
+        return self
+    }
+    
+    func scrollDownButtonAction(_ handler: @escaping () -> Void) -> CommentsHeaderView {
+        if self.scrollDownButtonAction != nil {
+            self.scrollDownButton.removeAction(self.scrollDownButtonAction!, for: .touchUpInside)
+        }
+        
+        // I fucking hate that I have to fucking store this dumb fucking action
+        // so I can remove it when it needs to change. FUCK
+        self.scrollDownButtonAction = UIAction { _ in handler() }
+        self.scrollDownButton.addAction(self.scrollDownButtonAction!, for: .touchUpInside)
         
         return self
     }
