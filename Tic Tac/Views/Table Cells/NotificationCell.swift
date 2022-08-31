@@ -44,7 +44,12 @@ class NotificationCell: AutoLayoutCell, ConfigurableCell {
     func configure(with notif: YYNotification, context: CellContext, client: YYClient) -> Self {
         self.header.text = notif.subject
         self.subheader.text = notif.content
-        self.footer.text = notif.thingIdentifier?[6...]
+        self.footer.attributedText = StringBuilder(
+            components: [
+                .symbol("clock"), .leadingSpace(.text(notif.age)),
+                .symbol("tag"), .leadingSpace(.attrText(notif.unencodedThingIdentifier, Self.footerIDTAttributes)),
+            ]
+        ).attributedString
         
         self.subheader.isHidden = notif.content == nil
         

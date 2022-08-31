@@ -138,7 +138,7 @@ extension YYClient {
 }
 
 extension YYVotable {
-    private static let ageFormatter: DateComponentsFormatter = {
+    fileprivate static let ageFormatter: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
         f.unitsStyle = .abbreviated
         f.allowedUnits = [.day, .hour, .minute]
@@ -293,5 +293,11 @@ extension YYVotable {
                         fatalError("Unreachable")
                 }
         }
+    }
+}
+
+extension YYNotification {
+    var age: String {
+        return YYVotable.ageFormatter.string(from: -self.created.timeIntervalSinceNow)!
     }
 }
