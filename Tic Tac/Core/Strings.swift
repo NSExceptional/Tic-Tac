@@ -163,6 +163,17 @@ extension StringBuilder: ExpressibleByArrayLiteral {
 }
 
 fileprivate extension StringBuilder.Component {
+    private static var cachedSymbols: [String: UIImage] = [:]
+    
+    private func lookupSymbol(_ name: String) -> UIImage {
+        guard let image = Self.cachedSymbols[name] else {
+            Self.cachedSymbols[name] = UIImage(systemName: name)!
+            return self.lookupSymbol(name)
+        }
+        
+        return image
+    }
+    
     var isSeparator: Bool {
         switch self {
             case .separator(_):
@@ -211,7 +222,7 @@ fileprivate extension StringBuilder.Component {
             case .symbol(let name, let color, _):
                 // Safe to unwrap name here because invoking this method
                 // on empty components is against the rules
-                var image = UIImage(systemName: name!)!
+                var image = self.lookupSymbol(name!)
                 if let color = color {
                     image = image.withTintColor(color)
                 }
