@@ -296,8 +296,10 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
     }
     
     override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // Trigger didNearlyScrollToEnd() when we reach the last ~4 rows
-        if indexPath.row > self.sections[indexPath.section].numberOfRows - 4 {
+        let numberOfRows = self.sections[indexPath.section].numberOfRows
+        
+        // Trigger didNearlyScrollToEnd() when we reach the last 4 rows
+        if indexPath.row == numberOfRows - 5 {
             self.didNearlyScrollToEnd()
         }
     }
@@ -316,7 +318,11 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
         self.spinnerFooter.stop()
     }
     
-    /// Subclases should override with pagination logic
+    /// Subclases should override with pagination logic.
+    ///
+    /// - warning: There is a potential for this method to be called more than once
+    /// in rapid succession. It is unlikely, but possible. Paginators should implement
+    /// barriers to prevent fetching the same page more than once.
     func didNearlyScrollToEnd() {
         
     }

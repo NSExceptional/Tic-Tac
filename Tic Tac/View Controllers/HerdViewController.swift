@@ -106,6 +106,11 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
                 self.errorMessage = error.localizedDescription
             }
             else {
+                _ = result.map { page in
+                    let content = page.content
+                    let newPosts = self.posts + content
+                    print(newPosts.count)
+                }
                 // Append new data
                 self.data = result.map { (self.posts + $0.content, $0.cursor) }
                     .mapError { .network($0) }
