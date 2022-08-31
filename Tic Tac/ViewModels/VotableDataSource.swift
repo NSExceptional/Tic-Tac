@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import YakKit
 
 class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     typealias Model = T
