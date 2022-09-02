@@ -46,8 +46,8 @@ class YakCell: AutoLayoutCell, ConfigurableCell {
     }
     
     @discardableResult
-    func configure(with votable: YYVotable, context: CellContext, client: YYClient = .current) -> Self {
-        self.yakView.configure(with: votable, client: client)
+    func configure(with votable: YYVotable, context: YakContext) -> Self {
+        self.yakView.configure(with: votable, context: context)
         
         self.chevron.isHidden = context.origin == .organic
         
@@ -177,11 +177,12 @@ class YakView: AutoLayoutView {
     }
     
     @discardableResult
-    func configure(with votable: YYVotable?, client: YYClient = .current) -> YakView {
+    func configure(with votable: YYVotable?, context: YakContext) -> YakView {
         #if DEBUG
         self.model = votable
         #endif
         
+        let client = context.client
         self.votableID = votable?.identifier
         
         // Clear all data if no votable given

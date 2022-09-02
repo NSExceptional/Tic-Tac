@@ -13,13 +13,15 @@ class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     typealias Cell = C
     typealias Context = Configuration
     
-    class Configuration: CellContext {
+    class Configuration: YakContext {
         /// How the content of this data source originated.
         /// An inorganic origin may affect the apperance and behavior of cells.
-        let origin: CellDataOrigin
+        let origin: YakDataOrigin
+        let client: YYClient
         
-        init(origin: CellDataOrigin = .organic) {
+        init(origin: YakDataOrigin = .organic, client: YYClient = .current) {
             self.origin = origin
+            self.client = client
         }
     }
     
@@ -45,7 +47,7 @@ class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     
     func cell(_ table: UITableView, for ip: IndexPath) -> UITableViewCell {
         let data = self.rows[ip.row] as! Cell.Model
-        return Cell.dequeue(table, ip).configure(with: data, context: self.configuration, client: .current)
+        return Cell.dequeue(table, ip).configure(with: data, context: self.configuration)
     }
     
     func canSelectRow(_ row: Int) -> Bool {

@@ -67,11 +67,11 @@ public enum PreviewData {
         ])
     }
     
-    static func context(origin: CellDataOrigin = .organic) -> CellContext {
-        struct PreviewCellContext: CellContext {
-            var origin: CellDataOrigin
+    static func context(origin: YakDataOrigin = .organic) -> YakContext {
+        struct PreviewYakContext: YakContext {
+            var origin: YakDataOrigin
         }
         
-        return PreviewCellContext(origin: origin)
+        return PreviewYakContext(origin: origin)
     }
 }

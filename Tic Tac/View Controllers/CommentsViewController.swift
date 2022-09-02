@@ -28,8 +28,16 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         }
     }
     
+    private struct HeaderContext: YakContext {
+        let origin: YakDataOrigin = .organic
+    }
+    
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
+    }
+    
+    private var headerContext: HeaderContext {
+        .init()
     }
     
     private lazy var header = CommentsHeaderView
@@ -110,7 +118,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     /// Update header and reload comments
     private func yakChanged() {
         // Configure header with yak
-        self.header.configure(with: self.yak)
+        self.header.configure(with: self.yak, context: self.headerContext)
         
         // Reload data
         self.refresh()

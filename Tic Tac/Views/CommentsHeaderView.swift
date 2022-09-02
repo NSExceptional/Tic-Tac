@@ -64,8 +64,8 @@ class CommentsHeaderView: AutoLayoutView {
     }
     
     @discardableResult
-    func configure(with yak: YYYak?, client: YYClient = .current) -> CommentsHeaderView {
-        self.yakView.configure(with: yak, client: client)
+    func configure(with yak: YYYak?, context: YakContext) -> CommentsHeaderView {
+        self.yakView.configure(with: yak, context: context)
         return self
     }
     
