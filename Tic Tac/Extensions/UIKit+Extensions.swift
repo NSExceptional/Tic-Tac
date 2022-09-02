@@ -291,6 +291,11 @@ extension UILabel {
         return self
     }
     
+    func align(_ alignment: NSTextAlignment) -> UILabel {
+        self.textAlignment = alignment
+        return self
+    }
+    
     convenience init(textStyle style: UIFont.TextStyle) {
         self.init()
         self.font = .preferredFont(forTextStyle: style)

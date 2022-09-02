@@ -95,6 +95,7 @@ class YakView: AutoLayoutView {
     let metadata = UILabel(textStyle: .footnote).color(.secondaryLabel)
     lazy var emoji: UserEmojiView = layout.showsVoteControl ? .small() : .medium()
     lazy var voteCounter: VoteControl? = self.layout.showsVoteControl ? .init() : nil
+    lazy var underEmojiDetails = UILabel(textStyle: .footnote).color(self.tintColor).align(.center)
     
     private lazy var metadataRow = UIStackView(arrangedSubviews: [metadata])
         .hugging(.required, axis: .horizontal).axis(.horizontal).distribution(.fill).spacing(8)
@@ -118,7 +119,7 @@ class YakView: AutoLayoutView {
             self.metadataRow.insertArrangedSubview(self.emoji, at: 0)
         }
         else {
-            views.append(self.emoji)
+            views += [self.emoji, self.underEmojiDetails]
         }
         
         return views
@@ -161,12 +162,16 @@ class YakView: AutoLayoutView {
         // │    __                                          │
         // │  ( 🧼 ) Post title here                        │
         // │    ‾‾       | 8                                │
-        // │         ↑5 • 2h 34m • 5 mi • 7                 │
+        // │    xy   ↑5 • 2h 34m • 5 mi • 7                 │
         // │                                                │
         // └────────────────────────────────────────────────┘
         else {
             emoji.snp.makeConstraints { make in
                 make.top.leading.equalToSuperview().inset(edges.vertical(offset: 2))
+            }
+            underEmojiDetails.snp.makeConstraints { make in
+                make.top.equalTo(emoji.snp.bottom).offset(space)
+                make.leading.equalToSuperview().inset(edges)
                 make.bottom.lessThanOrEqualToSuperview().inset(edges)
             }
             labelStack.snp.makeConstraints { make in
@@ -190,7 +195,7 @@ class YakView: AutoLayoutView {
             return self.configureEmpty(loading: context.loading)
         }
         
-        let userTag = UserTags.tag(for: votable.authorIdentifier)
+        let userTag = UserTag(userID: votable.authorIdentifier)
         
         self.emoji.set(emoji: votable.emoji, colors: votable.gradient)
         self.title.text = votable.text
@@ -242,19 +247,21 @@ class YakView: AutoLayoutView {
         }
     }
     
-    private func setSubtitles(tag: String?, location: String?) {
+    private func setSubtitles(tag: UserTag?, location: String?) {
         self.subtitle.attributedText = StringBuilder(components: [
             .symbol("safari"), .leadingSpace(.text(location)),
             .separator(.space),
-            .symbol("tag", self.tintColor, exclude: tag == nil),
-            .leadingSpace(.colored(.text(tag), self.tintColor, exclude: tag == nil)),
+            .symbol("tag", self.tintColor, exclude: tag?.text == nil),
+            .leadingSpace(.colored(.text(tag?.text), self.tintColor, exclude: tag == nil)),
         ]).attributedString
         
-        self.subtitle.isHidden = tag == nil && location == nil
+        self.subtitle.isHidden = tag?.text == nil && location == nil
+        
+        self.underEmojiDetails.text = tag?.detailText
     }
     
-    private func updateMetadataText(with votable: YYVotable, _ client: YYClient = .current) {
-        self.metadata.attributedText = votable.metadataAttributedString(
+    private func updateMetadataText(with votable: YYVotable?, _ client: YYClient = .current) {
+        self.metadata.attributedText = votable?.metadataAttributedString(
             client, includeScore: self.layout.scoreInMetadata
         )
     }
@@ -302,6 +309,7 @@ class YakView: AutoLayoutView {
         self.voteCounter?.onVoteStatusChange = { _, _ in }
         
         self.setSubtitles(tag: nil, location: nil)
+        self.updateMetadataText(with: nil)
         
         return self
     }
