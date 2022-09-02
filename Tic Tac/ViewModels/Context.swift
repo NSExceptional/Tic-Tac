@@ -20,6 +20,7 @@ extension UIViewController: ContextualHost {
     struct Context: YakContext {
         unowned let host: ContextualHost
         var origin: YakDataOrigin = .organic
+        var loading: Bool = false
     }
 }
 
@@ -38,6 +39,9 @@ protocol YakContext {
     /// How the content of this data source originated.
     /// An inorganic origin may affect the apperance and behavior of cells.
     var origin: YakDataOrigin { get }
+    
+    /// Whether the yak content is still being loaded
+    var loading: Bool { get }
     
     var client: YYClient { get }
 }

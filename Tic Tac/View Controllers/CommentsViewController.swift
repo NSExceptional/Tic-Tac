@@ -9,6 +9,18 @@ import UIKit
 import YakKit
 import TBAlertController
 
+private typealias CommentsViewControllerDataSourceType = CommentsViewController.DataSourceType
+
+private extension CommentsViewControllerDataSourceType {
+    var loading: Bool {
+        if let error = self.error, case .loading = error {
+            return true
+        }
+        
+        return false
+    }
+}
+
 class CommentsViewController: FilteringTableViewController<YYComment, CommentsViewController.CommentsError> {
     enum CommentsError: LocalizedError {
         case noComments, loading, notLoggedIn
@@ -28,13 +40,8 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         }
     }
     
-    private struct HeaderContext: YakContext {
-        unowned let host: ContextualHost
-        let origin: YakDataOrigin = .organic
-    }
-    
     private lazy var context = Context(host: self)
-    private lazy var headerContext = HeaderContext(host: self)
+    private lazy var headerContext = Context(host: self, loading: self.loadingYak)
     
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
@@ -55,15 +62,11 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     private var loading: Bool {
-        if self.yak == nil || self.refreshingComments {
-            return true
-        }
-        
-        if case .failure(let status) = self.data, case .loading = status {
-            return true
-        }
-        
-        return false
+        return self.loadingYak || self.refreshingComments
+    }
+    
+    private var loadingYak: Bool {
+        return self.yak == nil && self.data.loading
     }
     
     private var refreshingComments: Bool = false {

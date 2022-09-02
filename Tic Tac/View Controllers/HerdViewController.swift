@@ -31,12 +31,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         case new, hot, top
     }
     
-    private struct FeedContext: YakContext {
-        unowned let host: ContextualHost
-        let origin: YakDataOrigin = .organic
-    }
-    
-    private lazy var context = FeedContext(host: self)
+    private lazy var context = Context(host: self)
     
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }

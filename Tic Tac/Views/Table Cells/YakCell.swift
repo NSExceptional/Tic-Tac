@@ -187,7 +187,7 @@ class YakView: AutoLayoutView {
         
         // Clear all data if no votable given
         guard let votable = votable else {
-            return self.configureEmpty()
+            return self.configureEmpty(loading: context.loading)
         }
         
         let userTag = UserTags.tag(for: votable.authorIdentifier)
@@ -284,12 +284,19 @@ class YakView: AutoLayoutView {
         return self
     }
     
-    private func configureEmpty() -> YakView {
-        self.emoji.set(emoji: "⛔️", uicolor: .black)
-        self.title.text = "[No title]"
-        self.metadata.text = "[No information]"
-        self.emoji.alpha = 1
+    private func configureEmpty(loading: Bool = false) -> YakView {
+        if loading {
+            self.emoji.set(emoji: " ", uicolor: .clear)
+            self.title.text = "Loading…"
+            self.metadata.text = "… … … …"
+        }
+        else {
+            self.emoji.set(emoji: "⛔️", uicolor: .black)
+            self.title.text = "[No title]"
+            self.metadata.text = "[No information]"
+        }
         
+        self.emoji.alpha = 1
         self.voteCounter?.isEnabled = false
         self.voteCounter?.setVote(.none, score: 0)
         self.voteCounter?.onVoteStatusChange = { _, _ in }

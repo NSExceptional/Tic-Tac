@@ -53,6 +53,18 @@ extension Result {
     var succeeded: Bool {
         return !self.failed
     }
+    
+    var value: Success? {
+        return try? self.get()
+    }
+    
+    var error: Failure? {
+        if case let .failure(error) = self {
+            return error
+        }
+        
+        return nil
+    }
 }
 
 extension FileManager {

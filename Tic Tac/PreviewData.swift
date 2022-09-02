@@ -80,6 +80,7 @@ public enum PreviewData {
         struct PreviewYakContext: YakContext {
             let host: ContextualHost = PreviewHost()
             let origin: YakDataOrigin
+            let loading: Bool = false
         }
         
         return PreviewYakContext(origin: origin)
