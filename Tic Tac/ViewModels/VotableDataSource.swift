@@ -11,22 +11,9 @@ import YakKit
 class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     typealias Model = T
     typealias Cell = C
-    typealias Context = Configuration
-    
-    class Configuration: YakContext {
-        /// How the content of this data source originated.
-        /// An inorganic origin may affect the apperance and behavior of cells.
-        let origin: YakDataOrigin
-        let client: YYClient
-        
-        init(origin: YakDataOrigin = .organic, client: YYClient = .current) {
-            self.origin = origin
-            self.client = client
-        }
-    }
     
     let rows: [Model]
-    let configuration: Configuration
+    let configuration: YakContext
 
     var title: String? { nil }
     var numberOfRows: Int { self.rows.count }
@@ -35,12 +22,7 @@ class ModelDataSource<T: YYThing, C: ConfigurableCell>: DataSource {
     var sectionIndex: Int = 0
     var filterText: String? = nil
     
-    required init(rows: [Model] = []) {
-        self.configuration = .init()
-        self.rows = rows
-    }
-    
-    required init(rows: [Model], config: Context) {
+    required init(rows: [Model], config: YakContext) {
         self.configuration = config
         self.rows = rows
     }

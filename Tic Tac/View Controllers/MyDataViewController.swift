@@ -35,6 +35,8 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
         }
     }
     
+    private lazy var context = Context(host: self, origin: .userProfile)
+    
     private var dataFetcher: DataProvider = { callback in callback(.failure(MyDataError.noData)) }
     
     private var data: DataSourceType = .failure(.loading) {
@@ -57,8 +59,7 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        let context = MyDataSource.Configuration(origin: .userProfile)
-        return self.data.map { [MyDataSource(rows: $0.content, config: context)] }
+        return self.data.map { [MyDataSource(rows: $0.content, config: self.context)] }
             .mapError { $0 as Error }
     }
     

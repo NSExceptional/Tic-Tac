@@ -68,8 +68,18 @@ public enum PreviewData {
     }
     
     static func context(origin: YakDataOrigin = .organic) -> YakContext {
+        class PreviewHost: ContextualHost {
+            var presentingViewController: UIViewController?
+            var navigationController: UINavigationController? { nil }
+            
+            func dismissSelf() { }
+            func dismiss(animated flag: Bool, completion: (() -> Void)?) { }
+            func presentError(_ error: Error, title: String) { }
+        }
+        
         struct PreviewYakContext: YakContext {
-            var origin: YakDataOrigin
+            let host: ContextualHost = PreviewHost()
+            let origin: YakDataOrigin
         }
         
         return PreviewYakContext(origin: origin)

@@ -31,6 +31,13 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         case new, hot, top
     }
     
+    private struct FeedContext: YakContext {
+        unowned let host: ContextualHost
+        let origin: YakDataOrigin = .organic
+    }
+    
+    private lazy var context = FeedContext(host: self)
+    
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
     }
@@ -61,7 +68,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        return self.data.map { [FeedDataSource(rows: $0.content)] }
+        return self.data.map { [FeedDataSource(rows: $0.content, config: self.context)] }
             .mapError { $0 as Error }
     }
     

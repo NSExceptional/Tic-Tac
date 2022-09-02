@@ -29,15 +29,15 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     private struct HeaderContext: YakContext {
+        unowned let host: ContextualHost
         let origin: YakDataOrigin = .organic
     }
     
+    private lazy var context = Context(host: self)
+    private lazy var headerContext = HeaderContext(host: self)
+    
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
-    }
-    
-    private var headerContext: HeaderContext {
-        .init()
     }
     
     private lazy var header = CommentsHeaderView
@@ -125,7 +125,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        return self.data.map { [CommentsDataSource(rows: $0.content)] }
+        return self.data.map { [CommentsDataSource(rows: $0.content, config: self.context)] }
             .mapError { $0 as Error }
     }
     

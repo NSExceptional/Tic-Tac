@@ -27,6 +27,8 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         }
     }
     
+    private lazy var context = Context(host: self)
+    
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
     }
@@ -57,7 +59,7 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
-        return self.data.map { [NotifDataSource(rows: $0.content)] }
+        return self.data.map { [NotifDataSource(rows: $0.content, config: self.context)] }
             .mapError { $0 as Error }
     }
     
