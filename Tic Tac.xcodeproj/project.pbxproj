@@ -45,6 +45,7 @@
 		C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */; };
 		C3A7DFB52864F75900CB529F /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB42864F75900CB529F /* Promise.swift */; };
 		C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFBB2864FF7900CB529F /* LocationManager.swift */; };
+		C3C0218E28C180AA00B4EA03 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0218D28C180AA00B4EA03 /* Context.swift */; };
 		C3CD695B28AD6BF20080EDCA /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */; };
 		C3CD696128AD94090080EDCA /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD696028AD94090080EDCA /* Previews.swift */; };
 		C3D6570628BF3180006B9530 /* NSNull+nil.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D6570528BF3180006B9530 /* NSNull+nil.m */; };
@@ -119,6 +120,7 @@
 		C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YYClient+AuthManagement.swift"; sourceTree = "<group>"; };
 		C3A7DFB42864F75900CB529F /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		C3A7DFBB2864FF7900CB529F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C3C0218D28C180AA00B4EA03 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		C3CD696028AD94090080EDCA /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		C3D6570528BF3180006B9530 /* NSNull+nil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+nil.m"; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 		C340641B285808ED007B46D3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C3C0218D28C180AA00B4EA03 /* Context.swift */,
 				C340642928580FF9007B46D3 /* TableViewSection.swift */,
 				C340642828580FF9007B46D3 /* SingleRowSection.swift */,
 				C3F6EB3B28699CB20066B9FD /* VotableDataSource.swift */,
@@ -581,6 +584,7 @@
 				C300803928A4471B00106BAB /* ConfigurableCell.swift in Sources */,
 				C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */,
 				C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */,
+				C3C0218E28C180AA00B4EA03 /* Context.swift in Sources */,
 				C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
 				C3CD696128AD94090080EDCA /* Previews.swift in Sources */,
