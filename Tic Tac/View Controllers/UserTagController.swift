@@ -14,6 +14,8 @@ class UserTagController {
         self.userIdentifier = userIdentifier
         self.currentEmoji = emoji
         self.tag = UserTag.with(userID: userIdentifier)
+        
+        self.tag?.trackEmoji(emoji)
     }
     
     let userIdentifier: String
@@ -64,9 +66,24 @@ class UserTagController {
                 .message("\n\n")
                 .message(self.tag?.longDescription ?? "Untagged user")
             
-            make.button("Set Party").handler { _ in self.setParty() }
-            make.button("Set Gender").handler { _ in self.setGender() }
-            make.button("Set Note").handler { _ in self.setTag() }
+            make.button("Add Note").handler { _ in self.setTag() }
+            make.button("🐘 Conservative").handler { strings in
+                self.saveMetadata(party: .right)
+            }
+            make.button("🧠 Progressive").handler { strings in
+                self.saveMetadata(party: .left)
+            }
+            make.button("👦🏻 Male").handler { strings in
+                self.saveMetadata(gender: .male)
+            }
+            make.button("👱🏻‍♀️ Female").handler { strings in
+                self.saveMetadata(gender: .female)
+            }
+            
+            make.button("Clear Party/Gender").destructiveStyle().handler { strings in
+                self.saveMetadata(party: .unknown, gender: .unknown)
+            }
+            
             make.button("Dismiss").preferred()
         }
     }
@@ -74,7 +91,10 @@ class UserTagController {
     private func setTag() {
         self.showAlert { make in
             make.title("User Note")
-            make.textField()
+            make.configuredTextField { field in
+                field.autocorrectionType = .yes
+                field.text = self.tag?.text
+            }
             
             make.button("Save Tag").preferred().handler { strings in
                 let currentTag = self.tag
@@ -94,67 +114,17 @@ class UserTagController {
         }
     }
     
-    private func setParty() {
-        func saveParty(choice: UserTag.Party) {
-            let currentTag = self.tag
-            
-            let newTag = UserTag(
-                gender: currentTag?.gender,
-                party: choice,
-                text: currentTag?.text,
-                emoji: self.currentEmoji
-            )
-            
-            newTag.id = self.userIdentifier
-            self.saveOrUpdate(newTag, insert: currentTag == nil)
-        }
+    private func saveMetadata(party: UserTag.Party? = nil, gender: UserTag.Gender? = nil) {
+        let currentTag = self.tag
         
-        self.showAlert { make in
-            make.title("User's Political Affiliation")
-            
-            make.button("Conservative 🐘").handler { strings in
-                saveParty(choice: .right)
-            }
-            make.button("Progressive 🧠").handler { strings in
-                saveParty(choice: .left)
-            }
-            make.button("Unknown").handler { strings in
-                saveParty(choice: .unknown)
-            }
-            
-            self.navigationButtons(make)
-        }
-    }
-    
-    private func setGender() {
-        func saveGender(choice: UserTag.Gender) {
-            let currentTag = self.tag
-            
-            let newTag = UserTag(
-                gender: choice,
-                party: currentTag?.party,
-                text: currentTag?.text,
-                emoji: self.currentEmoji
-            )
-            
-            newTag.id = self.userIdentifier
-            self.saveOrUpdate(newTag, insert: currentTag == nil)
-        }
+        let newTag = UserTag(
+            gender: gender ?? currentTag?.gender,
+            party: party ?? currentTag?.party,
+            text: currentTag?.text,
+            emoji: self.currentEmoji
+        )
         
-        self.showAlert { make in
-            make.title("User's Likely Gender")
-            
-            make.button("Male 👦🏻").handler { strings in
-                saveGender(choice: .male)
-            }
-            make.button("Female 👱🏻‍♀️").handler { strings in
-                saveGender(choice: .female)
-            }
-            make.button("Unknown").handler { strings in
-                saveGender(choice: .unknown)
-            }
-            
-            self.navigationButtons(make)
-        }
+        newTag.id = self.userIdentifier
+        self.saveOrUpdate(newTag, insert: currentTag == nil)
     }
 }
