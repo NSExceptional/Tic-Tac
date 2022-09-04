@@ -31,6 +31,7 @@ class NotificationCell: AutoLayoutCell, ConfigurableCell {
     override func setup() {
         super.setup()
         self.accessoryType = .disclosureIndicator
+        self.stack.translatesAutoresizingMaskIntoConstraints = false
     }
     
     override func makeConstraints() {
