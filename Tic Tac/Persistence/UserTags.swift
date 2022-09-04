@@ -7,35 +7,23 @@
 
 import YakKit
 
-class UserTag {
-    enum Gender {
-        case unknown, m, f
+class UserTag: Entity {
+    var id: String?
         
-        var string: String {
-            switch self {
-                case .unknown:
-                    return ""
-                case .m:
-                    return "👱🏻‍♀️"
-                case .f:
-                    return "👦🏻"
-            }
-        }
+    enum Gender: String, Codable {
+        case unknown = ""
+        case male = "👦🏻"
+        case female = "👱🏻‍♀️"
+        
+        var string: String { self.rawValue }
     }
     
-    enum Party {
-        case unknown, right, left
+    enum Party: String, Codable {
+        case unknown = ""
+        case right = "🐘"
+        case left = "🧠"
         
-        var string: String {
-            switch self {
-                case .unknown:
-                    return ""
-                case .right:
-                    return "🐘"
-                case .left:
-                    return "🧠"
-            }
-        }
+        var string: String { self.rawValue }
     }
     
     private static var random = SystemRandomNumberGenerator()
@@ -61,7 +49,7 @@ class UserTag {
     convenience init?(userID: String) {
         if Self.random.next().isMultiple(of: 2) {
             let party: Party = Self.random.next().isMultiple(of: 2) ? .right : .unknown
-            let gender: Gender = Self.random.next().isMultiple(of: 2) ? .f : .unknown
+            let gender: Gender = Self.random.next().isMultiple(of: 2) ? .female : .unknown
             self.init(gender: gender, party: party, text: "user tag here")
         } else {
             return nil
