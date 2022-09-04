@@ -47,6 +47,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         self.emptyMessage = "No Yaks"
         self.tableView.separatorInset = .zero
         
+        // Feed sort picker //
         let setSort: UIActionHandler = { [weak self] (_ action: UIAction) in
             self?.sort = FeedSort(rawValue: action.title.lowercased())!
         }
@@ -60,6 +61,13 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         let control = UISegmentedControl(frame: .zero, actions: segmentActions)
         control.selectedSegmentIndex = 1
         self.navigationItem.titleView = control
+        
+        // Database subscriptions //
+        
+        // Update rows when user tag changes
+        Container.shared.subscribe(to: UserTag.self) { event in
+            self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .none)
+        }
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {

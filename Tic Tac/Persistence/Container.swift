@@ -40,11 +40,11 @@ class Container {
     
     private static var dbPath: String {
         let folder = FileManager.documentsDirectory as NSString
-        let path = folder.appendingPathComponent("main.db")
+        let path = folder.appendingPathComponent("tictac.db")
         
         #if DEBUG
         // Nuke the database on launch
-//        try? FileManager.default.removeItem(atPath: path)
+        // try? FileManager.default.removeItem(atPath: path)
         #endif
         
         return path

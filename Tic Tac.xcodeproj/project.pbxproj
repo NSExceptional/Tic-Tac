@@ -56,6 +56,7 @@
 		C3CDAD1D28C4220D00A93BD6 /* YakKit+GRDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDAD1C28C4220D00A93BD6 /* YakKit+GRDB.swift */; };
 		C3CDAD2128C4233A00A93BD6 /* Decoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDAD2028C4233A00A93BD6 /* Decoder+Extensions.swift */; };
 		C3CDAD2728C4291000A93BD6 /* Container+Boilerplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDAD2628C4291000A93BD6 /* Container+Boilerplate.swift */; };
+		C3CDAD2D28C4325F00A93BD6 /* UserTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDAD2C28C4325F00A93BD6 /* UserTagController.swift */; };
 		C3D6570628BF3180006B9530 /* NSNull+nil.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D6570528BF3180006B9530 /* NSNull+nil.m */; };
 		C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E050BF286664BE00DC26F0 /* LoginController.swift */; };
 		C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F43C8A286A9A3B001F6D64 /* Hooks.m */; };
@@ -138,6 +139,7 @@
 		C3CDAD1C28C4220D00A93BD6 /* YakKit+GRDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YakKit+GRDB.swift"; sourceTree = "<group>"; };
 		C3CDAD2028C4233A00A93BD6 /* Decoder+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Decoder+Extensions.swift"; sourceTree = "<group>"; };
 		C3CDAD2628C4291000A93BD6 /* Container+Boilerplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Container+Boilerplate.swift"; sourceTree = "<group>"; };
+		C3CDAD2C28C4325F00A93BD6 /* UserTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagController.swift; sourceTree = "<group>"; };
 		C3D6570528BF3180006B9530 /* NSNull+nil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+nil.m"; sourceTree = "<group>"; };
 		C3E050BF286664BE00DC26F0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3F43C8A286A9A3B001F6D64 /* Hooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hooks.m; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				C3A75B2328AA0562007CD052 /* MapViewController.swift */,
 				C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */,
 				C347664428AE053300235EC5 /* MyDataViewController.swift */,
+				C3CDAD2C28C4325F00A93BD6 /* UserTagController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3F6EB1D286967FC0066B9FD /* AutoLayout.swift in Sources */,
+				C3CDAD2D28C4325F00A93BD6 /* UserTagController.swift in Sources */,
 				C3F6EB232869840D0066B9FD /* YakCell.swift in Sources */,
 				C3A7DFAB2864F06F00CB529F /* YakKit+Swift.swift in Sources */,
 				C3A7DFAE2864F1DE00CB529F /* TabBarController.swift in Sources */,

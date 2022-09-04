@@ -36,6 +36,10 @@ class UserEmojiView: AutoLayoutView {
         self.gradient.colors = [uicolor, uicolor].map { $0.cgColor }
     }
     
+    var emoji: String? {
+        return self.label.text
+    }
+    
     private var label = UILabel()
     override var views: [UIView] { [label] }
     
@@ -76,7 +80,7 @@ class UserEmojiView: AutoLayoutView {
         }
     }
     
-    var gradient: CAGradientLayer {
+    private var gradient: CAGradientLayer {
         return self.layer as! CAGradientLayer
     }
     

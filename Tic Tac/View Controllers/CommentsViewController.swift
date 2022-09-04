@@ -116,6 +116,14 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         
         // Call manually to load data since the initializer won't call this
         self.yakChanged()
+        
+        
+        // Database subscriptions //
+        
+        // Update rows when user tag changes
+        Container.shared.subscribe(to: UserTag.self) { event in
+            self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .none)
+        }
     }
     
     /// Update header and reload comments

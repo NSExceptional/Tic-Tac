@@ -16,6 +16,16 @@ class UserTag: Entity {
         case female = "👱🏻‍♀️"
         
         var string: String { self.rawValue }
+        var description: String {
+            switch self {
+                case .unknown:
+                    return "___"
+                case .male:
+                    return "guy"
+                case .female:
+                    return "girl"
+            }
+        }
     }
     
     enum Party: String, Codable {
@@ -24,22 +34,39 @@ class UserTag: Entity {
         case left = "🧠"
         
         var string: String { self.rawValue }
+        var description: String {
+            switch self {
+                
+                case .unknown:
+                    return "_____"
+                case .right:
+                    return "conservative"
+                case .left:
+                    return "progressive"
+            }
+        }
     }
     
     private static var random = SystemRandomNumberGenerator()
     
-    let userIdentifier: String?
     let gender: Gender
     let party: Party
     let text: String?
+    let pastEmojis: String?
     
     lazy var detailText: String = self.party.string + " " + self.gender.string
+    lazy var longDescription: String = """
+        \(party.description) \(gender.description)
+        \(self.text ?? "No tags yet")
+        Known emojis: \(pastEmojis ?? "none")
+    """
     
-    init(gender: Gender = .unknown, party: Party = .unknown, text: String? = nil) {
-        self.userIdentifier = nil
-        self.gender = gender
-        self.party = party
+    init(gender: Gender? = .unknown, party: Party? = .unknown, text: String? = nil, emoji: String? = nil) {
+        self.id = nil
+        self.gender = gender ?? .unknown
+        self.party = party ?? .unknown
         self.text = text
+        self.pastEmojis = emoji
     }
     
     static func with(userID identifier: String) -> UserTag? {

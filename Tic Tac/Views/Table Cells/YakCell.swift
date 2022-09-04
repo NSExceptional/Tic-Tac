@@ -103,9 +103,12 @@ class YakView: AutoLayoutView {
         .hugging(.required, axis: .horizontal).axis(.vertical).distribution(.equalSpacing).spacing(6)
     
     var voteErrorHandler: ((Error) -> Void)? = nil
+    private var model: YYVotable? = nil
     private var votableID: String? = nil
     private var deleteVotable: (() -> Void)?
     private let layout: YakView.Layout
+    
+    private unowned var host: ContextualHost? = nil
     
     override var views: [UIView] {
         // Optionally include the vote counter based
@@ -129,7 +132,14 @@ class YakView: AutoLayoutView {
         self.layout = layout
         
         super.init()
+    }
+    
+    override func setup(_ frame: CGRect) {
+        // For deleting my own comments and posts
         self.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(didLongPress)))
+        
+        // For tagging users
+        self.emoji.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapEmoji(_:))))
     }
     
     override func makeConstraints() {
@@ -183,11 +193,10 @@ class YakView: AutoLayoutView {
     
     @discardableResult
     func configure(with votable: YYVotable?, context: YakContext) -> YakView {
-        #if DEBUG
         self.model = votable
-        #endif
         
         let client = context.client
+        self.host = context.host
         self.votableID = votable?.identifier
         
         // Clear all data if no votable given
@@ -202,7 +211,7 @@ class YakView: AutoLayoutView {
         self.setSubtitles(tag: userTag, location: votable.locationName)
         self.updateMetadataText(with: votable, client)
         
-        self.emoji.alpha = votable.anonymous ? 0.8 : 1
+        // self.emoji.alpha = votable.anonymous ? 0.8 : 1
         
         self.voteCounter?.isEnabled = true
         self.voteCounter?.setVote(votable.voteStatus, score: votable.score)
@@ -245,6 +254,13 @@ class YakView: AutoLayoutView {
                 }
             }.show(from: UIApplication.rootViewController)
         }
+    }
+    
+    @objc private func didTapEmoji(_ sender: UITapGestureRecognizer) {
+        guard let author = self.model?.authorIdentifier, let host = self.host else { return }
+        
+        let editor = UserTagController(userIdentifier: author, emoji: self.emoji.emoji)
+        editor.show(from: host)
     }
     
     private func setSubtitles(tag: UserTag?, location: String?) {
@@ -313,9 +329,5 @@ class YakView: AutoLayoutView {
         
         return self
     }
-    
-    #if DEBUG
-    private var model: YYVotable? = nil
-    #endif
 }
 

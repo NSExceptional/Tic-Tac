@@ -41,7 +41,7 @@ extension Database {
 extension Container {
     func createTables(_ db: Database) throws {
         let schemas = [
-            ("user", userTagSchema),
+            ("userTag", userTagSchema),
             ("post", postSchema),
             ("comment", commentSchema),
         ]
@@ -52,22 +52,21 @@ extension Container {
     }
     
     private var userTagSchema: [Database.DSLColumn] { [
-        .required("gender", .integer),
-        .required("party", .integer),
+        .required("gender", .text),
+        .required("party", .text),
         .nullable("text", .text),
         .nullable("pastEmojis", .text),
     ] }
     
     private var votableSchema: [Database.DSLColumn] { [
-        .relation("userId", "user", cascade: false),
-        .relation("parentId", "post", cascade: false),
+        .relation("userId", "userTag", cascade: false),
         
         .required("createdAt", .datetime),
-        .required("title", .text),
+        .required("text", .text),
         .required("emoji", .text),
         .required("userColor", .text),
         .required("secondaryUserColor", .text),
-        .required("score", .integer),
+        .required("voteCount", .integer),
         
         .nullable("locationName", .text),
         .nullable("lat", .double),
