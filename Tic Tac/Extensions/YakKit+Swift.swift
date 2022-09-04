@@ -19,7 +19,7 @@ extension YYClient {
             case (nil, .some(let error)):
                 return .failure(error)
             default:
-                fatalError()
+                return .failure(self.nullResponse)
         }
     }
     
@@ -30,7 +30,7 @@ extension YYClient {
             case (nil, .some(let error)):
                 return .failure(error)
             default:
-                fatalError()
+                return .failure(self.nullResponse)
         }
     }
     
@@ -41,7 +41,7 @@ extension YYClient {
             case (nil, .some(let error)):
                 return .failure(error)
             default:
-                fatalError()
+                return .failure(self.nullResponse)
         }
     }
     
