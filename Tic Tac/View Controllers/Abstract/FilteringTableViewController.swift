@@ -229,9 +229,9 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let reuse = self.filterDelegate?.sections[indexPath.section].reuseIdentifier(for: indexPath.row)
 //        let cell = tableView.dequeueReusableCell(withIdentifier: reuse ?? "", for: indexPath)
-        return self.filterDelegate!.sections[indexPath.section].cell(tableView, for: indexPath)
-        
-//        return cell
+        let cell = self.filterDelegate!.sections[indexPath.section].cell(tableView, for: indexPath)
+        cell.layoutIfNeeded()
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
