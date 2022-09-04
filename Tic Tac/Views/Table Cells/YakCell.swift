@@ -195,7 +195,7 @@ class YakView: AutoLayoutView {
             return self.configureEmpty(loading: context.loading)
         }
         
-        let userTag = UserTag(userID: votable.authorIdentifier)
+        let userTag = UserTag.with(userID: votable.authorIdentifier)
         
         self.emoji.set(emoji: votable.emoji, colors: votable.gradient)
         self.title.text = votable.text
