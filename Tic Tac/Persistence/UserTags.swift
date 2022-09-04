@@ -52,7 +52,7 @@ class UserTag: Entity {
     let gender: Gender
     let party: Party
     let text: String?
-    let pastEmojis: String?
+    private(set) var pastEmojis: String?
     
     lazy var detailText: String = self.party.string + " " + self.gender.string
     lazy var longDescription: String = """
@@ -71,5 +71,21 @@ class UserTag: Entity {
     
     static func with(userID identifier: String) -> UserTag? {
         return Container.shared.user(with: identifier)
+    }
+    
+    func trackEmoji(_ emoji: String?) {
+        guard let pastEmojis = self.pastEmojis else {
+            return self.pastEmojis = emoji
+        }
+        
+        guard let emoji = emoji else { return }
+        
+        if !pastEmojis.contains(emoji) {
+            self.pastEmojis = "\(emoji)\(pastEmojis)"
+        }
+        
+        if self.id != nil {
+            try! Container.shared.update(user: self)
+        }
     }
 }
