@@ -17,7 +17,7 @@ class YakCell: AutoLayoutCell, ConfigurableCell {
         override var views: [UIView] { [imageView] }
         
         override func setup(_ frame: CGRect) {
-            imageView.tintColor = .secondaryLabel
+            imageView.tintColor = .tertiaryLabel
             
             self.hugging(.required, axis: .horizontal)
             self.hugging(.required, axis: .vertical)
