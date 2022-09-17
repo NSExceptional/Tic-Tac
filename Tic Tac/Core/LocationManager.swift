@@ -28,6 +28,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     private static let shared: LocationManager = .init()
     
     private let permission: CLLocationManager = .init()
+    private var updatingLocation: Bool = false
     private var authorizationCallback: ((_ status: Bool) -> Void)? = nil
     private var locationUpdateCallback: ((_ latestLocation: CLLocation) -> Void)? = nil
     
@@ -72,7 +73,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     static func observeLocation(callback: ((_ latestLocation: CLLocation) -> Void)?) {
         shared.locationUpdateCallback = callback
-        shared.permission.startUpdatingLocation()
+        
+        if shared.updatingLocation, let location = shared.permission.location {
+            callback?(location)
+        }
+        else {
+            shared.permission.startUpdatingLocation()
+        }
     }
 }
 
