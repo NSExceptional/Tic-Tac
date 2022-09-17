@@ -75,6 +75,7 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         
         self.title = "Loading…"
         
+//        let cursor: String? = "MjAyMi0wNS0yNCAxOTowNzo0OS40MTA3NzgrMDA6MDA="
         let cursor: String? = nil
         YYClient.current.getNotifications(after: cursor) { result in
             self.data = result.mapError { .network($0) }
