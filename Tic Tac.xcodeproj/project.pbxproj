@@ -57,6 +57,8 @@
 		C3CDAD2128C4233A00A93BD6 /* Decoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDAD2028C4233A00A93BD6 /* Decoder+Extensions.swift */; };
 		C3CDAD2728C4291000A93BD6 /* Container+Boilerplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDAD2628C4291000A93BD6 /* Container+Boilerplate.swift */; };
 		C3CDAD2D28C4325F00A93BD6 /* UserTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDAD2C28C4325F00A93BD6 /* UserTagController.swift */; };
+		C3CDAD3228C7E43F00A93BD6 /* Echo in Frameworks */ = {isa = PBXBuildFile; productRef = C3CDAD3128C7E43F00A93BD6 /* Echo */; };
+		C3D6060C28C7F4780076DCF9 /* FLEX-Plugins.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D6060B28C7F4780076DCF9 /* FLEX-Plugins.m */; };
 		C3D6570628BF3180006B9530 /* NSNull+nil.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D6570528BF3180006B9530 /* NSNull+nil.m */; };
 		C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E050BF286664BE00DC26F0 /* LoginController.swift */; };
 		C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F43C8A286A9A3B001F6D64 /* Hooks.m */; };
@@ -140,6 +142,7 @@
 		C3CDAD2028C4233A00A93BD6 /* Decoder+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Decoder+Extensions.swift"; sourceTree = "<group>"; };
 		C3CDAD2628C4291000A93BD6 /* Container+Boilerplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Container+Boilerplate.swift"; sourceTree = "<group>"; };
 		C3CDAD2C28C4325F00A93BD6 /* UserTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagController.swift; sourceTree = "<group>"; };
+		C3D6060B28C7F4780076DCF9 /* FLEX-Plugins.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FLEX-Plugins.m"; sourceTree = "<group>"; };
 		C3D6570528BF3180006B9530 /* NSNull+nil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+nil.m"; sourceTree = "<group>"; };
 		C3E050BF286664BE00DC26F0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3F43C8A286A9A3B001F6D64 /* Hooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hooks.m; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 				C3A7DFA72864F00F00CB529F /* SnapKit in Frameworks */,
 				C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */,
 				E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */,
+				C3CDAD3228C7E43F00A93BD6 /* Echo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +248,7 @@
 				C34063FF285807BD007B46D3 /* Assets.xcassets */,
 				C34063FD285807BD007B46D3 /* AppDelegate.swift */,
 				C3F43C8A286A9A3B001F6D64 /* Hooks.m */,
+				C3D6060B28C7F4780076DCF9 /* FLEX-Plugins.m */,
 				C3F6EB42286A69FF0066B9FD /* Tic Tac.entitlements */,
 				C3F6EB41286A69FF0066B9FD /* GoogleService-Info.plist */,
 				C34064482863973A007B46D3 /* Bridging-Header.h */,
@@ -404,6 +409,7 @@
 				C3A7DFA62864F00F00CB529F /* SnapKit */,
 				C3F6EAEA28681D800066B9FD /* Reflex */,
 				C3CDAD0A28C41CA000A93BD6 /* GRDB */,
+				C3CDAD3128C7E43F00A93BD6 /* Echo */,
 			);
 			productName = "Tic Tac";
 			productReference = C34063FA285807BD007B46D3 /* Tic Tac.app */;
@@ -462,6 +468,7 @@
 				C3A7DFA52864F00F00CB529F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				C3F6EAE928681D800066B9FD /* XCRemoteSwiftPackageReference "Reflex" */,
 				C3CDAD0928C41CA000A93BD6 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				C3CDAD3028C7E43F00A93BD6 /* XCRemoteSwiftPackageReference "Echo" */,
 			);
 			productRefGroup = C34063FB285807BD007B46D3 /* Products */;
 			projectDirPath = "";
@@ -602,6 +609,7 @@
 				C340642628580F5F007B46D3 /* ScopeCarousel.swift in Sources */,
 				C3CDAD0F28C41CD300A93BD6 /* Container.swift in Sources */,
 				C3CDAD1628C41D5600A93BD6 /* Entity.swift in Sources */,
+				C3D6060C28C7F4780076DCF9 /* FLEX-Plugins.m in Sources */,
 				C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */,
 				C351060828BDE305007B0F22 /* SpinnerFooterView.swift in Sources */,
 				C3406412285808C2007B46D3 /* HerdViewController.swift in Sources */,
@@ -693,7 +701,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -754,7 +762,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -933,11 +941,19 @@
 				kind = branch;
 			};
 		};
+		C3CDAD3028C7E43F00A93BD6 /* XCRemoteSwiftPackageReference "Echo" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NSExceptional/Echo.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C3F6EAE928681D800066B9FD /* XCRemoteSwiftPackageReference "Reflex" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/FLEXTool/Reflex";
 			requirement = {
-				branch = master;
+				branch = "crash-fix";
 				kind = branch;
 			};
 		};
@@ -958,6 +974,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C3CDAD0928C41CA000A93BD6 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		C3CDAD3128C7E43F00A93BD6 /* Echo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3CDAD3028C7E43F00A93BD6 /* XCRemoteSwiftPackageReference "Echo" */;
+			productName = Echo;
 		};
 		C3F6EAEA28681D800066B9FD /* Reflex */ = {
 			isa = XCSwiftPackageProductDependency;

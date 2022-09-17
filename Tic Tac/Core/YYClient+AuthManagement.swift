@@ -7,13 +7,15 @@
 
 import YakKit
 
-extension YYClient {
+public extension YYClient {
     /// A list of all managed sessions.
     private(set) static var sessions: [YYClient] = []
     
+    private static var _current: YYClient = .newManagedSession()
+    
     /// To change the current client, set it to `.newManagedSession()`.
     /// Both sessions will be stored in `YYClient.sessions`.
-    static var current: YYClient = .newManagedSession()
+    @objc class var current: YYClient { _current }
     
     /// Create a new session and store it in `YYClient.sessions`.
     static func newManagedSession() -> YYClient {
