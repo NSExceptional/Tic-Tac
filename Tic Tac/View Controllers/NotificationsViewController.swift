@@ -36,6 +36,7 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Notifications"
         self.enableRefresh = true
         self.emptyMessage = "No Notifications"
         self.tableView.separatorInset = .zero
@@ -72,18 +73,24 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
             return self.data = .failure(NotifsError.notLoggedIn)
         }
         
-        YYClient.current.getNotifications { result in
+        self.title = "Loading…"
+        
+        let cursor: String? = nil
+        YYClient.current.getNotifications(after: cursor) { result in
             self.data = result.mapError { .network($0) }
             sender?.endRefreshing()
             
             if result.failed {
+                self.title = "Reauthenticating…"
                 LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
                     self?.refresh()
                 }
             }
+            else {
+                self.title = "Notifications"
+            }
         }
     }
-    
     
     override func didNearlyScrollToEnd() {
         self.addSpinnerToTableFooter()
