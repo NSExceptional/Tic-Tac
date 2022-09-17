@@ -181,11 +181,12 @@ class YakView: AutoLayoutView {
             }
             underEmojiDetails.snp.makeConstraints { make in
                 make.top.equalTo(emoji.snp.bottom).offset(space)
-                make.leading.equalToSuperview().inset(edges)
+                make.centerX.equalTo(emoji)
                 make.bottom.lessThanOrEqualToSuperview().inset(edges)
             }
             labelStack.snp.makeConstraints { make in
-                make.top.bottom.trailing.equalToSuperview().inset(edges)
+                make.top.trailing.equalToSuperview().inset(edges)
+                make.bottom.lessThanOrEqualToSuperview().inset(edges)
                 make.leading.equalTo(emoji.snp.trailing).offset(edges.left)
             }
         }
