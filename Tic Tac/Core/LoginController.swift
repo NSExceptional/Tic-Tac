@@ -45,8 +45,8 @@ struct LoginController {
     }
     
     private func tryLocateAuthToken(completion: @escaping (Bool) -> Void) {
-        if self.client.isLoggedIn {
-            completion(true)
+        guard !self.client.isLoggedIn else {
+            return completion(true)
         }
         
         self.client.loadCurrentUser { error in
