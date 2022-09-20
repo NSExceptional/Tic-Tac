@@ -41,15 +41,19 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         self.emptyMessage = "No Notifications"
         self.tableView.separatorInset = .zero
         
+        // Button to mark all notifications read
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Clear Unread",
             image: UIImage(systemName: "bell.badge.fill"),
             primaryAction: .init { _ in
-                self.refreshControl?.beginRefreshing()
+                self.refreshControl?.revealAndBeginRefreshing()
+                self.title = "Clearning Unread Notifications…"
+                
                 YYClient.current.clearUnreadNotifications { error in
                     if let error = error {
                         self.presentError(error, title: "Error Clearing Unread Notifications")
                         self.refreshControl?.endRefreshing()
+                        self.title = "Notifications"
                     }
                     else {
                         self.refresh(self.refreshControl)
@@ -70,12 +74,12 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
             sender?.endRefreshing()
-            return self.data = .failure(NotifsError.notLoggedIn)
+            return self.data = .failure(.notLoggedIn)
         }
         
         self.title = "Loading…"
         
-//        let cursor: String? = "MjAyMi0wNS0yNCAxOTowNzo0OS40MTA3NzgrMDA6MDA="
+        // let cursor: String? = "MjAyMi0wNS0yNCAxOTowNzo0OS40MTA3NzgrMDA6MDA="
         let cursor: String? = nil
         YYClient.current.getNotifications(after: cursor) { result in
             self.data = result.mapError { .network($0) }

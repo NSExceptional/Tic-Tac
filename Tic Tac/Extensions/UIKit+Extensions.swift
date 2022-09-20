@@ -126,6 +126,17 @@ extension UIBarButtonItem {
     }
 }
 
+extension UIRefreshControl {
+    func revealAndBeginRefreshing() {
+        if let scrollView = superview as? UITableView {
+            let offset: CGFloat = scrollView.contentOffset.y - frame.height
+            scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
+        }
+        
+        self.beginRefreshing()
+    }
+
+}
 extension UIApplication {
     static var keyWindow: UIWindow {
         return self.shared.delegate!.window!!
