@@ -48,7 +48,7 @@ public enum PreviewData {
         isMine: Bool = false,
         anonymous: Bool = true
     ) -> YYYak {
-        .init(dictionary: [
+        try! .init(dictionary: [
             "id": "WWFrOMabcdefg",
             "interestAreas": area == nil ? [] : [area],
             "userEmoji": emoji,

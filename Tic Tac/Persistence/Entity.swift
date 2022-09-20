@@ -9,7 +9,7 @@
 import Foundation
 import GRDB
 
-protocol Entity: class, Codable, FetchableRecord, PersistableRecord {
+protocol Entity: AnyObject, Codable, FetchableRecord, PersistableRecord {
     var id: String? { get set }
 }
 
