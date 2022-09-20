@@ -20,8 +20,25 @@ extension Container {
         try self.insert(newUser, notify: notify)
     }
     
-    func update(user newTag: UserTag) throws {
-        try self.update(newTag)
+    func update(user newUser: UserTag) throws {
+        precondition(newUser.id != nil)
+        try self.update(newUser)
+    }
+    
+    func ensureUserExists(_ identifier: String, latestEmoji: String?) {
+        if self.user(with: identifier) != nil {
+            return
+        }
+        
+        // User not exists; insert it
+        let newTag = UserTag(
+            emoji: latestEmoji
+        )
+        newTag.id = identifier
+        
+        // We DO NOT want to notify here, since we're not
+        // tagging them with any useful info
+        try! self.insert(newTag, notify: false)
     }
 }
 
@@ -32,6 +49,19 @@ extension Container {
         }
         
         return YYYak(from: stored)
+    }
+    
+    func titleForYak(with identifier: String?) -> String? {
+        guard let identifier = identifier else {
+            return nil
+        }
+        
+        let postWithID = YYStoredPost.filter(Column("id") == identifier)
+        guard let title: String = try? self.fetch(key: "text", from: postWithID) else {
+            return nil
+        }
+        
+        return title
     }
     
     func insert(newPost votable: YYYak, notify: Bool = true) throws {

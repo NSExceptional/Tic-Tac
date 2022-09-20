@@ -21,6 +21,8 @@ class YYStoredVotable: Entity {
     let lat: Double
     let lng: Double
     
+    class var databaseTableName: String { fatalError() }
+    
     init(from votable: YYVotable) {
         self.id = votable.identifier
         self.text = votable.text
@@ -47,10 +49,11 @@ class YYStoredVotable: Entity {
 }
 
 class YYStoredPost: YYStoredVotable {
-    
+    override class var databaseTableName: String { "post" }
 }
 
 class YYStoredComment: YYStoredVotable {
+    override class var databaseTableName: String { "comment" }
     var parentId: String?
 }
 

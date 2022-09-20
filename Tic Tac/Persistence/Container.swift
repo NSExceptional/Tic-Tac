@@ -107,6 +107,24 @@ class Container {
 
 extension Container {
     @discardableResult
+    func insertIfNotExists<T: Entity>(_ record: T, notify: Bool = true) throws -> T {
+        if let existing = try self.fetch(T.filter(Column("id") == record.id)) {
+            return existing
+        }
+        
+        try self.q.write { db in
+            return try record.insert(db)
+        }
+        
+        defer {
+            if notify {
+                self.notifySubscribers(of: .insert([record]))
+            }
+        }
+        return record
+    }
+    
+    @discardableResult
     func insert<T: Entity>(_ record: T, notify: Bool = true) throws -> T {
         try self.q.write { db in
             try record.insert(db)
@@ -146,14 +164,39 @@ extension Container {
         return record
     }
     
+    /// Fetch a single complete Entity
     func fetch<T: Entity>(_ query: QueryInterfaceRequest<T>) throws -> T? {
         try self.q.read { db in try query.fetchOne(db) }
     }
     
+    /// Fetch many Entities
     func fetch<T: Entity>(_ query: QueryInterfaceRequest<T>) throws -> [T] {
         try self.q.read { db in try query.fetchAll(db) }
     }
     
+    /// Select a column from a single Entity
+    func fetch<T: DatabaseValueConvertible, E: Entity>(
+            key: String,
+            from query: QueryInterfaceRequest<E>) throws -> T? {
+        return try self.q.read { db in
+            // SELECT key FROM ...
+            let query = query.select(Column(key), as: T.self)
+            return try query.fetchOne(db)
+        }
+    }
+    
+    /// Select a column from many Entities
+    func fetch<T: DatabaseValueConvertible, E: Entity>(
+            key: String,
+            from query: QueryInterfaceRequest<E>) throws -> [T] {
+        return try self.q.read { db in
+            // SELECT key FROM ...
+            let query = query.select(Column(key), as: T.self)
+            return try query.fetchAll(db)
+        }
+    }
+    
+    /// Fetch all of the given Entity
     func fetchAll<T: Entity>(_ type: T.Type = T.self) -> [T] {
         return (try? self.fetch(T.all())) ?? []
     }

@@ -61,6 +61,13 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
                 }
             }
         )
+        
+        // Database subscriptions //
+        
+        // Update rows when user tag changes
+        Container.shared.subscribe(to: YYStoredPost.self) { event in
+            self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .none)
+        }
     }
     
     override func makeSections() -> Result<[TableViewSection], Error> {
@@ -123,6 +130,14 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
                 }
             }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        super.tableView(tableView, didSelectRowAt: indexPath)
+        
+        // Mark row read
+        self.notifications[indexPath.row].read = true
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
 }
 

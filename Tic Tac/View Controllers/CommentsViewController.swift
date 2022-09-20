@@ -97,6 +97,11 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
                 case .success(let yak):
                     // This will update the header and reload comments
                     self.yak = yak
+                    
+                    // Cache the yak for notification descriptions
+                    Container.shared.ensureUserExists(yak.authorIdentifier, latestEmoji: yak.emoji)
+                    try! Container.shared.insertIfNotExists(YYStoredPost(from: yak))
+                    
                 case .failure(let error):
                     self.data = .failure(.network(error))
                     self.popWithError(error)

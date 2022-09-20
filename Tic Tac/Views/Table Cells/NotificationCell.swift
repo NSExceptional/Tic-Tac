@@ -21,7 +21,7 @@ class NotificationCell: AutoLayoutCell, ConfigurableCell {
     
     private let header = UILabel(textStyle: .headline)
     private let subheader = UILabel(font: .italic(.body)).multiline()
-    private let footer = UILabel(textStyle: .footnote).color(.secondaryLabel)
+    private let footer = UILabel(textStyle: .footnote).color(.secondaryLabel).multiline()
     
     private lazy var stack = UIStackView(arrangedSubviews: [header, subheader, footer])
         .alignment(.leading).axis(.vertical).distribution(.fill).spacing(5)
@@ -43,12 +43,17 @@ class NotificationCell: AutoLayoutCell, ConfigurableCell {
     }
     
     func configure(with notif: YYNotification, context: YakContext) -> Self {
+        let yakTitle = Container.shared.titleForYak(with: notif.thingIdentifier)
         self.header.text = notif.subject
         self.subheader.text = notif.content
+        
+        let footerText: StringBuilder.Component = yakTitle != nil ? .text(yakTitle) :
+            .attrText(notif.unencodedThingIdentifier, Self.footerIDTAttributes)
+                          
         self.footer.attributedText = StringBuilder(
             components: [
                 .symbol("clock"), .leadingSpace(.text(notif.age)),
-                .symbol("tag"), .leadingSpace(.attrText(notif.unencodedThingIdentifier, Self.footerIDTAttributes)),
+                .symbol("tag"), .leadingSpace(footerText),
             ]
         ).attributedString
         
