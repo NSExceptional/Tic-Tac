@@ -17,7 +17,7 @@ extension Database {
     }
     
     fileprivate func create(table tableName: String, columns: [DSLColumn]) throws {
-        try self.create(table: tableName) { t in
+        try self.create(table: tableName, options: [.ifNotExists]) { t in
             t.column("id", .text).primaryKey()
             
             for c in columns {
