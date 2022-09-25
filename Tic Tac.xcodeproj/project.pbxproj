@@ -15,6 +15,7 @@
 		C304156D28666D9900BC858C /* UserEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C304156C28666D9900BC858C /* UserEmojiView.swift */; };
 		C30415712866838600BC858C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30415702866838600BC858C /* Strings.swift */; };
 		C30417EE286683BE00BC858C /* DateFormatter+Formats.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */; };
+		C31587F728E0E4F500F17E51 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31587F628E0E4F500F17E51 /* Effect.swift */; };
 		C34063FE285807BD007B46D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34063FD285807BD007B46D3 /* AppDelegate.swift */; };
 		C3406400285807BD007B46D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34063FF285807BD007B46D3 /* Assets.xcassets */; };
 		C3406403285807BD007B46D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3406401285807BD007B46D3 /* LaunchScreen.storyboard */; };
@@ -96,6 +97,7 @@
 		C304156C28666D9900BC858C /* UserEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmojiView.swift; sourceTree = "<group>"; };
 		C30415702866838600BC858C /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Formats.swift"; sourceTree = "<group>"; };
+		C31587F628E0E4F500F17E51 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
 		C34063FA285807BD007B46D3 /* Tic Tac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34063FD285807BD007B46D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34063FF285807BD007B46D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				C3A7DFBB2864FF7900CB529F /* LocationManager.swift */,
 				C3E050BF286664BE00DC26F0 /* LoginController.swift */,
 				C365C52328A6F253001E329A /* UserAccountStore.swift */,
+				C31587F628E0E4F500F17E51 /* Effect.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				C340642A28580FF9007B46D3 /* SingleRowSection.swift in Sources */,
 				C304156928666B8B00BC858C /* BaseCell.swift in Sources */,
 				C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */,
+				C31587F728E0E4F500F17E51 /* Effect.swift in Sources */,
 				C3A7DFB52864F75900CB529F /* Promise.swift in Sources */,
 				C347664A28B4B4E700235EC5 /* UserTags.swift in Sources */,
 				C340642128580B69007B46D3 /* TTTableViewController.swift in Sources */,

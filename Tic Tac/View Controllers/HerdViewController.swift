@@ -76,41 +76,61 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
     }
     
     override func refresh(_ sender: UIRefreshControl? = nil) {
-        sender?.beginRefreshing()
+        @Effect var complete = false
+        $complete.didSet = {
+            self.loadingNextPage = !complete
+            
+            if !complete {
+                sender?.beginRefreshing()
+            }
+            else {
+                sender?.endRefreshing()
+            }
+        }
         
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
-            sender?.endRefreshing()
+            defer { complete = true }
             return self.data = .failure(.notLoggedIn)
         }
         
         YYClient.current.getLocalYaks { result in
+            defer { complete = true }
             self.data = result.mapError { .network($0) }
-            sender?.endRefreshing()
             
             if result.failed {
-                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
-                    self?.refresh()
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.refresh()
                 }
             }
         }
     }
     
     override func didNearlyScrollToEnd() {
-        self.addSpinnerToTableFooter()
+        guard let lastYak = self.cursor else {
+            return
+        }
+        
+        @Effect var complete = false
+        $complete.didSet = {
+            self.loadingNextPage = !complete
+            
+            if !complete {
+                self.addSpinnerToTableFooter()
+            }
+            else {
+                self.removeSpinnerFromTableFooter()
+            }
+        }
         
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
-            self.removeSpinnerFromTableFooter()
+            defer { complete = true }
             return self.data = .failure(.notLoggedIn)
         }
         
-        guard let lastYak = self.cursor else {
-            return self.removeSpinnerFromTableFooter()
-        }
-        
         YYClient.current.getLocalYaks(after: lastYak) { result in
-            self.removeSpinnerFromTableFooter()
+            defer { complete = true }
             
             if case .failure(let error) = result {
                 self.errorMessage = error.localizedDescription
@@ -122,8 +142,8 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
             }
             
             if result.failed {
-                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
-                    self?.didNearlyScrollToEnd()
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.didNearlyScrollToEnd()
                 }
             }
         }

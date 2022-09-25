@@ -94,8 +94,8 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
             
             if result.failed {
                 self.title = "Reauthenticating…"
-                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
-                    self?.refresh()
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.refresh()
                 }
             }
             else {
@@ -125,8 +125,8 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
                 .mapError { .network($0) }
             
             if result.failed {
-                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
-                    self?.didNearlyScrollToEnd()
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.didNearlyScrollToEnd()
                 }
             }
         }

@@ -77,8 +77,8 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
             sender?.endRefreshing()
             
             if result.failed {
-                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
-                    self?.refresh()
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.refresh()
                 }
             }
         }

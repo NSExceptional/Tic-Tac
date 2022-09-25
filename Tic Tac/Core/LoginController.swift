@@ -10,15 +10,50 @@ import TBAlertController
 import FirebaseAuth
 import YakKit
 
-struct LoginController {
+private class LoginCallbackQueue {
+    typealias Callback = () -> Void
+    static let main: LoginCallbackQueue = .init()
     
-    let host: UIViewController
+    private init() { }
+    
+    private var queue: [Callback] = [] {
+        didSet { assert(Thread.isMainThread) }
+    }
+    
+    var isEmpty: Bool { queue.isEmpty }
+    
+    func execute() {
+        assert(Thread.isMainThread)
+        precondition(!queue.isEmpty)
+        
+        for cb in self.queue {
+            cb()
+        }
+        
+        self.queue = []
+    }
+    
+    func callback(_ cb: Callback?) {
+        guard let cb = cb else { return }
+        self.queue.append(cb)
+    }
+}
+
+struct LoginController<T: UIViewController> {
+    
+    let host: T
     let client: YYClient
+    private let onLogin: LoginCallbackQueue = .main
+    var loggingIn: Bool { !onLogin.isEmpty }
     
-    private static var onLogin: (() -> Void)!
-    
-    func requireLogin(reset: Bool = false, _ completion: (() -> Void)?) {
-        Self.onLogin = completion
+    func requireLogin(reset: Bool = false, _ completion: ((T) -> Void)?) {
+        // If we're already logging in, don't duplicate that effort;
+        // just enqueue our callbacks and wait
+        guard !self.loggingIn else {
+            return self.onLogin.callback { completion?(self.host) }
+        }
+        
+        self.onLogin.callback { completion?(self.host) }
         
         if reset {
             self.client.authToken = nil
@@ -164,8 +199,6 @@ struct LoginController {
     }
     
     private func didSignIn() {
-        assert(Self.onLogin != nil)
-        
         self.client.updateUser { error in
             if let error = error {
                 self.signInFailed(error)
@@ -174,10 +207,14 @@ struct LoginController {
                 LocationManager.observeLocation { location in
                     self.client.location = location
                     
-                    // Login callback
-                    if let onLogin = Self.onLogin {
-                        onLogin()
-                        Self.onLogin = nil
+                    // Login callback, just once tho
+                    if !self.onLogin.isEmpty {
+                        self.onLogin.execute()
+                        
+                        // No more login callback on location update
+                        LocationManager.observeLocation { location in
+                            self.client.location = location
+                        }
                     }
                 }
             }

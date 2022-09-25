@@ -62,26 +62,11 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     private var loading: Bool {
-        return self.loadingYak || self.refreshingComments
+        return self.loadingYak || self.loadingNextPage
     }
     
     private var loadingYak: Bool {
         return self.yak == nil && self.data.loading
-    }
-    
-    private var refreshingComments: Bool = false {
-        didSet {
-            guard let control = self.refreshControl else { return }
-            
-            switch (self.refreshingComments, control.isRefreshing) {
-                case (true, false):
-                    control.beginRefreshing()
-                case (false, true):
-                    control.endRefreshing()
-                case (_, _):
-                    break
-            }
-        }
     }
     
     convenience init(for yak: YYYak) {
@@ -150,21 +135,31 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
             return
         }
         
-        sender?.beginRefreshing()
+        @Effect var complete = false
+        $complete.didSet = {
+            self.loadingNextPage = !complete
+            
+            if !complete {
+                sender?.beginRefreshing()
+            }
+            else {
+                sender?.endRefreshing()
+            }
+        }
         
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
-            sender?.endRefreshing()
+            defer { complete = true }
             return self.data = .failure(.notLoggedIn)
         }
         
         YYClient.current.getComments(for: yak) { result in
+            defer { complete = true }
             self.data = result.mapError { .network($0) }
-            sender?.endRefreshing()
             
             if result.failed {
-                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
-                    self?.refresh()
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.refresh()
                 }
             }
         }
@@ -196,8 +191,8 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
             }
             
             if result.failed {
-                LoginController(host: self, client: .current).requireLogin(reset: true) { [weak self] in
-                    self?.didNearlyScrollToEnd()
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.didNearlyScrollToEnd()
                 }
             }
         }

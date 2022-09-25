@@ -73,11 +73,11 @@ class TabBarController: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        LoginController(host: self, client: .current).requireLogin {
-            self.feed.refresh()
-            self.notifications.refresh()
-            self.posts.refresh()
-            self.comments.refresh()
+        LoginController(host: self, client: .current).requireLogin { host in
+            host.feed.refresh()
+            host.notifications.refresh()
+            host.posts.refresh()
+            host.comments.refresh()
         }
     }
 }

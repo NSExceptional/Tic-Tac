@@ -143,6 +143,29 @@ extension UIApplication {
     }
 }
 
+extension UIScrollView {
+    var isAtTop: Bool {
+        return contentOffset.y <= verticalOffsetForTop
+    }
+
+    var isAtBottom: Bool {
+        return contentOffset.y >= verticalOffsetForBottom
+    }
+
+    private var verticalOffsetForTop: CGFloat {
+        let topInset = contentInset.top
+        return -topInset
+    }
+
+    private var verticalOffsetForBottom: CGFloat {
+        let scrollViewHeight = bounds.height
+        let scrollContentSizeHeight = contentSize.height
+        let bottomInset = contentInset.bottom
+        let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
+        return scrollViewBottomOffset
+    }
+}
+
 extension UITableView {
     func registerCells(_ types: [UITableViewCell.Type]) {
         for cellClass in types {
