@@ -29,6 +29,22 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
     
     private lazy var context = Context(host: self)
     
+    private var consolidateItems = true {
+        didSet {
+            guard self.data.succeeded else { return }
+            
+            // Case: filter existing notifications without refreshing
+            if consolidateItems {
+                self.data = self.consolidate(data: self.data)
+            }
+            // Case: reload all notifications to get un-consolidated list
+            else {
+                self.refreshControl?.revealAndBeginRefreshing()
+                self.refresh(self.refreshControl)
+            }
+        }
+    }
+    
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
     }
@@ -46,8 +62,9 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
             title: "Clear Unread",
             image: UIImage(systemName: "bell.badge.fill"),
             primaryAction: .init { _ in
+                // TODO: this should have some logic to guard against refreshing 4+ pages of notifs
                 self.refreshControl?.revealAndBeginRefreshing()
-                self.title = "Clearning Unread Notifications…"
+                self.title = "Clearing Unreads…"
                 
                 YYClient.current.clearUnreadNotifications { error in
                     if let error = error {
@@ -61,6 +78,23 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
                 }
             }
         )
+        
+        
+        
+        // Button to disable notification de-duping
+        func updateConsolidateButton() {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "Toggle Duplicates",
+                image: UIImage(systemName: self.consolidateItems ? "arrow.triangle.pull" : "arrow.triangle.branch"),
+                primaryAction: .init { _ in
+                    // TODO: this should have some logic to guard against refreshing 4+ pages of notifs
+                    updateConsolidateButton()
+                    self.consolidateItems = !self.consolidateItems
+                }
+            )
+        }
+        
+        updateConsolidateButton()
         
         // Database subscriptions //
         
@@ -89,7 +123,7 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         // let cursor: String? = "MjAyMi0wNS0yNCAxOTowNzo0OS40MTA3NzgrMDA6MDA="
         let cursor: String? = nil
         YYClient.current.getNotifications(after: cursor) { result in
-            self.data = result.mapError { .network($0) }
+            self.data = self.consolidateIfWanted(data: result.mapError { .network($0) })
             sender?.endRefreshing()
             
             if result.failed {
@@ -121,8 +155,8 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
             self.removeSpinnerFromTableFooter()
             
             // Append new posts
-            self.data = result.map { (self.notifications + $0.content, $0.cursor) }
-                .mapError { .network($0) }
+            let allPosts = self.data + result.mapError { .network($0) }
+            self.data = self.consolidateIfWanted(data: allPosts)
             
             if result.failed {
                 LoginController(host: self, client: .current).requireLogin(reset: true) { host in
@@ -138,6 +172,56 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         // Mark row read
         self.notifications[indexPath.row].read = true
         tableView.reloadRows(at: [indexPath], with: .none)
+    }
+}
+
+extension NotificationsViewController.DataSourceType {
+    static func +(ls: Self, rs: Self) -> Self {
+        return rs.map { newPage in
+            let existingPosts = ls.value?.content ?? []
+            let newPosts = newPage.content
+            return (existingPosts + newPosts, newPage.cursor)
+        }
+    }
+}
+extension NotificationsViewController {
+    
+    /// Used to unique a list of YYNotifications without altering existing conformances
+    struct NotifGroup: Hashable, Equatable {
+        let notification: YYNotification
+        let hash: Int
+        
+        init(notif: YYNotification) {
+            self.notification = notif
+            self.hash = notif.thingIdentifier?.hash ?? notif.identifier.hash
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(self.hash)
+        }
+        
+        static func == (lhs: NotifGroup, rhs: NotifGroup) -> Bool {
+            return lhs.hash == rhs.hash
+        }
+    }
+    
+    func consolidateIfWanted(data: DataSourceType) -> DataSourceType {
+        if self.consolidateItems {
+            return self.consolidate(data: data)
+        }
+        
+        return data
+    }
+    
+    func consolidate(data: DataSourceType) -> DataSourceType {
+        return data.map {
+            let flattened = $0.content
+                .map { NotifGroup(notif: $0) }
+                .uniqued()
+                .map(\.notification)
+            
+            return (flattened, $0.cursor)
+        }
     }
 }
 

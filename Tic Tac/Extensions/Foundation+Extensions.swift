@@ -123,3 +123,28 @@ class Defaults {
         }
     }
 }
+
+extension Sequence where Iterator.Element: Hashable {
+    func uniqued() -> [Iterator.Element] {
+        var seen: Set<Iterator.Element> = []
+        return filter {
+            let didInsert = seen.insert($0).inserted
+            return didInsert
+        }
+    }
+}
+
+extension Optional {
+    static func +<T>(ls: [T]?, rs: [T]?) -> [T] {
+        switch (ls, rs) {
+            case (.none, .none):
+                return []
+            case (.some(let a), .none):
+                return a
+            case (.none, .some(let a)):
+                return a
+            case (.some(let a), .some(let b)):
+                return a + b
+        }
+    }
+}
