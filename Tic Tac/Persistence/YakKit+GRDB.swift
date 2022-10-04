@@ -28,7 +28,7 @@ class YYStoredVotable: Entity {
         self.text = votable.text
         self.userId = votable.authorIdentifier
         
-        self.emoji = votable.emoji
+        self.emoji = votable.emoji ?? ""
         self.userColor = votable.colorHex
         self.secondaryUserColor = votable.colorSecondaryHex
         self.createdAt = votable.created

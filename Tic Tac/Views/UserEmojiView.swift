@@ -27,7 +27,7 @@ class UserEmojiView: AutoLayoutView {
     }
     
     func set(emoji: String?, colors: (String, String)) {
-        self.label.text = emoji ?? "?"
+        self.label.text = emoji //?? "?"
         self.gradient.colors = [colors.0, colors.1].map { UIColor(hex: $0).cgColor }
     }
     

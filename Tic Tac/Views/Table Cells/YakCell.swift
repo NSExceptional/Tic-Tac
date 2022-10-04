@@ -206,8 +206,9 @@ class YakView: AutoLayoutView {
         }
         
         let userTag = UserTag.with(userID: votable.authorIdentifier)
+        userTag?.trackEmoji(votable.emoji)
         
-        self.emoji.set(emoji: votable.emoji, colors: votable.gradient)
+        self.emoji.set(emoji: votable.emoji ?? userTag?.recentEmoji, colors: votable.gradient)
         self.title.text = votable.text
         self.setSubtitles(tag: userTag, location: votable.locationName)
         self.updateMetadataText(with: votable, client)
