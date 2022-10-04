@@ -78,6 +78,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             callback?(location)
         }
         else {
+            shared.updatingLocation = true
             shared.permission.startUpdatingLocation()
         }
     }
