@@ -53,7 +53,7 @@ class UserTagController {
             try! Container.shared.insert(newUser: tag)
         }
         else {
-            try! Container.shared.update(user: tag)
+            try! Container.shared.update(tag)
         }
     }
     

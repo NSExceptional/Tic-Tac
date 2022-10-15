@@ -95,7 +95,7 @@ class UserTag: Entity {
         }
         
         if self.id != nil {
-            try! Container.shared.update(user: self)
+            try! Container.shared.update(self)
         }
     }
 }

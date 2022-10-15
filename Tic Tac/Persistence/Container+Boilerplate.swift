@@ -20,11 +20,6 @@ extension Container {
         try self.insert(newUser, notify: notify)
     }
     
-    func update(user newUser: UserTag) throws {
-        precondition(newUser.id != nil)
-        try self.update(newUser)
-    }
-    
     func ensureUserExists(_ identifier: String, latestEmoji: String?) {
         if self.user(with: identifier) != nil {
             return

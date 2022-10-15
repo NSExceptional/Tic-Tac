@@ -140,6 +140,8 @@ extension Container {
     
     @discardableResult
     func update<T: Entity>(_ record: T, notify: Bool = true) throws -> T {
+        precondition(record.id != nil)
+        
         try self.q.write { db in
             try record.update(db)
         }
@@ -155,6 +157,7 @@ extension Container {
     @discardableResult
     func update<N: Entity>(_ record: Entity?, notifier: N) throws -> Entity? {
         guard let record = record else { return nil }
+        precondition(record.id != nil)
         
         try self.q.write { db in
             try record.bugFix?.update(db)
@@ -203,6 +206,8 @@ extension Container {
     
     @discardableResult
     func delete<T: Entity>(_ record: T, notify: Bool = true) throws -> Bool {
+        precondition(record.id != nil)
+        
         defer {
             if notify {
                 self.notifySubscribers(of: .delete([record]))
