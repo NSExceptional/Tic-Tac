@@ -63,6 +63,7 @@ extension Container {
         
         .required("createdAt", .datetime),
         .required("text", .text),
+        // TODO: nullable
         .required("emoji", .text),
         .required("userColor", .text),
         .required("secondaryUserColor", .text),
