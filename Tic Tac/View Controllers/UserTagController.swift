@@ -14,8 +14,6 @@ class UserTagController {
         self.userIdentifier = userIdentifier
         self.currentEmoji = emoji
         self.tag = UserTag.with(userID: userIdentifier)
-        
-        self.tag?.trackEmoji(emoji)
     }
     
     let userIdentifier: String
@@ -80,11 +78,30 @@ class UserTagController {
                 self.saveMetadata(gender: .female)
             }
             
-            make.button("Clear Party/Gender").destructiveStyle().handler { strings in
-                self.saveMetadata(party: .unknown, gender: .unknown)
+            if self.tag != nil {
+                make.button("More…").handler { _ in self.moreMenu() }
             }
             
             make.button("Dismiss").preferred()
+        }
+    }
+    
+    private func moreMenu() {
+        precondition(self.tag != nil)
+        
+        self.showAlert { make in
+            make.title(self.currentEmoji ?? "[no emoji]")
+                .message(self.userIdentifier)
+                .message("\n\n")
+                .message(self.tag?.longDescription ?? "Untagged user")
+            
+            make.button("Un-Tag User").destructiveStyle().handler { _ in self.deleteUserTag() }
+            make.button("Edit Known Emojis").handler { _ in self.setEmojis() }
+            make.button("Clear Party/Gender").handler { strings in
+                self.saveMetadata(party: .unknown, gender: .unknown)
+            }
+            
+            self.navigationButtons(make)
         }
     }
     
@@ -98,12 +115,39 @@ class UserTagController {
             
             make.button("Save Tag").preferred().handler { strings in
                 let currentTag = self.tag
+                let tagText = strings.first ?? ""
                 
                 let newTag = UserTag(
                     gender: currentTag?.gender,
                     party: currentTag?.party,
-                    text: strings.first,
+                    text: tagText.isEmpty ? nil : tagText,
                     emoji: self.currentEmoji
+                )
+                
+                newTag.id = self.userIdentifier
+                self.saveOrUpdate(newTag, insert: currentTag == nil)
+            }
+            
+            self.navigationButtons(make)
+        }
+    }
+    
+    private func setEmojis() {
+        self.showAlert { make in
+            make.title("Edit Known Emojis")
+            make.configuredTextField { field in
+                field.autocorrectionType = .no
+                field.text = self.tag?.pastEmojis
+            }
+            
+            make.button("Save").preferred().handler { strings in
+                let currentTag = self.tag
+                
+                let newTag = UserTag(
+                    gender: currentTag?.gender,
+                    party: currentTag?.party,
+                    text: currentTag?.text,
+                    emoji: strings.first!
                 )
                 
                 newTag.id = self.userIdentifier
@@ -126,5 +170,9 @@ class UserTagController {
         
         newTag.id = self.userIdentifier
         self.saveOrUpdate(newTag, insert: currentTag == nil)
+    }
+    
+    private func deleteUserTag() {
+        try! Container.shared.delete(self.tag!)
     }
 }
