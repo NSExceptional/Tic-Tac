@@ -12,6 +12,16 @@ typealias Page<T> = (content: [T], cursor: String?)
 typealias Callback<T> = (Result<T, Error>) -> Void
 
 extension YYClient {
+    public enum Feed: String {
+        public enum Sort: String {
+            case new = "NEW", hot = "HOT", top = "TOP"
+            static var all: [Sort] { [.new, .hot, .top] }
+        }
+        
+        case local = "LOCAL", nationwide = "NATIONWIDE"
+        static var all: [Feed] { [.local, .nationwide] }
+    }
+    
     private func convertToResult<T>(_ array: [Any]?, _ error: Error?) -> Result<[T], Error> {
         switch (array, error) {
             case (.some(let array), nil):
@@ -57,7 +67,18 @@ extension YYClient {
         }
     }
     
-    func getLocalYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
+    func getLocalYaks(after yak: String? = nil, sort: Feed.Sort = .new, completion: @escaping Callback<Page<YYYak>>) {
+        switch sort {
+            case .new:
+                self.getLocalNewYaks(after: yak, completion: completion)
+            case .hot:
+                self.getLocalHotYaks(after: yak, completion: completion)
+            case .top:
+                self.getLocalTopYaks(after: yak, completion: completion)
+        }
+    }
+    
+    func getLocalNewYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
         self.objc_getLocalYaks(after: yak) { (a, c, e) in
             completion(self.convertToResult(page: (a, c), e))
         }
