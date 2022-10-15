@@ -102,6 +102,12 @@ extension YYClient {
         }
     }
     
+    func post(yak title: String, anonymously: Bool = true, completion: @escaping Callback<YYYak>) {
+        self.objc_postYak(title, anonymously) { obj, error in
+            completion(self.convertToResult(obj, error))
+        }
+    }
+    
     func post(comment: String, to yak: YYYak, completion: @escaping Callback<YYComment>) {
         self.objc_postComment(comment, to: yak) { obj, error in
             completion(self.convertToResult(obj, error))

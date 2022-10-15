@@ -47,16 +47,12 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         self.emptyMessage = "No Yaks"
         self.tableView.separatorInset = .zero
         
-        // Feed sort picker //
-        let setSort: UIActionHandler = { [weak self] (_ action: UIAction) in
-            self?.sort = FeedSort(rawValue: action.title.lowercased())!
-        }
-        
-        let segmentActions: [UIAction] = [
-            .init(title: "Hot", handler: setSort),
-            .init(title: "New", handler: setSort),
-            .init(title: "Top", handler: setSort),
-        ]
+        // Compose button
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Compose",
+            image: UIImage(systemName: "square.and.pencil"),
+            primaryAction: .init { _ in self.composeYak() }
+        )
         
         let control = UISegmentedControl(frame: .zero, actions: segmentActions)
         control.selectedSegmentIndex = 1
@@ -146,6 +142,36 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
                     host.didNearlyScrollToEnd()
                 }
             }
+        }
+    }
+}
+
+// MARK: Composition
+extension HerdViewController {
+    func composeYak() {
+        let composer = ComposeViewController { text, completion in
+            YYClient.current.post(yak: text) { result in
+                switch result {
+                    case .success(let yak):
+                        self.prependYak(yak)
+                        completion(nil)
+                    case .failure(let error):
+                        completion(error)
+                }
+            }
+        }
+        
+        self.present(UINavigationController(rootViewController: composer), animated: true)
+    }
+    
+    private func prependYak(_ yak: YYYak) {
+        switch self.data {
+            case .success(var page):
+                page.content.insert(yak, at: 0)
+                self.data = .success(page)
+                // self.tableView.scroll(to: 0)
+            default:
+                break
         }
     }
 }
