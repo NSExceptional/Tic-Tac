@@ -79,8 +79,6 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
             }
         )
         
-        
-        
         // Button to disable notification de-duping
         func updateConsolidateButton() {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(
