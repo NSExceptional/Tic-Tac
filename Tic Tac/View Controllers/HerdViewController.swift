@@ -9,6 +9,8 @@ import UIKit
 import YakKit
 
 class HerdViewController: FilteringTableViewController<YYYak, HerdViewController.FeedError> {
+    typealias FeedSort = YYClient.Feed.Sort
+    
     enum FeedError: LocalizedError {
         case noYaks, loading, notLoggedIn
         case network(Error)
@@ -27,17 +29,36 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         }
     }
     
-    enum FeedSort: String {
-        case new, hot, top
-    }
+    // MARK: Properties
     
     private lazy var context = Context(host: self)
     
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
     }
+    
+    private lazy var sortSetters: [UIAction] = FeedSort.all.map { [unowned self] sort in
+        sort.action { _ in self.sort = sort }
+    }
     private var sort: FeedSort = .new {
-        didSet { self.refresh() }
+        didSet {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "Sort",
+                image: UIImage(systemName: self.sort.symbol),
+                menu: .init(children: self.sortSetters)
+            )
+            
+            if YYClient.current.isLoggedIn {
+                self.refresh()
+            }
+        }
+    }
+    
+    // MARK: Overrides
+    
+    override var loadingNextPage: Bool {
+        get { return self.dataIsLoading || super.loadingNextPage }
+        set { super.loadingNextPage = newValue }
     }
     
     override func viewDidLoad() {
@@ -54,9 +75,8 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
             primaryAction: .init { _ in self.composeYak() }
         )
         
-        let control = UISegmentedControl(frame: .zero, actions: segmentActions)
-        control.selectedSegmentIndex = 1
-        self.navigationItem.titleView = control
+        // Trigger configuration of sort button
+        self.sort = .new
         
         // Database subscriptions //
         
@@ -72,6 +92,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
     }
     
     override func refresh(_ sender: UIRefreshControl? = nil) {
+        // Single switch to toggle loading and refreshing
         @Effect var complete = false
         $complete.didSet = {
             self.loadingNextPage = !complete
@@ -85,12 +106,12 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         }
         
         // Ensure logged in
-        guard YYClient.current.authToken != nil else {
+        guard YYClient.current.isLoggedIn else {
             defer { complete = true }
             return self.data = .failure(.notLoggedIn)
         }
         
-        YYClient.current.getLocalYaks { result in
+        YYClient.current.getLocalYaks(sort: self.sort) { result in
             defer { complete = true }
             self.data = result.mapError { .network($0) }
             
@@ -125,7 +146,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
             return self.data = .failure(.notLoggedIn)
         }
         
-        YYClient.current.getLocalYaks(after: lastYak) { result in
+        YYClient.current.getLocalYaks(after: lastYak, sort: self.sort) { result in
             defer { complete = true }
             
             if case .failure(let error) = result {
@@ -176,6 +197,23 @@ extension HerdViewController {
     }
 }
 
+// MARK: Sorting
+extension HerdViewController.FeedSort {
+    var symbol: String {
+        switch self {
+            case .new: return "sparkles"
+            case .hot: return "flame"
+            case .top: return "crown.fill"
+        }
+    }
+    
+    func action(withHandler action: @escaping UIActionHandler) -> UIAction {
+        let image = UIImage(systemName: self.symbol)
+        return .init(title: self.rawValue.capitalized, image: image, handler: action)
+    }
+}
+
+// MARK: Convenience Accessors
 extension HerdViewController {
     var posts: [YYYak] {
         switch self.data {
@@ -192,6 +230,21 @@ extension HerdViewController {
                 return page.cursor
             default:
                 return nil
+        }
+    }
+    
+    /// Whether self.data == .failure(.loading)
+    var dataIsLoading: Bool {
+        switch self.data {
+            case .failure(let error):
+                switch error {
+                    case .loading:
+                        return true
+                    default:
+                        return false
+                }
+            default:
+                return false
         }
     }
 }
