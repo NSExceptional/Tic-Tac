@@ -12,18 +12,23 @@ import UIKit
 import SwiftUI
 import YakKit
 
+extension CGRect {
+    static let medium: CGRect = .init(x: 0, y: 0, width: 375, height: 375)
+}
+
 @available(iOS 13.0, *)
 struct TicTacPreviews: PreviewProvider {
-    static let yak = PreviewData.yak()
-    static let context = PreviewData.context(origin: .userProfile)
+    typealias TargetType = MapViewController
+//    static let yak = PreviewData.yak()
+//    static let context = PreviewData.context(origin: .userProfile)
     
-    static var target = YakCell()
+    static var target = TargetType()
     
     static func configure() {
-        target.configure(with: yak, context: context)
+//        target.configure(with: yak, context: context)
     }
     
-    static var configuredTarget: UIView {
+    static var configuredTarget: TargetType {
         self.configure()
         return self.target
     }

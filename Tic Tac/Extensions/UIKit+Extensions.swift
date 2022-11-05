@@ -192,6 +192,11 @@ extension UITableView {
 }
 
 extension UIView {
+    convenience init(color: UIColor) {
+        self.init()
+        self.backgroundColor = color
+    }
+    
     func pinEdges(to view: UIView, insets i: UIEdgeInsets = .zero) {
         NSLayoutConstraint.activate([
             self.topAnchor.constraint(equalTo: view.topAnchor, constant: i.top),
