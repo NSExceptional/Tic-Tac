@@ -36,6 +36,7 @@
 		C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C51628A61E3E001E329A /* ProfilesViewController.swift */; };
 		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
 		C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384AC6228BDA98B00401E0F /* PreviewData.swift */; };
+		C3A3EF9028FB2A18004E4911 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EF8F28FB2A18004E4911 /* CardView.swift */; };
 		C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A75B2328AA0562007CD052 /* MapViewController.swift */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
 		C3A7DF852864B6E900CB529F /* CommentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */; };
@@ -125,6 +126,8 @@
 		C365C52028A6E646001E329A /* FIRAuthKeychainServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FIRAuthKeychainServices.h; sourceTree = "<group>"; };
 		C365C52328A6F253001E329A /* UserAccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountStore.swift; sourceTree = "<group>"; };
 		C384AC6228BDA98B00401E0F /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
+		C3A3EF8E28FA5675004E4911 /* Apple-SPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Apple-SPI.h"; sourceTree = "<group>"; };
+		C3A3EF8F28FB2A18004E4911 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		C3A75B2328AA0562007CD052 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C3A7DF8128639E4800CB529F /* FeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		C3A7DF842864B6E900CB529F /* CommentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataSource.swift; sourceTree = "<group>"; };
@@ -254,6 +257,7 @@
 				C3F6EB42286A69FF0066B9FD /* Tic Tac.entitlements */,
 				C3F6EB41286A69FF0066B9FD /* GoogleService-Info.plist */,
 				C34064482863973A007B46D3 /* Bridging-Header.h */,
+				C3A3EF8E28FA5675004E4911 /* Apple-SPI.h */,
 				C365C51D28A628CA001E329A /* Firebase-Private.h */,
 				C365C52028A6E646001E329A /* FIRAuthKeychainServices.h */,
 				C365C51A28A62438001E329A /* FIRAuthStoredUserManager.h */,
@@ -328,6 +332,7 @@
 				C3F6EB18286967CA0066B9FD /* CommentsHeaderView.swift */,
 				C304156C28666D9900BC858C /* UserEmojiView.swift */,
 				C351060728BDE305007B0F22 /* SpinnerFooterView.swift */,
+				C3A3EF8F28FB2A18004E4911 /* CardView.swift */,
 				C3F6EB2F286984920066B9FD /* Controls */,
 				C3F6EB322869849B0066B9FD /* Table Cells */,
 			);
@@ -603,6 +608,7 @@
 				C3A7DFB52864F75900CB529F /* Promise.swift in Sources */,
 				C347664A28B4B4E700235EC5 /* UserTags.swift in Sources */,
 				C340642128580B69007B46D3 /* TTTableViewController.swift in Sources */,
+				C3A3EF9028FB2A18004E4911 /* CardView.swift in Sources */,
 				C340642028580B69007B46D3 /* FilteringTableViewController.swift in Sources */,
 				C340642B28580FF9007B46D3 /* TableViewSection.swift in Sources */,
 				C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */,

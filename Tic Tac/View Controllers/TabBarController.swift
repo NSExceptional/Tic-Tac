@@ -19,10 +19,12 @@ class TabBarController: UITabBarController {
 //        case profile = 3
         
         case myYaks = 2, myComments = 3
+        case locations = 4
     }
     
     private lazy var feed: HerdViewController = .init()
     private lazy var notifications: NotificationsViewController = .init()
+    private lazy var locations: MapViewController = .init()
     
     private lazy var posts: MyPostsViewController = .init(title: "My Yaks") { callback in
         YYClient.current.getMyRecentYaks(completion: callback)
@@ -48,6 +50,7 @@ class TabBarController: UITabBarController {
         self.viewControllers = [
             self.feed, self.notifications,
             self.posts, self.comments,
+            self.locations,
 //            UIViewController.inNavigation(),
 //            TTProfileViewController.inNavigation()
         ].map { UINavigationController(rootViewController: $0) }
@@ -59,6 +62,7 @@ class TabBarController: UITabBarController {
             ("signpost.right.fill", "Posts"),
             ("quote.bubble.fill", "Comments"),
             
+            ("map.fill", "Locations"),
             ("message.fill", "Chat"),
             ("person.crop.circle", "Profile"),
             ("gear", "Settings"),
@@ -66,6 +70,7 @@ class TabBarController: UITabBarController {
 
         for (tab, item) in zip(tabs, self.tabBar.items!) {
             item.image = UIImage(systemName: tab.image)
+//            item.selectedImage = UIImage(systemName: "\(tab.image).fill")
             item.title = tab.title
         }
     }
