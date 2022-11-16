@@ -7,7 +7,8 @@
 
 import UIKit
 
-struct PlistCoordinator<T: Codable> {
+@objcMembers
+class PlistCoordinator<T: Codable> {
     enum Location {
         case documents
         case library
@@ -48,7 +49,8 @@ struct PlistCoordinator<T: Codable> {
         self.filePath = location.path(with: filename)
     }
     
-    mutating func getValue() -> T {
+    /// Get the last-read (or last-written) data
+    func getValue() -> T {
         if let value = self.value {
             return value
         }
@@ -56,7 +58,8 @@ struct PlistCoordinator<T: Codable> {
         return self.read()
     }
     
-    mutating func read() -> T {
+    /// Read the latest data from disk
+    func read() -> T {
         self.value = nil
         
         if let data = try? Data(contentsOfFile: self.filePath) {
@@ -70,7 +73,7 @@ struct PlistCoordinator<T: Codable> {
         return self.defaultValue
     }
     
-    mutating func write(_ value: T) throws {
+    func write(_ value: T) throws {
         self.value = value
         let data = try PropertyListEncoder().encode(value)
         try data.writeToFile(self.filePath)
