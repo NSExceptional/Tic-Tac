@@ -28,6 +28,16 @@ extension Date {
 }
 
 extension Data {
+    init(contentsOfFile path: String) throws {
+        let url = URL(fileURLWithPath: path)
+        self = try .init(contentsOf: url)
+    }
+    
+    func writeToFile(_ path: String) throws {
+        let url = URL(fileURLWithPath: path)
+        try self.write(to: url, options: [.atomic])
+    }
+    
     func read<T>() -> T {
         return self.withUnsafeBytes { ptr -> T in
             return ptr.load(as: T.self)
