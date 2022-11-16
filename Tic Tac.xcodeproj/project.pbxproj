@@ -35,6 +35,7 @@
 		C351060828BDE305007B0F22 /* SpinnerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C351060728BDE305007B0F22 /* SpinnerFooterView.swift */; };
 		C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C51628A61E3E001E329A /* ProfilesViewController.swift */; };
 		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
+		C36CB57129187DD900DCAE08 /* PlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB57029187DD900DCAE08 /* PlistCoordinator.swift */; };
 		C36CB578291EC91700DCAE08 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB577291EC91700DCAE08 /* Defaults.swift */; };
 		C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384AC6228BDA98B00401E0F /* PreviewData.swift */; };
 		C3A3EF9028FB2A18004E4911 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EF8F28FB2A18004E4911 /* CardView.swift */; };
@@ -126,6 +127,7 @@
 		C365C51D28A628CA001E329A /* Firebase-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebase-Private.h"; sourceTree = "<group>"; };
 		C365C52028A6E646001E329A /* FIRAuthKeychainServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FIRAuthKeychainServices.h; sourceTree = "<group>"; };
 		C365C52328A6F253001E329A /* UserAccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountStore.swift; sourceTree = "<group>"; };
+		C36CB57029187DD900DCAE08 /* PlistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistCoordinator.swift; sourceTree = "<group>"; };
 		C36CB577291EC91700DCAE08 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		C384AC6228BDA98B00401E0F /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		C3A3EF8E28FA5675004E4911 /* Apple-SPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Apple-SPI.h"; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				C347664928B4B4E700235EC5 /* UserTags.swift */,
 				C3CDAD1C28C4220D00A93BD6 /* YakKit+GRDB.swift */,
 				C3CDAD2628C4291000A93BD6 /* Container+Boilerplate.swift */,
+				C36CB57029187DD900DCAE08 /* PlistCoordinator.swift */,
 				C36CB577291EC91700DCAE08 /* Defaults.swift */,
 			);
 			path = Persistence;
@@ -620,6 +623,7 @@
 				C3CDAD1D28C4220D00A93BD6 /* YakKit+GRDB.swift in Sources */,
 				C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */,
 				C340642628580F5F007B46D3 /* ScopeCarousel.swift in Sources */,
+				C36CB57129187DD900DCAE08 /* PlistCoordinator.swift in Sources */,
 				C3CDAD0F28C41CD300A93BD6 /* Container.swift in Sources */,
 				C3CDAD1628C41D5600A93BD6 /* Entity.swift in Sources */,
 				C3D6060C28C7F4780076DCF9 /* FLEX-Plugins.m in Sources */,
