@@ -121,7 +121,7 @@ class UserTagController {
                     gender: currentTag?.gender,
                     party: currentTag?.party,
                     text: tagText.isEmpty ? nil : tagText,
-                    emoji: self.currentEmoji
+                    emoji: currentTag?.pastEmojis ?? self.currentEmoji
                 )
                 
                 newTag.id = self.userIdentifier
@@ -165,7 +165,7 @@ class UserTagController {
             gender: gender ?? currentTag?.gender,
             party: party ?? currentTag?.party,
             text: currentTag?.text,
-            emoji: self.currentEmoji
+            emoji: currentTag?.pastEmojis ?? self.currentEmoji
         )
         
         newTag.id = self.userIdentifier
