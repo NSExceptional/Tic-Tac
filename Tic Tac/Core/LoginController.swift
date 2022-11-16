@@ -57,7 +57,7 @@ struct LoginController<T: UIViewController> {
         
         if reset {
             self.client.authToken = nil
-            Defaults.standard.authToken = nil
+            UserDefaultsStore.standard.authToken = nil
         }
         
         // Require location first
@@ -123,7 +123,7 @@ struct LoginController<T: UIViewController> {
                     self.promptForAuthToken()
                 } else {
                     self.client.authToken = UIPasteboard.general.string
-                    Defaults.standard.authToken = self.client.authToken
+                    UserDefaultsStore.standard.authToken = self.client.authToken
                     self.didSignIn()
                 }
             }

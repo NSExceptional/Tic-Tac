@@ -89,41 +89,6 @@ extension FileManager {
     }
 }
 
-@dynamicMemberLookup
-class Defaults {
-    private static let std = UserDefaults.standard
-    static let standard: Defaults = .init()
-    
-    private init() { }
-    
-    subscript(dynamicMember member: String) -> String? {
-        get {
-            return Self.std.string(forKey: member)
-        }
-        set {
-            Self.std.set(newValue, forKey: member)
-        }
-    }
-    
-    subscript(dynamicMember member: String) -> Bool {
-        get {
-            return Self.std.bool(forKey: member)
-        }
-        set {
-            Self.std.set(newValue, forKey: member)
-        }
-    }
-    
-    subscript(dynamicMember member: String) -> Int {
-        get {
-            return Self.std.integer(forKey: member)
-        }
-        set {
-            Self.std.set(newValue, forKey: member)
-        }
-    }
-}
-
 extension Sequence where Iterator.Element: Hashable {
     func uniqued() -> [Iterator.Element] {
         var seen: Set<Iterator.Element> = []
