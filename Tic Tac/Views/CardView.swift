@@ -48,6 +48,8 @@ class CardView: UIView {
         self.transition(to: self.detents.last!)
     }
     
+    public private(set) var contentView: UIView = .init()
+    
     // MARK: Initialization
     
     required init?(coder: NSCoder) { fatalError("") }
@@ -74,6 +76,7 @@ class CardView: UIView {
         self.addSubview(self.grabber)
         self.addSubview(self.hairline)
         self.addSubview(self.titleLabel)
+        self.addSubview(self.contentView)
         
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:))))
     }
@@ -179,7 +182,6 @@ class CardView: UIView {
         )
         
         return dy
-//        return dy + self.maxHeightRect.minY
     }
     
     // MARK: AutoLayout
@@ -194,7 +196,6 @@ class CardView: UIView {
         
         let titleInsets = UIEdgeInsets(vertical: 16, horizontal: 18)
         self.titleLabel.snp.makeConstraints { make in
-//            make.top.equalTo(self.grabber.snp.bottom).offset(titleInsets.top)
             make.leading.trailing.top.equalToSuperview().inset(titleInsets)
         }
         
@@ -202,6 +203,11 @@ class CardView: UIView {
             make.height.equalTo(1 / UIScreen.main.scale)
             make.width.equalToSuperview()
             make.top.equalTo(self.titleLabel.snp.bottom).offset(titleInsets.bottom)
+        }
+        
+        self.contentView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(hairline.snp.bottom)
         }
         
         super.updateConstraints()

@@ -58,17 +58,15 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        self.authorizationCallback?(self.accessGranted)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else { return }
-        Self.shared.locationUpdateCallback?(location)
-    }
+    static var locationType: UserLocation = .current
     
     static var location: CLLocation {
-        return shared.permission.location!
+        switch self.locationType {
+            case .current:
+                return shared.permission.location!
+            case .override(let location):
+                return .init(location.location.coordinate)
+        }
     }
     
     static func observeLocation(callback: ((_ latestLocation: CLLocation) -> Void)?) {
@@ -81,6 +79,17 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             shared.updatingLocation = true
             shared.permission.startUpdatingLocation()
         }
+    }
+    
+    // MARK: Delegate methods
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        self.authorizationCallback?(self.accessGranted)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
+        Self.shared.locationUpdateCallback?(location)
     }
 }
 
