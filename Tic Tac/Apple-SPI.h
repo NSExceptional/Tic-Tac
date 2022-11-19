@@ -25,10 +25,10 @@ typedef CGFloat (^UISheetDetentResolver)(UIView * _Nonnull, CGRect, BOOL);
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, UISheetDetentIdentifier) {
-    UISheetDetentLarge = 1,
+    UISheetDetentCustom = 0,
+    UISheetDetentLarge,
     UISheetDetentMedium,
     UISheetDetentConstant,
-    UISheetDetentCustom,
 };
 
 NS_SWIFT_NAME(UISheetDetent)
@@ -40,9 +40,9 @@ NS_SWIFT_NAME(UISheetDetent)
 + (instancetype)_constantDetent:(CGFloat)constant NS_SWIFT_NAME(constant(_:));
 + (instancetype)_detentWithContainerViewBlock:(UISheetDetentResolver)block NS_SWIFT_NAME(custom(_:));
 
-@property (nonatomic, readonly) NSInteger _identifier;
-@property (nonatomic, readonly) UISheetDetentResolver _internalBlock;
-@property (nonatomic, readonly) CGFloat _constant;
+@property (nonatomic, readonly) UISheetDetentIdentifier _identifier NS_SWIFT_NAME(identifier);
+@property (nonatomic, readonly) UISheetDetentResolver _internalBlock NS_SWIFT_NAME(block);
+@property (nonatomic, readonly) CGFloat _constant NS_SWIFT_NAME(constant);
 
 - (CGFloat)_resolvedOffsetInContainerView:(UIView *)view
            fullHeightFrameOfPresentedView:(CGRect)presentedFrame
