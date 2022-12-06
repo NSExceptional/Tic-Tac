@@ -23,10 +23,12 @@
 
 void TTRegisterFirebaseConsole();
 void TTRegisterChangeEmoji();
+void TTRegisterCopyAuthToken();
 
 @ctor {
     TTRegisterFirebaseConsole();
     TTRegisterChangeEmoji();
+    TTRegisterCopyAuthToken();
 }
 
 void TTFIRGetData(NSString *documentPath, void (^callback)(FIRDocumentSnapshot *document, NSError *error)) {
@@ -140,5 +142,11 @@ void TTRegisterChangeEmoji() {
             });
             make.button(@"Cancel").cancelStyle();
         } showFrom:host];
+    }];
+}
+
+void TTRegisterCopyAuthToken() {
+    [FLEXManager.sharedManager registerGlobalEntryWithName:@"Copy Auth Token" action:^(UITableViewController *host) {
+        UIPasteboard.generalPasteboard.string = YYClient.current.authToken;
     }];
 }
