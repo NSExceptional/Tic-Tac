@@ -390,7 +390,13 @@ class TTTableViewController: UITableViewController, UISearchResultsUpdating,
         
     }
     
+    func showRefreshControlAndRefresh() {
+        guard !self.refreshControl!.isRefreshing else { return }
+        self.refreshControl?.revealAndBeginRefreshing()
+        self.refresh(self.refreshControl)
+    }
+    
     private var refreshHandler: UIAction {
-        return .init { [weak self] _ in self?.refresh(self?.refreshControl) }
+        return .init { [unowned self] _ in self.refresh(self.refreshControl) }
     }
 }

@@ -48,7 +48,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     private lazy var header = CommentsHeaderView
-        .withCommentHandler(self.addCommentPressed)
+        .withCommentHandler { [unowned self] in self.addCommentPressed() }
         .scrollDownButtonAction { [unowned self] in
             self.tableView.scroll(to: self.comments.count-1)
         }

@@ -38,14 +38,15 @@ class TabBarController: UITabBarController {
     
     private var ready: Bool = false
     
-    fileprivate var currentNavigation: UINavigationController {
-        return self.selectedViewController as! UINavigationController
+    fileprivate var currentNavigation: TTNavigationController {
+        return self.selectedViewController as! TTNavigationController
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.modalPresentationStyle = .fullScreen
+        self.delegate = self
 
         self.viewControllers = [
             self.feed, self.notifications,
@@ -53,7 +54,7 @@ class TabBarController: UITabBarController {
             self.locations,
 //            UIViewController.inNavigation(),
 //            TTProfileViewController.inNavigation()
-        ].map { UINavigationController(rootViewController: $0) }
+        ].map { TTNavigationController(rootViewController: $0) }
 
         let tabs: [(image: String, title: String)] = [
             ("newspaper.fill", "Herd"),
@@ -70,7 +71,7 @@ class TabBarController: UITabBarController {
 
         for (tab, item) in zip(tabs, self.tabBar.items!) {
             item.image = UIImage(systemName: tab.image)
-//            item.selectedImage = UIImage(systemName: "\(tab.image).fill")
+            // item.selectedImage = UIImage(systemName: "\(tab.image).fill")
             item.title = tab.title
         }
     }
@@ -87,8 +88,8 @@ class TabBarController: UITabBarController {
     }
 }
 
-extension TabBarController {
-    func focusTab(_ tab: TabBarController.Tab, then doSomething: ((UINavigationController) -> Void)? = nil) {
+extension TabBarController: UITabBarControllerDelegate {
+    func focusTab(_ tab: TabBarController.Tab, then doSomething: ((TTNavigationController) -> Void)? = nil) {
         self.selectedIndex = tab.rawValue
         
         doSomething?(self.currentNavigation)
