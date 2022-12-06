@@ -130,19 +130,19 @@ _logos_method$_ungrouped$_UISheetPresentationController$initWithPresentedViewCon
   return self;
 }
 
-static __attribute__((constructor)) void _logosLocalInit() {
-  {
-    Class _logos_class$_ungrouped$_UISheetPresentationController =
-        objc_getClass("_UISheetPresentationController");
-    _logos_superclass$_ungrouped$_UISheetPresentationController =
-        class_getSuperclass(
-            _logos_class$_ungrouped$_UISheetPresentationController);
-    {
-      _logos_register_hook(
-          _logos_class$_ungrouped$_UISheetPresentationController,
-          @selector(initWithPresentedViewController:presentingViewController:),
-          (IMP)&_logos_method$_ungrouped$_UISheetPresentationController$initWithPresentedViewController$presentingViewController$,
-          (IMP *)&_logos_orig$_ungrouped$_UISheetPresentationController$initWithPresentedViewController$presentingViewController$);
-    }
-  }
-}
+//static __attribute__((constructor)) void _logosLocalInit() {
+//  {
+//    Class _logos_class$_ungrouped$_UISheetPresentationController =
+//        objc_getClass("_UISheetPresentationController");
+//    _logos_superclass$_ungrouped$_UISheetPresentationController =
+//        class_getSuperclass(
+//            _logos_class$_ungrouped$_UISheetPresentationController);
+//    {
+//      _logos_register_hook(
+//          _logos_class$_ungrouped$_UISheetPresentationController,
+//          @selector(initWithPresentedViewController:presentingViewController:),
+//          (IMP)&_logos_method$_ungrouped$_UISheetPresentationController$initWithPresentedViewController$presentingViewController$,
+//          (IMP *)&_logos_orig$_ungrouped$_UISheetPresentationController$initWithPresentedViewController$presentingViewController$);
+//    }
+//  }
+//}
