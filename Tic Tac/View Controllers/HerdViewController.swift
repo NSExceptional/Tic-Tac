@@ -37,20 +37,51 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         didSet { self.reloadData() }
     }
     
+    private var locationSetters: [UIAction] {
+        LocationManager.favorites.map { [unowned self] location in
+            location.action { _ in
+                LocationManager.locationType = .override(location)
+                
+                self.title = location.name
+                self.reloadBarItems(refresh: true)
+            }
+        }
+    }
+    
     private lazy var sortSetters: [UIAction] = FeedSort.all.map { [unowned self] sort in
         sort.action { _ in self.sort = sort }
     }
     private var sort: FeedSort = .new {
         didSet {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-                title: "Sort",
-                image: UIImage(systemName: self.sort.symbol),
-                menu: .init(children: self.sortSetters)
-            )
-            
-            if YYClient.current.isLoggedIn {
-                self.refresh()
-            }
+            self.reloadBarItems(refresh: true)
+        }
+    }
+    
+    /// Different icon depending on sort type
+    private var sortBarItem: UIBarButtonItem {
+        UIBarButtonItem(
+            title: "Sort",
+            image: .symbol(self.sort.symbol),
+            menu: .init(children: self.sortSetters)
+        )
+    }
+    
+    /// This is either the "user location" symbol or a map pin
+    private var locationBarItem: UIBarButtonItem {
+        UIBarButtonItem(
+            title: "Location",
+            image: .symbol(LocationManager.locationType == .current ? "location.fill" : "mappin.and.ellipse"),
+            menu: .init(children: self.locationSetters)
+        )
+    }
+    
+    /// Called initially in `viewDidLoad()`
+    private func reloadBarItems(refresh: Bool) {
+        // Update sort item to change icon
+        self.navigationItem.leftBarButtonItems = [self.sortBarItem, self.locationBarItem]
+        
+        if YYClient.current.isLoggedIn {
+            self.showRefreshControlAndRefresh()
         }
     }
     
@@ -64,6 +95,8 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = UserDefaultsStore.standard.selectedLocation ?? "Nearby"
+        
         self.enableRefresh = true
         self.emptyMessage = "No Yaks"
         self.tableView.separatorInset = .zero
@@ -75,14 +108,27 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
             primaryAction: .init { _ in self.composeYak() }
         )
         
-        // Trigger configuration of sort button
-        self.sort = .new
+        self.reloadBarItems(refresh: false)
         
         // Database subscriptions //
         
         // Update rows when user tag changes
-        Container.shared.subscribe(to: UserTag.self) { event in
-            self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .none)
+        let subscription = Container.shared.subscribe(to: UserTag.self) { event in
+            self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .fade)
+        }
+        
+        // Remove database subscriber when we're removed from the navigation stack
+        self.onNavigationPop = {
+            Container.shared.unsubscribe(subscription, from: UserTag.self)
+        }
+        
+        // Location subscriptions //
+        LocationManager.observeFavorites { _ in
+            self.reloadBarItems(refresh: false)
+        }
+        LocationManager.observeLocation { (_, name) in
+            self.title = name ?? "Nearby"
+            self.reloadBarItems(refresh: false)
         }
     }
     
@@ -210,6 +256,13 @@ extension HerdViewController.FeedSort {
     func action(withHandler action: @escaping UIActionHandler) -> UIAction {
         let image = UIImage(systemName: self.symbol)
         return .init(title: self.rawValue.capitalized, image: image, handler: action)
+    }
+}
+
+// MARK: Location choosing
+extension SavedLocation {
+    func action(withHandler action: @escaping UIActionHandler) -> UIAction {
+        return .init(title: self.name, handler: action)
     }
 }
 

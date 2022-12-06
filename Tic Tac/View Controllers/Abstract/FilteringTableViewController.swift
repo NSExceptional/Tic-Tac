@@ -41,6 +41,9 @@ protocol TableViewFiltering: SearchResultsUpdating {
 class FilteringTableViewController<T, E: Error>: TTTableViewController, TableViewFiltering {
     typealias DataSourceType = Result<Page<T>, E>
     
+    // TODO: create a new table view controller with domain specific stuff in it
+    var onNavigationPop = { }
+    
     /// Stores the current search query.
     var filterText: String? = nil
     
@@ -139,6 +142,16 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
             self.filterDelegate = self
         } else {
             self.registerCellsForReuse()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if self.navigationController == nil {
+            self.onNavigationPop()
+            // This is necessary to break any retain cycles in the closure
+            self.onNavigationPop = { }
         }
     }
 

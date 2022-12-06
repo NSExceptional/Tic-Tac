@@ -39,8 +39,7 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
             }
             // Case: reload all notifications to get un-consolidated list
             else {
-                self.refreshControl?.revealAndBeginRefreshing()
-                self.refresh(self.refreshControl)
+                self.showRefreshControlAndRefresh()
             }
         }
     }
@@ -97,8 +96,20 @@ class NotificationsViewController: FilteringTableViewController<YYNotification, 
         // Database subscriptions //
         
         // Update rows when user tag changes
-        Container.shared.subscribe(to: YYStoredPost.self) { event in
+        let subscription = Container.shared.subscribe(to: YYStoredPost.self) { event in
             self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .none)
+        }
+        
+        // Remove database subscriber when we're removed from the navigation stack
+        self.onNavigationPop = {
+            Container.shared.unsubscribe(subscription, from: YYStoredPost.self)
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if self.navigationController == nil {
         }
     }
     

@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum UserLocation {
+enum UserLocation: Equatable {
     case current
     case override(SavedLocation)
 }
 
-class SavedLocation: Codable {
+class SavedLocation: Codable, Equatable {
     struct Coordinate: Codable {
         var lat: Double
         var lng: Double
@@ -28,5 +28,9 @@ class SavedLocation: Codable {
     init(name: String, location: CLLocationCoordinate2D) {
         self.name = name
         self.location = .init(lat: location.latitude, lng: location.longitude)
+    }
+    
+    static func == (lhs: SavedLocation, rhs: SavedLocation) -> Bool {
+        return lhs.name == rhs.name
     }
 }

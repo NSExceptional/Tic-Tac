@@ -7,34 +7,65 @@
 
 import UIKit
 
+@objcMembers
 class LocationFavoritesCard: CardView, UITableViewDataSource, UITableViewDelegate {
     
     private var tableView = UITableView()
     
-    private lazy var favorites = self.favoritesCoordinator.getValue()
-    private var favoritesCoordinator: PlistCoordinator<[SavedLocation]> = .init(
-        in: .documents, named: "Favorites", default: []
-    )
+    private lazy var favorites = LocationManager.favorites
     
     @Defaults(\.selectedLocation) private var selectedLocationName: String?
     private var selectedLocation: UserLocation = LocationManager.locationType {
-        willSet { LocationManager.locationType = newValue }
+        willSet {
+            // Update selected location on disk
+            switch newValue {
+                case .current:
+                    self.selectedLocationName = nil
+                case .override(let location):
+                    self.selectedLocationName = location.name
+            }
+            
+            // Notify location manager
+            LocationManager.locationType = newValue
+        }
     }
     
-    /// Don't use any other inits; it's so stupid that I have to write this comment
-    /// instead of the compiler helping me, but it makes it impossible to disable
-    /// previous initializers...
-    convenience init() {
-        self.init(title: "Favorites")
+    init() {
+        super.init(title: "Favorites")
+        
+        let button = UIButton(primaryAction: .init { [weak self] _ in
+            self?.toggleEditing()
+        })
+        button.setTitle("Edit", for: .normal) // Bleh, observers don't run HERE
+        self.titleAccessoryView = button
         
         self.tableView.frame = self.contentView.bounds
         self.tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.tableView.backgroundColor = .clear
         self.contentView.addSubview(self.tableView)
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
         self.tableView.register(cell: FavoriteLocationCell.self)
+        
+        // Update favorites as they are added
+        // TODO: better handle adding our own favorites to avoid a reload
+        LocationManager.observeFavorites { updatedList in
+            self.favorites = updatedList
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func toggleEditing() {
+        self.editing = !self.editing
+    }
+    
+    private var editing: Bool = false {
+        willSet {
+            let button = self.titleAccessoryView as! UIButton
+            button.setTitle(newValue ? "Done" : "Edit", for: .normal)
+        }
     }
     
     // MARK: UITableViewDataSource
@@ -43,12 +74,19 @@ class LocationFavoritesCard: CardView, UITableViewDataSource, UITableViewDelegat
         return self.favorites.count
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let location = self.favorites[indexPath.row]
         let cell: FavoriteLocationCell = tableView.dequeueCell(for: indexPath)
+        let location = self.favorites[indexPath.row]
         
-        cell.textLabel?.text = location.name
-        cell.detailTextLabel?.text = "\(location.location)"
+        cell.location = location
+        
+        if let name = self.selectedLocationName, name == location.name {
+            cell.accessoryType = .checkmark
+        }
         
         return cell
     }
@@ -61,10 +99,8 @@ class LocationFavoritesCard: CardView, UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        // Remove favorite, update plist
-        let removed = self.favorites.remove(at: indexPath.row)
-        // TODO: error handling
-        try? self.favoritesCoordinator.write(self.favorites)
+        // Remove favorite
+        let removed = LocationManager.removeFavorite(at: indexPath.row)
         
         // Remove row
         tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -75,10 +111,43 @@ class LocationFavoritesCard: CardView, UITableViewDataSource, UITableViewDelegat
         }
     }
     
+    /// Allow reordering favorites
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt src: IndexPath, to dest: IndexPath) {
+        let moved = self.favorites.remove(at: src.row)
+        self.favorites.insert(moved, at: dest.row)
+        
+        // Reorder favorites
+        LocationManager.setFavorites(self.favorites)
+    }
+    
     // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.accessoryType = .checkmark
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        // De-select previously selected row (or de-select this row)
+        if let selectedName = self.selectedLocationName {
+            // Find previous favorite index
+            let idx = self.favorites.firstIndex { $0.name == selectedName }
+            // If visible, uncheck it
+            if let selectedIP = (tableView.indexPathsForVisibleRows ?? []).first(where: { $0.row == idx }) {
+                tableView.cellForRow(at: selectedIP)?.accessoryType = .none
+                // If we tapped the already selected row, dont' re-select it
+                if selectedIP == indexPath {
+                    self.selectedLocation = .current
+                    return
+                }
+            }
+        }
+        
+        // Add checkmark to the selected cell
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        
+        // Update view state with newly selected name
+        self.selectedLocation = .override(self.favorites[indexPath.row])
     }
 }

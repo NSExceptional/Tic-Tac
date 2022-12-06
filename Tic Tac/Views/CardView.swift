@@ -19,6 +19,7 @@ fileprivate extension UISheetDetent {
     }
 }
 
+@objcMembers
 class CardView: UIView {
     enum Detent: CGFloat {
         case small = -1
@@ -50,16 +51,40 @@ class CardView: UIView {
     
     public private(set) var contentView: UIView = .init()
     
-    // MARK: Initialization
-    
-    required init?(coder: NSCoder) { fatalError("") }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setup()
+    public var titleAccessoryView: UIView? {
+        willSet {
+            // Remove existing accessory view
+            if let existing = self.titleAccessoryView {
+                existing.removeFromSuperview()
+                existing.snp.removeConstraints()
+            }
+            
+            // Add new accessory view with constraints
+            if let accessory = newValue {
+                accessory.sizeToFit()
+                self.addSubview(accessory)
+                accessory.snp.makeConstraints { make in
+                    make.top.equalTo(self.titleLabel)
+                    make.leading.equalTo(self.titleLabel.snp.trailing).offset(15)
+                    make.trailing.equalToSuperview().inset(self.titleAreaInsets)
+                }
+            }
+        }
     }
     
-    convenience init(title: String) {
-        self.init()
+    // MARK: Initialization
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { fatalError("") }
+    
+    @available(*, unavailable)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    init(title: String) {
+        super.init(frame: .zero)
+        self.setup()
         self.title = title
     }
     
@@ -181,6 +206,10 @@ class CardView: UIView {
             container: parent, fullHeight: self.maxHeightRect, bottomAttached: true
         )
         
+        if detent.identifier == .medium {
+            return dy + 80
+        }
+        
         return dy
     }
     
@@ -188,15 +217,18 @@ class CardView: UIView {
     
     override class var requiresConstraintBasedLayout: Bool { true }
     
+    private var titleAreaInsets: UIEdgeInsets { .init(vertical: 16, horizontal: 18) }
+    
     override func updateConstraints() {
         self.grabber.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(5)
         }
         
-        let titleInsets = UIEdgeInsets(vertical: 16, horizontal: 18)
+        let titleInsets = self.titleAreaInsets
         self.titleLabel.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview().inset(titleInsets)
+            make.leading.top.equalToSuperview().inset(titleInsets)
+            make.trailing.lessThanOrEqualToSuperview().inset(titleInsets)
         }
         
         self.hairline.snp.makeConstraints { make in

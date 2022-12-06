@@ -203,8 +203,12 @@ struct LoginController<T: UIViewController> {
             if let error = error {
                 self.signInFailed(error)
             } else {
-                // Update location
-                LocationManager.observeLocation { location in
+                // Update location //
+                
+                // This little `var ...: ...? = nil` dance is necessary to capture the
+                // subscription within itself and remove it after its first invocation
+                var initialSubscription: LocationManager.LocationSubscriber? = nil
+                initialSubscription = LocationManager.observeLocation { (location, name) in
                     self.client.location = location
                     
                     // Login callback, just once tho
@@ -212,9 +216,7 @@ struct LoginController<T: UIViewController> {
                         self.onLogin.execute()
                         
                         // No more login callback on location update
-                        LocationManager.observeLocation { location in
-                            self.client.location = location
-                        }
+                        LocationManager.removeObserver(initialSubscription)
                     }
                 }
             }

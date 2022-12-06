@@ -34,7 +34,10 @@ class Container {
         case other(Swift.Error)
     }
     
-    typealias Subscriber<E: Entity> = (Event<E>) -> Void
+    /// Wraps a subscription to provide identity
+    typealias Subscriber<E: Entity> = SubscriptionStore.Subscriber<Event<E>>
+    /// A callback object
+    typealias Subscription<E: Entity> = SubscriptionStore.Subscription<Event<E>>
     
     public static let shared = Container()
     
@@ -56,8 +59,8 @@ class Container {
     
     internal let q = try! DatabaseQueue(path: Container.dbPath)
     
-    private var tableSubscribers: [String: [Any]] = [:]
-    private var entitiySubscribers: [String: [Any]] = [:]
+    private var tableSubscribers = KeyedSubscriptionStore()
+    private var entitiySubscribers = KeyedSubscriptionStore()
     
     /// <https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md>
     private var migrator: DatabaseMigrator {
@@ -80,12 +83,24 @@ class Container {
         return migrator
     }
     
-    func subscribe<E: Entity>(to table: E.Type, notify subscriber: @escaping Subscriber<E>) {
-        self.tableSubscribers["\(table)", default: []].append(subscriber)
+    /// Subscribe to an entire table
+    func subscribe<E: Entity>(to table: E.Type, with subscription: @escaping Subscription<E>) -> Subscriber<E> {
+        return self.tableSubscribers.add(subscription, to: "\(table)")
     }
     
-    func subscribe<E: Entity>(to entity: E, notify subscriber: @escaping Subscriber<E>) {
-        self.entitiySubscribers[entity.key, default: []].append(subscriber)
+    /// Subscribe to a single entity
+    func subscribe<E: Entity>(to entity: E, with subscription: @escaping Subscription<E>) -> Subscriber<E> {
+        return self.entitiySubscribers.add(subscription, to: entity.key)
+    }
+    
+    /// Unsubscribe from a table
+    func unsubscribe<E: Entity>(_ subscriber: Subscriber<E>, from table: E.Type) {
+        self.tableSubscribers.remove(subscriber, from: "\(table)")
+    }
+    
+    /// Unsubscribe from an entity
+    func unsubscribe<E: Entity>(_ subscriber: Subscriber<E>, from entity: E) {
+        self.entitiySubscribers.remove(subscriber, from: entity.key)
     }
     
     func manuallyNotifySubscribers<E: Entity>(of event: Event<E>) {
@@ -93,15 +108,11 @@ class Container {
     }
     
     private func notifySubscribers<E: Entity>(of event: Event<E>) {
-        for sub in self.entitiySubscribers[event.entity.key, default: []] {
-            let block = sub as! Subscriber<E>
-            block(event)
-        }
+        /// Notify subscribers of the given entity
+        self.entitiySubscribers.notifyAll(of: event, withKey: event.entity.key)
         
-        for sub in self.tableSubscribers["\(E.self)", default: []] {
-            let block = sub as! Subscriber<E>
-            block(event)
-        }
+        /// Notify subscribers of the entity's table
+        self.tableSubscribers.notifyAll(of: event, withKey: "\(E.self)")
     }
 }
 

@@ -111,9 +111,16 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
         // Database subscriptions //
         
         // Update rows when user tag changes
-        Container.shared.subscribe(to: UserTag.self) { event in
-            self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .none)
+        let subscription = Container.shared.subscribe(to: UserTag.self) { event in
+            self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .fade)
         }
+
+        // Remove database subscriber when we're removed from the navigation stack
+        self.onNavigationPop = {
+            Container.shared.unsubscribe(subscription, from: UserTag.self)
+        }
+        
+        // TODO: there is a retain cycle here somewhere, and it's NOT CommentsHeaderView or the subscriptions above
     }
     
     /// Update header and reload comments

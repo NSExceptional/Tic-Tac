@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import TBAlertController
+import YakKit
 
 extension CLAuthorizationStatus {
     var granted: Bool {
@@ -25,12 +26,14 @@ extension CLAuthorizationStatus {
 }
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
+    typealias LocationInfo = (location: CLLocation, name: String?)
+    typealias LocationSubscriber = SubscriptionStore.Subscriber<LocationInfo>
     private static let shared: LocationManager = .init()
     
     private let permission: CLLocationManager = .init()
     private var updatingLocation: Bool = false
     private var authorizationCallback: ((_ status: Bool) -> Void)? = nil
-    private var locationUpdateCallback: ((_ latestLocation: CLLocation) -> Void)? = nil
+    private var locationObservers = UnkeyedSubscriptionStore<LocationInfo>()
     
     private var accessGranted: Bool {
         self.permission.authorizationStatus.granted
@@ -42,6 +45,16 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         self.permission.pausesLocationUpdatesAutomatically = true
         self.permission.distanceFilter = 1000 // Only update every kilometer
         self.permission.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        
+        // Load the last selected location override
+        if let lastChosenLocationName = self.selectedLocationName {
+            if let locationOverride = LocationManager.favorites.first(where: { $0.name == lastChosenLocationName }) {
+                self.locationType = .override(locationOverride)
+            }
+            else {
+                self.selectedLocationName = nil
+            }
+        }
     }
     
     static func requireLocation(callback: @escaping (_ status: Bool) -> Void) {
@@ -58,27 +71,62 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    static var locationType: UserLocation = .current
+    @Defaults(\.selectedLocation) var selectedLocationName: String?
     
-    static var location: CLLocation {
+    static var locationType: UserLocation {
+        get { shared.locationType }
+        set { shared.locationType = newValue }
+    }
+    var locationType: UserLocation = .current {
+        didSet {
+            // Store selected location name in user defaults
+            switch locationType {
+                case .current:
+                    self.selectedLocationName = nil
+                case .override(let location):
+                    self.selectedLocationName = location.name
+            }
+            
+            // Post location update notification
+            if let location = self.location {
+                // Manually update YYClient FIRST to ensure it is always first
+                YYClient.current.location = location
+                
+                // Now, notify observers
+                let newLocationData = (location, self.selectedLocationName)
+                self.locationObservers.notifyAll(of: newLocationData)
+            }
+        }
+    }
+    
+    static var location: CLLocation? { shared.location }
+    var location: CLLocation? {
         switch self.locationType {
             case .current:
-                return shared.permission.location!
+                return self.permission.location
             case .override(let location):
                 return .init(location.location.coordinate)
         }
     }
     
-    static func observeLocation(callback: ((_ latestLocation: CLLocation) -> Void)?) {
-        shared.locationUpdateCallback = callback
+    @discardableResult
+    static func observeLocation(callback: @escaping (LocationInfo) -> Void) -> LocationSubscriber {
+        let sub = shared.locationObservers.add(callback)
         
-        if shared.updatingLocation, let location = shared.permission.location {
-            callback?(location)
+        if shared.updatingLocation, let location = shared.location {
+            callback((location, shared.selectedLocationName))
         }
         else {
             shared.updatingLocation = true
             shared.permission.startUpdatingLocation()
         }
+        
+        return sub
+    }
+    
+    static func removeObserver(_ observer: LocationSubscriber?) {
+        guard let observer = observer else { return }
+        shared.locationObservers.remove(observer)
     }
     
     // MARK: Delegate methods
@@ -88,8 +136,27 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // No location?
         guard let location = locations.first else { return }
-        Self.shared.locationUpdateCallback?(location)
+        
+        if let knownLocation = self.permission.location?.coordinate {
+            // Location did not change
+            guard location.coordinate != knownLocation else { return }
+        }
+        
+        self.locationObservers.notifyAll(of: (self.location ?? location, self.selectedLocationName))
+    }
+    
+    // MARK: Unavailable methods
+    
+    @available(*, unavailable)
+    override class func removeObserver(_ observer: NSObject, forKeyPath keyPath: String) {
+        super.removeObserver(observer, forKeyPath: keyPath)
+    }
+    
+    @available(*, unavailable)
+    override class func removeObserver(_ observer: NSObject, forKeyPath keyPath: String, context: UnsafeMutableRawPointer?) {
+        super.removeObserver(observer, forKeyPath: keyPath, context: context)
     }
 }
 
