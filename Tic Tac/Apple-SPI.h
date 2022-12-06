@@ -11,6 +11,14 @@
 @property (nonatomic, setter=_setShowsAppleLogo:) BOOL showsAppleLogo;
 @end
 
+@interface UIScrollView (Private)
+@property (nonatomic, readonly) CGPoint _minimumContentOffset NS_SWIFT_NAME(minContentOffset);
+@property (nonatomic, readonly) CGPoint _maximumContentOffset NS_SWIFT_NAME(maxContentOffset);
+@end
+
+@interface UITabBarButton : UIButton
+@end
+
 NS_SWIFT_NAME(UIGrabber)
 @interface _UIGrabber : UIView @end
 
