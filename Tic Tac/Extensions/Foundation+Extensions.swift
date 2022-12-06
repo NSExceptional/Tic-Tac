@@ -109,6 +109,12 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
+extension Array where Element: Equatable {
+    mutating func remove(_ element: Element) {
+        self.removeAll { $0 == element }
+    }
+}
+
 extension Optional {
     static func +<T>(ls: [T]?, rs: [T]?) -> [T] {
         switch (ls, rs) {
