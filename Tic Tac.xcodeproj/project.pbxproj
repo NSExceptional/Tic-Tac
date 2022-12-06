@@ -45,6 +45,7 @@
 		C36CB578291EC91700DCAE08 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB577291EC91700DCAE08 /* Defaults.swift */; };
 		C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384AC6228BDA98B00401E0F /* PreviewData.swift */; };
 		C391A55F2924D693008773C7 /* MapKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C391A55E2924D693008773C7 /* MapKit+Extensions.swift */; };
+		C398C98A293EC7AF00B50270 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = C398C989293EC7AF00B50270 /* MessageKit */; };
 		C3A3EF9028FB2A18004E4911 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EF8F28FB2A18004E4911 /* CardView.swift */; };
 		C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A75B2328AA0562007CD052 /* MapViewController.swift */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
@@ -192,6 +193,7 @@
 				C3F6EAEB28681D800066B9FD /* Reflex in Frameworks */,
 				C3CDAD0B28C41CA000A93BD6 /* GRDB in Frameworks */,
 				C3A7DFA72864F00F00CB529F /* SnapKit in Frameworks */,
+				C398C98A293EC7AF00B50270 /* MessageKit in Frameworks */,
 				C3A7DF892864B91A00CB529F /* TBAlertController in Frameworks */,
 				E124ABCFE9B0EFF5F4270480 /* Pods_Tic_Tac.framework in Frameworks */,
 				C3CDAD3228C7E43F00A93BD6 /* Echo in Frameworks */,
@@ -453,6 +455,7 @@
 				C3F6EAEA28681D800066B9FD /* Reflex */,
 				C3CDAD0A28C41CA000A93BD6 /* GRDB */,
 				C3CDAD3128C7E43F00A93BD6 /* Echo */,
+				C398C989293EC7AF00B50270 /* MessageKit */,
 			);
 			productName = "Tic Tac";
 			productReference = C34063FA285807BD007B46D3 /* Tic Tac.app */;
@@ -512,6 +515,7 @@
 				C3F6EAE928681D800066B9FD /* XCRemoteSwiftPackageReference "Reflex" */,
 				C3CDAD0928C41CA000A93BD6 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 				C3CDAD3028C7E43F00A93BD6 /* XCRemoteSwiftPackageReference "Echo" */,
+				C398C988293EC7AF00B50270 /* XCRemoteSwiftPackageReference "MessageKit" */,
 			);
 			productRefGroup = C34063FB285807BD007B46D3 /* Products */;
 			projectDirPath = "";
@@ -971,6 +975,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C398C988293EC7AF00B50270 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		C3A7DF872864B91A00CB529F /* XCRemoteSwiftPackageReference "TBAlertController" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/NSExceptional/TBAlertController.git";
@@ -1014,6 +1026,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C398C989293EC7AF00B50270 /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C398C988293EC7AF00B50270 /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
+		};
 		C3A7DF882864B91A00CB529F /* TBAlertController */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C3A7DF872864B91A00CB529F /* XCRemoteSwiftPackageReference "TBAlertController" */;
