@@ -16,6 +16,7 @@
 		C30415712866838600BC858C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30415702866838600BC858C /* Strings.swift */; };
 		C30417EE286683BE00BC858C /* DateFormatter+Formats.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */; };
 		C31587F728E0E4F500F17E51 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31587F628E0E4F500F17E51 /* Effect.swift */; };
+		C32A5D052924C64000427F43 /* LocationManager+Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32A5D042924C64000427F43 /* LocationManager+Favorites.swift */; };
 		C34063FE285807BD007B46D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34063FD285807BD007B46D3 /* AppDelegate.swift */; };
 		C3406400285807BD007B46D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34063FF285807BD007B46D3 /* Assets.xcassets */; };
 		C3406403285807BD007B46D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3406401285807BD007B46D3 /* LaunchScreen.storyboard */; };
@@ -33,6 +34,8 @@
 		C347664528AE053300235EC5 /* MyDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347664428AE053300235EC5 /* MyDataViewController.swift */; };
 		C347664A28B4B4E700235EC5 /* UserTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347664928B4B4E700235EC5 /* UserTags.swift */; };
 		C351060828BDE305007B0F22 /* SpinnerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C351060728BDE305007B0F22 /* SpinnerFooterView.swift */; };
+		C35F0EF1292B4A7800B728BC /* TTNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F0EF0292B4A7800B728BC /* TTNavigationController.swift */; };
+		C35F0EF6293180A100B728BC /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F0EF5293180A100B728BC /* Observation.swift */; };
 		C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C51628A61E3E001E329A /* ProfilesViewController.swift */; };
 		C365C52428A6F253001E329A /* UserAccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365C52328A6F253001E329A /* UserAccountStore.swift */; };
 		C36CB56F29187D0700DCAE08 /* LocationFavoritesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB56E29187D0700DCAE08 /* LocationFavoritesCard.swift */; };
@@ -41,6 +44,7 @@
 		C36CB5762918B80500DCAE08 /* FavoriteLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB5752918B80500DCAE08 /* FavoriteLocationCell.swift */; };
 		C36CB578291EC91700DCAE08 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB577291EC91700DCAE08 /* Defaults.swift */; };
 		C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384AC6228BDA98B00401E0F /* PreviewData.swift */; };
+		C391A55F2924D693008773C7 /* MapKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C391A55E2924D693008773C7 /* MapKit+Extensions.swift */; };
 		C3A3EF9028FB2A18004E4911 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EF8F28FB2A18004E4911 /* CardView.swift */; };
 		C3A75B2428AA0562007CD052 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A75B2328AA0562007CD052 /* MapViewController.swift */; };
 		C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DF8128639E4800CB529F /* FeedDataSource.swift */; };
@@ -104,6 +108,7 @@
 		C30415702866838600BC858C /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Formats.swift"; sourceTree = "<group>"; };
 		C31587F628E0E4F500F17E51 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
+		C32A5D042924C64000427F43 /* LocationManager+Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationManager+Favorites.swift"; sourceTree = "<group>"; };
 		C34063FA285807BD007B46D3 /* Tic Tac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34063FD285807BD007B46D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34063FF285807BD007B46D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,6 +130,8 @@
 		C347664428AE053300235EC5 /* MyDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDataViewController.swift; sourceTree = "<group>"; };
 		C347664928B4B4E700235EC5 /* UserTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTags.swift; sourceTree = "<group>"; };
 		C351060728BDE305007B0F22 /* SpinnerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerFooterView.swift; sourceTree = "<group>"; };
+		C35F0EF0292B4A7800B728BC /* TTNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTNavigationController.swift; sourceTree = "<group>"; };
+		C35F0EF5293180A100B728BC /* Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
 		C365C51628A61E3E001E329A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		C365C51A28A62438001E329A /* FIRAuthStoredUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRAuthStoredUserManager.h; sourceTree = "<group>"; };
 		C365C51D28A628CA001E329A /* Firebase-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebase-Private.h"; sourceTree = "<group>"; };
@@ -136,6 +143,7 @@
 		C36CB5752918B80500DCAE08 /* FavoriteLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationCell.swift; sourceTree = "<group>"; };
 		C36CB577291EC91700DCAE08 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		C384AC6228BDA98B00401E0F /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
+		C391A55E2924D693008773C7 /* MapKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapKit+Extensions.swift"; sourceTree = "<group>"; };
 		C3A3EF8E28FA5675004E4911 /* Apple-SPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Apple-SPI.h"; sourceTree = "<group>"; };
 		C3A3EF8F28FB2A18004E4911 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		C3A75B2328AA0562007CD052 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -291,6 +299,7 @@
 				C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */,
 				C347664428AE053300235EC5 /* MyDataViewController.swift */,
 				C3CDAD2C28C4325F00A93BD6 /* UserTagController.swift */,
+				C35F0EF0292B4A7800B728BC /* TTNavigationController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -304,6 +313,7 @@
 				C340643228587814007B46D3 /* Foundation+Extensions.swift */,
 				C30417ED286683BE00BC858C /* DateFormatter+Formats.swift */,
 				C3CDAD2028C4233A00A93BD6 /* Decoder+Extensions.swift */,
+				C391A55E2924D693008773C7 /* MapKit+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -315,9 +325,11 @@
 				C3A7DFB42864F75900CB529F /* Promise.swift */,
 				C30415702866838600BC858C /* Strings.swift */,
 				C3A7DFBB2864FF7900CB529F /* LocationManager.swift */,
+				C32A5D042924C64000427F43 /* LocationManager+Favorites.swift */,
 				C3E050BF286664BE00DC26F0 /* LoginController.swift */,
 				C365C52328A6F253001E329A /* UserAccountStore.swift */,
 				C31587F628E0E4F500F17E51 /* Effect.swift */,
+				C35F0EF5293180A100B728BC /* Observation.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -619,6 +631,7 @@
 			files = (
 				C3F6EB1D286967FC0066B9FD /* AutoLayout.swift in Sources */,
 				C3CDAD2D28C4325F00A93BD6 /* UserTagController.swift in Sources */,
+				C391A55F2924D693008773C7 /* MapKit+Extensions.swift in Sources */,
 				C3F6EB232869840D0066B9FD /* YakCell.swift in Sources */,
 				C3A7DFAB2864F06F00CB529F /* YakKit+Swift.swift in Sources */,
 				C3A7DFAE2864F1DE00CB529F /* TabBarController.swift in Sources */,
@@ -635,6 +648,7 @@
 				C340642028580B69007B46D3 /* FilteringTableViewController.swift in Sources */,
 				C340642B28580FF9007B46D3 /* TableViewSection.swift in Sources */,
 				C3E050C0286664BE00DC26F0 /* LoginController.swift in Sources */,
+				C35F0EF1292B4A7800B728BC /* TTNavigationController.swift in Sources */,
 				C34063FE285807BD007B46D3 /* AppDelegate.swift in Sources */,
 				C340642528580F5F007B46D3 /* CarouselCell.swift in Sources */,
 				C3CDAD1D28C4220D00A93BD6 /* YakKit+GRDB.swift in Sources */,
@@ -665,6 +679,7 @@
 				C3C0218E28C180AA00B4EA03 /* Context.swift in Sources */,
 				C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
+				C32A5D052924C64000427F43 /* LocationManager+Favorites.swift in Sources */,
 				C3CD696128AD94090080EDCA /* Previews.swift in Sources */,
 				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,
 				C3D6570628BF3180006B9530 /* NSNull+nil.m in Sources */,
@@ -678,6 +693,7 @@
 				C30417EE286683BE00BC858C /* DateFormatter+Formats.swift in Sources */,
 				C3F6EB27286984240066B9FD /* CommentCell.swift in Sources */,
 				C300803128A4451300106BAB /* NotificationsViewController.swift in Sources */,
+				C35F0EF6293180A100B728BC /* Observation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
