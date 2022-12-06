@@ -126,6 +126,14 @@ extension UIBarButtonItem {
     }
 }
 
+extension UIButton {
+    convenience init(symbol: String) {
+        self.init(type: .system)
+        self.setImage(.symbol(symbol), for: .normal)
+        self.sizeToFit()
+    }
+}
+
 extension UIRefreshControl {
     func revealAndBeginRefreshing() {
         if let scrollView = superview as? UITableView {
