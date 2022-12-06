@@ -137,6 +137,7 @@ extension UIButton {
 extension UIRefreshControl {
     func revealAndBeginRefreshing() {
         if let scrollView = superview as? UITableView {
+            scrollView.scrollToRow(at: .init(row: 0, section: 0), at: .top, animated: false)
             let offset: CGFloat = scrollView.contentOffset.y - frame.height
             scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
         }
