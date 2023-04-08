@@ -57,14 +57,20 @@ class LocationFavoritesCard: CardView, UITableViewDataSource, UITableViewDelegat
         }
     }
     
+    @objc
     private func toggleEditing() {
         self.editing = !self.editing
     }
     
+    @objc
     private var editing: Bool = false {
         willSet {
             let button = self.titleAccessoryView as! UIButton
             button.setTitle(newValue ? "Done" : "Edit", for: .normal)
+            
+            self.tableView.setEditing(newValue, animated: true)
+            // This gesture gets in the way of reordering
+            self.panGesture.isEnabled = !newValue
         }
     }
     
@@ -96,11 +102,20 @@ class LocationFavoritesCard: CardView, UITableViewDataSource, UITableViewDelegat
         return true
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Delete"
+    }
+    
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         // Remove favorite
-        let removed = LocationManager.removeFavorite(at: indexPath.row)
+        let removed = LocationManager.removeFavorite(at: indexPath.row, notify: false)
+        self.favorites = LocationManager.favorites
         
         // Remove row
         tableView.deleteRows(at: [indexPath], with: .automatic)

@@ -18,13 +18,16 @@ extension CGRect {
 
 @available(iOS 13.0, *)
 struct TicTacPreviews: PreviewProvider {
-    typealias TargetType = MapViewController
+    typealias TargetType = UserEmojiPickerView
+//    typealias TargetType = UserEmojiView
 //    static let yak = PreviewData.yak()
 //    static let context = PreviewData.context(origin: .userProfile)
     
-    static var target = TargetType()
+    static var target = TargetType(.zero)
     
     static func configure() {
+        target.backgroundColor = .systemRed
+//        target.set(emoji: yak.emoji, colors: (yak.colorHex!, yak.colorSecondaryHex!))
 //        target.configure(with: yak, context: context)
     }
     
@@ -34,7 +37,7 @@ struct TicTacPreviews: PreviewProvider {
     }
     
     static var previews: some SwiftUI.View {
-        UIKitPreview(self.configuredTarget)
+        UIKitPreview(self.configuredTarget, size: .square(200))
 //            .ignoresSafeArea()
     }
 }
@@ -52,14 +55,10 @@ struct UIKitPreview: View, UIViewRepresentable {
         controller.overrideUserInterfaceStyle = .dark
     }
     
-    init(_ view: UIView, size: CGSize? = nil) {
+    init(_ view: UIView, size: CGSize) {
         self.size = size
-        self.view = view
+        self.view = PreviewBox(child: view, size: size)
         self.view.overrideUserInterfaceStyle = .dark
-        
-        if view.backgroundColor == nil {
-            view.backgroundColor = .systemBackground
-        }
     }
     
     func makeUIView(context: Context) -> UIView {

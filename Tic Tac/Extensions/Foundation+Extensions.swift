@@ -99,6 +99,14 @@ extension FileManager {
     }
 }
 
+extension NotificationCenter {
+    func observe<T>(_ notification: NSNotification.Name, using block: @escaping (_ obj: T) -> Void) {
+        self.addObserver(forName: notification, object: nil, queue: nil) { notif in
+            block(notif.object as! T)
+        }
+    }
+}
+
 extension Sequence where Iterator.Element: Hashable {
     func uniqued() -> [Iterator.Element] {
         var seen: Set<Iterator.Element> = []

@@ -50,6 +50,7 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     private lazy var header = CommentsHeaderView
         .withCommentHandler { [unowned self] in self.addCommentPressed() }
         .scrollDownButtonAction { [unowned self] in
+            guard !self.comments.isEmpty else { return }
             self.tableView.scroll(to: self.comments.count-1)
         }
     
@@ -173,20 +174,30 @@ class CommentsViewController: FilteringTableViewController<YYComment, CommentsVi
     }
     
     override func didNearlyScrollToEnd() {
-        self.addSpinnerToTableFooter()
+        guard let yak = self.yak, let lastComment = self.cursor else {
+            return
+        }
+        
+        @Effect var complete = false
+        $complete.didSet = {
+            self.loadingNextPage = !complete
+            
+            if !complete {
+                self.addSpinnerToTableFooter()
+            }
+            else {
+                self.removeSpinnerFromTableFooter()
+            }
+        }
         
         // Ensure logged in
         guard YYClient.current.authToken != nil else {
-            self.removeSpinnerFromTableFooter()
+            defer { complete = true }
             return self.data = .failure(.notLoggedIn)
         }
         
-        guard let yak = self.yak, let lastComment = self.cursor else {
-            return self.removeSpinnerFromTableFooter()
-        }
-        
         YYClient.current.getComments(for: yak, after: lastComment) { result in
-            self.removeSpinnerFromTableFooter()
+            defer { complete = true }
             
             if case .failure(let error) = result {
                 self.errorMessage = error.localizedDescription

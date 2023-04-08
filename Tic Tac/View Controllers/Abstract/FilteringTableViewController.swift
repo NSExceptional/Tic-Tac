@@ -308,18 +308,6 @@ class FilteringTableViewController<T, E: Error>: TTTableViewController, TableVie
         return UISwipeActionsConfiguration(actions: section.trailingSwipeActions(for: indexPath.row))
     }
     
-    override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let numberOfRows = self.sections[indexPath.section].numberOfRows
-        let isLast = indexPath.row == numberOfRows - 1
-        
-        // Trigger didNearlyScrollToEnd() when we reach the last 4 rows
-        if indexPath.row == numberOfRows - 5 || numberOfRows < 5 && isLast {
-            if !self.loadingNextPage {
-                self.didNearlyScrollToEnd()
-            }
-        }
-    }
-    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.isAtBottom && !self.loadingNextPage {
             self.didNearlyScrollToEnd()

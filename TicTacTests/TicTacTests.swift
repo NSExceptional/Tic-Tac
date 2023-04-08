@@ -109,4 +109,8 @@ class TicTacTests: XCTestCase {
         
         XCTAssertFalse(loading)
     }
+    
+    func testPreviewData() {
+        XCTAssertNoThrow(PreviewData.yak())
+    }
 }

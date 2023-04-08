@@ -32,6 +32,8 @@ class CardView: UIView {
     private lazy var titleLabel: UILabel = .init(font: .boldSystemFont(ofSize: 21))
     private lazy var hairline: UIView = .init(color: .separator)
     private var maxHeightRect: CGRect = .zero
+    private(set) lazy var panGesture =
+        UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
     
     private var detents: [UISheetDetent] = [.large, .medium, .minimized]
     
@@ -103,7 +105,7 @@ class CardView: UIView {
         self.addSubview(self.titleLabel)
         self.addSubview(self.contentView)
         
-        self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:))))
+        self.addGestureRecognizer(self.panGesture)
     }
     
     override func didMoveToSuperview() {

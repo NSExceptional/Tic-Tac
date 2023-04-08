@@ -41,6 +41,11 @@ private class LoginCallbackQueue {
 
 struct LoginController<T: UIViewController> {
     
+    enum LoginError: String {
+        case unreachable = "Cannot reach the Yik Yak servers"
+        case other = "Unknown error"
+    }
+    
     let host: T
     let client: YYClient
     private let onLogin: LoginCallbackQueue = .main
@@ -63,11 +68,14 @@ struct LoginController<T: UIViewController> {
         // Require location first
         LocationManager.requireLocation { granted in
             if granted {
-                self.tryLocateAuthToken { success in
-                    if success {
-                        self.didSignIn()
-                    } else {
-                        self.presentLoginForm()
+                self.tryLocateAuthToken { status in
+                    switch status {
+                        case nil:
+                            self.didSignIn()
+                        case .unreachable:
+                            self.presentError(status!.rawValue)
+                        case .other:
+                            self.presentLoginForm()
                     }
                 }
             } else {
@@ -79,23 +87,25 @@ struct LoginController<T: UIViewController> {
         }
     }
     
-    private func tryLocateAuthToken(completion: @escaping (Bool) -> Void) {
+    private func tryLocateAuthToken(completion: @escaping (LoginError?) -> Void) {
         guard !self.client.isLoggedIn else {
-            return completion(true)
+            return completion(nil)
         }
         
         self.client.loadCurrentUser { error in
             if error == nil {
-                completion(true)
+                completion(nil)
+            } else if self.client.reachable {
+                completion(.other)
             } else {
-                completion(false)
+                completion(.unreachable)
             }
         }
     }
     
     private func presentLoginForm() {
         TBAlert.make({ make in
-            make.title("How Do You Want to Sign In?");
+            make.title("How Do You Want to Sign In?")
             make.button("Phone Number").handler { _ in
                 self.promptForPhoneNumber()
             }.preferred()
@@ -103,6 +113,13 @@ struct LoginController<T: UIViewController> {
                 self.promptForAuthToken()
             }
             
+        }, showFrom: self.host)
+    }
+    
+    private func presentError(_ message: String) {
+        TBAlert.make({ make in
+            make.title("Uh Oh").message(message)
+            make.button("Dismiss")
         }, showFrom: self.host)
     }
     

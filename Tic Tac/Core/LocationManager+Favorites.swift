@@ -60,13 +60,13 @@ extension LocationManager {
     }
     
     @discardableResult
-    static func removeFavorite(at index: Int) -> SavedLocation {
+    static func removeFavorite(at index: Int, notify: Bool = true) -> SavedLocation {
         var newFavorites = favorites
         let removed = newFavorites.remove(at: index)
         
         try? favoritesCoordinator.write(newFavorites)
         
-        defer { self.notifySubscribers() }
+        defer { if notify { self.notifySubscribers() } }
         
         return removed
     }

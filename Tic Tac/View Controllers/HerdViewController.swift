@@ -114,6 +114,7 @@ class HerdViewController: FilteringTableViewController<YYYak, HerdViewController
         
         // Update rows when user tag changes
         let subscription = Container.shared.subscribe(to: UserTag.self) { event in
+            // TODO: fix crash here
             self.tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows ?? [], with: .fade)
         }
         

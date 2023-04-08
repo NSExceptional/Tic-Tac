@@ -11,10 +11,6 @@ import YakKit
 class NotificationCell: AutoLayoutCell, ConfigurableCell {
     typealias Model = YYNotification
     
-    override class var preferredStyle: CellStyle {
-        .subtitle
-    }
-    
     static let footerIDTAttributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.monospace(.footnote)
     ]

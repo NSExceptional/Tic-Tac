@@ -44,6 +44,8 @@
 		C36CB5762918B80500DCAE08 /* FavoriteLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB5752918B80500DCAE08 /* FavoriteLocationCell.swift */; };
 		C36CB578291EC91700DCAE08 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36CB577291EC91700DCAE08 /* Defaults.swift */; };
 		C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384AC6228BDA98B00401E0F /* PreviewData.swift */; };
+		C38A04A529AAC17200142928 /* PreviewBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38A04A429AAC17200142928 /* PreviewBox.swift */; };
+		C38A407C293EC9B4003FF717 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38A407B293EC9B4003FF717 /* ChatsViewController.swift */; };
 		C391A55F2924D693008773C7 /* MapKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C391A55E2924D693008773C7 /* MapKit+Extensions.swift */; };
 		C398C98A293EC7AF00B50270 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = C398C989293EC7AF00B50270 /* MessageKit */; };
 		C3A3EF9028FB2A18004E4911 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EF8F28FB2A18004E4911 /* CardView.swift */; };
@@ -57,6 +59,8 @@
 		C3A7DFB22864F49500CB529F /* YYClient+AuthManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */; };
 		C3A7DFB52864F75900CB529F /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFB42864F75900CB529F /* Promise.swift */; };
 		C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A7DFBB2864FF7900CB529F /* LocationManager.swift */; };
+		C3BF66F5298D39F60098564B /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF66F4298D39F60098564B /* UserProfileCell.swift */; };
+		C3BF66F7298D482C0098564B /* UserEmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF66F6298D482C0098564B /* UserEmojiPickerView.swift */; };
 		C3C0218E28C180AA00B4EA03 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0218D28C180AA00B4EA03 /* Context.swift */; };
 		C3CD695B28AD6BF20080EDCA /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */; };
 		C3CD696128AD94090080EDCA /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD696028AD94090080EDCA /* Previews.swift */; };
@@ -144,6 +148,8 @@
 		C36CB5752918B80500DCAE08 /* FavoriteLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationCell.swift; sourceTree = "<group>"; };
 		C36CB577291EC91700DCAE08 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		C384AC6228BDA98B00401E0F /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
+		C38A04A429AAC17200142928 /* PreviewBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewBox.swift; sourceTree = "<group>"; };
+		C38A407B293EC9B4003FF717 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		C391A55E2924D693008773C7 /* MapKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapKit+Extensions.swift"; sourceTree = "<group>"; };
 		C3A3EF8E28FA5675004E4911 /* Apple-SPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Apple-SPI.h"; sourceTree = "<group>"; };
 		C3A3EF8F28FB2A18004E4911 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -155,6 +161,8 @@
 		C3A7DFB12864F49500CB529F /* YYClient+AuthManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YYClient+AuthManagement.swift"; sourceTree = "<group>"; };
 		C3A7DFB42864F75900CB529F /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		C3A7DFBB2864FF7900CB529F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C3BF66F4298D39F60098564B /* UserProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
+		C3BF66F6298D482C0098564B /* UserEmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmojiPickerView.swift; sourceTree = "<group>"; };
 		C3C0218D28C180AA00B4EA03 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		C3CD696028AD94090080EDCA /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
@@ -256,6 +264,7 @@
 			children = (
 				C3CD696028AD94090080EDCA /* Previews.swift */,
 				C384AC6228BDA98B00401E0F /* PreviewData.swift */,
+				C38A04A429AAC17200142928 /* PreviewBox.swift */,
 				C34064102858085A007B46D3 /* Core */,
 				C347664828B4B4CF00235EC5 /* Persistence */,
 				C340640E28580845007B46D3 /* View Controllers */,
@@ -296,6 +305,7 @@
 				C3406411285808C2007B46D3 /* HerdViewController.swift */,
 				C3406415285808CF007B46D3 /* CommentsViewController.swift */,
 				C300803028A4451300106BAB /* NotificationsViewController.swift */,
+				C38A407B293EC9B4003FF717 /* ChatsViewController.swift */,
 				C365C51628A61E3E001E329A /* ProfilesViewController.swift */,
 				C3A75B2328AA0562007CD052 /* MapViewController.swift */,
 				C3CD695A28AD6BF20080EDCA /* ComposeViewController.swift */,
@@ -359,6 +369,7 @@
 				C351060728BDE305007B0F22 /* SpinnerFooterView.swift */,
 				C3A3EF8F28FB2A18004E4911 /* CardView.swift */,
 				C36CB56E29187D0700DCAE08 /* LocationFavoritesCard.swift */,
+				C3BF66F6298D482C0098564B /* UserEmojiPickerView.swift */,
 				C3F6EB2F286984920066B9FD /* Controls */,
 				C3F6EB322869849B0066B9FD /* Table Cells */,
 			);
@@ -427,6 +438,7 @@
 				C3F6EB26286984240066B9FD /* CommentCell.swift */,
 				C3F6EB2A286984300066B9FD /* NotificationCell.swift */,
 				C36CB5752918B80500DCAE08 /* FavoriteLocationCell.swift */,
+				C3BF66F4298D39F60098564B /* UserProfileCell.swift */,
 			);
 			path = "Table Cells";
 			sourceTree = "<group>";
@@ -658,10 +670,13 @@
 				C3CDAD1D28C4220D00A93BD6 /* YakKit+GRDB.swift in Sources */,
 				C3F43C8B286A9A3B001F6D64 /* Hooks.m in Sources */,
 				C340642628580F5F007B46D3 /* ScopeCarousel.swift in Sources */,
+				C38A04A529AAC17200142928 /* PreviewBox.swift in Sources */,
 				C36CB57129187DD900DCAE08 /* PlistCoordinator.swift in Sources */,
 				C3CDAD0F28C41CD300A93BD6 /* Container.swift in Sources */,
 				C3CDAD1628C41D5600A93BD6 /* Entity.swift in Sources */,
+				C38A407C293EC9B4003FF717 /* ChatsViewController.swift in Sources */,
 				C36CB5762918B80500DCAE08 /* FavoriteLocationCell.swift in Sources */,
+				C3BF66F5298D39F60098564B /* UserProfileCell.swift in Sources */,
 				C3D6060C28C7F4780076DCF9 /* FLEX-Plugins.m in Sources */,
 				C365C51728A61E3E001E329A /* ProfilesViewController.swift in Sources */,
 				C351060828BDE305007B0F22 /* SpinnerFooterView.swift in Sources */,
@@ -683,6 +698,7 @@
 				C3C0218E28C180AA00B4EA03 /* Context.swift in Sources */,
 				C384AC6328BDA98B00401E0F /* PreviewData.swift in Sources */,
 				C3A7DF8228639E4800CB529F /* FeedDataSource.swift in Sources */,
+				C3BF66F7298D482C0098564B /* UserEmojiPickerView.swift in Sources */,
 				C32A5D052924C64000427F43 /* LocationManager+Favorites.swift in Sources */,
 				C3CD696128AD94090080EDCA /* Previews.swift in Sources */,
 				C3A7DFBC2864FF7900CB529F /* LocationManager.swift in Sources */,

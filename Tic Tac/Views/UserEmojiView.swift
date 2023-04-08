@@ -9,16 +9,22 @@ import UIKit
 import SnapKit
 
 class UserEmojiView: AutoLayoutView {
+    enum Constants {
+        static let smallSize = 25.0
+        static let mediumSize = 36.0
+        static let largeSize = 50.0
+    }
+    
     static func small() -> UserEmojiView {
-        return .init(frame: .square(25))
+        return .init(frame: .square(Constants.smallSize))
     }
     
     static func medium() -> UserEmojiView {
-        return .init(frame: .square(36))
+        return .init(frame: .square(Constants.mediumSize))
     }
     
     static func large() -> UserEmojiView {
-        return .init(frame: .square(50))
+        return .init(frame: .square(Constants.largeSize))
     }
     
     func with(emoji: String, color: UIColor) -> UserEmojiView {

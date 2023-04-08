@@ -7,6 +7,9 @@
 
 import YakKit
 
+#if DEBUG
+#if targetEnvironment(simulator)
+
 extension YYVoteStatus {
     var string: String {
         switch self {
@@ -48,7 +51,7 @@ public enum PreviewData {
         isMine: Bool = false,
         anonymous: Bool = true
     ) -> YYYak {
-        try! .init(dictionary: [
+        .fromJSON([
             "id": "WWFrOMabcdefg",
             "interestAreas": area == nil ? [] : [area],
             "userEmoji": emoji,
@@ -86,3 +89,6 @@ public enum PreviewData {
         return PreviewYakContext(origin: origin)
     }
 }
+
+#endif
+#endif

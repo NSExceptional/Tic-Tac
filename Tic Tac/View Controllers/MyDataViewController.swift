@@ -15,7 +15,7 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
         FilteringTableViewController<T, MyDataViewController.MyDataError> {
     
     typealias DataProviderCallback = (Result<Page<T>, Error>) -> Void
-    typealias DataProvider = (@escaping DataProviderCallback) -> Void
+    typealias DataProvider = (_ after: String?, @escaping DataProviderCallback) -> Void
     
     enum MyDataError: LocalizedError {
         case noData, loading, notLoggedIn
@@ -37,7 +37,7 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
     
     private lazy var context = Context(host: self, origin: .userProfile)
     
-    private var dataFetcher: DataProvider = { callback in callback(.failure(MyDataError.noData)) }
+    private var dataFetcher: DataProvider = { _, callback in callback(.failure(MyDataError.noData)) }
     
     private var data: DataSourceType = .failure(.loading) {
         didSet { self.reloadData() }
@@ -72,7 +72,7 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
             return self.data = .failure(.notLoggedIn)
         }
         
-        self.dataFetcher { result in
+        self.dataFetcher(nil) { result in
             self.data = result.mapError { .network($0) }
             sender?.endRefreshing()
             
@@ -81,6 +81,69 @@ class MyDataViewController<T: YYVotable, MyDataSource: VotableDataSource<T, Cell
                     host.refresh()
                 }
             }
+        }
+    }
+    
+    override func didNearlyScrollToEnd() {
+        guard let nextPage = self.cursor else {
+            return
+        }
+        
+        @Effect var complete = false
+        $complete.didSet = {
+            self.loadingNextPage = !complete
+            
+            if !complete {
+                self.addSpinnerToTableFooter()
+            }
+            else {
+                self.removeSpinnerFromTableFooter()
+            }
+        }
+        
+        // Ensure logged in
+        guard YYClient.current.authToken != nil else {
+            defer { complete = true }
+            return self.data = .failure(.notLoggedIn)
+        }
+        
+        self.dataFetcher(nextPage) { result in
+            defer { complete = true }
+            
+            if case .failure(let error) = result {
+                self.errorMessage = error.localizedDescription
+            }
+            else {
+                // Append new data
+                self.data = result.map { (self.dataItems + $0.content, $0.cursor) }
+                    .mapError { .network($0) }
+            }
+            
+            if result.failed {
+                LoginController(host: self, client: .current).requireLogin(reset: true) { host in
+                    host.refresh()
+                }
+            }
+        }
+    }
+}
+
+extension MyDataViewController {
+    var dataItems: [T] {
+        switch self.data {
+            case .success(let page):
+                return page.content
+            default:
+                return []
+        }
+    }
+    
+    var cursor: String? {
+        switch self.data {
+            case .success(let page):
+                return page.cursor
+            default:
+                return nil
         }
     }
 }

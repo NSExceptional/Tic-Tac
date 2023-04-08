@@ -186,7 +186,7 @@ extension UITableView {
         self.register(cell, forCellReuseIdentifier: NSStringFromClass(cell))
     }
     
-    func dequeueCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
+    func dequeueCell<T: UITableViewCell>(_ class: T.Type = T.self, for indexPath: IndexPath) -> T {
         let identifier = NSStringFromClass(T.self)
         return self.dequeueReusableCell(
             withIdentifier: identifier,

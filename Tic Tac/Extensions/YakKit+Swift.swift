@@ -55,14 +55,14 @@ extension YYClient {
         }
     }
     
-    func getMyRecentYaks(completion: @escaping Callback<Page<YYYak>>) {
-        self.objc_getMyRecentYaks { (a, c, e) in
+    func getMyRecentYaks(after yak: String? = nil, completion: @escaping Callback<Page<YYYak>>) {
+        self.objc_getMyRecentYaks(after: yak) { (a, c, e) in
             completion(self.convertToResult(page: (a, c), e))
         }
     }
     
-    func getMyComments(completion: @escaping Callback<Page<YYComment>>) {
-        self.objc_getMyRecentReplies { (a, c, e) in
+    func getMyComments(after comment: String? = nil, completion: @escaping Callback<Page<YYComment>>) {
+        self.objc_getMyRecentReplies(after: comment) { (a, c, e) in
             completion(self.convertToResult(page: (a, c), e))
         }
     }
@@ -161,6 +161,27 @@ extension YYClient {
             default:
                 self.removeVote(ogStatus, from: votable, completion: callbackWrapper)
         }
+    }
+}
+
+extension YYClient {
+    typealias CurrentUserSubscription = SubscriptionStore.Subscription<YYUser>
+    private static let currentUserObservers = UnkeyedSubscriptionStore<YYUser>()
+    private static var observingCurrentUser = false
+    
+    static func observeCurrentUser(_ subscription: @escaping CurrentUserSubscription) {
+        if !observingCurrentUser {
+            NotificationCenter.default.observe(.yyDidUpdateUser) { (user: YYUser) in
+                notifyCurrentUserObservers(of: user)
+            }
+            observingCurrentUser = true
+        }
+        
+        currentUserObservers.add(subscription)
+    }
+    
+    private static func notifyCurrentUserObservers(of user: YYUser) {
+        currentUserObservers.notifyAll(of: user)
     }
 }
 
